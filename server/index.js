@@ -1,7 +1,11 @@
-const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
 const app = express();
-const mongoose = require('mongoose');
-const UserModel = require('./models/Users.model');
+
+import UserModel from './models/Users.model.js';
 
 
 // mongoose.connect('mongodb://localhost/test');
@@ -33,6 +37,6 @@ app.post('/users', (req, res) => {
     });
 });
 
-app.listen(3001, () => { 
-    console.log('Server is running on port 3001');
+app.listen(5000, () => { 
+    console.log('Server is running on port 5000');
 });
