@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-const app = express();
-
 import UserModel from './models/Users.model.js';
 
+
+const app = express();
 
 // mongoose.connect('mongodb://localhost/test');
 mongoose.connect('mongodb+srv://ahsan_online:LPdMwnQGVCzZ4mot@cluster0.kk3fq.mongodb.net/housedocs?retryWrites=true&w=majority');
