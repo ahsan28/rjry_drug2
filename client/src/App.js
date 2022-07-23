@@ -1,10 +1,18 @@
 import React from 'react'
+import Container from '@mui/material/Container'
+
+import UserList from './components/Users/UserList';
+import UserForm from './components/Users/UserForm';
+import User from './components/Users/User';
+
 
 const App = () => {
   return (
-    <div>
-        <h1>Hello World</h1>
-    </div>
+    <Container>
+        <UserList />
+        <UserForm />
+        <User />
+    </Container>
   )
 }
 

@@ -3,14 +3,30 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import UserModel from './models/Users.model.js';
-
+import UserModel from './models/users.model.js';
+import userRoute from './routes/users.route.js';
 
 const app = express();
 
-// mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb+srv://ahsan_online:LPdMwnQGVCzZ4mot@cluster0.kk3fq.mongodb.net/housedocs?retryWrites=true&w=majority');
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(cors());
 
+app.use('/users', userRoute);
+
+const CONNECTION_URL = 'mongodb+srv://ahsan_online:LPdMwnQGVCzZ4mot@cluster0.kk3fq.mongodb.net/housedocs?retryWrites=true&w=majority'
+const port = process.env.PORT || 3000;
+// mongoose.connect('mongodb://localhost/test');
+// mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+//     .then(() => {
+//         console.log('Database is connected');
+//     }).catch(err => {
+//         console.log('Database connection error');
+//         console.log(err.message);
+//     });
+// mongoose.set('useFindAndModify', false);
+
+mongoose.connect(CONNECTION_URL).then(() => {console.log('Database is connected')}).catch(err => {console.log('Database connection error')});
 
 
 app.get('/', (req, res) => {
