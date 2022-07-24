@@ -1,5 +1,5 @@
 import { useEffect, useState } from'react'
-import { Button, Typography, Box, TextField, MenuItem, Paper } from '@mui/material';
+import { Button, Typography, Box, TextField, MenuItem, Paper, Switch } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom'
 import Stack from '@mui/material/Stack';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -18,6 +18,7 @@ const EntryForm = () => {
   const { entryId } = useParams();
   const [entry, setEntry] = useState({});
   const [users, setUsers] = useState([]);
+  const [hasCost, setHasCost] = useState(false);
 
   useEffect(() => {
     UserService.getAll()
@@ -132,6 +133,44 @@ const EntryForm = () => {
             </Stack>
           </LocalizationProvider>
         </Box>
+        <Box sx={{ width: "30rem" }}>
+          <Switch
+            checked={hasCost}
+            onChange={(e) => setHasCost(e.target.checked)}
+            value="hasCost"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
+          <Typography variant="body1" as="span" fullWidth >
+            Has additional costs?
+          </Typography>
+        </Box>
+        {hasCost && (
+          <Box sx={{ width: "30rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <TextField
+              id="cost"
+              label="Cost"
+              value={entry.other?.cost}
+              onChange={e => setEntry({ ...entry, other: { ...entry.other, cost: e.target.value } })}
+              margin="normal"
+              variant="outlined"
+              fullWidth
+              sx={{ width: "40%", mr: "1rem" }}
+            />
+            <TextField
+              id="description"
+              label="Description"
+              multiline
+              maxRows={4}
+              value={entry.other?.description}
+              onChange={e => setEntry({ ...entry, other: { ...entry.other, description: e.target.value } })}
+              margin="normal"
+              variant="outlined"
+              fullWidth
+              sx={{ width: "60%" }}
+            />
+          </Box>
+        )}
+
         <Box >
           <Button variant="contained" color="primary" onClick={handleSave} fullWidth sx={{ my: "10px", px: "3rem" }}>
             Save
