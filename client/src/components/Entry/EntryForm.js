@@ -185,9 +185,9 @@ const EntryForm = () => {
             Back
           </Button>
 
-          {/* save button */}
+          {/* save/update button */}
           <Button variant="contained" color="primary" onClick={handleSave} fullWidth sx={{ px: "3rem" }}>
-            Save
+            {entryId === 'new' ? 'Save' : 'Update'}
           </Button>
         </Box>
       </Box>
