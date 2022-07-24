@@ -4,7 +4,7 @@ const get = async (req, res) => {
     try {
         const id = req.params.id;
         const entry = await Entry.findById(id);
-        res.json(entry);
+        res.send(entry);
     } catch (err) {
         res.status(500).send(err);
     }
@@ -12,7 +12,8 @@ const get = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        const entries = await Entry.find({});
+        const entries = await Entry.find({})
+            .populate('user', 'name')
         res.send(entries);
     } catch (err) {
         res.status(500).send(err);

@@ -27,9 +27,6 @@ const EntryForm = () => {
       .catch(err => {
         console.log(err)
       })
-  }, []);
-
-  useEffect(() => {
     if (entryId !== 'new') {
       EntryService.get(entryId)
         .then(res => {
@@ -39,7 +36,7 @@ const EntryForm = () => {
           console.log(err)
         })
     }
-  }, [entryId]);
+  }, []);
 
   const handleSave = () => {
     if (entryId === 'new') {
@@ -82,7 +79,7 @@ const EntryForm = () => {
               id="outlined-select-user"
               select
               label="Please select a user"
-              value={entry.user}
+              value={entry.user||""}
               onChange={(e) => setEntry({ ...entry, user: e.target.value })}
               // helperText="Please select user"
               margin="normal"
@@ -96,6 +93,7 @@ const EntryForm = () => {
           <TextField
             id="amount"
             label="Amount"
+            InputLabelProps={{ shrink: entryId !== 'new' }}
             value={entry.amount}
             onChange={e => setEntry({ ...entry, amount: e.target.value })}
             margin="normal"
