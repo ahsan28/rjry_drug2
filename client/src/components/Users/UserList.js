@@ -27,15 +27,17 @@ const UserList = () => {
 
     const userList = users.map(user => {
         return (
-            <ListItem key={user.id}>
-                <Avatar alt="Remy Sharp" src={user.avatar} />
-                <ListItemText primary={user.name} secondary={user.email} />
-                <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                        <Button variant="contained" color="secondary">Delete</Button>
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
+            <List>
+                <ListItem key={user.id}>
+                    <Avatar alt="Remy Sharp" src={user.avatar} sx={{ mr: "6px"}} />
+                    <ListItemText primary={user.name} secondary={user.email} />
+                    <ListItemSecondaryAction>
+                        <IconButton aria-label="Delete">
+                            <Button variant="contained" color="secondary">Delete</Button>
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            </List>
         )
     })
 
@@ -43,7 +45,9 @@ const UserList = () => {
 
   return (
     <>
-        <div>UserList</div>
+        <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "5px" }} >
+            Users
+        </Typography>
         {userList}
     </>
   )

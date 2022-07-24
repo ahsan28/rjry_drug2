@@ -1,8 +1,11 @@
+import Container from '@mui/material/Container'
 import { useEffect, useState } from'react'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Container maxWidth="lg">
+        <div>Dashboard</div>
+    </Container>
   )
 }
 

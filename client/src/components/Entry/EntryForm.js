@@ -1,8 +1,144 @@
 import { useEffect, useState } from'react'
+import { Button, Typography, Box, TextField, MenuItem, Paper } from '@mui/material';
+import { useParams } from 'react-router-dom'
+import Stack from '@mui/material/Stack';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+// import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+
+import EntryService from '../../services/entry.services';
+import UserService from '../../services/user.services';
 
 const EntryForm = () => {
+  const { entryId } = useParams();
+  console.log("🚀 ~ file: EntryForm.js ~ line 18 ~ EntryForm ~ id", entryId)
+  const [entry, setEntry] = useState({});
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    UserService.getAll()
+      .then(res => {
+        setUsers(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, []);
+
+  useEffect(() => {
+    if (entryId !== 'new') {
+      EntryService.get(entryId)
+        .then(res => {
+          setEntry(res.data);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }, [entryId]);
+
+  const handleSave = () => {
+    if (entryId === 'new') {
+      EntryService.create(entry)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      EntryService.update(entryId, entry)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
+  const userList = users.map((option) => (
+    <MenuItem key={option._id} value={option._id}>
+      {option.name}
+    </MenuItem>
+  ))
+
   return (
-    <div>EntryForm</div>
+    <Paper elevation={12} sx={{ p: "1rem", mt: "1rem" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <Box sx={{ width: "30rem" }}>
+          <Typography variant="h6" as="span" fullWidth >
+            {entryId === 'new' ? 'New Entry' : 'Edit Entry'}
+          </Typography>
+        </Box>
+        <Box sx={{ width: "30rem" }}>
+          <TextField
+              id="outlined-select-user"
+              select
+              label="Please select a user"
+              value={entry.user}
+              onChange={(e) => setEntry({ ...entry, user: e.target.value })}
+              // helperText="Please select user"
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            >
+              {userList}
+            </TextField>
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "30rem" }}>
+          <TextField
+            id="amount"
+            label="Amount"
+            value={entry.amount}
+            onChange={e => setEntry({ ...entry, amount: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            sx={{ width: "40%", mr: "1rem" }}
+          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Stack spacing={3} sx={{ width: "60%", mt: "16px", mb: "8px" }}>
+              <DesktopDatePicker
+                label="Date"
+                inputFormat="dd/MM/yyyy"
+                value={entry.date}
+                onChange={(date) => setEntry({ ...entry, date })}
+                renderInput={(params) => <TextField {...params} />}
+              />
+              {/* <MobileDatePicker
+                label="Date"
+                inputFormat="dd/MM/yyyy"
+                value={entry.date}
+                onChange={(date) => setEntry({ ...entry, date })}
+                renderInput={(params) => <TextField {...params} />}
+              /> */}
+              {/* <TimePicker
+                label="Time"
+                value={entry.date}
+                onChange={(date) => setEntry({ ...entry, date })}
+                renderInput={(params) => <TextField {...params} />}
+              /> */}
+              {/* <DateTimePicker
+                label="Date & Time"
+                value={entry.date}
+                onChange={(date) => setEntry({ ...entry, date })}
+                renderInput={(params) => <TextField {...params} />}
+              /> */}
+            </Stack>
+          </LocalizationProvider>
+        </Box>
+        <Box >
+          <Button variant="contained" color="primary" onClick={handleSave} fullWidth sx={{ my: "10px", px: "3rem" }}>
+            Save
+          </Button>
+        </Box>
+      </Box>
+    </Paper>
   )
 }
 
