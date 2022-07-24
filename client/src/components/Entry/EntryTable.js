@@ -22,24 +22,24 @@ export default function EntryTable({ entries=[] }) {
   }, [entries]);
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70, height: 70 },
-    { field: 'amount', headerName: 'Amount', width: 130, height: 70 },
-    { field: 'user', headerName: 'User', width: 130, height: 70 },
-    { field: 'date', headerName: 'Date', width: 130, height: 70 },
-    { field: 'cost', headerName: 'Cost', width: 130, height: 70 },
-    { field: 'description', headerName: 'Description', width: 130, height: 70 },
-    { field: 'edit', headerName: 'Edit', width: 50, sortable: false, disableColumnsMenu: true, align: 'center', 
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'amount', headerName: 'Amount' },
+    { field: 'user', headerName: 'User', flex:1 },
+    { field: 'date', headerName: 'Date', flex:1 },
+    { field: 'cost', headerName: 'Cost', flex:1 },
+    { field: 'description', headerName: 'Description', flex:1 },
+    { field: 'edit', headerName: 'Edit', width: 70, sortable: false, disableColumnsMenu: true, align: 'center', 
       renderCell: (params) => {
         return <button onClick={() => {
           navigate(`/entries/${params.row.entryId}`)
         }}>Edit</button>
-      }, height: 70 },
-    { field: 'view', headerName: 'View', width: 50, sortable: false, disableColumnsMenu: true, align: 'center', 
+      } },
+    { field: 'view', headerName: 'View', width: 70, sortable: false, disableColumnsMenu: true, align: 'center', 
       renderCell: (params) => {
         return <button onClick={() => {
           navigate(`/entries/${params.row.entryId}`)
         }}>View</button>
-      }, height: 70 },
+      } },
   ];
 
   return (
@@ -47,11 +47,11 @@ export default function EntryTable({ entries=[] }) {
       <DataGrid
         rows={rows}
         columns={columns}
-        rowHeight={50}
-        height={500}
+        // rowHeight={70}
+        // height={500}
         columnBuffer={8}
-        headerHeight={50}
-        disableVirtualization={true}
+        // headerHeight={70}
+        // disableVirtualization={true}
         rowSelection={{
           type: 'single',
           selectable: true,
