@@ -174,8 +174,19 @@ const EntryForm = () => {
           </Box>
         )}
 
-        <Box >
-          <Button variant="contained" color="primary" onClick={handleSave} fullWidth sx={{ my: "10px", px: "3rem" }}>
+        <Box sx={{ width: "30rem", mt:"1.5rem", alignItems: "space-between", justifyContent: "center", display: "flex", flexDirection: "row" }}>
+          {/* back button */}
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => navigate('/entries')}
+            sx={{ px: "3rem", mr: "1.5rem" }}
+          >
+            Back
+          </Button>
+
+          {/* save button */}
+          <Button variant="contained" color="primary" onClick={handleSave} fullWidth sx={{ px: "3rem" }}>
             Save
           </Button>
         </Box>
