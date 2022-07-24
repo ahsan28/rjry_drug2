@@ -45,7 +45,7 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} />
             <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "5px" }} >
-                Brand
+                Habib
             </Typography>
           </Link>
 
@@ -54,21 +54,50 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "left", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "left", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link to={`/${page.replace(' ','-').toLowerCase()}`} style={{ textDecoration: 'none', color: 'MenuText' }}>{page}</Link>
+                <MenuItem key={`users`} onClick={handleCloseNavMenu}>
+                    <Link to={`/users`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Users
+                    </Link>
                 </MenuItem>
-              ))}
+                <MenuItem key={`properties`} onClick={handleCloseNavMenu}>
+                    <Link to={`/properties`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Properties
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`contracts`} onClick={handleCloseNavMenu}>
+                    <Link to={`/contracts`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Contracts
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`entries`} onClick={handleCloseNavMenu}>
+                    <Link to={`/entries`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Entries
+                    </Link>
+                </MenuItem>
+              
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-                <Link to={`/${page.replace(' ','-').toLowerCase()}`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                    <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        {page}
+                <Link to={`/users`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`users`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Users
                     </Button>
                 </Link>
-            ))}
+                <Link to={`/properties`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`properties`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Properties
+                    </Button>
+                </Link>
+                <Link to={`/contracts`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`contracts`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Contracts
+                    </Button>
+                </Link>
+                <Link to={`/entries`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`entries`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Entries
+                    </Button>
+                </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
