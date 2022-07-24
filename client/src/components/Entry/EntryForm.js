@@ -32,6 +32,9 @@ const EntryForm = () => {
       EntryService.get(entryId)
         .then(res => {
           setEntry(res.data);
+          if (res.data.other?.cost) {
+            setHasCost(true);
+          }
         })
         .catch(err => {
           console.log(err)
@@ -94,7 +97,7 @@ const EntryForm = () => {
           <TextField
             id="amount"
             label="Amount"
-            InputLabelProps={{ shrink: entryId !== 'new' }}
+            InputLabelProps={{ shrink: entry.amount!=null }}
             value={entry.amount}
             onChange={e => setEntry({ ...entry, amount: e.target.value })}
             margin="normal"
