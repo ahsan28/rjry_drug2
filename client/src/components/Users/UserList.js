@@ -16,12 +16,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const UserList = () => {
-
+    console.log('UserList.js')
     const [users, setUsers] = React.useState([])
 
     React.useEffect(() => {
+        console.log('UserList.js useEffect')
         UserService.getAll()
             .then(res => {
+                console.log('UserList.js useEffect then')
                 setUsers(res.data)
             }
             )
