@@ -1,6 +1,6 @@
 import { useEffect, useState } from'react'
 import { Button, Typography, Box, TextField, MenuItem, Paper } from '@mui/material';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Stack from '@mui/material/Stack';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -14,8 +14,8 @@ import EntryService from '../../services/entry.services';
 import UserService from '../../services/user.services';
 
 const EntryForm = () => {
+  const navigate = useNavigate();
   const { entryId } = useParams();
-  console.log("🚀 ~ file: EntryForm.js ~ line 18 ~ EntryForm ~ id", entryId)
   const [entry, setEntry] = useState({});
   const [users, setUsers] = useState([]);
 
@@ -46,6 +46,7 @@ const EntryForm = () => {
       EntryService.create(entry)
         .then(res => {
           console.log(res)
+          navigate('/entries')
         })
         .catch(err => {
           console.log(err)
@@ -54,6 +55,7 @@ const EntryForm = () => {
       EntryService.update(entryId, entry)
         .then(res => {
           console.log(res)
+          navigate('/entries')
         })
         .catch(err => {
           console.log(err)
