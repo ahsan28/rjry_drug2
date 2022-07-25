@@ -143,7 +143,7 @@ const EntryForm = () => {
             value="isInitial"
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
-          <Typography variant="body1" as="span" fullWidth color="text.secondary">
+          <Typography variant="body1" as="span" fullWidth color={entry.isInitial ? "text.primary" : "text.disabled"}>
             This an initial entry to adjust previous collection.
           </Typography>
         </Box>
@@ -155,7 +155,7 @@ const EntryForm = () => {
             inputProps={{ 'aria-label': 'primary checkbox' }}
             color="error"
           />
-          <Typography variant="body1" as="span" fullWidth color="error">
+          <Typography variant="body1" as="span" fullWidth color={hasCost? "error" : "text.disabled"}>
             Has additional costs?
           </Typography>
         </Box>
