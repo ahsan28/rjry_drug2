@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import dashboardRoute from './routes/dashboard.route.js';
 import userRoute from './routes/users.route.js';
 import propertyRoute from './routes/property.route.js';
 import contractRoute from './routes/contract.route.js';
@@ -14,6 +15,7 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
+app.use('/', dashboardRoute);
 app.use('/users', userRoute);
 app.use('/properties', propertyRoute);
 app.use('/contracts', contractRoute);
