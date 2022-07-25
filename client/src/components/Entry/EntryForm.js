@@ -138,12 +138,24 @@ const EntryForm = () => {
         </Box>
         <Box sx={{ width: "30rem" }}>
           <Switch
+            checked={entry.isInitial}
+            onChange={(init) => setEntry({ ...entry, isInitial: init.target.checked })}
+            value="isInitial"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
+          <Typography variant="body1" as="span" fullWidth color="text.secondary">
+            This an initial entry to adjust previous collection.
+          </Typography>
+        </Box>
+        <Box sx={{ width: "30rem" }}>
+          <Switch
             checked={hasCost}
             onChange={(e) => setHasCost(e.target.checked)}
             value="hasCost"
             inputProps={{ 'aria-label': 'primary checkbox' }}
+            color="error"
           />
-          <Typography variant="body1" as="span" fullWidth >
+          <Typography variant="body1" as="span" fullWidth color="error">
             Has additional costs?
           </Typography>
         </Box>
