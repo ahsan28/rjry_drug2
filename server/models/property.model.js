@@ -2,9 +2,7 @@ import mongoose from 'mongoose';
 
 const PropertySchema = new mongoose.Schema({
     name: { type: String, required: true },
-    units: [{ 
-        name: String, 
-    }],
+    units: [{ type: mongoose.Schema.Types.ObjectId, ref: 'units' }],
     type: { type: String },
 }, { timestamps: true });
 
