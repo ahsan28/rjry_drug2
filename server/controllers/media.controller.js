@@ -1,10 +1,10 @@
-import User from '../models/entry.model.js';
+import Media from '../models/media.model.js';
 
 
 const getAll = async (req, res) => {
     try {
-        const users = await User.find({});
-        res.send(users);
+        const media = await Media.find({});
+        res.send(media);
     }
     catch (err) {
         res.status(500).send(err);

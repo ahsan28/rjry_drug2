@@ -1,16 +1,18 @@
-import { useEffect, useState } from'react'
 import Container from '@mui/material/Container'
 import { Routes, Route } from 'react-router-dom'
 
-import Dashboard from './components/Dashboard/Dashboard'
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
-import PropertyList from './components/Property/PropertyList';
-import PropertyForm from './components/Property/PropertyForm';
-import ContractList from './components/Contract/ContractList';
-import ContractForm from './components/Contract/ContractForm';
-import EntryList from './components/Entry/EntryList';
-import EntryForm from './components/Entry/EntryForm';
+import Navbar from "./Navbar"
+import NoPage from './pages/NoPage';
+import Introduction from './pages/Introduction';
+import Research from './pages/Research';
+import Contact from './pages/Contact';
+import Publications from './pages/Publications';
+import Mode from './pages/Mode';
+import Activities from './pages/Activities';
+import Certifications from './pages/Certifications';
+import Gallery from './pages/Gallery';
 import Navbar from './Navbar';
 
 
@@ -20,20 +22,21 @@ const App = () => {
     <Container>
         <Navbar />
         <Routes>
-            <Route path="/" element={<Dashboard />} />
-
             <Route path="/users" element={<UserList />} />
             <Route path="/users/:userId" element={<UserForm />} />
 
-            <Route path="/properties" element={<PropertyList />} />
-            <Route path="/properties/:propertyId" element={<PropertyForm />} />
+            <Route path="/" element={<Introduction />} />
+            <Route path="/rjry_drug" element={<Introduction />} />
+            <Route path="/introduction" element={<Introduction />} />
+            <Route path="/research" element={<Research />} />
+            <Route path="/publications" element={<Publications />} />
+            <Route path="/mode" element={<Mode />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/certifications" element={<Certifications />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/contact" element={<Contact />} />
 
-            <Route path="/contracts" element={<ContractList />} />
-            <Route path="/contracts/:contractId" element={<ContractForm />} />
-
-            <Route path="/entries" element={<EntryList />} />
-            <Route path="/entries/:entryId" element={<EntryForm />} />
-
+            <Route path="*" element={<NoPage />} />
             <Route path="*" element={ <main style={{ padding: "1rem" }}><p>There's nothing here!</p></main> } />
         </Routes>
 

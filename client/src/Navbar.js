@@ -45,7 +45,7 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} />
             <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "5px" }} >
-                Habib
+                Self Manage
             </Typography>
           </Link>
 
@@ -54,48 +54,98 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "left", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "left", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
-                <MenuItem key={`users`} onClick={handleCloseNavMenu}>
+                {/* <MenuItem key={`users`} onClick={handleCloseNavMenu}>
                     <Link to={`/users`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                         Users
                     </Link>
-                </MenuItem>
-                <MenuItem key={`properties`} onClick={handleCloseNavMenu}>
-                    <Link to={`/properties`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                        Properties
+                </MenuItem> */}
+                <MenuItem key={`introduction`} onClick={handleCloseNavMenu}>
+                    <Link to={`/introduction`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Pengenalan
                     </Link>
                 </MenuItem>
-                <MenuItem key={`contracts`} onClick={handleCloseNavMenu}>
-                    <Link to={`/contracts`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                        Contracts
+                <MenuItem key={`research`} onClick={handleCloseNavMenu}>
+                    <Link to={`/research`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Penyelidikan
                     </Link>
                 </MenuItem>
-                <MenuItem key={`entries`} onClick={handleCloseNavMenu}>
-                    <Link to={`/entries`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                        Entries
+                <MenuItem key={`publications`} onClick={handleCloseNavMenu}>
+                    <Link to={`/publications`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Penerbitan
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`mode`} onClick={handleCloseNavMenu}>
+                    <Link to={`/mode`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Modul
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`activities`} onClick={handleCloseNavMenu}>
+                    <Link to={`/activities`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Aktiviti
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`certifications`} onClick={handleCloseNavMenu}>
+                    <Link to={`/certifications`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Pensijilan
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`gallery`} onClick={handleCloseNavMenu}>
+                    <Link to={`/gallery`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Galeri
+                    </Link>
+                </MenuItem>
+                <MenuItem key={`contact`} onClick={handleCloseNavMenu}>
+                    <Link to={`/contact`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Hubungi kami
                     </Link>
                 </MenuItem>
               
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                <Link to={`/users`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                {/* <Link to={`/users`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                     <Button key={`users`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Users
                     </Button>
-                </Link>
-                <Link to={`/properties`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                    <Button key={`properties`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Properties
+                </Link> */}
+                <Link to={`/introduction`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`introduction`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Pengenalan
                     </Button>
                 </Link>
-                <Link to={`/contracts`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                    <Button key={`contracts`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Contracts
+                <Link to={`/research`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`research`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Penyelidikan
                     </Button>
                 </Link>
-                <Link to={`/entries`} style={{ textDecoration: 'none', color: 'MenuText' }}>
-                    <Button key={`entries`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Entries
+                <Link to={`/publications`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`publications`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Penerbitan
+                    </Button>
+                </Link>
+                <Link to={`/mode`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`mode`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Modul
+                    </Button>
+                </Link>
+                <Link to={`/activities`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`activities`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Aktiviti
+                    </Button>
+                </Link>
+                <Link to={`/certifications`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`certifications`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Pensijilan
+                    </Button>
+                </Link>
+                <Link to={`/gallery`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`gallery`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Galeri
+                    </Button>
+                </Link>
+                <Link to={`/contact`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`contact`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Hubungi kami
                     </Button>
                 </Link>
           </Box>

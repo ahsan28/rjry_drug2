@@ -1,10 +1,10 @@
-import User from '../models/entry.model.js';
+import Data from '../models/data.model.js';
 
 
 const getAll = async (req, res) => {
     try {
-        const users = await User.find({});
-        res.send(users);
+        const data = await Data.find({});
+        res.send(data);
     }
     catch (err) {
         res.status(500).send(err);
