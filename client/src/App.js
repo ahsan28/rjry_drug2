@@ -12,6 +12,8 @@ import Mode from './components/Pages/Mode';
 import Activities from './components/Pages/Activities';
 import Certifications from './components/Pages/Certifications';
 import Gallery from './components/Pages/Gallery';
+import SignIn from './components/Pages/SignIn';
+import SignUp from './components/Pages/SignUp';
 import Navbar from './Navbar';
 
 
@@ -34,6 +36,9 @@ const App = () => {
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
+
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
 
             <Route path="*" element={<NoPage />} />
             <Route path="*" element={ <main style={{ padding: "1rem" }}><p>There's nothing here!</p></main> } />
