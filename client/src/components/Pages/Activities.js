@@ -1,16 +1,18 @@
 import { Box, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import DataService from '../../services/data.services'
 
 const Activities = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("/api")
-      .then(res=>res.json())
-      .then((data) => {
-        console.log(data);
-        setData(data.message)
-      });
+    DataService.getAll().then(res=> {
+      setData(res.data);
+    }).catch(err=> {
+      console.log(err);
+    }).finally(()=> {
+      console.log('finally');
+    })
   }, []);
 
   return (

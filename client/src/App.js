@@ -3,16 +3,15 @@ import { Routes, Route } from 'react-router-dom'
 
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
-import Navbar from "./Navbar"
-import NoPage from './pages/NoPage';
-import Introduction from './pages/Introduction';
-import Research from './pages/Research';
-import Contact from './pages/Contact';
-import Publications from './pages/Publications';
-import Mode from './pages/Mode';
-import Activities from './pages/Activities';
-import Certifications from './pages/Certifications';
-import Gallery from './pages/Gallery';
+import NoPage from './components/Pages/NoPage';
+import Introduction from './components/Pages/Introduction';
+import Research from './components/Pages/Research';
+import Contact from './components/Pages/Contact';
+import Publications from './components/Pages/Publications';
+import Mode from './components/Pages/Mode';
+import Activities from './components/Pages/Activities';
+import Certifications from './components/Pages/Certifications';
+import Gallery from './components/Pages/Gallery';
 import Navbar from './Navbar';
 
 

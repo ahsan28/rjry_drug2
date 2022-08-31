@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const api = 'http://localhost:5000/properties';
+const api = 'http://localhost:5000/media';
 
 const getAll = () => {
-    console.log('PropertyService.js')
+    console.log('MediaService.js')
     return axios.get(api+'/getAll');
 }
 
