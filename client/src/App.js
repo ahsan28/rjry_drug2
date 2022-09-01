@@ -15,13 +15,30 @@ import Gallery from './components/Pages/Gallery';
 import SignIn from './components/Pages/SignIn';
 import SignUp from './components/Pages/SignUp';
 import Navbar from './Navbar';
+import UserService from './services/user.services';
+import { useEffect, useState } from 'react';
 
 
 const App = () => {
-    console.log('App.js')
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const logout = () => {
+    UserService.logout();
+    setCurrentUser(null);
+  };
+
+  useEffect(() => {
+    const user = UserService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(null);
+    }
+  }, []);
+    
   return (
     <Container>
-        <Navbar />
+        <Navbar currentUser={currentUser} logout={logout} />
         <Routes>
             <Route path="/users" element={<UserList />} />
             <Route path="/users/:userId" element={<UserForm />} />

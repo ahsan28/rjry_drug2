@@ -42,7 +42,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
+        let user = await User.findOne({ username: req.body.username }).lean();
         if (!user) {
             res.status(400).json({ message: 'Username or password is incorrect' });
         } else {
@@ -50,8 +50,11 @@ const login = async (req, res) => {
             if (!isMatch) {
                 res.status(400).json({ message: 'Username or password is incorrect' });
             } else {
-                const token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
-                res.header('auth-token', token).send(token);
+                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                user.password = undefined;
+                user.__v = undefined;
+                user.accessToken = token;
+                res.status(200).json(user);
             }
         }
     } catch (err) {
