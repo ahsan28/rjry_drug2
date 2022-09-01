@@ -31,8 +31,11 @@ const Navbar = ({currentUser=null, logout}) => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (action='') => {
     setAnchorElUser(null);
+    if(action === 'logout'){
+        logout();
+        }
   };
 
   return (
@@ -155,7 +158,7 @@ const Navbar = ({currentUser=null, logout}) => {
             </Tooltip>
             <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
                 {currentUser? <MenuItem key={"Logout"}>
-                    <Link to={`/logout`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
+                    <Link to={`/`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu('logout')}>
                         <Typography textAlign="center">{"Logout"}</Typography>
                     </Link>
                 </MenuItem>:
