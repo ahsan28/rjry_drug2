@@ -14,6 +14,7 @@ import Certifications from './components/Pages/Certifications';
 import Gallery from './components/Pages/Gallery';
 import SignIn from './components/Pages/SignIn';
 import SignUp from './components/Pages/SignUp';
+import DataForm from './components/Pages/DataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
 import { useEffect, useState } from 'react';
@@ -40,25 +41,26 @@ const App = () => {
     <Container>
         <Navbar currentUser={currentUser} logout={logout} />
         <Routes>
-            <Route path="/users" element={<UserList />} />
-            <Route path="/users/:userId" element={<UserForm />} />
+            <Route path="/users" element={<UserList currentUser={currentUser} />} />
+            <Route path="/users/:userId" element={<UserForm currentUser={currentUser} />} />
 
-            <Route path="/" element={<Introduction />} />
-            <Route path="/rjry_drug" element={<Introduction />} />
-            <Route path="/introduction" element={<Introduction />} />
-            <Route path="/research" element={<Research />} />
-            <Route path="/publications" element={<Publications />} />
-            <Route path="/mode" element={<Mode />} />
-            <Route path="/activities" element={<Activities />} />
-            <Route path="/certifications" element={<Certifications />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<Introduction currentUser={currentUser} />} />
+            <Route path="/rjry_drug" element={<Introduction currentUser={currentUser} />} />
+            <Route path="/introduction" element={<Introduction currentUser={currentUser} />} />
+            <Route path="/research" element={<Research currentUser={currentUser} />} />
+            <Route path="/publications" element={<Publications currentUser={currentUser} />} />
+            <Route path="/mode" element={<Mode currentUser={currentUser} />} />
+            <Route path="/activities" element={<Activities currentUser={currentUser} />} />
+            <Route path="/certifications" element={<Certifications currentUser={currentUser} />} />
+            <Route path="/gallery" element={<Gallery currentUser={currentUser} />} />
+            <Route path="/contact" element={<Contact currentUser={currentUser} />} />
 
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/form/:page" element={<DataForm currentUser={currentUser} />} />
 
-            <Route path="*" element={<NoPage />} />
-            <Route path="*" element={ <main style={{ padding: "1rem" }}><p>There's nothing here!</p></main> } />
+            <Route path="/signin" element={<SignIn currentUser={currentUser} />} />
+            <Route path="/signup" element={<SignUp currentUser={currentUser} />} />
+
+            <Route path="*" element={<NoPage currentUser={currentUser} />} />
         </Routes>
 
     </Container>

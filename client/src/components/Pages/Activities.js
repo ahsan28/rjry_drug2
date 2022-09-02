@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 
-const Activities = () => {
+const Activities = ({currentUser}) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -15,7 +16,11 @@ const Activities = () => {
       });
   }, []);
 
-  return (
+  return (<>
+    {/* edit button */}
+    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 2, marginTop: 2}}>
+      <Button variant="contained" component={Link} to={`/form/activities`}>Edit</Button>
+    </Box>}
     <Box sx={{ width: "100%", maxWidth: 500 }}>
       <Typography variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
@@ -35,7 +40,7 @@ const Activities = () => {
         </>
       )}
     </Box>
-  );
+  </>);
 };
 
 export default Activities;
