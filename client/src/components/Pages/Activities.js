@@ -10,7 +10,8 @@ const Activities = ({currentUser}) => {
   useEffect(() => {
     DataService.read("Activities")
       .then((res) => {
-        setData(res.data);
+        if (res.data) setData(res.data);
+        else setData({title: "Click edit button to entry", description: "Not in the database yet."});
       })
       .catch((err) => {
         console.log(err);
