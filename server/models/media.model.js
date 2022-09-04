@@ -1,10 +1,16 @@
 import mongoose from 'mongoose';
 
 const MediaSchema = new mongoose.Schema({
-    title: { type: String },
+    name: { type: String },
     description: { type: String },
+    contentType: { type: String },
+    extension: { type: String },
+    path: { type: String, unique: true },
+    size: { type: Number },
+
+    saved: { type: Boolean, default: true },
+    content: { type: Buffer },
     url: { type: String },
-    type: { type: String, enum: ['image', 'video', 'audio'] }
 });
 
 const MediaModel = mongoose.model('media', MediaSchema);

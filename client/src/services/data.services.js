@@ -15,10 +15,15 @@ const createAll = () => {
     return axios.get(`${api}createAll`, { headers: authHeader() });
 }
 
+const save = (data) => {
+    return axios.put(api+data.title, data, { headers: authHeader() });
+}
+
 const functions = {
     read,
     createAll,
     getAll,
+    save,
 }
 
 export default functions

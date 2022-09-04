@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import DataService from '../../services/data.services'
 import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField } from '@mui/material'
-import {Link, useParams} from 'react-router-dom'
+import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
+ 
 
 const DataForm = ({currentUser}) => {
-    const [data, setData] = React.useState(null);
+    const [data, setData] = useState(null);
+    console.log("🚀 ~ file: DataForm.js ~ line 9 ~ DataForm ~ data", data)
     let { page } = useParams();
+    let navigate = useNavigate();
+
 
     useEffect(() => {
         if (currentUser && page) {
             DataService.read(page.charAt(0).toUpperCase() + page.slice(1))
             .then((res) => {
-                setData(res.data);
+                console.log("🚀 ~ file: DataForm.js ~ line 16 ~ .then ~ res", res)
+                if (res.data) setData(res.data);
+                else setData({title: page.charAt(0).toUpperCase() + page.slice(1)})
             })
             .catch((err) => {
                 console.log(err);
@@ -21,26 +27,32 @@ const DataForm = ({currentUser}) => {
     }, []);
 
     const handleFileUploadError = (error) => {
+        console.log("🚀 ~ file: DataForm.js ~ line 25 ~ handleFileUploadError ~ error", error)
         // Do something...
       }
       
-      const handleFilesChange = (files) => {
-        // Do something...
+      const handleCoverChange = (files) => {
+        setData({...data, cover: files[0]})
       }
 
-    function handleChange(event) {
-        const { name, value } = event.target;
-        setData({ ...data, [name]: value });
-    }
+      const handleGalleryChange = (files) => {
+        setData({...data, gallery: files})
+      }
+
+    // function handleChange(event) {
+    //     const { name, value } = event.target;
+    //     setData({ ...data, [name]: value });
+    // }
     function save() {
         console.log("🚀 ~ file: DataForm.js ~ line 24 ~ save ~ page, data", page, data)
-        // DataService.update(page, data)
-        //     .then((res) => {
-        //         console.log(res);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        DataService.save(data)
+            .then((res) => {
+                console.log(res);
+                navigate(`/${page}`)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
   return (
@@ -73,18 +85,18 @@ const DataForm = ({currentUser}) => {
                 multiFile={false}
                 disabled={false}
                 title="Upload Cover"
-                imageSrc={'path/to/custom/image'}
+                imageSrc={data?.cover?.path||data?.cover?.url||""}
                 header="[Drag and drop]"
                 leftLabel="or"
                 buttonLabel="click here"
                 rightLabel="to select an image"
                 buttonRemoveLabel="Remove"
                 // maxFileSize={10}
-                maxUploadFiles={0}
+                maxUploadFiles={1}
                 // maxFilesContainerHeight={357}
                 errorSizeMessage={'fill it or move it to use the default error message'}
                 allowedExtensions={['jpg', 'jpeg', 'png', 'gif']}
-                onFilesChange={handleFilesChange}
+                onFilesChange={handleCoverChange}
                 onError={handleFileUploadError}
                 bannerProps={{ elevation: 0, variant: "outlined" }}
                 containerProps={{ elevation: 0, variant: "outlined" }}
@@ -119,7 +131,7 @@ const DataForm = ({currentUser}) => {
                 maxFilesContainerHeight={357}
                 errorSizeMessage={'fill it or move it to use the default error message'}
                 allowedExtensions={['jpg', 'jpeg', 'png', 'gif']}
-                onFilesChange={handleFilesChange}
+                onFilesChange={handleGalleryChange}
                 onError={handleFileUploadError}
                 bannerProps={{ elevation: 0, variant: "outlined" }}
                 containerProps={{ elevation: 0, variant: "outlined" }}

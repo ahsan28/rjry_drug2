@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
+import Image from 'mui-image';
 
 const Activities = ({currentUser}) => {
   const [data, setData] = useState(null);
@@ -25,6 +26,9 @@ const Activities = ({currentUser}) => {
       <Typography variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
       </Typography>
+
+      {/* load image */}
+      {data && data.cover && <Image src={data.cover.path} alt={data.cover.name} />}
 
       <Typography variant="subtitle1" gutterBottom>
         {data ? data.description : "Loading..."}

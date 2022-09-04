@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const DataSchema = new mongoose.Schema({
-    title: { type: String },
+    title: { type: String, unique: true },
     description: { type: String },
     lastEditDate: { type: Date },
     lastEditor: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
