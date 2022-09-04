@@ -1,10 +1,39 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import MediaService from "../../services/media.services";
+import DataService from "../../services/data.services";
 
 import { Carousel as Ca } from "react-carousel-minimal";
+import { Link } from "react-router-dom";
 
-const Gallery = () => {
-  const data = [
+const Gallery = ({currentUser}) => {
+  const [data, setData] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+
+  useEffect(() => {
+    DataService.read("Gallery")
+      .then((res) => {
+        if (res.data) {
+          setData(res.data);
+          if (res.data.gallery.length>0){
+            res.data.gallery.forEach(async (mediaId,index) => {
+              let {data} = await MediaService.read(mediaId);
+              setGalleryImages(()=>[...galleryImages,{
+                image: data.path||data.url,
+                caption: data.name||"Demo caption", 
+              }])
+            });
+          }
+
+        }
+        else setData({title: "Click edit button to entry", description: "Not in the database yet."});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const images = [
     {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
@@ -63,26 +92,28 @@ const Gallery = () => {
 
   return (
     <>
+    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 2, marginTop: 2}}>
+      <Button variant="contained" component={Link} to={`/form/gallery`}>Edit</Button>
+    </Box>}
       <div className="App">
         <Box sx={{ width: "100%" }}>
           <Typography variant="h1" gutterBottom>
-            Gallery
+          {data ? data.title : "Loading..."}
           </Typography>
 
           <div style={{ textAlign: "center" }}>
-            <h2>React Carousel Minimal</h2>
+            <h2>{data ? data.title : "Loading..."}</h2>
             <p>
-              Easy to use, responsive and customizable carousel component for
-              React Projects.
+            {data ? data.description : "Loading..."}
             </p>
             <div
               style={{
                 padding: "0 20px",
               }}
             >
-              <Ca
-                data={data}
-                time={2000}
+              {galleryImages.length>0 && (<Ca
+                data={galleryImages}
+                time={4000}
                 width="850px"
                 height="500px"
                 captionStyle={captionStyle}
@@ -104,39 +135,9 @@ const Gallery = () => {
                   maxHeight: "500px",
                   margin: "40px auto",
                 }}
-              />
+              />)}
             </div>
           </div>
-
-          <Typography variant="subtitle1" gutterBottom sx={{marginTop:"150px"}}>
-            subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Quos blanditiis tenetur
-          </Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Quos blanditiis tenetur
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam.
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam.
-          </Typography>
-          <Typography variant="button" display="block" gutterBottom>
-            button text
-          </Typography>
-          <Typography variant="caption" display="block" gutterBottom>
-            caption text
-          </Typography>
-          <Typography variant="overline" display="block" gutterBottom>
-            overline text
-          </Typography>
         </Box>
       </div>
     </>

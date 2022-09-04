@@ -28,9 +28,9 @@ const create = async (req, res) => {
             lastEditDate: new Date(),
             lastEditor: "200000000000000000000000",
             cover: "100000000000000000000000",
-            media: ["100000000000000000000000"]
+            gallery: ["100000000000000000000000"]
         });
-        res.send({ data, media, user });
+        res.send({ data, gallery, user });
         
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -42,7 +42,7 @@ const read = async (req, res) => {
         const data = await Data.findOne({ title: req.params.title })
             // .populate([
             //     { path: 'cover' },
-            //     { path: 'media' }
+            //     { path: 'gallery' }
             // ])
         res.status(200).json(data);
     } catch (err) {
@@ -63,9 +63,10 @@ const getAll = async (req, res) => {
 const update = async (req, res) => {
     try {
         
-        if (req.body.title == 'gallery'){
+        if (req.body.title == 'Gallery'){
             if (!req.body.gallery) req.body.gallery = []
-            let imagesToSave = req.body.gallery.map((image) => !image.saved)||[]
+            let oldGalleryIds = req.body.gallery.filter(item => item._id).map(item => item._id)
+            let imagesToSave = req.body.gallery.filter(item => !item._id)
             let newImageIds = imagesToSave.map(() => new ObjectId())
             imagesToSave = imagesToSave.map((image, index) => {
                 image._id = newImageIds[index]
@@ -76,7 +77,7 @@ const update = async (req, res) => {
             }).catch((err) => {
                 console.log(err)
             })
-            req.body.gallery = [...req.body.gallery, ...newImageIds]
+            req.body.gallery = [...oldGalleryIds, ...newImageIds]
         }
 
         if (req.body.cover && !req.body.cover.saved){

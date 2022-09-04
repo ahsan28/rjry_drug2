@@ -80,8 +80,9 @@ const DataForm = ({currentUser}) => {
             />
             {/* description */}
             {/* <InputLabel htmlFor="description">Description</InputLabel> */}
-            <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            {page!=="gallery" && (<Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <FileUpload
+                id="cover"
                 multiFile={false}
                 disabled={false}
                 title="Upload Cover"
@@ -101,7 +102,7 @@ const DataForm = ({currentUser}) => {
                 bannerProps={{ elevation: 0, variant: "outlined" }}
                 containerProps={{ elevation: 0, variant: "outlined" }}
             />
-            </Box>
+            </Box>)}
             {/* <Input id="description" name="description" value={data ? data.description : ""} onChange={handleChange} /> */}
             <TextField
                 sx={{ margin: 1 }}
@@ -117,6 +118,7 @@ const DataForm = ({currentUser}) => {
             <Box sx={{ marginTop: 2, marginBottom: 2 }}>
 
             {page==="gallery" && (<FileUpload
+                id="gallery"
                 multiFile={true}
                 disabled={false}
                 title="Upload Gallery Images"

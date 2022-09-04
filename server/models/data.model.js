@@ -6,7 +6,7 @@ const DataSchema = new mongoose.Schema({
     lastEditDate: { type: Date },
     lastEditor: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     cover: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
-    media: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }]
+    gallery: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }]
 });
 
 const DataModel = mongoose.model('data', DataSchema);
