@@ -3,16 +3,29 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import Image from "mui-image";
+import MediaService from "../../services/media.services";
 
 const Certifications = ({ currentUser }) => {
   const [data, setData] = useState({
     title: "Certifications",
   });
+  const [cover, setCover] = useState(null);
 
   useEffect(() => {
     DataService.read("Certifications")
       .then((res) => {
-        if (res.data) setData(res.data);
+        if (res.data) {
+          setData(res.data);
+          if (res.data.cover) {
+            MediaService.read(res.data.cover)
+              .then((res) => {
+                setCover(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        }
         else
           setData({
             title: "Click edit button to entry",
@@ -51,9 +64,7 @@ const Certifications = ({ currentUser }) => {
         </Typography>
 
         {/* load image */}
-        {data && data.cover && (
-          <Image src={data.cover.path} alt={data.cover.name} />
-        )}
+        {cover && <Image src={cover.path} alt={cover.name} />}
 
         <Typography variant="subtitle1" gutterBottom>
           {data ? data.description : "Loading..."}

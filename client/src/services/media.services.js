@@ -1,15 +1,15 @@
 import axios from 'axios';
 import authHeader from './auth.header';
 
-const api = 'http://localhost:5000/media';
+const api = 'http://localhost:5000/media/';
 
-const getAll = () => {
+const read = (id) => {
     console.log('MediaService.js')
-    return axios.get(api+'/getAll', { headers: authHeader() });
+    return axios.get(api+id, { headers: authHeader() });
 }
 
 const functions = {
-    getAll,
+    read,
 }
 
 export default functions

@@ -1,9 +1,9 @@
 import Media from '../models/media.model.js';
 
 
-const getAll = async (req, res) => {
+const read = async (req, res) => {
     try {
-        const media = await Media.find({});
+        const media = await Media.findById(req.params.id);
         res.send(media);
     }
     catch (err) {
@@ -13,6 +13,6 @@ const getAll = async (req, res) => {
 }
 
 export default { 
-    getAll, 
+    read, 
     
 };

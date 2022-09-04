@@ -2,15 +2,28 @@ import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
+import MediaService from "../../services/media.services";
 import Image from 'mui-image';
 
 const Activities = ({currentUser}) => {
   const [data, setData] = useState(null);
+  const [cover, setCover] = useState(null);
 
   useEffect(() => {
     DataService.read("Activities")
       .then((res) => {
-        if (res.data) setData(res.data);
+        if (res.data) {
+          setData(res.data);
+          if (res.data.cover) {
+            MediaService.read(res.data.cover)
+              .then((res) => {
+                setCover(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        }
         else setData({title: "Click edit button to entry", description: "Not in the database yet."});
       })
       .catch((err) => {
@@ -29,7 +42,7 @@ const Activities = ({currentUser}) => {
       </Typography>
 
       {/* load image */}
-      {data && data.cover && <Image src={data.cover.path} alt={data.cover.name} />}
+      {cover && <Image src={cover.path} alt={cover.name} />}
 
       <Typography variant="subtitle1" gutterBottom>
         {data ? data.description : "Loading..."}

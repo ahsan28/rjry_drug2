@@ -40,10 +40,10 @@ const create = async (req, res) => {
 const read = async (req, res) => {
     try {
         const data = await Data.findOne({ title: req.params.title })
-            .populate([
-                { path: 'cover' },
-                { path: 'media' }
-            ])
+            // .populate([
+            //     { path: 'cover' },
+            //     { path: 'media' }
+            // ])
         res.status(200).json(data);
     } catch (err) {
         res.status(400).json({ message: err.message });
