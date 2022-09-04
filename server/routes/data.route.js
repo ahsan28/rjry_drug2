@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/createAll", verifyJWT, controller.create);
 router.get("/getAll", verifyJWT, controller.getAll);
-router.get("/:title", verifyJWT, controller.read);
+router.get("/:title", controller.read);
 
 export default router;
