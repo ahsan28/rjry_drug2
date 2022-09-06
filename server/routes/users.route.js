@@ -7,5 +7,6 @@ const router = express.Router();
 router.get("/:username", verifyJWT, controller.read);
 router.post("/signup", controller.signup);
 router.post("/login", controller.login);
+router.post("/send", controller.sendEmail);
 
 export default router;

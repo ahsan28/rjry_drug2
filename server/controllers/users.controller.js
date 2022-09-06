@@ -2,8 +2,9 @@ import User from '../models/users.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
-const { TOKEN_SECRET } = dotenv.config().parsed;
+const { TOKEN_SECRET, EMAIL, PASSWORD } = dotenv.config().parsed;
 
 
 const read = async (req, res) => {
@@ -62,10 +63,38 @@ const login = async (req, res) => {
     }
 }
 
+const sendEmail = async (req, res) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: EMAIL,
+                pass: PASSWORD
+            }
+        });
+        console.log("🚀 ~ file: users.controller.js ~ line 75 ~ sendEmail ~ transporter", transporter)
+        const mailOptions = {
+            from: EMAIL,
+            to: req.body.email,
+            subject: req.body.subject,
+            text: req.body.message
+        };
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                res.status(400).json({ message: err.message });
+            } else {
+                res.status(200).json({ message: 'Email sent' });
+            }
+        });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
 
 export default { 
     read,
     signup,
-    login
-    
+    login,
+    sendEmail,
+
 };

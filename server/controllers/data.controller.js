@@ -61,6 +61,7 @@ const getAll = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    console.log("🚀 ~ file: data.controller.js ~ line 67 ~ update ~ req.body", req.body)
     try {
         
         if (req.body.title == 'Gallery'){

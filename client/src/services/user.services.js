@@ -30,6 +30,10 @@ const logout = () => {
     window.location.href = "/";
 }
 
+const sendEmail = (email) => {
+    return axios.post(`${api}/send`, email, { headers: authHeader() });
+}
+
 
 const functions = {
     get,
@@ -37,6 +41,7 @@ const functions = {
     login,
     getCurrentUser,
     logout,
+    sendEmail,
 }
 
 export default functions

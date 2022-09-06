@@ -3,12 +3,15 @@ import DataService from '../../services/data.services'
 import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
- 
+import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const DataForm = ({currentUser}) => {
     const [data, setData] = useState(null);
+    const [oldGalleryIds, setOldGalleryIds] = useState([]);
     console.log("🚀 ~ file: DataForm.js ~ line 9 ~ DataForm ~ data", data)
     let { page } = useParams();
+    console.log("🚀 ~ file: DataForm.js ~ line 12 ~ DataForm ~ page", page)
     let navigate = useNavigate();
 
 
@@ -19,6 +22,7 @@ const DataForm = ({currentUser}) => {
                 console.log("🚀 ~ file: DataForm.js ~ line 16 ~ .then ~ res", res)
                 if (res.data) setData(res.data);
                 else setData({title: page.charAt(0).toUpperCase() + page.slice(1)})
+                setOldGalleryIds(res.data.gallery)
             })
             .catch((err) => {
                 console.log(err);
@@ -115,14 +119,31 @@ const DataForm = ({currentUser}) => {
             />
             {/* <FormHelperText>Enter the description of the page</FormHelperText> */}
             {/* cover */}
-            <Box sx={{ marginTop: 2, marginBottom: 2 }}>
-
-            {page==="gallery" && (<FileUpload
+            {page==="gallery" && (<Box sx={{ marginTop: 2, marginBottom: 2 }}>
+                {/* show the list of gallery ids */}
+                <List subheader={<ListSubheader>Gallery</ListSubheader>}>
+                    {data?.gallery?.map((item, index) => (
+                        <ListItem key={index}>
+                            <ListItemIcon>
+                                <IconButton edge="end" aria-label="delete" onClick={() => {
+                                    let newGallery = data.gallery.filter((item, i) => i!==index)
+                                    setData({...data, gallery: newGallery})
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={item.name}
+                            />
+                        </ListItem>
+                    ))}
+                </List>
+            <FileUpload
                 id="gallery"
                 multiFile={true}
                 disabled={false}
                 title="Upload Gallery Images"
-                // imageSrc={'path/to/custom/image'}
+                imageSrc={data?.gallery?.map((img) => img.path||img.url)||""}
                 header="[Drag and drop]"
                 leftLabel="or"
                 buttonLabel="click here"
@@ -137,8 +158,8 @@ const DataForm = ({currentUser}) => {
                 onError={handleFileUploadError}
                 bannerProps={{ elevation: 0, variant: "outlined" }}
                 containerProps={{ elevation: 0, variant: "outlined" }}
-            />)}
-            </Box>
+            />
+            </Box>)}
             {/* <InputLabel htmlFor="cover">Cover</InputLabel>
             <Input id="cover" name="cover" value={data ? data.cover : ""} onChange={handleChange} />
             <FormHelperText>Enter the cover of the page</FormHelperText> */}

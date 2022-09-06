@@ -1,156 +1,112 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  Slider,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { TextField, Box, Grid, Typography, Container,CssBaseline, Button } from '@mui/material';
+import UserService from "../../services/user.services";
 
-const defaultValues = {
-  name: "",
-  age: 0,
-  gender: "",
-  os: "",
-  favoriteNumber: 0,
-};
 const Contact = () => {
-  const [formValues, setFormValues] = useState(defaultValues);
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-  const handleSliderChange = (name) => (e, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-  const handleSubmit = (event) => {
+  const [mailData, setMailData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+
+  const sendEmail = event => {
     event.preventDefault();
-    console.log(formValues);
+    UserService.sendEmail(mailData).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
   };
+
+  const onInputChange = event => {
+    const { name, value } = event.target;
+
+    setMailData({
+      ...mailData,
+      [name]: value
+    });
+  };
+
   return (
-    <Box sx={{ width: "100%", maxWidth: 500 }}>
-      <Typography variant="h1" gutterBottom>
-        Contact
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container alignItems="center" justify="center" direction="column">
-          <Grid item>
-            <TextField
-              id="name-input"
-              name="name"
-              label="Name"
-              type="text"
-              value={formValues.name}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="age-input"
-              name="age"
-              label="Age"
-              type="number"
-              value={formValues.age}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <FormControl>
-              <FormLabel>Gender</FormLabel>
-              <RadioGroup
-                name="gender"
-                value={formValues.gender}
-                onChange={handleInputChange}
-                row
-              >
-                <FormControlLabel
-                  key="male"
-                  value="male"
-                  control={<Radio size="small" />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  key="female"
-                  value="female"
-                  control={<Radio size="small" />}
-                  label="Female"
-                />
-                <FormControlLabel
-                  key="other"
-                  value="other"
-                  control={<Radio size="small" />}
-                  label="Other"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <FormControl>
-              <Select
-                name="os"
-                value={formValues.os}
-                onChange={handleInputChange}
-              >
-                <MenuItem key="mac" value="mac">
-                  Mac
-                </MenuItem>
-                <MenuItem key="windows" value="windows">
-                  Windows
-                </MenuItem>
-                <MenuItem key="linux " value="linux">
-                  Linux
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <div style={{ width: "400px" }}>
-              Favorite Number
-              <Slider
-                value={formValues.favoriteNumber}
-                onChange={handleSliderChange("favoriteNumber")}
-                defaultValue={1}
-                step={1}
-                min={1}
-                max={3}
-                marks={[
-                  {
-                    value: 1,
-                    label: "1",
-                  },
-                  {
-                    value: 2,
-                    label: "2",
-                  },
-                  {
-                    value: 3,
-                    label: "3",
-                  },
-                ]}
-                valueLabelDisplay="off"
+    <Container component="main" maxWidth="sm">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Contact Us
+        </Typography>
+        <Box component="form" onSubmit={sendEmail} noValidate sx={{ mt: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                value={mailData.name}
+                onChange={onInputChange}
               />
-            </div>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={mailData.email}
+                onChange={onInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="subject"
+                label="Subject"
+                id="subject"
+                autoComplete="subject"
+                value={mailData.subject}
+                onChange={onInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="message"
+                label="Message"
+                id="message"
+                autoComplete="message"
+                value={mailData.message}
+                onChange={onInputChange}
+              />
+            </Grid>
           </Grid>
-          <Button variant="contained" color="primary" type="submit">
-            Submit
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Send
           </Button>
-        </Grid>
-      </form>
-    </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 };
+
 export default Contact;
