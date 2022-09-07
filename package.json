@@ -1,0 +1,22 @@
+{
+  "name": "rjry_drug2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "server": "cd server && nodemon index.js",
+    "client": "cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahsan28/rjry_drug2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahsan28/rjry_drug2/issues"
+  },
+  "homepage": "https://github.com/ahsan28/rjry_drug2#readme"
+}
