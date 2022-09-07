@@ -18,7 +18,7 @@ const Contact = () => {
       console.log(res);
     }).catch(err => {
       console.log(err);
-    });
+    }); 
   };
 
   const onInputChange = event => {
