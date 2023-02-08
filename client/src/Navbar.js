@@ -99,6 +99,11 @@ const Navbar = ({currentUser=null, logout}) => {
                         Hubungi kami
                     </Link>
                 </MenuItem>
+                <MenuItem key={`signup`} onClick={handleCloseNavMenu}>
+                    <Link to={`/signup`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Signup
+                    </Link>
+                </MenuItem>
               
             </Menu>
           </Box>
