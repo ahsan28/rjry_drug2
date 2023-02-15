@@ -3,8 +3,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+dotenv.config();
+let TOKEN_SECRET = process.env.TOKEN_SECRET;
+let EMAIL = process.env.EMAIL;
+let PASSWORD = process.env.PASSWORD;
 
-const { TOKEN_SECRET, EMAIL, PASSWORD } = dotenv.config().parsed;
+// const { TOKEN_SECRET, EMAIL, PASSWORD } = dotenv.config().parsed;
 
 
 const read = async (req, res) => {
@@ -17,27 +21,31 @@ const read = async (req, res) => {
 }
 
 const signup = async (req, res) => {
-    try {
-        const user = await User.findOne({ username: req.body.username });
-        if (user) {
-            res.status(400).json({ message: 'Username already exists' });
-        } else {
-            const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(req.body.password, salt);
-            const newUser = await User.create({
-                username: req.body.username,
-                password: hash,
-                email: req.body.email,
-                name: req.body.name,
-                surname: req.body.surname,
-                phone: req.body.phone,
-                address: req.body.address,
-                about: req.body.about
-            });
-            res.status(201).json(newUser);
+    if (process.env.CAN_REGISTER === 'true') {
+        try {
+            const user = await User.findOne({ username: req.body.username });
+            if (user) {
+                res.status(400).json({ message: 'Username already exists' });
+            } else {
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(req.body.password, salt);
+                const newUser = await User.create({
+                    username: req.body.username,
+                    password: hash,
+                    email: req.body.email,
+                    name: req.body.name,
+                    surname: req.body.surname,
+                    phone: req.body.phone,
+                    address: req.body.address,
+                    about: req.body.about
+                });
+                res.status(201).json(newUser);
+            }
+        } catch (err) {
+            res.status(400).json({ message: err.message });
         }
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    } else {
+        res.status(400).json({ message: 'Registration is closed' });
     }
 }
 

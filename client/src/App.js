@@ -19,7 +19,6 @@ import Navbar from './Navbar';
 import UserService from './services/user.services';
 import { useEffect, useState } from 'react';
 
-
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -36,6 +35,7 @@ const App = () => {
       setCurrentUser(null);
     }
   }, []);
+
     
   return (
     <Container>

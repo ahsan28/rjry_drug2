@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth.header';
 
-const api = 'http://localhost:5000/media/';
+const api = 'http://localhost:5000/media/'; //'http://localhost:5000/media/'||"https://rjrydrug.herokuapp.com/"
 
 const read = (id) => {
     console.log('MediaService.js')

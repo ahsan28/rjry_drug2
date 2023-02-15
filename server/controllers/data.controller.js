@@ -5,6 +5,11 @@ import User from '../models/users.model.js';
 import { ObjectId } from 'mongodb';
 
 
+const test = (req, res) => {
+    res.send('Hello World! poly!!');
+}
+
+
 // create a new data for database
 const create = async (req, res) => {
     try {
@@ -100,6 +105,7 @@ const update = async (req, res) => {
 }
 
 export default { 
+    test,
     read,
     create,
     getAll, 

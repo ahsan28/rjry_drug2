@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-
-const { TOKEN_SECRET } = dotenv.config().parsed;
+dotenv.config();
+let TOKEN_SECRET = process.env.TOKEN_SECRET;
+// const { TOKEN_SECRET } = dotenv.config().parsed;
 
 function verifyJWT(req, res, next) {
     console.log('verifyJWT');

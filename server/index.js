@@ -8,7 +8,12 @@ import mediaRoute from './routes/media.route.js';
 import dataRoute from './routes/data.route.js';
 // import .env
 import dotenv from 'dotenv';
-const { PORT, MONGO_URL } = dotenv.config().parsed;
+dotenv.config();
+
+let PORT = process.env.PORT || 5001;
+console.log("🚀 ~ file: index.js:13 ~ process.env", process.env)
+let MONGO_URL = process.env.MONGO_URL3 || 'mongodb://localhost:27017/medias';
+// const { PORT, MONGO_URL } = dotenv.config().parsed;
 
 const app = express();
 
@@ -20,8 +25,6 @@ app.use('/', dataRoute);
 app.use('/users', userRoute);
 app.use('/media', mediaRoute);
 
-// const MONGO_URL = 'mongodb+srv://root:LPdMwnQGVCzZ4mot@cluster0.t82p2.mongodb.net/?retryWrites=true&w=majority'
-// const port = PORT || 5000;
 mongoose.connect(MONGO_URL).then(() => {console.log('Database is connected')}).catch(err => {console.log('Database connection error')});
 
 // // demo: test connection

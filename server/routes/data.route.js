@@ -4,6 +4,7 @@ import verifyJWT from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
+router.get("/", controller.test);
 router.get("/createAll", verifyJWT, controller.create);
 router.get("/getAll", verifyJWT, controller.getAll);
 router.get("/:title", controller.read);
