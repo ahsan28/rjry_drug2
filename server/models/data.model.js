@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const DataSchema = new mongoose.Schema({
     title: { type: String, unique: true },
@@ -9,6 +10,7 @@ const DataSchema = new mongoose.Schema({
     gallery: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }]
 });
 
-const DataModel = mongoose.model('data', DataSchema);
+const Model = mongoose.model('data', DataSchema);
 
-export default DataModel;
+// export default DataModel;
+module.exports = Model;

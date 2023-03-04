@@ -1,5 +1,5 @@
-import Media from '../models/media.model.js';
-
+// import Media from '../models/media.model.js';
+const Media = require('../models/media.model.js');
 
 const read = async (req, res) => {
     try {
@@ -12,7 +12,8 @@ const read = async (req, res) => {
 
 }
 
-export default { 
+// export default { 
+module.exports = {
     read, 
     
 };

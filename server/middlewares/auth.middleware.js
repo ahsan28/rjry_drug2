@@ -1,6 +1,11 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
+// import jwt from 'jsonwebtoken';
+// import bcrypt from 'bcrypt';
+// import dotenv from 'dotenv';
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+
+
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
 // const { TOKEN_SECRET } = dotenv.config().parsed;
@@ -18,4 +23,5 @@ function verifyJWT(req, res, next) {
     }
 }
 
-export default verifyJWT ;
+// export default verifyJWT ;
+module.exports = verifyJWT

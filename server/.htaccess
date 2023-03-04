@@ -1,0 +1,16 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/sekotbbp/back.sekolahbebasdadah.site"
+PassengerBaseURI "/"
+PassengerNodejs "/home/sekotbbp/nodevenv/back.sekolahbebasdadah.site/14/bin/node"
+PassengerAppType node
+PassengerStartupFile index.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv PORT 5000
+SetEnv MONGO_URL3 mongodb+srv://ahsan_online2:EvT2tJlwZfCBCsT7@cluster0.oivxc9n.mongodb.net/?retryWrites=true&w=majority
+SetEnv EMAIL ahabib.j@gmail.com
+SetEnv PASSWORD vkxhqjrmnmrvmxg
+SetEnv CAN_REGISTER true
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END

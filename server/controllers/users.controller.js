@@ -1,8 +1,15 @@
-import User from '../models/users.model.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
+// import User from '../models/users.model.js';
+// import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
+// import dotenv from 'dotenv';
+// import nodemailer from 'nodemailer';
+
+const User = require('../models/users.model.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
 let EMAIL = process.env.EMAIL;
@@ -99,7 +106,8 @@ const sendEmail = async (req, res) => {
     }
 }
 
-export default { 
+// export default { 
+module.exports = {
     read,
     signup,
     login,

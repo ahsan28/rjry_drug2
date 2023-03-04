@@ -1,10 +1,12 @@
-import Data from '../models/data.model.js';
-import Media from '../models/media.model.js';
-import User from '../models/users.model.js';
-// const ObjectId = require("mongodb").ObjectId;
-import { ObjectId } from 'mongodb';
+// import Data from '../models/data.model.js';
+// import Media from '../models/media.model.js';
+// import User from '../models/users.model.js';
+// import { ObjectId } from 'mongodb';
 
-
+const Data = require('../models/data.model.js');
+const Media = require('../models/media.model.js');
+const User = require('../models/users.model.js');
+const ObjectId = require("mongodb").ObjectId;
 const test = (req, res) => {
     res.send('Hello World! poly!!');
 }
@@ -104,7 +106,8 @@ const update = async (req, res) => {
     }
 }
 
-export default { 
+// export default { 
+module.exports = {
     test,
     read,
     create,

@@ -1,0 +1,20 @@
+log: MONGO_URL3 index.js:13 ~ process.env mongodb+srv://ahsan_online2:EvT2tJlwZfCBCsT7@cluster0.oivxc9n.mongodb.net/?retryWrites=true&w=majority
+(node:1185625) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+log:Server is running on port 5000
+Log:Database is connected
+log: PORT index.js:13 ~ process.env 5000
+(node:2747874) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+log:Server is running on port 5000
+Log:Database is connected
+log: PORT index.js:13 ~ process.env 5000
+(node:3593481) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+log:Server is running on port 5000
+Log:Database is connected
+log: PORT index.js:13 ~ process.env 5000
+(node:497084) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+log:Server is running on port 5000
+Log:Database is connected
