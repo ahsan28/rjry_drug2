@@ -13,19 +13,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-import UserService from "./services/user.services";
+
 
 const Navbar = ({currentUser=null, logout}) => {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const [anchorElActiviti, setAnchorElActiviti] = useState(null);
+  const [anchorElPener, setAnchorElPener] = useState(null);
+  const [anchorElProduk, setAnchorElProduk] = useState(null);
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -36,6 +32,15 @@ const Navbar = ({currentUser=null, logout}) => {
     if(action === 'logout'){
         logout();
         }
+  };
+  const handleCloseActivitiMenu = () => {
+    setAnchorElActiviti(null);
+  };
+  const handleClosePenerMenu = () => {
+    setAnchorElPener(null);
+  };
+  const handleCloseProdukMenu = () => {
+    setAnchorElProduk(null);
   };
 
   return (
@@ -50,7 +55,7 @@ const Navbar = ({currentUser=null, logout}) => {
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleOpenNavMenu} color="inherit" >
+            <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={(e)=>setAnchorElNav(e.currentTarget)} color="inherit" >
               <MenuIcon />
             </IconButton>
             <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "left", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "left", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
@@ -64,7 +69,12 @@ const Navbar = ({currentUser=null, logout}) => {
                         Pengenalan
                     </Link>
                 </MenuItem>
-                <MenuItem key={`research`} onClick={handleCloseNavMenu}>
+                <MenuItem key={`profile`} onClick={handleCloseNavMenu}>
+                    <Link to={`/profile`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                        Profile
+                    </Link>
+                </MenuItem>
+                {/* <MenuItem key={`research`} onClick={handleCloseNavMenu}>
                     <Link to={`/research`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                         Penyelidikan
                     </Link>
@@ -93,6 +103,15 @@ const Navbar = ({currentUser=null, logout}) => {
                     <Link to={`/gallery`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                         Galeri
                     </Link>
+                </MenuItem> */}
+                <MenuItem key={`activity`} onClick={(e)=>setAnchorElActiviti(e.currentTarget)}>
+                        Aktiviti
+                </MenuItem>
+                <MenuItem key={`publications`} onClick={(e)=>setAnchorElPener(e.currentTarget)}>
+                        Penerbitan
+                </MenuItem>
+                <MenuItem key={`product`} onClick={(e)=>setAnchorElProduk(e.currentTarget)}>
+                        Produk
                 </MenuItem>
                 <MenuItem key={`contact`} onClick={handleCloseNavMenu}>
                     <Link to={`/contact`} style={{ textDecoration: 'none', color: 'MenuText' }}>
@@ -113,7 +132,12 @@ const Navbar = ({currentUser=null, logout}) => {
                         Pengenalan
                     </Button>
                 </Link>
-                <Link to={`/research`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                <Link to={`/profile`} style={{ textDecoration: 'none', color: 'MenuText' }}>
+                    <Button key={`profile`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Profile
+                    </Button>
+                </Link>
+                {/* <Link to={`/research`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                     <Button key={`research`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Penyelidikan
                     </Button>
@@ -142,7 +166,16 @@ const Navbar = ({currentUser=null, logout}) => {
                     <Button key={`gallery`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Galeri
                     </Button>
-                </Link>
+                </Link> */}
+                <Button key={`activity`} onClick={(e)=>setAnchorElActiviti(e.currentTarget)} sx={{ my: 2, color: "white", display: "block" }} >
+                    Aktiviti
+                </Button>
+                <Button key={`publications`} onClick={(e)=>setAnchorElPener(e.currentTarget)} sx={{ my: 2, color: "white", display: "block" }} >
+                    Penerbitan
+                </Button>
+                <Button key={`product`} onClick={(e)=>setAnchorElProduk(e.currentTarget)} sx={{ my: 2, color: "white", display: "block" }} >
+                    Produk
+                </Button>
                 <Link to={`/contact`} style={{ textDecoration: 'none', color: 'MenuText' }}>
                     <Button key={`contact`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Hubungi kami
@@ -152,7 +185,7 @@ const Navbar = ({currentUser=null, logout}) => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
@@ -169,6 +202,72 @@ const Navbar = ({currentUser=null, logout}) => {
                 </MenuItem>}
             </Menu>
           </Box>
+          <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElActiviti} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElActiviti)} onClose={()=>handleCloseActivitiMenu()} >
+            <MenuItem key={"mesyuarat"}>
+                <Link to={`/mesyuarat`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
+                    <Typography textAlign="center">{"Mesyuarat"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"bengkel"}>
+                <Link to={`/bengkel`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
+                    <Typography textAlign="center">{"Bengkel"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"latihan"}>
+                <Link to={`/latihan`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
+                    <Typography textAlign="center">{"Latihan & konsultasi"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"pengumpulan"}>
+                <Link to={`/pengumpulan`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
+                    <Typography textAlign="center">{"Pengumpulan"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"kolaborasi"}>
+                <Link to={`/kolaborasi`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
+                    <Typography textAlign="center">{"Kolaborasi"}</Typography>
+                </Link>
+            </MenuItem>
+          </Menu>
+          <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElPener} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElPener)} onClose={()=>handleClosePenerMenu()} >
+            <MenuItem key={"buku"}>
+                <Link to={`/buku`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleClosePenerMenu()}>
+                    <Typography textAlign="center">{"Buku"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"artikel"}>
+                <Link to={`/artikel`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleClosePenerMenu()}>
+                    <Typography textAlign="center">{"Artikel"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"akhbar"}>
+                <Link to={`/akhbar`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleClosePenerMenu()}>
+                    <Typography textAlign="center">{"Akhbar"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"module"}>
+                <Link to={`/module`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleClosePenerMenu()}>
+                    <Typography textAlign="center">{"Module"}</Typography>
+                </Link>
+            </MenuItem>
+          </Menu>
+          <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElProduk} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElProduk)} onClose={()=>handleCloseProdukMenu()} >
+            <MenuItem key={"kerangka"}>
+                <Link to={`/kerangka`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseProdukMenu()}>
+                    <Typography textAlign="center">{"Kerangka Sekolah Bebas Dadah"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"rubrik"}>
+                <Link to={`/rubrik`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseProdukMenu()}>
+                    <Typography textAlign="center">{"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"}</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem key={"modul"}>
+                <Link to={`/modul`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseProdukMenu()}>
+                    <Typography textAlign="center">{"Modul Digital Sekolah Bebas Dadah"}</Typography>
+                </Link>
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </Container>
     </AppBar>
