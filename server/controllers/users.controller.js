@@ -14,6 +14,7 @@ dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
 let EMAIL = process.env.EMAIL;
 let PASSWORD = process.env.PASSWORD;
+let EMAILTO = process.env.EMAILTO;
 
 // const { TOKEN_SECRET, EMAIL, PASSWORD } = dotenv.config().parsed;
 
@@ -90,9 +91,9 @@ const sendEmail = async (req, res) => {
         console.log("🚀 ~ file: users.controller.js ~ line 75 ~ sendEmail ~ transporter", transporter)
         const mailOptions = {
             from: EMAIL,
-            to: req.body.email,
-            subject: req.body.subject,
-            text: req.body.message
+            to: EMAILTO,
+            subject: req.body.subject||'A message from your website',
+            text: req.body.message + '\n\n' + req.body.name + '\n' + req.body.email
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {

@@ -33,6 +33,18 @@ const Contact = () => {
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
+      <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        {/* different social contact links with icon  */}
+          <a href="https://www.linkedin.com/in/kevin-lee-0b0b2b1b9/" target="_blank" rel="noreferrer">
+            <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="linkedin" />
+          </a>
+          <a href="https://www.facebook.com/kevin.lee.581" target="_blank" rel="noreferrer">
+            <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="facebook" />
+          </a>
+          <a href="https://www.instagram.com/kevinlee_0/" target="_blank" rel="noreferrer">
+            <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram" />
+          </a>
+      </Box>
       <Box
         sx={{
           marginTop: 8,
@@ -48,7 +60,7 @@ const Contact = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                required
+                // required
                 fullWidth
                 id="name"
                 label="Name"
@@ -60,10 +72,10 @@ const Contact = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                // required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Your email"
                 name="email"
                 autoComplete="email"
                 value={mailData.email}
@@ -72,7 +84,7 @@ const Contact = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                // required
                 fullWidth
                 name="subject"
                 label="Subject"
