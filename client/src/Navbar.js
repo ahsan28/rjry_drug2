@@ -31,7 +31,7 @@ const Navbar = ({currentUser=null, logout}) => {
     setAnchorElUser(null);
     if(action === 'logout'){
         logout();
-        }
+    }
   };
   const handleCloseActivitiMenu = () => {
     setAnchorElActiviti(null);
@@ -44,12 +44,12 @@ const Navbar = ({currentUser=null, logout}) => {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" sx={{ borderRadius: "0 0 1rem 1rem" }}>
+      <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} />
-            <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "5px" }} >
+            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
+            <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "4px" }} >
                 Self Manage
             </Typography>
           </Link>
@@ -189,19 +189,26 @@ const Navbar = ({currentUser=null, logout}) => {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-            <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
-                {currentUser? <MenuItem key={"Logout"}>
+          </Box>
+          <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
+            {currentUser? (<>
+                <MenuItem key={"Logout"}>
                     <Link to={`/`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu('logout')}>
                         <Typography textAlign="center">{"Logout"}</Typography>
                     </Link>
-                </MenuItem>:
-                <MenuItem key={"Signin"}>
-                    <Link to={`/signin`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
-                        <Typography textAlign="center">{"Sign in"}</Typography>
+                </MenuItem>
+                <MenuItem key={"Setting"}>
+                    <Link to={`/setting`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
+                        <Typography textAlign="center">{"Setting"}</Typography>
                     </Link>
-                </MenuItem>}
-            </Menu>
-          </Box>
+                </MenuItem>
+            </>):
+            <MenuItem key={"Signin"}>
+                <Link to={`/signin`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
+                    <Typography textAlign="center">{"Sign in"}</Typography>
+                </Link>
+            </MenuItem>}
+          </Menu>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElActiviti} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElActiviti)} onClose={()=>handleCloseActivitiMenu()} >
             <MenuItem key={"mesyuarat"}>
                 <Link to={`/mesyuarat`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseActivitiMenu()}>
