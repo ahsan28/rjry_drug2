@@ -47,7 +47,7 @@ const Gallery = ({currentUser}) => {
 
   return (
     <>
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 2, marginTop: 2}}>
+    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/gallery`}>Edit</Button>
     </Box>}
       <div className="App">

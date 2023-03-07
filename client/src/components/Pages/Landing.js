@@ -1,16 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
-import Image from 'mui-image';
 import MediaService from "../../services/media.services";
+import Image from 'mui-image';
 
-const Publications = ({currentUser}) => {
+const Landing = ({currentUser}) => {
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
-    DataService.read("Publications")
+    DataService.read("Landing")
       .then((res) => {
         if (res.data) {
           setData(res.data);
@@ -34,8 +34,9 @@ const Publications = ({currentUser}) => {
   return (<>
     {/* edit button */}
     {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-      <Button variant="contained" component={Link} to={`/form/publications`}>Edit</Button>
+      <Button variant="contained" component={Link} to={`/form/landing`}>Edit</Button>
     </Box>}
+    <Container sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
     <Box sx={{ width: "100%", textAlign: 'center' }}>
       <Typography variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
@@ -58,7 +59,8 @@ const Publications = ({currentUser}) => {
         </>
       )}
     </Box>
+    </Container>
   </>);
 };
 
-export default Publications;
+export default Landing;

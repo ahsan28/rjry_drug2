@@ -33,10 +33,10 @@ const Introduction = ({currentUser}) => {
 
   return (<>
     {/* edit button */}
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end", marginBottom: 2, marginTop: 2}}>
+    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/introduction`}>Edit</Button>
     </Box>}
-    <Box sx={{ width: "100%", maxWidth: 500 }}>
+    <Box sx={{ width: "100%", textAlign: 'center' }}>
       <Typography variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
       </Typography>

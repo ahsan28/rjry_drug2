@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 const NoPage = () => {
-    <Box sx={{ width: '100%', maxWidth: 500 }}>
+    <Box sx={{ width: '100%', textAlign: 'center' }}>
       <Typography variant="h1" gutterBottom>
       404
       </Typography>

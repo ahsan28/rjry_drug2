@@ -58,7 +58,7 @@ const Certifications = ({ currentUser }) => {
           </Button>
         </Box>
       )}
-      <Box sx={{ width: "100%", maxWidth: 500 }}>
+      <Box sx={{ width: "100%", textAlign: 'center' }}>
         <Typography variant="h1" gutterBottom>
           {data ? data.title : "Loading..."}
         </Typography>

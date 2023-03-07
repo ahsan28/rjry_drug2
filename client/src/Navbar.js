@@ -44,8 +44,8 @@ const Navbar = ({currentUser=null, logout}) => {
   };
 
   return (
-    <AppBar position="static" sx={{ borderRadius: "0 0 1rem 1rem" }}>
-      <Container maxWidth="xl" >
+    <AppBar position="static">
+      <Container  >
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
@@ -197,9 +197,9 @@ const Navbar = ({currentUser=null, logout}) => {
                         <Typography textAlign="center">{"Logout"}</Typography>
                     </Link>
                 </MenuItem>
-                <MenuItem key={"Setting"}>
-                    <Link to={`/setting`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
-                        <Typography textAlign="center">{"Setting"}</Typography>
+                <MenuItem key={"Settings"}>
+                    <Link to={`/settings`} style={{ textDecoration: 'none', color: 'MenuText' }} onClick={()=>handleCloseUserMenu()}>
+                        <Typography textAlign="center">{"Settings"}</Typography>
                     </Link>
                 </MenuItem>
             </>):
