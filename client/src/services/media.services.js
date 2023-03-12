@@ -9,8 +9,11 @@ const read = (id) => {
     return axios.get(api+id, { headers: authHeader() });
 }
 
+const loadImage = (id) => {
+    return axios.get(`${api}loadImage/${id}`, { responseType: "blob" })
 const functions = {
     read,
+    loadImage,
 }
 
 export default functions

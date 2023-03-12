@@ -13,9 +13,9 @@ const UserSchema = new mongoose.Schema({
     address: { type: String },
     about: { type: String },
     settings: {
-        logo: { type: String },
-        cover: { type: String },
-        footer: { type: String },
+        logo: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
+        cover: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
+        footer: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
         themeColor: { type: String },
         fontFamily: { type: String },
         fontColor: { type: String },

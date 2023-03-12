@@ -115,18 +115,16 @@ const update = async (req, res) => {
 }
 
 const fileUpload = async (req, res) => {
-    console.log("~ fileUpload ~ req.body", req.body)
-    console.log("~ fileUpload ~ req.files", req.files)
     try { // cover and logo are coming from the form, with font and theme color fields
         const body = req.body;
         let settings = {}
         let files = await Promise.all(Object.keys(req.files).map((key) => {
             const file = req.files[key];
             let fileData = file[0];
-            settings[key] = fileData.fieldname
+            settings[key] = new ObjectId();
             return {
                 ...fileData,
-                _id: new ObjectId(),
+                _id: settings[key],
                 type: fileData.mimetype.split('/')[0],
                 extension: fileData.mimetype.split('/')[1],
                 url: fileData.path,
@@ -156,7 +154,7 @@ const fileUpload = async (req, res) => {
                 user.password = undefined;
                 user.__v = undefined;
                 user.accessToken = token;
-                res.status(200).send({ message: 'Settings updated successfully' });
+                res.status(200).send({ message: 'Settings updated successfully', user });
             }).catch((err) => {
                 res.status(400).send({ message: err.message });
             })

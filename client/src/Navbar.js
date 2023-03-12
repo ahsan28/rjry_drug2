@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect } from "react";
+import { useState, MouseEvent, useEffect, lazy } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,12 +11,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import ViewImage from "./components/Pages/ViewImage";
 
+// const ViewImage = lazy(() => import("./components/Pages/ViewImage"));
 
 const Navbar = ({currentUser=null, logout}) => {
-
+    
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorElActiviti, setAnchorElActiviti] = useState(null);
@@ -49,9 +50,10 @@ const Navbar = ({currentUser=null, logout}) => {
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
-            <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "4px" }} >
+            {currentUser?.settings?.cover && <ViewImage image={currentUser.settings.cover} sx={{ width: "50px", height: "50px", mr: "25px", pb: "4px" }} />}
+            {!currentUser?.settings?.cover && <Typography variant="h6" as="span" color="white" sx={{ mr: "25px", pb: "4px" }} >
                 Self Manage
-            </Typography>
+            </Typography>}
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
