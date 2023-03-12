@@ -19,7 +19,6 @@ import { UserContext } from "./UserContext";
 
 const Navbar = ({currentUser=null, logout}) => {
   const { user } = useContext(UserContext);
-    console.log("🚀 ~ file: Navbar.js:21 ~ user:", user)
     
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -53,8 +52,8 @@ const Navbar = ({currentUser=null, logout}) => {
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
-            {currentUser?.settings?.cover && <ViewImage image={currentUser.settings.cover} sx={{ width: "50px", height: "50px", mr: "25px", pb: "4px" }} />}
-            {!currentUser?.settings?.cover && <Typography variant="h6" as="span" color={user?.settings?.fontColor || "primary.contrastText"} sx={{ mr: "25px", pb: "4px" }} >
+            {currentUser?.settings?.logo && <ViewImage image={currentUser.settings.logo} sx={{ width: "50px", height: "50px", mr: "25px", pb: "4px" }} />}
+            {!currentUser?.settings?.logo && <Typography variant="h6" as="span" color={user?.settings?.fontColor || "primary.contrastText"} sx={{ mr: "25px", pb: "4px" }} >
                 Self Manage
             </Typography>}
           </Link>

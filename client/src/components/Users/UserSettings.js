@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import DataService from '../../services/data.services'
 import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
@@ -7,43 +7,43 @@ import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, Ico
 import DeleteIcon from '@mui/icons-material/Delete';
 import UserService from "../../services/user.services";
 import LinearProgress from '@mui/material'
+import { UserContext } from "../../UserContext";
+
 
 const colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'silver', 'gold', 'skyblue', 'lime', 'teal']
 const fonts = ['serif', 'sans-serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana']
 
 
-const UserSettings = ({currentUser}) => {
-    const [data, setData] = useState({});
+const UserSettings = () => {
+    const { user, setUser } = useContext(UserContext);
+    const [data, setData] = useState(user?.settings)
     console.log("🚀 ~ file: UserSettings.js ~ line 9 ~ UserSettings ~ data", data)
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (currentUser) {
-          UserService.get(currentUser.username).then(res => {
-            setData(res.data.settings);
-          }).catch(err => {
-            console.log(err);
-          });
+        if(user) {
+            setData(user.settings)
+            console.log("🚀 ~ file: UserSettings.js ~ line 14 ~ UserSettings ~ user", user)
         }
       }, []);
 
 
-    function save(data) {
-        console.log(" save ~ data:", data)
-        // add this to formData encType="multipart/form-data"
+    function save(d) {
+        console.log(" save ~ d:", d)
+        // add this to formData encType="multipart/form-d"
         const formData = new FormData();
         
-        formData.append("userid", currentUser._id);
-        formData.append("username", currentUser.username);
+        formData.append("userid", user._id);
+        formData.append("username", user.username);
 
-        formData.append("logo", data.logo);
-        formData.append("cover", data.coverImg);
-        formData.append("footer", data.footerImage);
-        formData.append("themeColor", data.themeColor);
-        formData.append("fontFamily", data.fontFamily);
-        formData.append("fontColor", data.fontColor);
-        // formData.append("logo", data.logo);
-        // formData.append("homepageImage", data.homepageImage);
+        formData.append("logo", d.logo);
+        formData.append("cover", d.coverImg);
+        formData.append("footer", d.footerImage);
+        formData.append("themeColor", d.themeColor);
+        formData.append("fontFamily", d.fontFamily);
+        formData.append("fontColor", d.fontColor);
+        // formData.append("logo", d.logo);
+        // formData.append("homepageImage", d.homepageImage);
         
 
 
@@ -51,7 +51,8 @@ const UserSettings = ({currentUser}) => {
 
         DataService.upload(formData)
             .then((res) => {
-                console.log(res);
+                setUser(res.data.user)
+                console.log('okr',res.data);
                 navigate(`/`)
             })
             .catch((err) => {
@@ -82,7 +83,7 @@ const UserSettings = ({currentUser}) => {
         setFile(e.target.files[0]);
     };
     
-  if (!currentUser) return (<>
+  if (!user) return (<>
     <Typography variant="h1" gutterBottom>
         You are not logged in.
     </Typography>

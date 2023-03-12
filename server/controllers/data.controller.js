@@ -133,21 +133,21 @@ const fileUpload = async (req, res) => {
             };
         }));
 
+        let user = await User.findById(body.userid);
         if (body) {
             settings = {
+                ...user.settings,
+                ...settings,
                 themeColor: body.themeColor,
                 fontFamily: body.fontFamily,
                 fontColor: body.fontColor,
-                ...settings
             }
         }
-
-        console.log("files: ", files)
         
         Media.insertMany(files).then((media) => {
             User.findByIdAndUpdate(
                 body.userid, 
-                { $set: { settings: settings } }, 
+                { $set: { settings } },
                 { new: true, upsert: true }
             ).then((user) => {
                 let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);

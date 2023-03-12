@@ -1,13 +1,22 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import Image from 'mui-image';
+import { UserContext } from "../../UserContext";
 
-const Landing = ({currentUser}) => {
+
+const Landing = () => {
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
+  const { user, setUser } = useContext(UserContext);
+
+  const stx = {
+    bg: user?.settings?.themeColor||"white",
+    color: user?.settings?.fontColor||"black",
+    fontFamily: user?.settings?.fontFamily||"sans-serif",
+  }
 
   useEffect(() => {
     DataService.read("Landing")
@@ -33,19 +42,19 @@ const Landing = ({currentUser}) => {
 
   return (<>
     {/* edit button */}
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/landing`}>Edit</Button>
     </Box>}
     <Container sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
     <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom>
+      <Typography sx={{fontFamily: stx.fontFamily, color: stx.color}} variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
       </Typography>
 
       {/* load image */}
       {cover && <Image src={cover.path} alt={cover.name} />}
 
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom sx={{fontFamily: stx.fontFamily, color: stx.color}}>
         {data ? data.description : "Loading..."}
       </Typography>
 
@@ -53,7 +62,7 @@ const Landing = ({currentUser}) => {
       {data && data.cover && data.cover.url && (
         <>
           <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom sx={{fontFamily: stx.fontFamily, color: stx.color}}>
             {data.cover.description}
           </Typography>
         </>

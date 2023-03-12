@@ -25,12 +25,6 @@ const save = (data) => {
 
 const upload = (data) => {
     return axios.post(api+'upload', data, { headers: authHeader() })
-    .then((response) => {
-        if (response.data?.user?.accessToken) {
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
-        return response;
-    });
 }
 
 const functions = {
