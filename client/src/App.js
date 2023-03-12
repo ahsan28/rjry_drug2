@@ -52,7 +52,9 @@ const App = () => {
               <Route path="/users/:userId" element={<UserForm currentUser={currentUser} />} />
 
               <Route path="/" element={<Landing currentUser={currentUser} />} />
-              <Route path="/rjry_drug" element={<Introduction currentUser={currentUser} />} />
+              <Route path="/landing" element={<Landing currentUser={currentUser} />} />
+              
+              {/* <Route path="/rjry_drug" element={<Introduction currentUser={currentUser} />} /> */}
               <Route path="/introduction" element={<Introduction currentUser={currentUser} />} />
               <Route path="/research" element={<Research currentUser={currentUser} />} />
               <Route path="/publications" element={<Publications currentUser={currentUser} />} />

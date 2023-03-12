@@ -2,11 +2,19 @@
 // import Media from '../models/media.model.js';
 // import User from '../models/users.model.js';
 // import { ObjectId } from 'mongodb';
-
+const multer = require("multer");
+const jwt = require('jsonwebtoken');
 const Data = require('../models/data.model.js');
 const Media = require('../models/media.model.js');
 const User = require('../models/users.model.js');
 const ObjectId = require("mongodb").ObjectId;
+
+
+const dotenv = require('dotenv');
+dotenv.config();
+let TOKEN_SECRET = process.env.TOKEN_SECRET;
+
+
 const test = (req, res) => {
     res.send('Hello World! poly!!');
 }
@@ -106,6 +114,63 @@ const update = async (req, res) => {
     }
 }
 
+const fileUpload = async (req, res) => {
+    console.log("~ fileUpload ~ req.body", req.body)
+    console.log("~ fileUpload ~ req.files", req.files)
+    try { // cover and logo are coming from the form, with font and theme color fields
+        const body = req.body;
+        let settings = {}
+        let files = await Promise.all(Object.keys(req.files).map((key) => {
+            const file = req.files[key];
+            let fileData = file[0];
+            settings[key] = fileData.fieldname
+            return {
+                ...fileData,
+                _id: new ObjectId(),
+                type: fileData.mimetype.split('/')[0],
+                extension: fileData.mimetype.split('/')[1],
+                url: fileData.path,
+                userid: body.userid,
+                username: body.username,
+            };
+        }));
+
+        if (body) {
+            settings = {
+                themeColor: body.themeColor,
+                fontFamily: body.fontFamily,
+                fontColor: body.fontColor,
+                ...settings
+            }
+        }
+
+        console.log("files: ", files)
+        
+        Media.insertMany(files).then((media) => {
+            User.findByIdAndUpdate(
+                body.userid, 
+                { $set: { settings: settings } }, 
+                { new: true, upsert: true }
+            ).then((user) => {
+                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                user.password = undefined;
+                user.__v = undefined;
+                user.accessToken = token;
+                res.status(200).send({ message: 'Settings updated successfully' });
+            }).catch((err) => {
+                res.status(400).send({ message: err.message });
+            })
+        }).catch((err) => {
+            res.status(400).send({ message: err.message });
+        })
+
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+        
+}
+
+
 // export default { 
 module.exports = {
     test,
@@ -113,4 +178,5 @@ module.exports = {
     create,
     getAll, 
     update,
+    fileUpload
 };

@@ -13,14 +13,26 @@ const UserSchema = new mongoose.Schema({
     address: { type: String },
     about: { type: String },
     settings: {
+        logo: { type: String },
+        cover: { type: String },
+        footer: { type: String },
         themeColor: { type: String },
-        logo: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
-        homepageImage: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
-        footerImage: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
         fontFamily: { type: String },
         fontColor: { type: String },
-        googleColab: { type: String },
-    }
+    },
+    siteLinks: {
+        linkedin: { type: String, default: '' },
+        github: { type: String, default: '' },
+        facebook: { type: String, default: '' },
+        twitter: { type: String, default: '' },
+        instagram: { type: String, default: '' },
+        youtube: { type: String, default: '' },
+        tiktok: { type: String, default: '' },
+        whatsapp: { type: String, default: '' },
+        skype: { type: String, default: '' },
+        googleColab: { type: String, default: '' },
+        other: { type: String, default: '' },
+    },
 });
 
 const Model = mongoose.model('users', UserSchema);

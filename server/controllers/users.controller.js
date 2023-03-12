@@ -79,6 +79,15 @@ const login = async (req, res) => {
     }
 }
 
+const updateLinks = async (req, res) => {
+    try {
+        await User.updateOne({ username: req.params.username }, { $set: { siteLinks: req.body } });
+        res.status(200).json({ message: 'Links updated' });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 const sendEmail = async (req, res) => {
     try {
         const transporter = nodemailer.createTransport({
@@ -111,6 +120,7 @@ const sendEmail = async (req, res) => {
 module.exports = {
     read,
     signup,
+    updateLinks,
     login,
     sendEmail,
 

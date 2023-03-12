@@ -8,9 +8,10 @@ const verifyJWT = require("../middlewares/auth.middleware.js");
 
 const router = express.Router();
 
-router.get("/:username", verifyJWT, controller.read);
+router.get("/:username", controller.read);
 router.post("/signup", controller.signup);
 router.put("/login", controller.login);
+router.put("/updateLinks/:username", controller.updateLinks);
 router.post("/send", controller.sendEmail);
 
 // export default router;

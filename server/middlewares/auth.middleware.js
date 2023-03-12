@@ -12,7 +12,9 @@ let TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 function verifyJWT(req, res, next) {
     console.log('verifyJWT');
-    const token = req.header('x-access-token');
+    const token = req.header('auth-token');
+    
+    console.log("🚀 ~ file: auth.middleware.js:16 ~ verifyJWT ~ token:", token)
     if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
     try {
         const verified = jwt.verify(token, TOKEN_SECRET);

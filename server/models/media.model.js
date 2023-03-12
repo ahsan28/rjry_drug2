@@ -2,17 +2,17 @@
 const mongoose = require('mongoose');
 
 const MediaSchema = new mongoose.Schema({
-    name: { type: String },
-    description: { type: String },
-    contentType: { type: String },
-    extension: { type: String },
-    path: { type: String, unique: true },
+    fieldname: { type: String },
+    originalname: { type: String },
+    encoding: { type: String },
+    mimetype: { type: String },
+    destination: { type: String },
+    filename: { type: String },
+    path: { type: String },
     size: { type: Number },
-
-    saved: { type: Boolean, default: true },
-    content: { type: Buffer },
-    url: { type: String },
-});
+    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    username: { type: String },
+}, { timestamps: true });
 
 const Model = mongoose.model('media', MediaSchema);
 
