@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import UserService from "../../services/user.services";
+import { UserContext } from "../../UserContext";
 
 function Copyright(props) {
   return (
@@ -33,6 +34,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const { setUser } = React.useContext(UserContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -42,9 +44,11 @@ export default function SignIn() {
       })
       .then((res) => {
         console.log(res);
+        setUser(res);
         window.location.href = "/";
       })
   };
+
 
   return (
     <ThemeProvider theme={theme}>

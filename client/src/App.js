@@ -1,6 +1,6 @@
 import Container from '@mui/material/Container'
 import { Routes, Route } from 'react-router-dom'
-
+import { UserContext } from './UserContext';
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
 import NoPage from './components/Pages/NoPage';
@@ -19,11 +19,13 @@ import Footer from './Footer';
 import DataForm from './components/Pages/DataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CssBaseline } from '@mui/material';
 import Landing from './components/Pages/Landing';
 
 const App = () => {
+  const { user, setUser } = useContext(UserContext);
+  console.log("🚀 ~ file: App.js:28 ~ App ~ user:", user)
   const [currentUser, setCurrentUser] = useState(null);
 
   const logout = () => {
@@ -32,9 +34,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    const user = UserService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
+    const userX = UserService.getCurrentUser();
+    if (userX) {
+      if (userX.settings?.fontFamily) {
+        console.log('fontFamily', userX.settings.fontFamily);
+        document.documentElement.style.setProperty(
+          '--font-family',
+          userX.settings.fontFamily
+        );
+      }
+      setUser(userX);
+      setCurrentUser(userX);
     } else {
       setCurrentUser(null);
     }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import MediaService from "../../services/media.services";
 import { Box } from "@mui/system";
 
