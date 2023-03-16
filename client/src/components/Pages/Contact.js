@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions } from '@mui/material';
 import UserService from "../../services/user.services";
+import { UserContext } from '../../UserContext';
 
-const Contact = ({currentUser}) => {
+const Contact = () => {
+  const { user } = useContext(UserContext);
   const [mailData, setMailData] = useState({
     name: '',
     email: '',
@@ -14,8 +16,8 @@ const Contact = ({currentUser}) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (currentUser) {
-      UserService.get(currentUser.username).then(res => {
+    if (user) {
+      UserService.get(user.username).then(res => {
         setData(res.data.siteLinks);
       }).catch(err => {
         console.log(err);
@@ -42,7 +44,7 @@ const Contact = ({currentUser}) => {
   };
 
   const updateLinks = () => {
-    UserService.updateLinks(data, currentUser.username).then(res => {
+    UserService.updateLinks(data, user.username).then(res => {
       console.log(res);
       setOpen(false);
     }).catch(err => {
@@ -52,44 +54,44 @@ const Contact = ({currentUser}) => {
 
 
   return (<>
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" onClick={() => setOpen(true)}>Edit</Button>
     </Box>}
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
         {/* different social contact links with icon  */}
-          {data?.linkedin && <a href={data.linkedin||'#'} target="_blank" rel="noreferrer">
+          {data.linkedin && <a href={data.linkedin||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="linkedin" />
           </a>}
-          {data?.github && <a href={data.github||'#'} target="_blank" rel="noreferrer">
+          {data.github && <a href={data.github||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/fluent/48/000000/github.png" alt="github" />
           </a>}
-          {data?.facebook && <a href={data.facebook||'#'} target="_blank" rel="noreferrer">
+          {data.facebook && <a href={data.facebook||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" alt="facebook" />
           </a>}
-          {data?.twitter && <a href={data.twitter||'#'} target="_blank" rel="noreferrer">
+          {data.twitter && <a href={data.twitter||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/fluent/48/000000/twitter.png" alt="twitter" />
           </a>}
-          {data?.instagram && <a href={data.instagram||'#'} target="_blank" rel="noreferrer">
+          {data.instagram && <a href={data.instagram||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" alt="instagram" />
           </a>}
-          {data?.youtube && <a href={data.youtube||'#'} target="_blank" rel="noreferrer">
+          {data.youtube && <a href={data.youtube||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="youtube" />
           </a>}
-          {data?.tiktok && <a href={data.tiktok||'#'} target="_blank" rel="noreferrer">
+          {data.tiktok && <a href={data.tiktok||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok" />
           </a>}
-          {data?.whatsapp && <a href={data.whatsapp||'#'} target="_blank" rel="noreferrer">
+          {data.whatsapp && <a href={data.whatsapp||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="whatsapp" />
           </a>}
-          {data?.skype && <a href={data.skype||'#'} target="_blank" rel="noreferrer">
+          {data.skype && <a href={data.skype||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/skype--v1.png" alt="skype" />
           </a>}
-          {data?.googleColab && <a href={data.googleColab||'#'} target="_blank" rel="noreferrer">
+          {data.googleColab && <a href={data.googleColab||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/google-colab.png" alt="googleColab" />
           </a>}
-          {data?.other && <a href={data.other||'#'} target="_blank" rel="noreferrer">
+          {data.other && <a href={data.other||'#'} target="_blank" rel="noreferrer">
             <img src="https://img.icons8.com/color/48/000000/plus-math.png" alt="other" />
           </a>}
       </Box>
@@ -170,7 +172,7 @@ const Contact = ({currentUser}) => {
       <DialogTitle>Edit Links</DialogTitle>
       <DialogContent>
         <Box component="form" onSubmit={updateLinks} noValidate sx={{ mt: 1 }}>
-        {data && ['linkedin','github','facebook','twitter','instagram','youtube','tiktok','whatsapp','skype','googleColab','other'].map(
+        {['linkedin','github','facebook','twitter','instagram','youtube','tiktok','whatsapp','skype','googleColab','other'].map(
           (key, index) => (
           <TextField key={index} id={index} label={key} value={data[key]||""} onChange={e => setData({ ...data, [key]: e.target.value })} />
         ))}

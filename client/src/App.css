@@ -1,7 +1,34 @@
 :root {
   --font-family: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
+  --theme-color: skyblue;
+  --font-color: black;
 }
 body {
+  font-family: var(--font-family) !important;
+  color: var(--font-color) !important;
+}
+.themeColor {
+  color: var(--theme-color) !important;
+}
+.themeColor:hover {
+  color: var(--theme-color) !important;
+}
+.themeBg {
+  background-color: var(--theme-color) !important;
+}
+.themeBg:hover {
+  background-color: var(--theme-color) !important;
+}
+.themeFont {
+  font-family: var(--font-family) !important;
+}
+.themeFull {
+  color: var(--font-color) !important;
+  background-color: var(--theme-color) !important;
+  font-family: var(--font-family) !important;
+}
+.theme {
+  color: var(--font-color) !important;
   font-family: var(--font-family) !important;
 }
 

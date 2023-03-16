@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import ViewImage from "./components/Pages/ViewImage";
 import { UserContext } from "./UserContext";
+import { Divider } from "@mui/material";
 
 // const ViewImage = lazy(() => import("./components/Pages/ViewImage"));
 
@@ -47,14 +48,14 @@ const Navbar = ({currentUser=null, logout}) => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: user?.settings?.themeColor || "primary.main" }} >
+    <AppBar position="static" className="themeBg">
       <Container  >
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
             {currentUser?.settings?.logo && <ViewImage image={currentUser.settings.logo} sx={{ width: "50px", height: "50px", mr: "25px", pb: "4px" }} />}
-            {!currentUser?.settings?.logo && <Typography variant="h6" as="span" color={user?.settings?.fontColor || "primary.contrastText"} sx={{ mr: "25px", pb: "4px" }} >
-                Self Manage
+            {!currentUser?.settings?.logo && <Typography variant="h6" as="span" sx={{ mr: "25px", pb: "4px", boxShadow: "0px 0px 0px 1px #fff", fontWeight: "bold" }}>
+                RJRY
             </Typography>}
           </Link>
 
@@ -196,14 +197,16 @@ const Navbar = ({currentUser=null, logout}) => {
           </Box>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
             {currentUser? (<>
-                <MenuItem key={"Logout"}>
-                    <Link to={`/`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu('logout')}>
-                        <Typography textAlign="center">{"Logout"}</Typography>
-                    </Link>
-                </MenuItem>
                 <MenuItem key={"Settings"}>
                     <Link to={`/settings`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
                         <Typography textAlign="center">{"Settings"}</Typography>
+                    </Link>
+                </MenuItem>
+                {/* horizontal line */}
+                <Divider />
+                <MenuItem key={"Logout"}>
+                    <Link to={`/`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu('logout')}>
+                        <Typography textAlign="center">{"Logout"}</Typography>
                     </Link>
                 </MenuItem>
             </>):

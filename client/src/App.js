@@ -16,12 +16,55 @@ import SignIn from './components/Pages/SignIn';
 import SignUp from './components/Pages/SignUp';
 import UserSettings from './components/Users/UserSettings';
 import Footer from './Footer';
-import DataForm from './components/Pages/DataForm';
+import CommonDataForm from './components/Pages/Forms/CommonDataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
 import { useContext, useEffect, useState } from 'react';
 import { CssBaseline } from '@mui/material';
 import Landing from './components/Pages/Landing';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import './App.css'
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-family)',
+    color: 'var(--font-color)',
+    h1: {
+      fontSize: '3rem',
+    },
+    h2: {
+      fontSize: '2.5rem',
+    },
+    h3: {
+      fontSize: '2rem',
+    },
+    h4: {
+      fontSize: '1.5rem',
+    },
+    h5: {
+      fontSize: '1.25rem',
+    },
+    h6: {
+      fontSize: '1rem',
+    },
+    subtitle1: {
+      fontSize: '1.25rem',
+    },
+    subtitle2: {
+      fontSize: '1rem',
+    },
+    body1: {
+      fontSize: '1.25rem',
+    },
+    body2: {
+      fontSize: '1rem',
+    },
+    button: {
+      fontSize: '1rem',
+    },
+
+  },
+});
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
@@ -38,10 +81,15 @@ const App = () => {
     if (userX) {
       if (userX.settings?.fontFamily) {
         console.log('fontFamily', userX.settings.fontFamily);
-        document.documentElement.style.setProperty(
-          '--font-family',
-          userX.settings.fontFamily
-        );
+        document.documentElement.style.setProperty( '--font-family', userX.settings.fontFamily );
+      }
+      if (userX.settings?.themeColor) {
+        console.log('themeColor', userX.settings.themeColor);
+        document.documentElement.style.setProperty( '--theme-color', userX.settings.themeColor );
+      }
+      if (userX.settings?.fontColor) {
+        console.log('fontColor', userX.settings.fontColor);
+        document.documentElement.style.setProperty( '--font-color', userX.settings.fontColor );
       }
       setUser(userX);
       setCurrentUser(userX);
@@ -53,6 +101,7 @@ const App = () => {
     
   return (<>
     <CssBaseline />
+    <ThemeProvider theme={theme}>
       {/* <Header /> */}
       <Navbar currentUser={currentUser} logout={logout} component='header' />
       {/* make items inside container center */}
@@ -74,7 +123,7 @@ const App = () => {
               <Route path="/gallery" element={<Gallery currentUser={currentUser} />} />
               <Route path="/contact" element={<Contact currentUser={currentUser} />} />
 
-              <Route path="/form/:page" element={<DataForm currentUser={currentUser} />} />
+              <Route path="/form/:page" element={<CommonDataForm currentUser={currentUser} />} />
 
               <Route path="/signin" element={<SignIn currentUser={currentUser} />} />
               <Route path="/settings" element={<UserSettings currentUser={currentUser} />} />
@@ -85,6 +134,7 @@ const App = () => {
           {/* {props.children} */}
       </Container>
       <Footer />
+    </ThemeProvider>
   </>
   )
 }

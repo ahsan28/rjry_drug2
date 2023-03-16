@@ -37,14 +37,14 @@ const Introduction = ({currentUser}) => {
       <Button variant="contained" component={Link} to={`/form/introduction`}>Edit</Button>
     </Box>}
     <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom>
+      <Typography variant="h1" gutterBottom className="themeFont">
         {data ? data.title : "Loading..."}
       </Typography>
 
       {/* load image */}
       {cover && <Image src={cover.path} alt={cover.name} />}
 
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom className="themeFont">
         {data ? data.description : "Loading..."}
       </Typography>
 
@@ -52,7 +52,7 @@ const Introduction = ({currentUser}) => {
       {data && data.cover && data.cover.url && (
         <>
           <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom  className="themeFont">
             {data.cover.description}
           </Typography>
         </>

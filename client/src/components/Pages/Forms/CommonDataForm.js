@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react'
-import DataService from '../../services/data.services'
+import { useEffect, useState, useContext } from 'react'
+import DataService from '../../../services/data.services'
 import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
+import { UserContext } from "../../../UserContext";
 
-const DataForm = ({currentUser}) => {
-    const [data, setData] = useState(null);
+
+const CommonDataForm = () => {
+  const { user } = useContext(UserContext);
+  const [data, setData] = useState(null);
     const [oldGalleryIds, setOldGalleryIds] = useState([]);
     console.log("🚀 ~ file: DataForm.js ~ line 9 ~ DataForm ~ data", data)
     let { page } = useParams();
@@ -16,7 +19,7 @@ const DataForm = ({currentUser}) => {
 
 
     useEffect(() => {
-        if (currentUser && page) {
+        if (user && page) {
             DataService.read(page.charAt(0).toUpperCase() + page.slice(1))
             .then((res) => {
                 console.log("🚀 ~ file: DataForm.js ~ line 16 ~ .then ~ res", res)
@@ -184,4 +187,4 @@ const DataForm = ({currentUser}) => {
   )
 }
 
-export default DataForm
+export default CommonDataForm

@@ -1,0 +1,26 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cover-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .description {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  

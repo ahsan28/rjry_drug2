@@ -14,7 +14,7 @@ export default function LabelBottomNavigation() {
     setValue(newValue);
   };
 
-  return (<Container maxWidth="xl" sx={{px:3, height: '24px'}} component='footer'>
+  return (<Container sx={{px:3, height: '24px'}} component='footer' className='themeBg'>
         {/* <BottomNavigation value={value} onChange={handleChange}>
             <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
             <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
@@ -22,7 +22,7 @@ export default function LabelBottomNavigation() {
             <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
         </BottomNavigation> */}
         {/* developed by and year and copyright */}
-        <Typography variant="body2" color="text.secondary" align="center">
+        <Typography variant="body2" align="center">
             {'Built with love by '}
             <Link color="inherit" href="https://www.linkedin.com/in/ahsan-habib-5394b972/">
                 Ahsan Habib

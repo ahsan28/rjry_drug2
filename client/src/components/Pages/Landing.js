@@ -5,18 +5,13 @@ import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import Image from 'mui-image';
 import { UserContext } from "../../UserContext";
-
+import './Styles/Landing.css'
+import ViewImage from "./ViewImage";
 
 const Landing = () => {
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
   const { user, setUser } = useContext(UserContext);
-
-  const stx = {
-    bg: user?.settings?.themeColor||"white",
-    color: user?.settings?.fontColor||"black",
-    fontFamily: user?.settings?.fontFamily||"sans-serif",
-  }
 
   useEffect(() => {
     DataService.read("Landing")
@@ -47,14 +42,14 @@ const Landing = () => {
     </Box>}
     <Container sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
     <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography sx={{fontFamily: stx.fontFamily, color: stx.color}} variant="h1" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         {data ? data.title : "Loading..."}
       </Typography>
 
       {/* load image */}
       {cover && <Image src={cover.path} alt={cover.name} />}
 
-      <Typography variant="subtitle1" gutterBottom sx={{fontFamily: stx.fontFamily, color: stx.color}}>
+      <Typography variant="subtitle1" gutterBottom>
         {data ? data.description : "Loading..."}
       </Typography>
 
@@ -62,7 +57,7 @@ const Landing = () => {
       {data && data.cover && data.cover.url && (
         <>
           <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom sx={{fontFamily: stx.fontFamily, color: stx.color}}>
+          <Typography variant="subtitle1" gutterBottom>
             {data.cover.description}
           </Typography>
         </>
