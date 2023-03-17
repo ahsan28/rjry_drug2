@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from 'react'
-import DataService from '../../../services/data.services'
+import DataService from '../../services/data.services'
 import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { UserContext } from "../../../UserContext";
+import { UserContext } from "../../UserContext";
 
 
 const CommonDataForm = () => {
@@ -52,6 +52,14 @@ const CommonDataForm = () => {
     // }
     function save() {
         console.log("🚀 ~ file: DataForm.js ~ line 24 ~ save ~ page, data", page, data)
+        const formData = new FormData();
+        
+        formData.append("name", data.name);
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("cover", data.cover);
+        formData.append("gallery", data.gallery);
+        
         DataService.save(data)
             .then((res) => {
                 console.log(res);
@@ -78,7 +86,7 @@ const CommonDataForm = () => {
             <TextField
                 sx={{ margin: 1, width: '25ch' }}
                 id="outlined-multiline-flexible"
-                disabled={true}
+                // disabled={true}
                 label="Title"
                 // multiline
                 // maxRows={4}

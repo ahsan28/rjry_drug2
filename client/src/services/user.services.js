@@ -12,6 +12,10 @@ const updateLinks = (data,username) => {
     return axios.put(`${api}updateLinks/${username}`, data, { headers: authHeader() });
 }
 
+const updateProfile = (data,username) => {
+    return axios.put(`${api}updateProfile/${username}`, data, { headers: authHeader() });
+}
+
 const register = (user) => {
     return axios.post(`${api}signup`, user, { headers: authHeader() });
 }
@@ -43,6 +47,7 @@ const sendEmail = (email) => {
 const functions = {
     get,
     updateLinks,
+    updateProfile,
     register,
     login,
     getCurrentUser,

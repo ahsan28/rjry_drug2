@@ -12,15 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-const fields = [
-    { name: 'logo' },
-    { name: 'cover' },
-    { name: 'footer' },
-  ]
-
-// import express from "express";
-// import controller from "../controllers/data.controller.js";
-// import verifyJWT from "../middlewares/auth.middleware.js";
+const fields = ['logo','cover','footer'].map(x=>({name:x}))
 
 const router = express.Router();
 

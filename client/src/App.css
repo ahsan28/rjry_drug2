@@ -41,6 +41,27 @@ body {
   pointer-events: none;
 }
 
+.shadow-image {
+  position: relative;
+  display: inline-block;
+}
+
+.shadow-image::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  transform: rotateY(20deg) rotateX(10deg);
+  z-index: -1;
+}
+
+.shadow-image img {
+  display: block;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

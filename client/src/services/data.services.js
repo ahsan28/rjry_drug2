@@ -11,8 +11,8 @@ const getAll = () => {
     return axios.get(api+'getAll', { headers: authHeader() });
 }
 
-const read = (title) => {
-    return axios.get(api+title, { headers: authHeader() });
+const read = (name) => {
+    return axios.get(api+name, { headers: authHeader() });
 }
 
 const createAll = () => {
@@ -20,7 +20,7 @@ const createAll = () => {
 }
 
 const save = (data) => {
-    return axios.put(api+data.title, data, { headers: authHeader() });
+    return axios.put(api+data.name, data, { headers: authHeader() });
 }
 
 const upload = (data) => {

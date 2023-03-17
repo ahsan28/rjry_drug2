@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { UserContext } from './UserContext';
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
+import Profile from './components/Pages/Profile';
 import NoPage from './components/Pages/NoPage';
 import Introduction from './components/Pages/Introduction';
 import Research from './components/Pages/Research';
@@ -16,7 +17,7 @@ import SignIn from './components/Pages/SignIn';
 import SignUp from './components/Pages/SignUp';
 import UserSettings from './components/Users/UserSettings';
 import Footer from './Footer';
-import CommonDataForm from './components/Pages/Forms/CommonDataForm';
+import CommonDataForm from './components/Forms/CommonDataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
 import { useContext, useEffect, useState } from 'react';
@@ -115,6 +116,7 @@ const App = () => {
               
               {/* <Route path="/rjry_drug" element={<Introduction currentUser={currentUser} />} /> */}
               <Route path="/introduction" element={<Introduction currentUser={currentUser} />} />
+              <Route path="/profile" element={<Profile currentUser={currentUser} />} />
               <Route path="/research" element={<Research currentUser={currentUser} />} />
               <Route path="/publications" element={<Publications currentUser={currentUser} />} />
               <Route path="/mode" element={<Mode currentUser={currentUser} />} />

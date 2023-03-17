@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
     name: { type: String },
     surname: { type: String },
+    designation: { type: String },
+    avatar: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
     username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     phone: { type: String },

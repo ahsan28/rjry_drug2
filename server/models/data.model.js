@@ -2,7 +2,8 @@
 const mongoose = require('mongoose');
 
 const DataSchema = new mongoose.Schema({
-    title: { type: String, unique: true },
+    name: { type: String, unique: true },
+    title: { type: String },
     description: { type: String },
     lastEditDate: { type: Date },
     lastEditor: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },

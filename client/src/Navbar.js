@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import ViewImage from "./components/Pages/ViewImage";
 import { UserContext } from "./UserContext";
 import { Divider } from "@mui/material";
+import MediaService from "./services/media.services";
 
 // const ViewImage = lazy(() => import("./components/Pages/ViewImage"));
 
@@ -26,6 +27,15 @@ const Navbar = ({currentUser=null, logout}) => {
   const [anchorElActiviti, setAnchorElActiviti] = useState(null);
   const [anchorElPener, setAnchorElPener] = useState(null);
   const [anchorElProduk, setAnchorElProduk] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
+
+  useEffect(() => {
+    if(user?.avatar){
+        MediaService.loadImage(user.avatar).then((res)=>{
+            setProfilePic(URL.createObjectURL(res.data));
+        });
+    }
+    }, [user]);
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -191,7 +201,7 @@ const Navbar = ({currentUser=null, logout}) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={profilePic}  />
               </IconButton>
             </Tooltip>
           </Box>

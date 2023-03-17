@@ -5,6 +5,7 @@
 // import nodemailer from 'nodemailer';
 
 const User = require('../models/users.model.js');
+const Media = require('../models/media.model.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -116,6 +117,82 @@ const sendEmail = async (req, res) => {
     }
 }
 
+const updateProfile = async (req, res) => {
+    try { // cover and logo are coming from the form, with font and theme color fields4
+        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.body", req.body)
+        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.files", req.files)
+        var body = req.body;
+        let user = await User.findById(body._id);
+        if (body['avatar'] === 'remove') {
+            console.log("🚀 ~ file: users.controller.js ~ line 129 ~ updateProfile ~ body.avatar", body.avatar)
+            await Media.findByIdAndDelete(user.avatar);
+            body['avatar'] = null; 
+
+            await User.findByIdAndUpdate(
+                body._id,
+                { $set: body },
+                { new: true }
+            ).then((user) => {
+                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                user.password = undefined;
+                user.__v = undefined;
+                user.accessToken = token;
+                res.status(200).json(user);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        else if (['null', 'undefined', ''].includes(body['avatar'])) {
+            console.log("🚀 ~ file: users.controller.js ~ line 129 ~ updateProfile ~ body.avatar", body.avatar)
+            body['avatar'] = user.avatar;
+
+            await User.findByIdAndUpdate(
+                body._id,
+                { $set: body },
+                { new: true }
+            ).then((user) => {
+                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                user.password = undefined;
+                user.__v = undefined;
+                user.accessToken = token;
+                res.status(200).json(user);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        else {
+            console.log("🚀 ~ file: users.controller.js ~ line 129 ~ updateProfile ~ body.avatar", body.avatar)
+            await Media.insertMany([{
+                ...req.files.avatar[0],
+                type: req.files.avatar[0].mimetype.split('/')[0],
+                extension: req.files.avatar[0].mimetype.split('/')[1],
+                url: req.files.avatar[0].path,
+                userid: user._id,
+                username: user.username,
+            }]).then((media) => {
+                console.log("🚀 ~ file: users.controller.js:170 ~ updateProfile ~ media:", media)
+                User.findByIdAndUpdate(
+                    body._id,
+                    { $set: { ...body, avatar: media[0]._id } },
+                    { new: true }
+                ).then((user) => {
+                    let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                    user.password = undefined;
+                    user.__v = undefined;
+                    user.accessToken = token;
+                    res.status(200).json(user);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+        
+}
 // export default { 
 module.exports = {
     read,
@@ -123,5 +200,5 @@ module.exports = {
     updateLinks,
     login,
     sendEmail,
-
+    updateProfile
 };

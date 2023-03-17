@@ -56,7 +56,7 @@ const Landing = () => {
       {/* show an image as cover */}
       {data && data.cover && data.cover.url && (
         <>
-          <img src={data.cover.url} alt={data.cover.title} />
+          <img src={data.cover.url} alt={data.cover.title} class="shadow-image" />
           <Typography variant="subtitle1" gutterBottom>
             {data.cover.description}
           </Typography>

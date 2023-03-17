@@ -29,23 +29,16 @@ const UserSettings = () => {
 
 
     function save(d) {
-        console.log(" save ~ d:", d)
-        // add this to formData encType="multipart/form-d"
         const formData = new FormData();
         
         formData.append("userid", user._id);
         formData.append("username", user.username);
-
         formData.append("logo", d.logo);
         formData.append("cover", d.coverImg);
         formData.append("footer", d.footerImage);
         formData.append("themeColor", d.themeColor);
         formData.append("fontFamily", d.fontFamily);
         formData.append("fontColor", d.fontColor);
-        // formData.append("logo", d.logo);
-        // formData.append("homepageImage", d.homepageImage);
-        
-
 
 
 
