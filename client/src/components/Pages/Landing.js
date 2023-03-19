@@ -125,7 +125,7 @@ const Landing = () => {
     <Box sx={{ height: '100%', width: '100%', backgroundColor: 'lightgray', borderRadius: 1 }}>
       <Box sx={{ padding: 4 }}>
         {/* Title , centered */}
-        <Typography variant="h2" color="DarkSlateGray" mb={2} align="center">
+        <Typography variant="h2" color="DarkBlue" mb={2} align="center">
         Preventing Drug Use in Malaysian Schools
         </Typography>
         {/* Slogan */}
@@ -134,7 +134,7 @@ const Landing = () => {
 
         </Typography>
         {/* Body */}
-        <Typography variant="body1" color="DarkBlue" mb={4}>
+        <Typography variant="body1" color="DarkSlateGray" mb={4}>
           {/* Begin the text with a big first letter */}
           <span style={{ fontSize: '2em', fontWeight: 'bold' }}>
             {/* {data?.description?.charAt(0)} */}
