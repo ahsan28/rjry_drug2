@@ -125,10 +125,10 @@ const Landing = () => {
           {tiles.map((tile) => (
             <Grid item xs={12} sm={6} md={3} key={tile.title}>
               <Tile onClick={() => navigate(tile.link)} sx={{ backgroundColor: tile.color }}>
-                <Typography variant="h5" color="secondary.contrastText" mb={1}>
+                <Typography variant="h5" color="secondary.contrastText" mb={1} sx={{ fontWeight: 'bold' }}>
                   {tile.title}
                 </Typography>
-                <Typography variant="body1" color="secondary.contrastText">
+                <Typography variant="body2" color="secondary.contrastText">
                   {tile.subtitle}
                 </Typography>
               </Tile>
