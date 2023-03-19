@@ -4,7 +4,11 @@ const ActivitySchema = new mongoose.Schema({
     name: { type: String },
     title: { type: String },
     description: { type: String },
-    links: [{ type: String }],
+    links: [{ 
+        _id: false,
+        url: { type: String },
+        name: { type: String },
+     }],
     userid: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
 
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],

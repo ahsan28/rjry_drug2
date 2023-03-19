@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TextField, Button, Box, Card, CardMedia, CardActions, Paper } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 
-const AddActivityForm = ({ onAdd }) => {
+const ActivityForm = ({ onAdd }) => {
+  const { user, setUser } = useContext(UserContext);
+  let { actId } = useParams();
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -11,23 +15,24 @@ const AddActivityForm = ({ onAdd }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const activity = { name, title, description, images, links };
-    onAdd(activity);
+    console.log("🚀 ~ file: ActivityForm.js:18 ~ handleSubmit ~ activity:", activity)
+    // onAdd(activity);
     setName("");
     setTitle("");
     setDescription("");
     setImages([]);
-    setLinks([{ url: "" }]);
+    setLinks([]);
   };
 
-  const handleLinkChange = (index, event) => {
+  const handleLinkChange = (index, event, field) => {
     const values = [...links];
-    values[index].url = event.target.value;
+    values[index][field] = event.target.value;
     setLinks(values);
   };
 
   const handleAddLink = () => {
     const values = [...links];
-    values.push({ url: "" });
+    values.push({ url: "", name: "" });
     setLinks(values);
   };
 
@@ -72,18 +77,25 @@ const AddActivityForm = ({ onAdd }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <Paper sx={{ p: 2 }} elevation={3}>
+      <Paper sx={{ p: 2 }} elevation={1}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         {links.map((link, index) => (
           <Box sx={{ display: "flex", alignItems: "center", mb: index===links.length-1?2:'' }} key={index}>
             <TextField
+                label={`Name`}
+                variant="outlined"
+                value={link.name}
+                onChange={(e) => handleLinkChange(index, e, "name")}
+                sx={{ width: "200px", mr: 1 }}
+            />
+            <TextField
               label={`Link ${index + 1}`}
               variant="outlined"
               value={link.url}
-              onChange={(e) => handleLinkChange(index, e)}
+              onChange={(e) => handleLinkChange(index, e, "url")}
               sx={{ flex: 1 }}
             />
-            <Button variant="contained" onClick={() => handleRemoveLink(index)} sx={{ ml: 2, height: "60px" }} size="small" color="error" >
+            <Button variant="contained" onClick={() => handleRemoveLink(index)} sx={{ ml: 1, height: "60px" }} size="small" color="error" >
             Remove
             </Button>
           </Box>
@@ -93,7 +105,7 @@ const AddActivityForm = ({ onAdd }) => {
           {links.length > 0 ? "Add Another Link" : "Add Link"}
         </Button>
         </Paper>
-        <Paper sx={{ p: 2 }} elevation={3}>
+        <Paper sx={{ p: 2 }} elevation={1}>
             <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
                 {images.map((image, index) => (
                 <Card sx={{ maxWidth: 300, mb:2 }} key={image}>
@@ -138,4 +150,4 @@ const AddActivityForm = ({ onAdd }) => {
   );
 };
 
-export default AddActivityForm;
+export default ActivityForm;
