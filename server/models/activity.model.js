@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const ActivitySchema = new mongoose.Schema({
     name: { type: String },
+    title: { type: String },
     description: { type: String },
     links: [{ type: String }],
     userid: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },

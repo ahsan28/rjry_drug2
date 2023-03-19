@@ -229,27 +229,27 @@ const Navbar = ({logout}) => {
           </Menu>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElActiviti} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElActiviti)} onClose={()=>handleCloseActivitiMenu()} >
             <MenuItem key={"mesyuarat"}>
-                <Link to={`/mesyuarat`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/mesyuarat`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Mesyuarat"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"bengkel"}>
-                <Link to={`/bengkel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/bengkel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Bengkel"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"latihan"}>
-                <Link to={`/latihan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/latihan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Latihan & konsultasi"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"pengumpulan"}>
-                <Link to={`/pengumpulan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/pengumpulan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Pengumpulan"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"kolaborasi"}>
-                <Link to={`/kolaborasi`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/kolaborasi`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Kolaborasi"}</Typography>
                 </Link>
             </MenuItem>

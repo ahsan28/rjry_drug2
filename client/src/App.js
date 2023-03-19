@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { UserContext } from './UserContext';
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
+import ActivityForm from './components/Forms/ActivityForm';
 import Profile from './components/Pages/Profile';
 import NoPage from './components/Pages/NoPage';
 import Introduction from './components/Pages/Introduction';
@@ -121,8 +122,8 @@ const App = () => {
               <Route path="/research" element={<Research />} />
               <Route path="/publications" element={<Publications />} />
               <Route path="/mode" element={<Mode />} />
-              <Route path="/activities" element={<Activities />} />
-              <Route path="/mesyuarat" element={<Activities />} />
+              <Route path="/activity/:actId" element={<Activities />} />
+              <Route path="/activityform/:actId" element={<ActivityForm />} />
               <Route path="/certifications" element={<Certifications />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
