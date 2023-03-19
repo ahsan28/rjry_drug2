@@ -8,9 +8,18 @@ import { UserContext } from "../../UserContext";
 import './Styles/Landing.css'
 import ViewImage from "./ViewImage";
 import BasicPage from "../Hooks/BasicPage";
+import TextCarousel from "../Hooks/TextCarousel";
 
 import { styled } from '@mui/material/styles';
 
+const texts = [
+  "Breaking the Cycle: Preventing Drug Use in Malaysian Schools",
+  "Empowering Educators: Developing a Model for Drug-Free Schools",
+  "Building a Safer Future: The Drug Prevention Education Project",
+  "Securing Safe Spaces: The Quest for Drug-Free Schools in Malaysia",
+  "Promoting a Positive Learning Environment: Drug Prevention Education in Malaysia",
+  "Creating Drug-Free Schools in Malaysia: A Research Project",
+];
 const Landing = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -115,11 +124,31 @@ const Landing = () => {
 
     <Box sx={{ height: '100%', width: '100%', backgroundColor: 'lightgray', borderRadius: 1 }}>
       <Box sx={{ padding: 4 }}>
-        <Typography variant="h2" color="DarkSlateGray" mb={2}>
-          Welcome to Our Website
+        {/* Title , centered */}
+        <Typography variant="h2" color="DarkSlateGray" mb={2} align="center">
+        Preventing Drug Use in Malaysian Schools
         </Typography>
+        {/* Slogan */}
+        <Typography variant="h5" align="center" color="SlateGray" mb={4}>
+          {texts.length > 0 && <TextCarousel texts={texts} />}
+
+        </Typography>
+        {/* Body */}
         <Typography variant="body1" color="DarkBlue" mb={4}>
-          We are a company that specializes in providing high-quality products and services to our customers. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ipsum quis urna ullamcorper accumsan eu non elit.
+          {/* Begin the text with a big first letter */}
+          <span style={{ fontSize: '2em', fontWeight: 'bold' }}>
+            {/* {data?.description?.charAt(0)} */}
+            W
+            </span>
+          {/* Rest of the text */}
+
+        elcome to the exciting world of drug prevention education! We are thrilled to embark on a journey that aims to create drug-free schools in Malaysia, and we are so glad that you have joined us on this mission.
+
+        As a member of this team, you are making a real difference in the lives of students, teachers, and communities across the country. Your contributions will help prevent drug use, reduce drug-related issues in schools, and promote healthy and safe learning environments for all.
+
+        We recognize that implementing drug prevention education in schools can be challenging, but we also know that together, we can overcome any obstacle. Your unique skills, talents, and perspectives will play a vital role in shaping the future of drug prevention education in Malaysia.
+
+        So let us inspire each other, motivate one another, and work together towards a common goal. Together, we can make a positive impact on the lives of countless individuals and communities. Thank you for joining us on this exciting journey, and let's get started!
         </Typography>
         <Grid container spacing={4}>
           {tiles.map((tile) => (
