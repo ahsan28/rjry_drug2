@@ -24,7 +24,7 @@ const CommonDataForm = () => {
             .then((res) => {
                 console.log("🚀 ~ file: DataForm.js ~ line 16 ~ .then ~ res", res)
                 if (res.data) setData(res.data);
-                else setData({title: page.charAt(0).toUpperCase() + page.slice(1)})
+                else setData({name: page.charAt(0).toUpperCase() + page.slice(1), title: page.charAt(0).toUpperCase() + page.slice(1)})
                 setOldGalleryIds(res.data.gallery)
             })
             .catch((err) => {

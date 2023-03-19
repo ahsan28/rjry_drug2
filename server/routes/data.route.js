@@ -16,11 +16,13 @@ const fields = ['logo','cover','footer'].map(x=>({name:x}))
 
 const router = express.Router();
 
+
+// common data
 router.get("/", controller.test);
 router.get("/createAll", verifyJWT, controller.create);
 router.get("/getAll", verifyJWT, controller.getAll);
-router.get("/:title", controller.read);
-router.put("/:title", controller.update);
+router.get("/:name", controller.read);
+router.put("/:name", controller.update);
 router.post("/upload", upload.fields(fields), controller.fileUpload);
 
 // export default router;

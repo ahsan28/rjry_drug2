@@ -26,6 +26,7 @@ const create = async (req, res) => {
         const media = await Media.create({
             _id: "100000000000000000000000",
             title: 'demo',
+            name: 'demo',
             description: 'demo',
             url: 'demo',
             type: 'image'
@@ -39,6 +40,7 @@ const create = async (req, res) => {
         const data = await Data.create({
             _id: "300000000000000000000000",
             title: 'demo',
+            name: 'demo',
             description: 'demo',
             lastEditDate: new Date(),
             lastEditor: "200000000000000000000000",
@@ -54,7 +56,7 @@ const create = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        const data = await Data.findOne({ title: req.params.title })
+        const data = await Data.findOne({ name: req.params.name })
             // .populate([
             //     { path: 'cover' },
             //     { path: 'gallery' }
@@ -79,7 +81,7 @@ const update = async (req, res) => {
     console.log("🚀 ~ file: data.controller.js ~ line 67 ~ update ~ req.body", req.body)
     try {
         
-        if (req.body.title == 'Gallery'){
+        if (req.body.name == 'Gallery'){
             if (!req.body.gallery) req.body.gallery = []
             let oldGalleryIds = req.body.gallery.filter(item => item._id).map(item => item._id)
             let imagesToSave = req.body.gallery.filter(item => !item._id)
@@ -107,9 +109,21 @@ const update = async (req, res) => {
             req.body.cover = newImageId
         }
 
-        const data = await Data.findOneAndUpdate({ title: req.params.title }, req.body, { new: true, upsert: true })
+        const data = await Data.findOneAndUpdate(
+            { name: req.params.name }, 
+            {$set: req.body},
+            { new: true, upsert: true })
+        .then((data) => {
+            console.log(data)
+            return data
+        })
+        .catch((err) => {
+            console.log("update error!!!")
+            console.log(err)
+        })
         res.status(200).json(data);
     } catch (err) {
+        
         res.status(400).json({ message: err.message });
     }
 }
