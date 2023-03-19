@@ -1,11 +1,12 @@
-import { Box, Button, Divider, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react'
+import { Box, Button, Card, CardMedia, Divider, Typography } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../UserContext";
 import { Avatar, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import UserService from '../../services/user.services';
+import MediaService from '../../services/media.services';
 import ViewImage from './ViewImage';
 
 import ProfileForm from '../Forms/ProfileForm';
@@ -43,9 +44,18 @@ const items = [
 
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
-  console.log("🚀 ~ file: Profile.js:46 ~ Profile ~ user:", user)
+  const [ avatar, setAvatar ] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(false);
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.avatar) {
+      MediaService.loadImage(user.avatar).then((res) => {
+        setAvatar(res.data);
+      });
+    }
+  }, [user]);
+
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -84,6 +94,7 @@ const Profile = () => {
             });
   };
 
+
   return (<>
     <StyledPaper elevation={3}>
     {/* edit button */}
@@ -91,9 +102,11 @@ const Profile = () => {
             <Button variant="contained" onClick={handleDialogOpen}>Edit</Button>
           </Box>}
       <Grid container spacing={2} alignItems="center">
-        <Grid item>
-          {user?.avatar ? 
-          <ViewImage image={user.avatar} alt={user.name} sx={{ width: 150, height: 150 }}/> :
+        <Grid sx={{ pl: 2 }} >
+          {(user?.avatar && avatar) ? 
+          <Card sx={{ width: 180, height: 180 }}>
+            <CardMedia component="img" height="180" image={URL.createObjectURL(avatar)} alt={user.name+" "+user.surname} />
+          </Card> :
           <Avatar
             src={'https://www.w3schools.com/howto/img_avatar.png'}
             alt={user?.name||'Ahsan'}
