@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoute = require('./routes/users.route.js');
 const mediaRoute = require('./routes/media.route.js');
 const dataRoute = require('./routes/data.route.js');
+const activityRoute = require('./routes/activity.route.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(cors());
 app.use('/', dataRoute);
 app.use('/users', userRoute);
 app.use('/media', mediaRoute);
+app.use('/activity', activityRoute);
 
 mongoose.connect(MONGO_URL).then(() => {console.error('Log:Database is connected')}).catch(err => {console.error('errLog:Database connection error')});
 

@@ -1,11 +1,13 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import Image from 'mui-image';
 import MediaService from "../../services/media.services";
+import { UserContext } from "../../UserContext";
 
-const Introduction = ({currentUser}) => {
+const Introduction = () => {
+  const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
 
@@ -33,7 +35,7 @@ const Introduction = ({currentUser}) => {
 
   return (<>
     {/* edit button */}
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/introduction`}>Edit</Button>
     </Box>}
     <Box sx={{ width: "100%", textAlign: 'center' }}>

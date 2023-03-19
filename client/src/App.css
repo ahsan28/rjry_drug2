@@ -148,3 +148,8 @@ body {
 .nav li:hover {
   background-color: #777;
 }
+
+.swiper-slide-thumb-active>img {
+  border: 2px solid #009688;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.4);
+}

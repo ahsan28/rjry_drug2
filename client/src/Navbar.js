@@ -19,8 +19,9 @@ import MediaService from "./services/media.services";
 
 // const ViewImage = lazy(() => import("./components/Pages/ViewImage"));
 
-const Navbar = ({currentUser=null, logout}) => {
+const Navbar = ({logout}) => {
   const { user } = useContext(UserContext);
+    console.log("🚀 ~ file: Navbar.js:24 ~ Navbar ~ user:", user)
     
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -63,8 +64,8 @@ const Navbar = ({currentUser=null, logout}) => {
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
-            {currentUser?.settings?.logo && <ViewImage image={currentUser.settings.logo} sx={{ width: "50px", height: "50px", mr: "25px", pb: "4px" }} />}
-            {!currentUser?.settings?.logo && <Typography variant="h6" as="span" sx={{ mr: "25px", pb: "4px", boxShadow: "0px 0px 0px 1px #fff", fontWeight: "bold" }}>
+            {user?.settings?.logo && <ViewImage image={user.settings.logo} sx={{ maxWidth: "120px", height: "50px", mr: "25px" }} />}
+            {!user?.settings?.logo && <Typography variant="h6" as="span" sx={{ mr: "25px", boxShadow: "0px 0px 0px 1px #fff", fontWeight: "bold" }}>
                 RJRY
             </Typography>}
           </Link>
@@ -206,7 +207,7 @@ const Navbar = ({currentUser=null, logout}) => {
             </Tooltip>
           </Box>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
-            {currentUser? (<>
+            {user? (<>
                 <MenuItem key={"Settings"}>
                     <Link to={`/settings`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
                         <Typography textAlign="center">{"Settings"}</Typography>

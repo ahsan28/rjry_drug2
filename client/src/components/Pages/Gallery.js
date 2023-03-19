@@ -1,12 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MediaService from "../../services/media.services";
 import DataService from "../../services/data.services";
 
 import { Carousel as Ca } from "react-carousel-minimal";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 
-const Gallery = ({currentUser}) => {
+const Gallery = () => {
+  const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
 
@@ -47,7 +49,7 @@ const Gallery = ({currentUser}) => {
 
   return (
     <>
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/gallery`}>Edit</Button>
     </Box>}
       <div className="App">

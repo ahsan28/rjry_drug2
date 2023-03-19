@@ -133,11 +133,14 @@ const updateProfile = async (req, res) => {
                 { $set: body },
                 { new: true }
             ).then((user) => {
-                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
-                user.password = undefined;
-                user.__v = undefined;
-                user.accessToken = token;
-                res.status(200).json(user);
+                // convert user to json
+                let userx = user.toJSON(); 
+                
+                let token = jwt.sign({ _id: userx._id }, TOKEN_SECRET);
+                userx.password = undefined;
+                userx.__v = undefined;
+                userx.accessToken = token;
+                res.status(200).json(userx);
             }).catch((err) => {
                 console.log(err);
             });
@@ -151,11 +154,12 @@ const updateProfile = async (req, res) => {
                 { $set: body },
                 { new: true }
             ).then((user) => {
-                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
-                user.password = undefined;
-                user.__v = undefined;
-                user.accessToken = token;
-                res.status(200).json(user);
+                let userx = user.toJSON();
+                let token = jwt.sign({ _id: userx._id }, TOKEN_SECRET);
+                userx.password = undefined;
+                userx.__v = undefined;
+                userx.accessToken = token;
+                res.status(200).json(userx);
             }).catch((err) => {
                 console.log(err);
             });
@@ -176,11 +180,12 @@ const updateProfile = async (req, res) => {
                     { $set: { ...body, avatar: media[0]._id } },
                     { new: true }
                 ).then((user) => {
-                    let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
-                    user.password = undefined;
-                    user.__v = undefined;
-                    user.accessToken = token;
-                    res.status(200).json(user);
+                    let userx = user.toJSON();
+                    let token = jwt.sign({ _id: userx._id }, TOKEN_SECRET);
+                    userx.password = undefined;
+                    userx.__v = undefined;
+                    userx.accessToken = token;
+                    res.status(200).json(userx);
                 }).catch((err) => {
                     console.log(err);
                 });

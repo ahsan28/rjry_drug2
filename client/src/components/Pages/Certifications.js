@@ -1,11 +1,13 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import Image from "mui-image";
 import MediaService from "../../services/media.services";
+import { UserContext } from "../../UserContext";
 
-const Certifications = ({ currentUser }) => {
+const Certifications = () => {
+  const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState({
     title: "Certifications",
   });
@@ -40,7 +42,7 @@ const Certifications = ({ currentUser }) => {
   return (
     <>
       {/* edit button */}
-      {currentUser && (
+      {user && (
         <Box
           sx={{
             display: "flex",

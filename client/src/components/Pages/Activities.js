@@ -1,13 +1,79 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import Image from 'mui-image';
+import { UserContext } from "../../UserContext";
+import ImageCoverflow from "../Hooks/CoverflowGallery";
 
-const Activities = ({currentUser}) => {
+const Activities = () => {
+  const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
+
+  const images = [
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+1',
+      title: 'Image 1',
+      date: '2022-01-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+2',
+      title: 'Image 2',
+      date: '2022-02-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+3',
+      title: 'Image 3',
+      date: '2022-03-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+4',
+      title: 'Image 4',
+      date: '2022-04-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+5',
+      title: 'Image 5',
+      date: '2022-01-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+2',
+      title: 'Image 2',
+      date: '2022-02-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+3',
+      title: 'Image 3',
+      date: '2022-03-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+4',
+      title: 'Image 4',
+      date: '2022-04-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+1',
+      title: 'Image 1',
+      date: '2022-01-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+2',
+      title: 'Image 2',
+      date: '2022-02-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+3',
+      title: 'Image 3',
+      date: '2022-03-01'
+    },
+    {
+      src: 'https://via.placeholder.com/960x480?text=Image+14',
+      title: 'Image 14',
+      date: '2022-04-01'
+    },
+  ];
 
   useEffect(() => {
     DataService.read("Activities")
@@ -33,31 +99,10 @@ const Activities = ({currentUser}) => {
 
   return (<>
     {/* edit button */}
-    {currentUser && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/activities`}>Edit</Button>
     </Box>}
-    <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom>
-        {data ? data.title : "Loading..."}
-      </Typography>
-
-      {/* load image */}
-      {cover && <Image src={cover.path} alt={cover.name} />}
-
-      <Typography variant="subtitle1" gutterBottom>
-        {data ? data.description : "Loading..."}
-      </Typography>
-
-      {/* show an image as cover */}
-      {data && data.cover && data.cover.url && (
-        <>
-          <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom>
-            {data.cover.description}
-          </Typography>
-        </>
-      )}
-    </Box>
+    <ImageCoverflow images={images} />
   </>);
 };
 

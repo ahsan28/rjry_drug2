@@ -69,69 +69,67 @@ const theme = createTheme({
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
-  console.log("🚀 ~ file: App.js:28 ~ App ~ user:", user)
-  const [currentUser, setCurrentUser] = useState(null);
 
   const logout = () => {
     UserService.logout();
-    setCurrentUser(null);
+    setUser(null);
   };
 
   useEffect(() => {
-    const userX = UserService.getCurrentUser();
-    if (userX) {
-      if (userX.settings?.fontFamily) {
-        console.log('fontFamily', userX.settings.fontFamily);
-        document.documentElement.style.setProperty( '--font-family', userX.settings.fontFamily );
+    if (user) {
+      if (user.settings?.fontFamily) {
+        console.log('fontFamily', user.settings.fontFamily);
+        document.documentElement.style.setProperty( '--font-family', user.settings.fontFamily );
       }
-      if (userX.settings?.themeColor) {
-        console.log('themeColor', userX.settings.themeColor);
-        document.documentElement.style.setProperty( '--theme-color', userX.settings.themeColor );
+      if (user.settings?.themeColor) {
+        console.log('themeColor', user.settings.themeColor);
+        document.documentElement.style.setProperty( '--theme-color', user.settings.themeColor );
       }
-      if (userX.settings?.fontColor) {
-        console.log('fontColor', userX.settings.fontColor);
-        document.documentElement.style.setProperty( '--font-color', userX.settings.fontColor );
+      if (user.settings?.fontColor) {
+        console.log('fontColor', user.settings.fontColor);
+        document.documentElement.style.setProperty( '--font-color', user.settings.fontColor );
       }
-      setUser(userX);
-      setCurrentUser(userX);
+      setUser(user);
     } else {
-      setCurrentUser(null);
+      setUser(null);
     }
-  }, []);
+
+  }, [user]);
 
     
   return (<>
     <CssBaseline />
     <ThemeProvider theme={theme}>
       {/* <Header /> */}
-      <Navbar currentUser={currentUser} logout={logout} component='header' />
+      <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
       <Container maxWidth="lg" disableGutters component='main' sx={{p:3, height: 'calc(100vh - 68.5px - 24px)', overflowY: 'auto', overflowX: 'hidden'}}>
             <Routes>
-              <Route path="/users" element={<UserList currentUser={currentUser} />} />
-              <Route path="/users/:userId" element={<UserForm currentUser={currentUser} />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/users/:userId" element={<UserForm />} />
 
-              <Route path="/" element={<Landing currentUser={currentUser} />} />
-              <Route path="/landing" element={<Landing currentUser={currentUser} />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="/landing" element={<Landing />} />
               
-              {/* <Route path="/rjry_drug" element={<Introduction currentUser={currentUser} />} /> */}
-              <Route path="/introduction" element={<Introduction currentUser={currentUser} />} />
-              <Route path="/profile" element={<Profile currentUser={currentUser} />} />
-              <Route path="/research" element={<Research currentUser={currentUser} />} />
-              <Route path="/publications" element={<Publications currentUser={currentUser} />} />
-              <Route path="/mode" element={<Mode currentUser={currentUser} />} />
-              <Route path="/activities" element={<Activities currentUser={currentUser} />} />
-              <Route path="/certifications" element={<Certifications currentUser={currentUser} />} />
-              <Route path="/gallery" element={<Gallery currentUser={currentUser} />} />
-              <Route path="/contact" element={<Contact currentUser={currentUser} />} />
+              {/* <Route path="/rjry_drug" element={<Introduction />} /> */}
+              <Route path="/introduction" element={<Introduction />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/research" element={<Research />} />
+              <Route path="/publications" element={<Publications />} />
+              <Route path="/mode" element={<Mode />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/mesyuarat" element={<Activities />} />
+              <Route path="/certifications" element={<Certifications />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
 
-              <Route path="/form/:page" element={<CommonDataForm currentUser={currentUser} />} />
+              <Route path="/form/:page" element={<CommonDataForm />} />
 
-              <Route path="/signin" element={<SignIn currentUser={currentUser} />} />
-              <Route path="/settings" element={<UserSettings currentUser={currentUser} />} />
-              <Route path="/signup" element={<SignUp currentUser={currentUser} />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/settings" element={<UserSettings />} />
+              <Route path="/signup" element={<SignUp />} />
 
-              <Route path="*" element={<NoPage currentUser={currentUser} />} />
+              <Route path="*" element={<NoPage />} />
             </Routes>
           {/* {props.children} */}
       </Container>
