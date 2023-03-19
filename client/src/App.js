@@ -76,6 +76,13 @@ const App = () => {
   };
 
   useEffect(() => {
+    let currentUser = UserService.getCurrentUser();
+    if (currentUser) {
+      setUser(currentUser);
+    }
+  }, []);
+
+  useEffect(() => {
     if (user) {
       if (user.settings?.fontFamily) {
         console.log('fontFamily', user.settings.fontFamily);
@@ -89,9 +96,6 @@ const App = () => {
         console.log('fontColor', user.settings.fontColor);
         document.documentElement.style.setProperty( '--font-color', user.settings.fontColor );
       }
-      setUser(user);
-    } else {
-      setUser(null);
     }
 
   }, [user]);

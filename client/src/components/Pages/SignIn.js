@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -34,6 +34,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  let navigate = useNavigate();
+
   const { setUser } = React.useContext(UserContext);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,7 +47,7 @@ export default function SignIn() {
       .then((res) => {
         console.log(res);
         setUser(res);
-        window.location.href = "/";
+        navigate("/");
       })
   };
 
