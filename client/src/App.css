@@ -1,35 +1,50 @@
 :root {
-  --font-family: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-  --theme-color: skyblue;
-  --font-color: black;
+  --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
+  --themeBgColor: skyblue;
+  --themeFontColor: black;
+  --themeSize: 1.5rem;
+
+  --bodyFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
+  --bodyBgColor: white;
+  --bodyFontColor: black;
+  --bodySize: 1rem;
 }
 body {
-  font-family: var(--font-family) !important;
-  color: var(--font-color) !important;
+  font-family: var(--bodyFont) !important;
+  color: var(--bodyFontColor) !important;
+  background-color: var(--bodyBgColor) !important;
+  font-size: var(--bodySize) !important;
+}
+
+header, footer, nav {
+  font-family: var(--themeFont) !important;
+  color: var(--themeFontColor) !important;
+  background-color: var(--themeBgColor) !important;
+  font-size: var(--themeSize) !important;
 }
 .themeColor {
-  color: var(--theme-color) !important;
+  color: var(--themeBgColor) !important;
 }
 .themeColor:hover {
-  color: var(--theme-color) !important;
+  color: var(--themeBgColor) !important;
 }
 .themeBg {
-  background-color: var(--theme-color) !important;
+  background-color: var(--themeBgColor) !important;
 }
 .themeBg:hover {
-  background-color: var(--theme-color) !important;
+  background-color: var(--themeBgColor) !important;
 }
 .themeFont {
-  font-family: var(--font-family) !important;
+  font-family: var(--themeFont) !important;
 }
 .themeFull {
-  color: var(--font-color) !important;
-  background-color: var(--theme-color) !important;
-  font-family: var(--font-family) !important;
+  color: var(--themeFontColor) !important;
+  background-color: var(--themeBgColor) !important;
+  font-family: var(--themeFont) !important;
 }
 .theme {
-  color: var(--font-color) !important;
-  font-family: var(--font-family) !important;
+  color: var(--themeFontColor) !important;
+  font-family: var(--themeFont) !important;
 }
 
 .App {

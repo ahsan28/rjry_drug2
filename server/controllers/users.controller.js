@@ -6,6 +6,7 @@
 
 const User = require('../models/users.model.js');
 const Media = require('../models/media.model.js');
+const Settings = require('../models/settings.model.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -24,6 +25,42 @@ const read = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         res.status(200).json(user);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const getSettings = async (req, res) => {
+    try {
+        const settings = await Settings.findById(req.params.id);
+        res.status(200).json(settings);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const saveSettings = async (req, res) => {
+    try {
+        if (req.body._id) {
+            await Settings.findByIdAndUpdate(req.body._id, {...req.body, userid: req.params.userid} );
+            res.status(200).json({ message: 'Settings updated' });
+        }
+        else {
+            const settings = await Settings.create({
+                ...req.body,
+                userid: req.params.userid
+            });
+            res.status(201).json({ message: 'Settings created' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const readAll = async (req, res) => {
+    try {
+        const users = await User.find().select('-password');
+        res.status(200).json(users);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -201,9 +238,12 @@ const updateProfile = async (req, res) => {
 // export default { 
 module.exports = {
     read,
+    readAll,
     signup,
     updateLinks,
     login,
     sendEmail,
-    updateProfile
+    updateProfile,
+    getSettings,
+    saveSettings,
 };

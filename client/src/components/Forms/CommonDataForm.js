@@ -1,20 +1,20 @@
 import { useEffect, useState, useContext } from 'react'
 import DataService from '../../services/data.services'
-import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField } from '@mui/material'
+import MediaService from '../../services/media.services';
+import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Paper, Card, CardMedia, CardActions } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
-import FileUpload from "react-mui-fileuploader"
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from "../../UserContext";
 
 
 const CommonDataForm = () => {
-  const { user } = useContext(UserContext);
-  const [data, setData] = useState(null);
-    const [oldGalleryIds, setOldGalleryIds] = useState([]);
-    console.log("🚀 ~ file: DataForm.js ~ line 9 ~ DataForm ~ data", data)
+    const { user, setUser } = useContext(UserContext);
+    const [data, setData] = useState(null);
+    const [gallery, setGallery] = useState([]);
+    const [galleryFiles, setGalleryFiles] = useState([]);
+    const [image, setImage] = useState(null);
+    const [imgFile, setImgFile] = useState(null);
     let { page } = useParams();
-    console.log("🚀 ~ file: DataForm.js ~ line 12 ~ DataForm ~ page", page)
     let navigate = useNavigate();
 
 
@@ -23,9 +23,24 @@ const CommonDataForm = () => {
             DataService.read(page.charAt(0).toUpperCase() + page.slice(1))
             .then((res) => {
                 console.log("🚀 ~ file: DataForm.js ~ line 16 ~ .then ~ res", res)
-                if (res.data) setData(res.data);
+                if (res.data) {
+                    setData(res.data)
+                    if (res.data.cover) {
+                        console.log("🚀 ~ file: DataForm.js ~ line 19 ~ .then ~ res.data.cover", res.data.cover)
+                        MediaService.loadImage(res.data.cover)
+                        .then((res2) => {
+                            console.log("🚀 ~ file: DataForm.js ~ line 21 ~ .then ~ res2", res2)
+                            setImage(URL.createObjectURL(res2.data));
+                            setImgFile(res2.data);
+                        })
+                        .catch((err) => {
+                            console.log('Error llllloading image: ', err);
+                            console.log(err);
+                        });
+                    }
+
+                }
                 else setData({name: page.charAt(0).toUpperCase() + page.slice(1), title: page.charAt(0).toUpperCase() + page.slice(1)})
-                setOldGalleryIds(res.data.gallery)
             })
             .catch((err) => {
                 console.log(err);
@@ -33,23 +48,7 @@ const CommonDataForm = () => {
         }
     }, []);
 
-    const handleFileUploadError = (error) => {
-        console.log("🚀 ~ file: DataForm.js ~ line 25 ~ handleFileUploadError ~ error", error)
-        // Do something...
-      }
-      
-      const handleCoverChange = (files) => {
-        setData({...data, cover: files[0]})
-      }
 
-      const handleGalleryChange = (files) => {
-        setData({...data, gallery: files})
-      }
-
-    // function handleChange(event) {
-    //     const { name, value } = event.target;
-    //     setData({ ...data, [name]: value });
-    // }
     function save() {
         console.log("🚀 ~ file: DataForm.js ~ line 24 ~ save ~ page, data", page, data)
         const formData = new FormData();
@@ -57,10 +56,11 @@ const CommonDataForm = () => {
         formData.append("name", data.name);
         formData.append("title", data.title);
         formData.append("description", data.description);
-        formData.append("cover", data.cover);
-        formData.append("gallery", data.gallery);
+
+        if (imgFile) formData.append("cover", imgFile);
+        if (galleryFiles) formData.append("gallery", galleryFiles);
         
-        DataService.save(data)
+        DataService.save(formData, page.charAt(0).toUpperCase() + page.slice(1))
             .then((res) => {
                 console.log(res);
                 navigate(`/${page}`)
@@ -76,123 +76,109 @@ const CommonDataForm = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            gap: 2
           }}
         >
-        <FormControl>
-            {/* title */}
-            {/* <InputLabel htmlFor="title">Title</InputLabel>
-            <Input id="title" name="title" value={data ? data.title : ""} onChange={handleChange} disabled={true} />
-            <FormHelperText>Title of the page</FormHelperText> */}
-            <TextField
-                sx={{ margin: 1, width: '25ch' }}
-                id="outlined-multiline-flexible"
-                // disabled={true}
-                label="Title"
-                // multiline
-                // maxRows={4}
-                value={data?.title||""}
-                onChange={(e) => setData({...data, title: e.target.value})}
-            />
-            {/* description */}
-            {/* <InputLabel htmlFor="description">Description</InputLabel> */}
-            {page!=="gallery" && (<Box sx={{ marginTop: 2, marginBottom: 2 }}>
-            <FileUpload
-                id="cover"
-                multiFile={false}
-                disabled={false}
-                title="Upload Cover"
-                imageSrc={data?.cover?.path||data?.cover?.url||""}
-                header="[Drag and drop]"
-                leftLabel="or"
-                buttonLabel="click here"
-                rightLabel="to select an image"
-                buttonRemoveLabel="Remove"
-                // maxFileSize={10}
-                maxUploadFiles={1}
-                // maxFilesContainerHeight={357}
-                errorSizeMessage={'fill it or move it to use the default error message'}
-                allowedExtensions={['jpg', 'jpeg', 'png', 'gif']}
-                onFilesChange={handleCoverChange}
-                onError={handleFileUploadError}
-                bannerProps={{ elevation: 0, variant: "outlined" }}
-                containerProps={{ elevation: 0, variant: "outlined" }}
-            />
-            </Box>)}
-            {/* <Input id="description" name="description" value={data ? data.description : ""} onChange={handleChange} /> */}
-            <TextField
-                sx={{ margin: 1 }}
-                id="outlined-multiline-flexible"
-                label="Description"
-                multiline
-                maxRows={4}
-                value={data?.description||""}
-                onChange={(e) => setData({...data, description: e.target.value})}
-            />
-            {/* <FormHelperText>Enter the description of the page</FormHelperText> */}
-            {/* cover */}
-            {page==="gallery" && (<Box sx={{ marginTop: 2, marginBottom: 2 }}>
-                {/* show the list of gallery ids */}
-                <List subheader={<ListSubheader>Gallery</ListSubheader>}>
-                    {data?.gallery?.map((item, index) => (
-                        <ListItem key={index}>
-                            <ListItemIcon>
-                                <IconButton edge="end" aria-label="delete" onClick={() => {
-                                    let newGallery = data.gallery.filter((item, i) => i!==index)
-                                    setData({...data, gallery: newGallery})
-                                }}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={item.name}
-                            />
-                        </ListItem>
-                    ))}
-                </List>
-            <FileUpload
-                id="gallery"
-                multiFile={true}
-                disabled={false}
-                title="Upload Gallery Images"
-                imageSrc={data?.gallery?.map((img) => img.path||img.url)||""}
-                header="[Drag and drop]"
-                leftLabel="or"
-                buttonLabel="click here"
-                rightLabel="to select images"
-                buttonRemoveLabel="Remove all"
-                maxFileSize={10}
-                maxUploadFiles={0}
-                maxFilesContainerHeight={357}
-                errorSizeMessage={'fill it or move it to use the default error message'}
-                allowedExtensions={['jpg', 'jpeg', 'png', 'gif']}
-                onFilesChange={handleGalleryChange}
-                onError={handleFileUploadError}
-                bannerProps={{ elevation: 0, variant: "outlined" }}
-                containerProps={{ elevation: 0, variant: "outlined" }}
-            />
-            </Box>)}
-            {/* <InputLabel htmlFor="cover">Cover</InputLabel>
-            <Input id="cover" name="cover" value={data ? data.cover : ""} onChange={handleChange} />
-            <FormHelperText>Enter the cover of the page</FormHelperText> */}
-            {/* media */}
-            {/* <InputLabel htmlFor="media">Media</InputLabel>
-            <Input id="media" name="media" value={data ? data.media : ""} onChange={handleChange} />
-            <FormHelperText>Enter the media of the page</FormHelperText> */}
-            {/* two buttons: save and cancel flex around */}
-            <Box sx={{display: "flex", justifyContent: "space-around", marginTop: 4}}>
-                {/* cancel gray color */}
-                <Button variant="contained" color="secondary" >
-                    <Link to={`/${page.toLocaleLowerCase()}`} style={{textDecoration: "none", color: "white"}}>Cancel</Link>
-                </Button>
-                {/* save button */}
-                <Button variant="contained" color='success' onClick={save}>Save</Button>
+            <TextField name="title" label="Title" value={data ? data.title : ""} onChange={(e) => setData({...data, title: e.target.value})} sx={{width: "50%"}}/>
+            {page!=="gallery" && 
+            <Paper elevation={1} sx={{padding: 2, width: "50%"}}>
+                {image && <Card sx={{ maxWidth: 300, mb:2 }}>
+                    <CardMedia
+                        component="img"
+                        height="150"
+                        image={image}
+                        alt="Cover Image"
+                    />
+                    <CardActions>
+                        <Button
+                            size="small"
+                            onClick={()=>{
+                                setImage(null)
+                                setImgFile(null)
+                                setData({...data, cover: null, coverUpdated: true})
+                            }}
+                            color="error"
+                            variant="contained"
+                        >
+                            Remove
+                        </Button>
+                    </CardActions>
+                </Card>}
+                <label htmlFor="cover-upload">
+                    <input
+                        id="cover-upload"
+                        name="cover-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e)=>{
+                            setImgFile(e.target.files[0])
+                            setImage(URL.createObjectURL(e.target.files[0]))
+                            setData({...data, cover: e.target.files[0].name, coverUpdated: true})
+                        }}
+                        hidden
+
+                    />
+                    <Button variant="contained" component="span">
+                        {image ? "Change Cover" : "Upload Cover"}
+                    </Button>
+                </label>
+
+                </Paper>}
+            {page==="gallery" && 
+            <Paper elevation={1} sx={{padding: 2, width: "50%"}}>
+                <Box sx={{display: "flex", flexDirection: "row", gap: 2}}>
+                    {gallery.map((image, index) => (
+                    <Card sx={{ maxWidth: 300, mb:2 }} key={index}>
+                    <CardMedia
+                        component="img"
+                        height="150"
+                        image={image}
+                        alt="Gallery Image"
+                    />
+                    <CardActions>
+                        <Button 
+                            size="small"
+                            onClick={()=>{
+                                const newGallery = gallery.filter((img, i) => i !== index)
+                                const newGalleryFiles = galleryFiles.filter((img, i) => i !== index)
+                                setGallery(newGallery)
+                                setGalleryFiles(newGalleryFiles)
+                                setData({...data, galleryUpdated: true})
+                            }}
+                            color="error"
+                            variant="contained"
+                        >
+                            Remove
+                        </Button>
+                    </CardActions>
+                </Card>
+            ))}
             </Box>
-        </FormControl>
-
+            <label htmlFor="image-upload">
+                <input
+                    id="image-upload"
+                    name="image-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e)=>{
+                        setGalleryFiles(prev => [...prev, ...e.target.files])
+                        setGallery(prev => [...prev, ...Array.from(e.target.files).map(file => URL.createObjectURL(file))])
+                        setData({...data, galleryUpdated: true})
+                    }}
+                    multiple
+                    hidden
+                />
+                <Button variant="contained" component="span" size="small" color="success">
+                    {gallery.length > 0 ? "Add More Images" : "Add Images"}
+                </Button>
+            </label>
+        </Paper>}
+        <TextField name="description" label="Description" value={data ? data.description : ""} onChange={(e) => setData({...data, description: e.target.value})} sx={{width: "50%"}}/>
+        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "50%"}}>
+            <Button variant="contained" onClick={() => navigate(`/${page}`)} color="error" >Cancel</Button>
+            <Button variant="contained" onClick={save} color="success" >Save</Button>
         </Box>
-
-
-  )
+    </Box>)
 }
 
 export default CommonDataForm

@@ -6,7 +6,7 @@ import MediaService from "../../services/media.services";
 import Image from 'mui-image';
 import { UserContext } from "../../UserContext";
 import './Styles/Landing.css'
-import ViewImage from "./ViewImage";
+import ViewImage from "../Hooks/ViewImage";
 import BasicPage from "../Hooks/BasicPage";
 import TextCarousel from "../Hooks/TextCarousel";
 
@@ -64,13 +64,13 @@ const Landing = () => {
   const tiles = [
     {
       title: 'Introduction',
-      subtitle: 'Get introduced to our company',
+      subtitle: 'Get introduced to our organization',
       link: '/introduction',
       color: 'primary.main',
     },
     {
-      title: 'Profile',
-      subtitle: 'Learn more about our company',
+      title: 'Profiles',
+      subtitle: 'Learn more about the members of our organization',
       link: '/profile',
       color: 'secondary.main',
     },

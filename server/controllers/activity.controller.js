@@ -40,9 +40,11 @@ const update = async (req, res) => {
 }
 
 const create = async (req, res) => {
+    console.log('req.body::',req.body);
+    console.log('req.files::',req.files);
     try {
-        const data = await Activity.create(req.body);
-        res.status(201).json(data);
+        // const data = await Activity.create(req.body);
+        res.status(201).json('data');
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

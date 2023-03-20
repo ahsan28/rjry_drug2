@@ -79,49 +79,23 @@ const getAll = async (req, res) => {
 
 const update = async (req, res) => {
     console.log("🚀 ~ file: data.controller.js ~ line 67 ~ update ~ req.body", req.body)
+    console.log("🚀 ~ file: data.controller.js ~ line 67 ~ update ~ req.files", req.files)
     try {
-        
-        if (req.body.name == 'Gallery'){
-            if (!req.body.gallery) req.body.gallery = []
-            let oldGalleryIds = req.body.gallery.filter(item => item._id).map(item => item._id)
-            let imagesToSave = req.body.gallery.filter(item => !item._id)
-            let newImageIds = imagesToSave.map(() => new ObjectId())
-            imagesToSave = imagesToSave.map((image, index) => {
-                image._id = newImageIds[index]
-                return image
-            })
-            await Media.insertMany(imagesToSave).then((res) => {
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
-            })
-            req.body.gallery = [...oldGalleryIds, ...newImageIds]
+        var data = await Data.findOne({ name: req.body.name });
+        if (data) {
+            if (data.name != 'Gallery') {
+                data.title = req.body.title;
+                data.description = req.body.description;
+                data.lastEditDate = new Date();
+                data.lastEditor = req.body.userid;
+                if (req.files.cover) {
+                    data.cover = req.files.cover[0]._id;
+                }
+                if (req.files.gallery) {
+                    data.gallery = req.files.gallery.map((file) => file._id);
+                }
+            }
         }
-
-        if (req.body.cover && !req.body.cover.saved){
-            let newImageId = new ObjectId()
-            req.body.cover._id = newImageId
-            await Media.create(req.body.cover).then((res) => {
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
-            })
-            req.body.cover = newImageId
-        }
-
-        const data = await Data.findOneAndUpdate(
-            { name: req.params.name }, 
-            {$set: req.body},
-            { new: true, upsert: true })
-        .then((data) => {
-            console.log(data)
-            return data
-        })
-        .catch((err) => {
-            console.log("update error!!!")
-            console.log(err)
-        })
-        res.status(200).json(data);
     } catch (err) {
         
         res.status(400).json({ message: err.message });

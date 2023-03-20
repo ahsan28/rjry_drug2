@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-const fields = ['logo','cover','footer'].map(x=>({name:x}))
+const fields = ['images'].map(x=>({name:x}))
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ const router = express.Router();
 // common data
 router.get("/read/:id", controller.read);
 router.get("/readAll", verifyJWT, controller.readAll);
-router.post("/create", verifyJWT, controller.create);
+router.post("/create", upload.array('images'), controller.create);
 router.put("/update/:id", verifyJWT, controller.update);
 router.delete("/remove/:id", verifyJWT, controller.remove);
 

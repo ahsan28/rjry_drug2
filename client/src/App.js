@@ -5,18 +5,18 @@ import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
 import ActivityForm from './components/Forms/ActivityForm';
 import Profile from './components/Pages/Profile';
+import MemberProfiles from './components/Pages/MemberProfiles';
 import NoPage from './components/Pages/NoPage';
 import Introduction from './components/Pages/Introduction';
 import Research from './components/Pages/Research';
 import Contact from './components/Pages/Contact';
 import Publications from './components/Pages/Publications';
-import Mode from './components/Pages/Mode';
 import Activities from './components/Pages/Activities';
 import Certifications from './components/Pages/Certifications';
 import Gallery from './components/Pages/Gallery';
 import SignIn from './components/Pages/SignIn';
 import SignUp from './components/Pages/SignUp';
-import UserSettings from './components/Users/UserSettings';
+import SettingsForm from './components/Forms/SettingsForm';
 import Footer from './Footer';
 import CommonDataForm from './components/Forms/CommonDataForm';
 import Navbar from './Navbar';
@@ -31,45 +31,45 @@ const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-family)',
     color: 'var(--font-color)',
-    h1: {
-      fontSize: '3rem',
-    },
-    h2: {
-      fontSize: '2.5rem',
-    },
-    h3: {
-      fontSize: '2rem',
-    },
-    h4: {
-      fontSize: '1.5rem',
-    },
-    h5: {
-      fontSize: '1.25rem',
-    },
-    h6: {
-      fontSize: '1rem',
-    },
-    subtitle1: {
-      fontSize: '1.25rem',
-    },
-    subtitle2: {
-      fontSize: '1rem',
-    },
-    body1: {
-      fontSize: '1.25rem',
-    },
-    body2: {
-      fontSize: '1rem',
-    },
-    button: {
-      fontSize: '1rem',
-    },
+    // h1: {
+    //   fontSize: '3rem',
+    // },
+    // h2: {
+    //   fontSize: '2.5rem',
+    // },
+    // h3: {
+    //   fontSize: '2rem',
+    // },
+    // h4: {
+    //   fontSize: '1.5rem',
+    // },
+    // h5: {
+    //   fontSize: '1.25rem',
+    // },
+    // h6: {
+    //   fontSize: '1rem',
+    // },
+    // subtitle1: {
+    //   fontSize: '1.25rem',
+    // },
+    // subtitle2: {
+    //   fontSize: '1rem',
+    // },
+    // body1: {
+    //   fontSize: '1.25rem',
+    // },
+    // body2: {
+    //   fontSize: '1rem',
+    // },
+    // button: {
+    //   fontSize: '1rem',
+    // },
 
   },
 });
 
 const App = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, settings, setSettings } = useContext(UserContext);
 
   const logout = () => {
     UserService.logout();
@@ -81,25 +81,43 @@ const App = () => {
     if (currentUser) {
       setUser(currentUser);
     }
+    UserService.getSettings(currentUser?.settings).then((response) => {
+      setSettings(response.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }, []);
 
   useEffect(() => {
-    if (user) {
-      if (user.settings?.fontFamily) {
-        console.log('fontFamily', user.settings.fontFamily);
-        document.documentElement.style.setProperty( '--font-family', user.settings.fontFamily );
+    if (settings) {
+      if (settings.theme.color) {
+        document.documentElement.style.setProperty('--themeFontColor', settings.theme.color);
       }
-      if (user.settings?.themeColor) {
-        console.log('themeColor', user.settings.themeColor);
-        document.documentElement.style.setProperty( '--theme-color', user.settings.themeColor );
+      if (settings.theme.backgroundColor) {
+        document.documentElement.style.setProperty('--themeBgColor', settings.theme.backgroundColor);
       }
-      if (user.settings?.fontColor) {
-        console.log('fontColor', user.settings.fontColor);
-        document.documentElement.style.setProperty( '--font-color', user.settings.fontColor );
+      if (settings.theme.fontFamily) {
+        document.documentElement.style.setProperty('--themeFont', settings.theme.fontFamily);
+      }
+      if (settings.theme.fontSize) {
+        document.documentElement.style.setProperty('--themeSize', settings.theme.fontSize);
+      }
+      if (settings.body.color) {
+        document.documentElement.style.setProperty('--bodyFontColor', settings.body.color);
+      }
+      if (settings.body.backgroundColor) {
+        document.documentElement.style.setProperty('--bodyBgColor', settings.body.backgroundColor);
+      }
+      if (settings.body.fontFamily) {
+        document.documentElement.style.setProperty('--bodyFont', settings.body.fontFamily);
+      }
+      if (settings.body.fontSize) {
+        document.documentElement.style.setProperty('--bodySize', settings.body.fontSize);
       }
     }
 
-  }, [user]);
+  }, [settings]);
 
     
   return (<>
@@ -118,20 +136,20 @@ const App = () => {
               
               {/* <Route path="/rjry_drug" element={<Introduction />} /> */}
               <Route path="/introduction" element={<Introduction />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/member_profiles" element={<MemberProfiles />} />
               <Route path="/research" element={<Research />} />
               <Route path="/publications" element={<Publications />} />
-              <Route path="/mode" element={<Mode />} />
               <Route path="/activity/:actId" element={<Activities />} />
-              <Route path="/activityform/:actId" element={<ActivityForm />} />
+              <Route path="/activity_form/:actId" element={<ActivityForm />} />
               <Route path="/certifications" element={<Certifications />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
 
               <Route path="/form/:page" element={<CommonDataForm />} />
 
+              <Route path="/profile" element={<Profile />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/settings" element={<UserSettings />} />
+              <Route path="/settings" element={<SettingsForm />} />
               <Route path="/signup" element={<SignUp />} />
 
               <Route path="*" element={<NoPage />} />

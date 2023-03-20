@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MediaService from "../../services/media.services";
-import { Box } from "@mui/system";
+import { Box, CardMedia } from "@mui/material";
+
 
 
 const ViewImage = ({ image, ...props }) => {
+  console.log("🚀 ~ file: ViewImage.js:8 ~ ViewImage ~ image:", image)
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
@@ -18,10 +20,11 @@ const ViewImage = ({ image, ...props }) => {
   return (
     <div>
       {imageUrl && (
-        <Box
+        <CardMedia
           component="img"
-          src={imageUrl}
-          alt="image"
+          height="100"
+          image={imageUrl}
+          alt="Paella dish"
           {...props}
         />
       )}

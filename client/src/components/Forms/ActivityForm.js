@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { TextField, Button, Box, Card, CardMedia, CardActions, Paper } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
+import ActivityService from "../../services/activity.services";
 
 const ActivityForm = ({ onAdd }) => {
   const { user, setUser } = useContext(UserContext);
@@ -10,18 +11,43 @@ const ActivityForm = ({ onAdd }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [imgFiles, setImgFiles] = useState([]);
   const [links, setLinks] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const activity = { name, title, description, images, links };
-    console.log("🚀 ~ file: ActivityForm.js:18 ~ handleSubmit ~ activity:", activity)
+    let formData = new FormData();
+    formData.append("userid", user._id);
+    formData.append("username", user.username);
+    
+    formData.append("actId", actId);
+    formData.append("name", name);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("images", imgFiles);
+    formData.append("links", links);
+    // const activity = { name, title, description, images, links };
+    // console.log("🚀 ~ file: ActivityForm.js:18 ~ handleSubmit ~ activity:", activity)
     // onAdd(activity);
-    setName("");
-    setTitle("");
-    setDescription("");
-    setImages([]);
-    setLinks([]);
+
+    ActivityService.create(formData)
+        .then((res) => {
+            console.log("🚀 ~ file: ActivityForm.js:21 ~ handleSubmit ~ res", res);
+
+            setName("");
+            setTitle("");
+            setDescription("");
+            setImages([]);
+            setImgFiles([]);
+            setLinks([]);
+            
+            navigate("/activity/" + actId);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
   };
 
   const handleLinkChange = (index, event, field) => {
@@ -43,8 +69,8 @@ const ActivityForm = ({ onAdd }) => {
   };
 
   const handleImageChange = (event) => {
-
     const files = event.target.files;
+    setImgFiles(prevFiles => prevFiles.concat(files));
     const imagesArray = Array.from(files).map((file) => URL.createObjectURL(file));
     setImages(prevImages => prevImages.concat(imagesArray));
   };
@@ -53,6 +79,10 @@ const ActivityForm = ({ onAdd }) => {
     const values = [...images];
     values.splice(index, 1);
     setImages(values);
+
+    const files = [...imgFiles];
+    files.splice(index, 1);
+    setImgFiles(files);
   };
 
   return (

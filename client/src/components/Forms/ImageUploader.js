@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Button, Box, Typography, Avatar } from '@mui/material';
-import ViewImage from '../Pages/ViewImage';
+import ViewImage from '../Hooks/ViewImage';
 
 const useStyles = makeStyles((theme) => ({
   input: {

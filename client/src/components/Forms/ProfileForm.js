@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
-import ViewImage from "../Pages/ViewImage";
+import ViewImage from "../Hooks/ViewImage";
 import ImageUploader from "./ImageUploader";
 
 

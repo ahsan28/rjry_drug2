@@ -36,7 +36,7 @@ const BasicPage = ({ data, cover, page }) => {
         alt={cover.originalname}
         // title={"titleasdasdsada"}
         sx={{ padding: "0px", objectFit: "contain" }}
-        image={cover.path}
+        image={URL.createObjectURL(cover)}
         title={cover.originalname}
       />
       {/* <CardContent>

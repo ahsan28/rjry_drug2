@@ -22,7 +22,7 @@ router.get("/", controller.test);
 router.get("/createAll", verifyJWT, controller.create);
 router.get("/getAll", verifyJWT, controller.getAll);
 router.get("/:name", controller.read);
-router.put("/:name", controller.update);
+router.put("/:name", upload.fields([{name:'cover'},{name:'gallery'}]), controller.update);
 router.post("/upload", upload.fields(fields), controller.fileUpload);
 
 // export default router;

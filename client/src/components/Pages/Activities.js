@@ -7,7 +7,7 @@ import Image from 'mui-image';
 import { UserContext } from "../../UserContext";
 import CoverflowGallery from "../Hooks/CoverflowGallery";
 import CarouselPage from "../Hooks/CarouselPage";
-import ActViewer from "./ActViewer";
+import ActViewer from "../Forms/ActViewer";
 
 const activities = [
   {
@@ -75,7 +75,7 @@ const Activities = () => {
 
   return (<>
   {user && <Box sx={{display: "flex", justifyContent: "flex-end", mb: 2}}>
-      <Button variant="contained" component={Link} to={`/activityform/${actId}`}>Add new activity</Button>
+      <Button variant="contained" component={Link} to={`/activity_form/${actId}`}>Add new activity</Button>
     </Box>}
     <Grid container spacing={3}>
       {activities ? <>

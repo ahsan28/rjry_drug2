@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import ViewImage from "./components/Pages/ViewImage";
+import ViewImage from "./components/Hooks/ViewImage";
 import { UserContext } from "./UserContext";
 import { Divider } from "@mui/material";
 import MediaService from "./services/media.services";
@@ -59,7 +59,7 @@ const Navbar = ({logout}) => {
   };
 
   return (
-    <AppBar position="static" className="themeBg">
+    <AppBar position="static" className="themeBg" component="nav">
       <Container  >
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
@@ -85,9 +85,9 @@ const Navbar = ({logout}) => {
                         Pengenalan
                     </Link>
                 </MenuItem>
-                <MenuItem key={`profile`} onClick={handleCloseNavMenu}>
-                    <Link to={`/profile`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
-                        Profile
+                <MenuItem key={`member_profiles`} onClick={handleCloseNavMenu}>
+                    <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                        Profiles
                     </Link>
                 </MenuItem>
                 {/* <MenuItem key={`research`} onClick={handleCloseNavMenu}>
@@ -148,9 +148,9 @@ const Navbar = ({logout}) => {
                         Pengenalan
                     </Button>
                 </Link>
-                <Link to={`/profile`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
-                    <Button key={`profile`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Profile
+                <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Button key={`member_profiles`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Profiles
                     </Button>
                 </Link>
                 {/* <Link to={`/research`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
@@ -208,6 +208,11 @@ const Navbar = ({logout}) => {
           </Box>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
             {user? (<>
+                <MenuItem key={"profile"}>
+                    <Link to={`/profile`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
+                        <Typography textAlign="center">{"My profile"}</Typography>
+                    </Link>
+                </MenuItem>
                 <MenuItem key={"Settings"}>
                     <Link to={`/settings`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
                         <Typography textAlign="center">{"Settings"}</Typography>

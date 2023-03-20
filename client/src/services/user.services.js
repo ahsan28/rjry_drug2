@@ -5,7 +5,11 @@ import authHeader from './auth.header';
 const api = 'http://localhost:5000/users/' // "https://rjrydrug.herokuapp.com/"
 
 const get = (username) => {
-    return axios.get(`${api}${username}`);
+    return axios.get(`${api}read/${username}`);
+}
+
+const readAll = () => {
+    return axios.get(`${api}readAll`, { headers: authHeader() });
 }
 
 const updateLinks = (data,username) => {
@@ -34,6 +38,15 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 }
 
+const getSettings = (id=null) => {
+    if (!id) return axios.get(`${api}settings`, { headers: authHeader() });
+    else return axios.get(`${api}settings/${id}`, { headers: authHeader() });
+}
+
+const updateSettings = (userid,data) => {
+    return axios.put(`${api}settings/${userid}`, data, { headers: authHeader() });
+}
+
 const logout = () => {
     localStorage.removeItem('user');
     window.location.href = "/";
@@ -46,11 +59,14 @@ const sendEmail = (email) => {
 
 const functions = {
     get,
+    readAll,
     updateLinks,
     updateProfile,
     register,
     login,
     getCurrentUser,
+    getSettings,
+    updateSettings,
     logout,
     sendEmail,
 }

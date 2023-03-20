@@ -7,7 +7,7 @@ import { styled } from '@mui/system';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import UserService from '../../services/user.services';
 import MediaService from '../../services/media.services';
-import ViewImage from './ViewImage';
+import ViewImage from '../Hooks/ViewImage';
 
 import ProfileForm from '../Forms/ProfileForm';
 
@@ -122,7 +122,7 @@ const Profile = () => {
           </Typography>
           <Divider />
           <Typography variant="body1" gutterBottom>
-            {user?.phone||'+60123456789'}
+            {user?.phone||'+601151171332'}
           </Typography>
           <Typography variant="body1" gutterBottom>
             {user?.email||'ahabib.j@gmail.com'}
