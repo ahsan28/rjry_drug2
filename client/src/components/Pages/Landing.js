@@ -115,7 +115,7 @@ const Landing = () => {
   return (
     <Paper
       sx={{
-        height: '100%',
+        height: 'auto',
         width: '100%',
       }}
       elevation={4}
@@ -133,6 +133,10 @@ const Landing = () => {
           {texts.length > 0 && <TextCarousel texts={texts} />}
 
         </Typography>
+        <Paper elevation={4} sx={{ padding: 4, borderRadius: 2 }}>
+
+<ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} />
+</Paper>
         {/* Body */}
         <Typography variant="body1" color="DarkSlateGray" mb={4}>
           {/* Begin the text with a big first letter */}

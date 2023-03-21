@@ -8,6 +8,7 @@ import { UserContext } from "../../UserContext";
 import CoverflowGallery from "../Hooks/CoverflowGallery";
 import CarouselPage from "../Hooks/CarouselPage";
 import ActViewer from "../Forms/ActViewer";
+import ViewImage from "../Hooks/ViewImage";
 
 const activities = [
   {
@@ -95,6 +96,10 @@ const Activities = () => {
         <Paper sx={{ p: 2 }}>
           <Typography variant="subtitle1">No activities yet</Typography>
           <Typography variant="subtitle2">Click the button above to add new activities</Typography>
+        </Paper>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="subtitle2">Image below is the mock</Typography>
+          <ViewImage image={'6418fb5fc75e8fe3920a0431'} sx={{width: "100%", height: "auto"}} />
         </Paper>
         </Grid>}
     </Grid>
