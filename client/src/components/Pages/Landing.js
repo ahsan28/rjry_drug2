@@ -13,12 +13,12 @@ import TextCarousel from "../Hooks/TextCarousel";
 import { styled } from '@mui/material/styles';
 
 const texts = [
-  "Breaking the Cycle: Preventing Drug Use in Malaysian Schools",
-  "Empowering Educators: Developing a Model for Drug-Free Schools",
-  "Building a Safer Future: The Drug Prevention Education Project",
-  "Securing Safe Spaces: The Quest for Drug-Free Schools in Malaysia",
-  "Promoting a Positive Learning Environment: Drug Prevention Education in Malaysia",
-  "Creating Drug-Free Schools in Malaysia: A Research Project",
+  "Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
+  "Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Narkoba",
+  "Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Narkoba",
+  "Mengamankan Ruang Aman: Mencari Sekolah Bebas Narkoba di Malaysia",
+  "Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Narkoba di Malaysia",
+  "Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
 ];
 const Landing = () => {
   const navigate = useNavigate();
@@ -63,54 +63,54 @@ const Landing = () => {
 
   const tiles = [
     {
-      title: 'Introduction',
-      subtitle: 'Get introduced to our organization',
+      title: 'Pengenalan',
+      subtitle: 'Ketahui tentang organisasi kami',
       link: '/introduction',
       color: 'primary.main',
     },
     {
-      title: 'Profiles',
-      subtitle: 'Learn more about the members of our organization',
+      title: 'Profil',
+      subtitle: 'Pelajari lebih lanjut tentang anggota organisasi kami',
       link: '/profile',
       color: 'secondary.main',
     },
     {
-      title: 'Research',
-      subtitle: 'See our research and development',
+      title: 'Penelitian',
+      subtitle: 'Lihat penelitian dan pengembangan kami',
       link: '/research',
       color: 'info.main',
     },
     {
-      title: 'Products',
-      subtitle: 'Explore our range of products',
+      title: 'Produk',
+      subtitle: 'Jelajahi berbagai produk kami',
       link: '/products',
       color: 'success.main',
     },
     {
-      title: 'Activities',
-      subtitle: 'See our activities',
+      title: 'Kegiatan',
+      subtitle: 'Lihat kegiatan kami',
       link: '/activities',
       color: 'warning.main',
     },
     {
-      title: 'Contact',
-      subtitle: 'Get in touch with us',
+      title: 'Kontak',
+      subtitle: 'Hubungi kami',
       link: '/contact',
       color: 'error.main',
     },
     {
-      title: 'Login',
-      subtitle: 'Login to your account',
+      title: 'Masuk',
+      subtitle: 'Masuk ke akun Anda',
       link: '/login',
       color: 'orange',
     },
     {
-      title: 'Register',
-      subtitle: 'Register for an account',
+      title: 'Daftar',
+      subtitle: 'Daftar akun',
       link: '/register',
       color: 'purple',
     },
-  ];
+    ];
 
   return (
     <Paper
@@ -122,14 +122,14 @@ const Landing = () => {
     >
 
 
-    <Box sx={{ height: '100%', width: '100%', backgroundColor: 'lightgray', borderRadius: 1 }}>
+    <Box sx={{ height: '100%', width: '100%', borderRadius: 1 }}>
       <Box sx={{ padding: 4 }}>
         {/* Title , centered */}
-        <Typography variant="h2" color="DarkBlue" mb={2} align="center">
-        Preventing Drug Use in Malaysian Schools
+        <Typography variant="h3" color="DarkBlue" mb={2} align="center">
+        Mencegah Penggunaan Dadah di Sekolah-Sekolah Malaysia
         </Typography>
         {/* Slogan */}
-        <Typography variant="h5" align="center" color="SlateGray" mb={4}>
+        <Typography variant="body2" align="center" color="SlateGray" mb={4}>
           {texts.length > 0 && <TextCarousel texts={texts} />}
 
         </Typography>
@@ -138,21 +138,21 @@ const Landing = () => {
           {/* Begin the text with a big first letter */}
           <span style={{ fontSize: '2em', fontWeight: 'bold' }}>
             {/* {data?.description?.charAt(0)} */}
-            W
+            S
             </span>
           {/* Rest of the text */}
 
-        elcome to the exciting world of drug prevention education! We are thrilled to embark on a journey that aims to create drug-free schools in Malaysia, and we are so glad that you have joined us on this mission.
+          elamat datang ke dunia pendidikan pencegahan dadah yang penuh dengan kegembiraan! Kami gembira untuk memulakan perjalanan ini yang bertujuan untuk mencipta sekolah bebas dadah di Malaysia, dan kami amat berterima kasih kerana anda turut bergabung dengan kami dalam misi ini.
 
-        As a member of this team, you are making a real difference in the lives of students, teachers, and communities across the country. Your contributions will help prevent drug use, reduce drug-related issues in schools, and promote healthy and safe learning environments for all.
+          Sebagai ahli pasukan ini, anda sedang membuat perbezaan yang sebenar dalam kehidupan pelajar, guru, dan komuniti di seluruh negara. Sumbangan anda akan membantu mencegah penggunaan dadah, mengurangkan masalah yang berkaitan dengan dadah di sekolah, dan mempromosikan persekitaran pembelajaran yang sihat dan selamat untuk semua.
 
-        We recognize that implementing drug prevention education in schools can be challenging, but we also know that together, we can overcome any obstacle. Your unique skills, talents, and perspectives will play a vital role in shaping the future of drug prevention education in Malaysia.
+          Kami mengakui bahawa melaksanakan pendidikan pencegahan dadah di sekolah boleh menjadi cabaran, tetapi kami juga tahu bahawa bersama-sama, kita boleh mengatasi sebarang rintangan. Kemahiran, bakat, dan perspektif unik anda akan memainkan peranan penting dalam membentuk masa depan pendidikan pencegahan dadah di Malaysia.
 
-        So let us inspire each other, motivate one another, and work together towards a common goal. Together, we can make a positive impact on the lives of countless individuals and communities. Thank you for joining us on this exciting journey, and let's get started!
+          Jadi, mari kita memberi inspirasi satu sama lain, memotivasi antara satu sama lain, dan bekerja bersama menuju matlamat yang sama. Bersama-sama, kita boleh memberikan impak positif kepada kehidupan berbilang individu dan komuniti. Terima kasih kerana telah bergabung dengan kami dalam perjalanan yang penuh dengan kegembiraan ini, dan mari kita bermula!
         </Typography>
         <Grid container spacing={4}>
           {tiles.map((tile) => (
-            <Grid item xs={12} sm={6} md={3} key={tile.title}>
+            <Grid item xs={6} sm={4} md={3} key={tile.title}>
               <Tile onClick={() => navigate(tile.link)} sx={{ backgroundColor: tile.color }}>
                 <Typography variant="h5" color="secondary.contrastText" mb={1} sx={{ fontWeight: 'bold' }}>
                   {tile.title}

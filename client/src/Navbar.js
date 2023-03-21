@@ -20,7 +20,7 @@ import MediaService from "./services/media.services";
 // const ViewImage = lazy(() => import("./components/Pages/ViewImage"));
 
 const Navbar = ({logout}) => {
-  const { user } = useContext(UserContext);
+  const { user, settings } = useContext(UserContext);
     console.log("🚀 ~ file: Navbar.js:24 ~ Navbar ~ user:", user)
     
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -64,10 +64,8 @@ const Navbar = ({logout}) => {
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: 'none', display: "flex" }}>
             {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" } }} /> */}
-            {user?.settings?.logo && <ViewImage image={user.settings.logo} sx={{ maxWidth: "120px", height: "50px", mr: "25px" }} />}
-            {!user?.settings?.logo && <Typography variant="h6" as="span" sx={{ mr: "25px", boxShadow: "0px 0px 0px 1px #fff", fontWeight: "bold" }}>
-                RJRY
-            </Typography>}
+            {settings?.logo && <ViewImage image={settings.logo} sx={{ maxHeight: 50, maxWidth: 120, display: { xs: "none", md: "flex" } }} />}
+           
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

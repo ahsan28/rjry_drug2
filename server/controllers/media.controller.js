@@ -22,8 +22,19 @@ const loadImage = async (req, res) => {
     }
 }
 
-// export default { 
+const loadImages = async (req, res) => {
+    // from /public/uploads
+    try {
+        const media = await Media.find({_id: {$in: req.body}});
+        res.sendFile(media.map(m => m.filename), { root: 'public/uploads' });
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 module.exports = {
     read, 
     loadImage,
+    loadImages,
 };

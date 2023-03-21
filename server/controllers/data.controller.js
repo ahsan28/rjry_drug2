@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const Data = require('../models/data.model.js');
 const Media = require('../models/media.model.js');
 const User = require('../models/users.model.js');
+const Settings = require('../models/settings.model.js');
+
 const ObjectId = require("mongodb").ObjectId;
 
 
@@ -103,57 +105,78 @@ const update = async (req, res) => {
 }
 
 const fileUpload = async (req, res) => {
-    try { // cover and logo are coming from the form, with font and theme color fields
-        const body = req.body;
-        let settings = {}
-        let files = await Promise.all(Object.keys(req.files).map((key) => {
-            const file = req.files[key];
-            let fileData = file[0];
-            settings[key] = new ObjectId();
-            return {
-                ...fileData,
-                _id: settings[key],
-                type: fileData.mimetype.split('/')[0],
-                extension: fileData.mimetype.split('/')[1],
-                url: fileData.path,
-                userid: body.userid,
-                username: body.username,
-            };
-        }));
-
-        let user = await User.findById(body.userid);
-        if (body) {
-            settings = {
-                ...user.settings,
-                ...settings,
-                themeColor: body.themeColor,
-                fontFamily: body.fontFamily,
-                fontColor: body.fontColor,
-            }
+    try { // covers, footer and logo are coming from the form, check first if they are there
+        console.log("🚀 ~ file: data.controller.js ~ line 67 ~ update ~ req", req.body, req.files)
+        if (!req.files) {
+            return res.status(400).json({ message: "No files were uploaded." });
         }
-        
-        Media.insertMany(files).then((media) => {
-            User.findByIdAndUpdate(
-                body.userid, 
-                { $set: { settings } },
-                { new: true, upsert: true }
-            ).then((user) => {
-                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
-                user.password = undefined;
-                user.__v = undefined;
-                user.accessToken = token;
-                res.status(200).send({ message: 'Settings updated successfully', user });
-            }).catch((err) => {
-                res.status(400).send({ message: err.message });
-            })
-        }).catch((err) => {
-            res.status(400).send({ message: err.message });
-        })
+        let track = {
+            isUpdated: false,
+            covers: null,
+            logo: null,
+            footer: null,
+        }
+        if (req.files.covers) {
+            // create Ids for the files
+            // create a new Media object for each file
+            track.covers = req.files.covers.map((file, index) => ({
+                _id: new ObjectId(),
+                ...file,
+                type: file.mimetype.split('/')[0],
+                extension: file.mimetype.split('/')[1],
+                userid: req.body.userid
+            }));
+            track.isUpdated = true;
+        }
+        if (req.files.footer) {
+            track.footer = {
+                _id: new ObjectId(),
+                ...req.files.footer[0],
+                type: req.files.footer[0].mimetype.split('/')[0],
+                extension: req.files.footer[0].mimetype.split('/')[1],
+                userid: req.body.userid
+            };
+            track.isUpdated = true;
+        }
+
+        if (req.files.logo) {
+            track.logo = {
+                _id: new ObjectId(),
+                ...req.files.logo[0],
+                type: req.files.logo[0].mimetype.split('/')[0],
+                extension: req.files.logo[0].mimetype.split('/')[1],
+                userid: req.body.userid
+            };
+            track.isUpdated = true;
+        }
+        if (track.isUpdated) {
+            let docs = [];
+            if (track.covers) docs.push(...track.covers);
+            if (track.footer) docs.push(track.footer);
+            if (track.logo) docs.push(track.logo);
+            // insert the files into the database
+            const media = await Media.insertMany(docs).catch((err) => console.log(err));
+
+            // update settings
+            await Settings.updateOne(
+                { _id: req.body._id }, 
+                { $set: {
+                    covers: track.covers ? track.covers.map((file) => file._id) : null,
+                    footer: track.footer ? track.footer._id : null,
+                    logo: track.logo ? track.logo._id : null,
+                } },
+                { upsert: true }
+            );
+
+            // send the response back to the client
+            res.status(200).json({ message: "Files uploaded successfully!", media });
+        } else {
+            res.status(200).json({ message: "No files were uploaded." });
+        }
 
     } catch (err) {
-        res.status(400).send({ message: err.message });
+        res.status(400).json({ message: err.message });
     }
-        
 }
 
 

@@ -12,6 +12,7 @@ const loadImage = (id) => {
     return axios.get(`${api}loadImage/${id}`, { responseType: "blob" })
 }
 
+
 const functions = {
     read,
     loadImage,

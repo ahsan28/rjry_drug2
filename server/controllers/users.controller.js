@@ -32,7 +32,7 @@ const read = async (req, res) => {
 
 const getSettings = async (req, res) => {
     try {
-        const settings = await Settings.findById(req.params.id);
+        const settings = req.params.id? await Settings.findById(req.params.id) : await Settings.findOne();
         res.status(200).json(settings);
     } catch (err) {
         res.status(400).json({ message: err.message });

@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-const fields = ['logo','cover','footer'].map(x=>({name:x}))
+const fields = ['logo','covers','footer'].map(x=>({name:x}))
 
 const router = express.Router();
 

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import DataService from '../../services/data.services'
-import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem, Paper } from '@mui/material'
+import MediaService from '../../services/media.services'
+import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem, Paper, Card, CardMedia, CardActions } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
@@ -8,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UserService from "../../services/user.services";
 import LinearProgress from '@mui/material'
 import { UserContext } from "../../UserContext";
+import ViewImage from '../Hooks/ViewImage'
 
 
 const colors = ['black','white','red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'silver', 'gold', 'skyblue', 'lime', 'teal']
@@ -17,6 +19,13 @@ const fontSizes = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
 
 const SettingsForm = () => {
     const { user, setUser, settings, setSettings } = useContext(UserContext);
+    const [covers, setCovers] = useState([]);
+    const [coversFiles, setCoversFiles] = useState([]);
+    const [logo, setLogo] = useState(null);
+    console.log("🚀 ~ file: SettingsForm.js:24 ~ SettingsForm ~ logo:", logo)
+    const [logoFile, setLogoFile] = useState(null);
+    const [footer, setFooter] = useState(null);
+    const [footerFile, setFooterFile] = useState(null);
     const [data, setData] = useState({
         theme: {
             color: 'black',
@@ -40,7 +49,12 @@ const SettingsForm = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        if(settings) setData(settings)
+        if(settings) {
+            setData(settings)
+            MediaService.loadImage(settings.logo).then((res) => {
+                setLogo(URL.createObjectURL(res.data))
+            })
+        }
         else {
             if (user) {
                 UserService.getSettings(user.settings).then((res) => {
@@ -55,19 +69,18 @@ const SettingsForm = () => {
         console.log("🚀 ~ file: SettingsForm.js:55 ~ useEffect ~ settings:", settings)
 
 
-    function save(d) {
+    function save() {
         const formData = new FormData();
         
         formData.append("userid", user._id);
         formData.append("username", user.username);
-        formData.append("logo", d.logo);
-        formData.append("cover", d.coverImg);
-        formData.append("footer", d.footerImage);
-        formData.append("themeColor", d.themeColor);
-        formData.append("fontFamily", d.fontFamily);
-        formData.append("fontColor", d.fontColor);
-
-
+        formData.append("_id", data._id||settings._id||user.settings);
+        if (data.logoUpdated) formData.append("logo", logoFile);
+        if (data.coversUpdated) formData.append("covers", coversFiles);
+        if (data.footerUpdated) formData.append("footer", footerFile);
+        // formData.append("logo", data.logo);
+        // formData.append("covers", data.covers);
+        // formData.append("footer", data.footer);
 
         DataService.upload(formData)
             .then((res) => {
@@ -299,46 +312,151 @@ const SettingsForm = () => {
         
         <Divider sx={{ my: 2 }} />
         {/* upload file to be saved in the folder */}
-        <Paper sx={{ p: 2, my: 2 }} elevation={1}>
-            <Typography variant="h5" gutterBottom>
-                Upload Image Files
-            </Typography>
-            <FormControl fullWidth sx={{ my: 2 }}>
-                <InputLabel htmlFor="cover-upload" shrink>Upload Cover</InputLabel>
-                <Input
-                    id="cover-upload"
-                    type="file"
-                    name="cover"
-                    onChange={(e) => {
-                        setData({...data, coverImg: e.target.files[0]})
-                        console.log(e.target.files[0],'file 1')
-                    }}
-                />
-            </FormControl>
-            <FormControl fullWidth sx={{ my: 2 }}>
-                <InputLabel htmlFor="logo-upload" shrink>Upload Logo</InputLabel>
-                <Input
-                    id="logo-upload"
-                    type="file"
-                    name="logo"
-                    onChange={(e) => {
-                        setData({...data, logo: e.target.files[0]})
-                        console.log(e.target.files[0],'file 2')
-                    }}
-                />
-            </FormControl>
-            <FormControl fullWidth sx={{ my: 2 }}>
-                <InputLabel htmlFor="footer-upload" shrink>Upload Footer</InputLabel>
-                <Input
-                    id="footer-upload"
-                    type="file"
-                    name="footer"
-                    onChange={(e) => {
-                        setData({...data, footerImage: e.target.files[0]})
-                        console.log(e.target.files[0],'file 3')
-                    }}
-                />
-            </FormControl>
+            <Paper sx={{ p: 2, my: 2 }} elevation={1}>
+                <Typography variant="h5" gutterBottom>
+                    Upload Image Files
+                </Typography>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Paper sx={{ p: 2, width: '100%' }} elevation={1}>
+                <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                    {covers.map((image, index) => (
+                    <Card sx={{ maxWidth: 100, mb:2 }} key={image}>
+                        <CardMedia
+                            component="img"
+                            height="150"
+                            image={image}
+                            alt="activity image"
+                        />
+                        <CardActions>
+                            <Button 
+                                size="small"
+                                onClick={(e) => {
+                                    const newCovers = [...covers]
+                                    newCovers.splice(index, 1)
+                                    setCovers(newCovers)
+                                }}
+                                color="error"
+                                variant="contained"
+                            >
+                                Remove
+                            </Button>
+                        </CardActions>
+                    </Card>
+                ))}
+                </Box>
+                <label htmlFor="image-upload">
+                    <input
+                        id="image-upload"
+                        name="image-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const files = e.target.files
+                            setCoversFiles(prev => prev.concat(Array.from(files)))
+                            setCovers(prev => prev.concat(Array.from(files).map(file => URL.createObjectURL(file))))
+                        }}
+                        multiple
+                        hidden
+                    />
+                    <Button variant="contained" component="span" size="small" color="success">
+                        {covers.length > 0 ? "Add More Images" : "Add Images"}
+                    </Button>
+                </label>
+            </Paper>
+
+
+
+            <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
+                {logo && <Card sx={{ maxWidth: 100, mb:2 }}>
+                    <CardMedia
+                        component="img"
+                        // height="100"
+                        // width="100"
+                        image={logo}
+                        alt="Logo Image"
+                    />
+                    <CardActions>
+                        <Button
+                            size="small"
+                            onClick={()=>{
+                                setLogo(null)
+                                setLogoFile(null)
+                                setData({...data, cover: null, coversUpdated: true})
+                            }}
+                            color="error"
+                            variant="contained"
+                        >
+                            Remove
+                        </Button>
+                    </CardActions>
+                </Card>}
+                <label htmlFor="logo-upload">
+                    <input
+                        id="logo-upload"
+                        name="logo-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e)=>{
+                            setLogoFile(e.target.files[0])
+                            setLogo(URL.createObjectURL(e.target.files[0]))
+                            setData({...data, logo: e.target.files[0], logoUpdated: true})
+                        }}
+                        hidden
+
+                    />
+                    <Button variant="contained" component="span" size="small" color="success">
+                        {logo ? "Change Logo" : "Upload Logo"}
+                    </Button>
+                </label>
+
+            </Paper>
+
+
+            <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
+                {footer && <Card sx={{ maxWidth: 100, mb:2 }}>  
+                    <CardMedia
+                        component="img"
+                        // height="150"
+                        image={footer}
+                        alt="Footer Image"
+                    />
+                    <CardActions>
+                        <Button
+                            size="small"
+                            onClick={()=>{
+                                setFooter(null)
+                                setFooterFile(null)
+                                setData({...data, footer: null, footerUpdated: true})
+                            }}
+                            color="error"
+                            variant="contained"
+                        >
+                            Remove
+                        </Button>
+                    </CardActions>
+                </Card>}
+                <label htmlFor="footer-upload">
+                    <input
+                        id="footer-upload"
+                        name="footer-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e)=>{
+                            setFooterFile(e.target.files[0])
+                            setFooter(URL.createObjectURL(e.target.files[0]))
+                            setData({...data, footer: e.target.files[0], footerUpdated: true})
+                        }}
+                        hidden
+
+                    />
+                    <Button variant="contained" component="span" size="small" color="success">
+                        {footer ? "Change Footer" : "Upload Footer"}
+                    </Button>
+                </label>
+
+            </Paper>
+            </Box>
+            <Divider sx={{ my: 2 }} />
             <Button variant="contained" onClick={()=>save(data)}>Upload and Save</Button>
         </Paper>
     </Box>
