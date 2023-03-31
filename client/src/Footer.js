@@ -8,13 +8,13 @@ function Footer() {
     <BottomNavigation as='footer' className='footer'>
       <div className='container'>
         <div>
-          <p className='title'>About Us</p>
+          <p className='title'>TENTANG KITA</p>
           <p className='text'>
           Selamat datang ke dunia pendidikan pencegahan dadah yang mengujakan! Misi kami: mencipta sekolah bebas dadah di Malaysia. Ahli pasukan kami membuat perbezaan sebenar dalam kehidupan pelajar, guru, dan komuniti. Mari bersama-sama membentuk masa depan pendidikan pencegahan dadah di Malaysia dan memberikan impak positif kepada ramai orang. Terima kasih kerana menyokong misi kami.
           </p>
         </div>
         <div>
-          <p className='title'>Social Media</p>
+          <p className='title'>MEDIA SOSIAL</p>
           <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
           <IconButton aria-label="Facebook" className='icon'>
             <Facebook />
@@ -34,22 +34,22 @@ function Footer() {
           </Box>
         </div>
         <div>
-          <p className='title'>Newsletter</p>
+          <p className='title'>SURAT BERITA</p>
           <p className='text'>
-            Sign up for our newsletter and be the first to know about new products and special offers!
+          Daftar untuk surat berita kami dan jadilah orang pertama yang mengetahui tentang produk baharu dan tawaran istimewa!
           </p>
           <form>
             <label htmlFor="email" className='text'>
               Email:
             </label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" />
+            <input type="email" id="email" name="email" placeholder="Masukkan emel anda" />
             <button type="submit" className='button'>
               Submit
             </button>
           </form>
         </div>
         <div>
-          <p className='title'>Contact</p>
+          <p className='title'>HUBUNGI</p>
       <p className='text'>
       Ada sebarang soalan atau maklum balas untuk kami? Kami ingin mendengar dari anda! Jangan ragu-ragu untuk menghubungi kami.
       </p>
