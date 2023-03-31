@@ -8,6 +8,8 @@ import { UserContext } from "../../UserContext";
 import './Styles/Landing.css'
 import ViewImage from "../Hooks/ViewImage";
 import BasicPage from "../Hooks/BasicPage";
+import CoverflowGallery from "../Hooks/CoverflowGallery";
+import CarouselPage from "../Hooks/CarouselPage";
 import TextCarousel from "../Hooks/TextCarousel";
 
 import { styled } from '@mui/material/styles';
@@ -20,6 +22,13 @@ const texts = [
   "Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Narkoba di Malaysia",
   "Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
 ];
+const images = [
+  '6418f8c66a237a2840c52ba0',
+  '640d7c3f2573d8d74fe8e309',
+  '6418fb5fc75e8fe3920a0431',
+  '6418744458e7001f598ad655',
+  '6418f04918f7c0b054811375',
+]
 const Landing = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -133,14 +142,15 @@ const Landing = () => {
           {texts.length > 0 && <TextCarousel texts={texts} />}
 
         </Typography>
+        
         <Paper elevation={4} sx={{ padding: 4, borderRadius: 2 }}>
-
-<ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} />
-</Paper>
+          <CoverflowGallery images={images} />
+          {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
+        </Paper>
         {/* Body */}
-        <Typography variant="body1" color="DarkSlateGray" mb={4}>
+        <Typography variant="body1" color="DarkSlateGray" mb={4} mt={4}>
           {/* Begin the text with a big first letter */}
-          <span style={{ fontSize: '2em', fontWeight: 'bold' }}>
+          <span style={{ fontSize: '3em', fontWeight: 'bold' }}>
             {/* {data?.description?.charAt(0)} */}
             S
             </span>
