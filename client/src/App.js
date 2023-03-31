@@ -22,7 +22,7 @@ import CommonDataForm from './components/Forms/CommonDataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
 import { useContext, useEffect, useState } from 'react';
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import Landing from './components/Pages/Landing';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css'
@@ -123,10 +123,14 @@ const App = () => {
   return (<>
     <CssBaseline />
     <ThemeProvider theme={theme}>
+      {/* fixed navbar at the top and footer at the bottom and flex container for main content */}
+      <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       {/* <Header /> */}
       <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
-      <Container maxWidth="lg" disableGutters component='main' sx={{p:3, height: 'calc(100vh - 68.5px - 24px)', overflowY: 'auto', overflowX: 'hidden'}}>
+      <Container maxWidth="lg" disableGutters component='main' sx={{p:3, 
+        display: 'flex', flexDirection: 'column', flexGrow: 1,
+         overflowY: 'auto', overflowX: 'hidden'}}>
             <Routes>
               <Route path="/users" element={<UserList />} />
               <Route path="/users/:userId" element={<UserForm />} />
@@ -157,6 +161,7 @@ const App = () => {
           {/* {props.children} */}
       </Container>
       <Footer />
+      </Box>
     </ThemeProvider>
   </>
   )
