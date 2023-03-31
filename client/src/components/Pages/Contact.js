@@ -2,6 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions } from '@mui/material';
 import UserService from "../../services/user.services";
 import { UserContext } from '../../UserContext';
+import MapSection from '../Map/Map';
+
+const location = {
+  address: 'UPSI, 35900 Tanjong Malim, Perak',
+  lat: 3.685905,
+  lng: 101.522682,
+} // our location object from earlier
 
 const Contact = () => {
   const { user } = useContext(UserContext);
@@ -59,42 +66,6 @@ const Contact = () => {
     </Box>}
     <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-        {/* different social contact links with icon  */}
-          {data.linkedin && <a href={data.linkedin||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="linkedin" />
-          </a>}
-          {data.github && <a href={data.github||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/fluent/48/000000/github.png" alt="github" />
-          </a>}
-          {data.facebook && <a href={data.facebook||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" alt="facebook" />
-          </a>}
-          {data.twitter && <a href={data.twitter||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/fluent/48/000000/twitter.png" alt="twitter" />
-          </a>}
-          {data.instagram && <a href={data.instagram||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" alt="instagram" />
-          </a>}
-          {data.youtube && <a href={data.youtube||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="youtube" />
-          </a>}
-          {data.tiktok && <a href={data.tiktok||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok" />
-          </a>}
-          {data.whatsapp && <a href={data.whatsapp||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="whatsapp" />
-          </a>}
-          {data.skype && <a href={data.skype||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/skype--v1.png" alt="skype" />
-          </a>}
-          {data.googleColab && <a href={data.googleColab||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/google-colab.png" alt="googleColab" />
-          </a>}
-          {data.other && <a href={data.other||'#'} target="_blank" rel="noreferrer">
-            <img src="https://img.icons8.com/color/48/000000/plus-math.png" alt="other" />
-          </a>}
-      </Box>
       <Box
         sx={{
           marginTop: 8,
@@ -107,7 +78,7 @@ const Contact = () => {
           Contact Us
         </Typography>
         <Box component="form" onSubmit={sendEmail} noValidate sx={{ mt: 1 }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <TextField
                 // required
@@ -167,6 +138,9 @@ const Contact = () => {
           </Button>
         </Box>
       </Box>
+      {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5652344783493!2d101.5226819647588!3d3.685905047318148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cb890d916b37d9%3A0xfb56492063e6a825!2sUniversiti%20Pendidikan%20Sultan%20Idris!5e0!3m2!1sen!2smy!4v1680245184289!5m2!1sen!2smy" width="auto" height="400" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
+      <MapSection location={location} zoomLevel={15} />
+
     </Container>
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>Edit Links</DialogTitle>
@@ -174,7 +148,7 @@ const Contact = () => {
         <Box component="form" onSubmit={updateLinks} noValidate sx={{ mt: 1 }}>
         {['linkedin','github','facebook','twitter','instagram','youtube','tiktok','whatsapp','skype','googleColab','other'].map(
           (key, index) => (
-          <TextField key={index} id={index} label={key} value={data[key]||""} onChange={e => setData({ ...data, [key]: e.target.value })} />
+          <TextField key={index} id={index} label={key} value={data?.[key]||""} onChange={e => setData({ ...data, [key]: e.target.value })} />
         ))}
         </Box>
       </DialogContent>
