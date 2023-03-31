@@ -58,6 +58,16 @@ nav .MuiBox-root button {
   font-size: var(--themeSize) !important;
 }
 
+.MuiPaper-root {
+  background-color: var(--bodyBgColor) !important;
+  color: var(--bodyFontColor) !important;
+}
+
+nav.MuiPaper-root {
+  background-color: var(--themeBgColor) !important;
+  color: var(--themeFontColor) !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
