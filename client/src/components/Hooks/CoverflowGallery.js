@@ -58,11 +58,11 @@ const CoverflowGallery = ({ images }) => {
   >
     {loadedImages.map((image, index) => (
       <SwiperSlide key={index}>
-        <img src={image.src} alt={image.title} style={{ objectFit: "cover", borderRadius: "10px", border: "2px solid #ccc", height: "auto", maxHeight: "600px", boxShadow: "0 0 10px #ccc", backgroundColor: "#fff", width: "auto", maxWidth: "100%" }} />
-        {/* <div className="swiper-slide-caption">
-          <h3>{image.title}</h3>
-          <p>{image.date}</p>
-        </div> */}
+        <img src={image.src} alt={image.title} style={{ objectFit: "cover", borderRadius: "10px", border: "2px solid #ccc", maxHeight: "600px", boxShadow: "0 0 10px #ccc", backgroundColor: "#fff", width: "auto", maxWidth: "100%", minHeight: "500px" }} />
+        <div className="swiper-slide-caption">
+          <h3>{"image.title"}</h3>
+          <p>{"image.date"}</p>
+        </div>
       </SwiperSlide>
     ))}
   </Swiper>
