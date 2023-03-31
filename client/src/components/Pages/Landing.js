@@ -143,7 +143,7 @@ const Landing = () => {
 
         </Typography>
         
-        <Paper elevation={4} sx={{ padding: 4, borderRadius: 2 }}>
+        <Paper elevation={10} sx={{ py: 2, borderRadius: 2 }}>
           <CoverflowGallery images={images} />
           {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
         </Paper>

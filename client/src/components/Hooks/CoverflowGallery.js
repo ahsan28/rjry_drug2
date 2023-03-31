@@ -6,7 +6,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import { EffectCoverflow, Autoplay, Pagination, Thumbs } from 'swiper';
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import MediaService from '../../services/media.services';
 
 const CoverflowGallery = ({ images }) => {
@@ -66,6 +66,7 @@ const CoverflowGallery = ({ images }) => {
       </SwiperSlide>
     ))}
   </Swiper>
+  <Divider sx={{ margin: "8px 0 1.2rem 0" }} />
   <Swiper
     onSwiper={setThumbsSwiper}
     slidesPerView={7}
