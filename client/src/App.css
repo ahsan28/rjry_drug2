@@ -52,6 +52,12 @@ header, footer, nav {
   text-align: center;
 }
 
+nav .MuiBox-root button {
+  font-weight: 700;
+  color: var(--themeFontColor) !important;
+  font-size: var(--themeSize) !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
