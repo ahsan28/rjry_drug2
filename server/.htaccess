@@ -1,7 +1,7 @@
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
-PassengerAppRoot "/home/sekotbbp/back.sekolahbebasdadah.site"
+PassengerAppRoot "/home/sekotbbp/back.sekolahbebasdadah.tel"
 PassengerBaseURI "/"
-PassengerNodejs "/home/sekotbbp/nodevenv/back.sekolahbebasdadah.site/14/bin/node"
+PassengerNodejs "/home/sekotbbp/nodevenv/back.sekolahbebasdadah.tel/14/bin/node"
 PassengerAppType node
 PassengerStartupFile index.js
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
