@@ -33,7 +33,7 @@ function Footer() {
           </IconButton>
           </Box>
         </div>
-        <div>
+        {/* <div>
           <p className='title'>SURAT BERITA</p>
           <p className='text'>
           Daftar untuk surat berita kami dan jadilah orang pertama yang mengetahui tentang produk baharu dan tawaran istimewa!
@@ -47,7 +47,7 @@ function Footer() {
               Submit
             </button>
           </form>
-        </div>
+        </div> */}
         <div>
           <p className='title'>HUBUNGI</p>
       <p className='text'>
