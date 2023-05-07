@@ -72,7 +72,7 @@ const Navbar = ({logout}) => {
             <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={(e)=>setAnchorElNav(e.currentTarget)} color="inherit" >
               <MenuIcon />
             </IconButton>
-            <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "left", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "left", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
+            <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
                 {/* <MenuItem key={`users`} onClick={handleCloseNavMenu}>
                     <Link to={`/users`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                         Users
@@ -135,7 +135,7 @@ const Navbar = ({logout}) => {
               
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}>
                 {/* <Link to={`/users`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                     <Button key={`users`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Users
