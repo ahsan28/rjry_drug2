@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import {  useParams, useNavigate, Link } from "react-router-dom";
 import ActivityService from "../../services/activity.services";
@@ -74,7 +74,7 @@ const Activities = () => {
     setSelectedActivity(activity);
   };
 
-  return (<>
+  return (<Container sx={{py:2}}>
   {user && <Box sx={{display: "flex", justifyContent: "flex-end", mb: 2}}>
       <Button variant="contained" component={Link} to={`/activity_form/${actId}`}>Add new activity</Button>
     </Box>}
@@ -103,7 +103,7 @@ const Activities = () => {
         </Paper>
         </Grid>}
     </Grid>
-  </>
+  </Container>
   );
 };
 

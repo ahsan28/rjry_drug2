@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Button, Typography, Paper, Card, CardMedia, CardContent, CardActions } from "@mui/material";
+import { Box, Button, Typography, Paper, Card, CardMedia, CardContent, CardActions, Container } from "@mui/material";
 import { UserContext } from '../../UserContext';
 import { Link } from 'react-router-dom';
 import Image from 'mui-image';

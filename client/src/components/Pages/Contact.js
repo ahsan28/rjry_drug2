@@ -60,15 +60,15 @@ const Contact = () => {
   };
 
 
-  return (<>
+  return (<Container sx={{py:2}}>
     {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" onClick={() => setOpen(true)}>Edit</Button>
     </Box>}
-    <Container component="main" maxWidth="sm">
+    <Container maxWidth="sm">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          // marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -157,7 +157,7 @@ const Contact = () => {
         <Button onClick={() => setOpen(false)}>Cancel</Button>
       </DialogActions>
     </Dialog>
-    </>);
+    </Container>);
 };
 
 export default Contact;

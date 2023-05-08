@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Paper, Card, CardContent, Typography, Avatar, Box } from '@mui/material';
+import { Paper, Card, CardContent, Typography, Avatar, Box, Container } from '@mui/material';
 import UserService from '../../services/user.services';
 import ViewImage from '../Hooks/ViewImage';
 
@@ -19,7 +19,7 @@ const MemberProfiles = () => {
 
 
   return (
-    <Paper elevation={3} sx={{ p: 2, gap: 2 }}>
+    <Container elevation={0} sx={{ p: 2, gap: 2 }}>
       {users.map((user) => (
         <Box key={user._id} sx={{ gap: 2, p:2 }}>
           <Card key={user._id}>
@@ -38,7 +38,7 @@ const MemberProfiles = () => {
           </Card>
         </Box>
       ))}
-    </Paper>
+    </Container>
   );
 }
 

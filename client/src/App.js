@@ -128,9 +128,7 @@ const App = () => {
       {/* <Header /> */}
       <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
-      <Container maxWidth="lg" disableGutters component='main' sx={{p:3, 
-        display: 'flex', flexDirection: 'column', flexGrow: 1,
-         overflowY: 'auto', overflowX: 'hidden'}}>
+      <Container maxWidth={false} disableGutters={true} component='main' sx={{display: 'flex', flexDirection: 'column', flexGrow: 1,overflowY: 'auto', overflowX: 'hidden'}}>
             <Routes>
               <Route path="/users" element={<UserList />} />
               <Route path="/users/:userId" element={<UserForm />} />

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataService from "../../services/data.services";
@@ -34,9 +34,9 @@ const Introduction = () => {
       });
   }, []);
 
-  return (<>
+  return (<Container sx={{py:2}}>
     <BasicPage data={data} cover={cover} page="introduction" />
-  </>);
+  </Container>);
 };
 
 export default Introduction;

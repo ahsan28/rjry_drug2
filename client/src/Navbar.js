@@ -135,7 +135,7 @@ const Navbar = ({logout}) => {
               
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end", mr:2 }}>
                 {/* <Link to={`/users`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                     <Button key={`users`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Users

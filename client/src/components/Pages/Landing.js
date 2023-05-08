@@ -127,57 +127,60 @@ const Landing = () => {
         height: 'auto',
         width: '100%',
       }}
-      elevation={4}
+      elevation={0}
     >
 
 
     <Box sx={{ height: '100%', width: '100%', borderRadius: 1 }}>
-      <Box sx={{ padding: 4 }}>
-        {/* Title , centered */}
-        <Typography variant="h4" color="DarkBlue" mb={2} align="center">
-        Mencegah Penggunaan Dadah di Sekolah-Sekolah Malaysia
-        </Typography>
-        {/* Slogan */}
+      <Box sx={{ py: 4 }}>
+
+        
+        <Paper elevation={0} sx={{ py: 2, borderRadius: 2 }}>
+          <CoverflowGallery images={images} divider={false} thumb={false} />
+          {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
+        </Paper>
+        <Container maxWidth="lg">
+          {/* Title , centered */}
+          <Typography variant="h4" color="DarkBlue" mb={2} align="center">
+          Mencegah Penggunaan Dadah di Sekolah-Sekolah Malaysia
+          </Typography>
+                  {/* Slogan */}
         <Typography variant="body2" align="center" color="SlateGray" mb={4}>
           {texts.length > 0 && <TextCarousel texts={texts} />}
 
         </Typography>
-        
-        <Paper elevation={10} sx={{ py: 2, borderRadius: 2 }}>
-          <CoverflowGallery images={images} />
-          {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
-        </Paper>
-        {/* Body */}
-        <Typography variant="body1" color="DarkSlateGray" mb={4} mt={4}>
-          {/* Begin the text with a big first letter */}
-          <span style={{ fontSize: '3em', fontWeight: 'bold', lineHeight: '1em' }}>
-            {/* {data?.description?.charAt(0)} */}
-            S
-            </span>
-          {/* Rest of the text */}
+          {/* Body */}
+          <Typography variant="body1" color="DarkSlateGray" mb={4} mt={4}>
+            {/* Begin the text with a big first letter */}
+            <span style={{ fontSize: '3em', fontWeight: 'bold', lineHeight: '1em' }}>
+              {/* {data?.description?.charAt(0)} */}
+              S
+              </span>
+            {/* Rest of the text */}
 
-          elamat datang ke dunia pendidikan pencegahan dadah yang penuh dengan kegembiraan! Kami gembira untuk memulakan perjalanan ini yang bertujuan untuk mencipta sekolah bebas dadah di Malaysia, dan kami amat berterima kasih kerana anda turut bergabung dengan kami dalam misi ini.
+            elamat datang ke dunia pendidikan pencegahan dadah yang penuh dengan kegembiraan! Kami gembira untuk memulakan perjalanan ini yang bertujuan untuk mencipta sekolah bebas dadah di Malaysia, dan kami amat berterima kasih kerana anda turut bergabung dengan kami dalam misi ini.
 
-          Sebagai ahli pasukan ini, anda sedang membuat perbezaan yang sebenar dalam kehidupan pelajar, guru, dan komuniti di seluruh negara. Sumbangan anda akan membantu mencegah penggunaan dadah, mengurangkan masalah yang berkaitan dengan dadah di sekolah, dan mempromosikan persekitaran pembelajaran yang sihat dan selamat untuk semua.
+            Sebagai ahli pasukan ini, anda sedang membuat perbezaan yang sebenar dalam kehidupan pelajar, guru, dan komuniti di seluruh negara. Sumbangan anda akan membantu mencegah penggunaan dadah, mengurangkan masalah yang berkaitan dengan dadah di sekolah, dan mempromosikan persekitaran pembelajaran yang sihat dan selamat untuk semua.
 
-          Kami mengakui bahawa melaksanakan pendidikan pencegahan dadah di sekolah boleh menjadi cabaran, tetapi kami juga tahu bahawa bersama-sama, kita boleh mengatasi sebarang rintangan. Kemahiran, bakat, dan perspektif unik anda akan memainkan peranan penting dalam membentuk masa depan pendidikan pencegahan dadah di Malaysia.
+            Kami mengakui bahawa melaksanakan pendidikan pencegahan dadah di sekolah boleh menjadi cabaran, tetapi kami juga tahu bahawa bersama-sama, kita boleh mengatasi sebarang rintangan. Kemahiran, bakat, dan perspektif unik anda akan memainkan peranan penting dalam membentuk masa depan pendidikan pencegahan dadah di Malaysia.
 
-          Jadi, mari kita memberi inspirasi satu sama lain, memotivasi antara satu sama lain, dan bekerja bersama menuju matlamat yang sama. Bersama-sama, kita boleh memberikan impak positif kepada kehidupan berbilang individu dan komuniti. Terima kasih kerana telah bergabung dengan kami dalam perjalanan yang penuh dengan kegembiraan ini, dan mari kita bermula!
-        </Typography>
-        <Grid container spacing={4}>
-          {tiles.map((tile) => (
-            <Grid item xs={6} sm={4} md={3} key={tile.title}>
-              <Tile onClick={() => navigate(tile.link)} sx={{ backgroundColor: tile.color }}>
-                <Typography variant="h5" color="secondary.contrastText" mb={1} sx={{ fontWeight: 'bold' }}>
-                  {tile.title}
-                </Typography>
-                <Typography variant="body2" color="secondary.contrastText">
-                  {tile.subtitle}
-                </Typography>
-              </Tile>
-            </Grid>
-          ))}
-        </Grid>
+            Jadi, mari kita memberi inspirasi satu sama lain, memotivasi antara satu sama lain, dan bekerja bersama menuju matlamat yang sama. Bersama-sama, kita boleh memberikan impak positif kepada kehidupan berbilang individu dan komuniti. Terima kasih kerana telah bergabung dengan kami dalam perjalanan yang penuh dengan kegembiraan ini, dan mari kita bermula!
+          </Typography>
+          <Grid container spacing={4}>
+            {tiles.map((tile) => (
+              <Grid item xs={6} sm={4} md={3} key={tile.title}>
+                <Tile onClick={() => navigate(tile.link)} sx={{ backgroundColor: tile.color }}>
+                  <Typography variant="h5" color="secondary.contrastText" mb={1} sx={{ fontWeight: 'bold' }}>
+                    {tile.title}
+                  </Typography>
+                  <Typography variant="body2" color="secondary.contrastText">
+                    {tile.subtitle}
+                  </Typography>
+                </Tile>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
       </Box>
     </Box>
 
