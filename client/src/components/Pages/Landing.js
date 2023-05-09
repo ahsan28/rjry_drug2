@@ -23,11 +23,17 @@ const texts = [
   "Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
 ];
 const images = [
-  '6418f8c66a237a2840c52ba0',
-  '640d7c3f2573d8d74fe8e309',
-  '6418fb5fc75e8fe3920a0431',
-  '6418744458e7001f598ad655',
-  '6418f04918f7c0b054811375',
+  '6418f8c66a237a2840c52ba0',  // a.jpg
+  '645a165fba63cb629e07c5c4',  // c.jpg
+  '645a1695ba63cb629e07c5c5',  // d.jpg
+  '645a16b6ba63cb629e07c5c6',  // e.jpg
+  '645a16d1ba63cb629e07c5c7',  // f.jpg
+  '645a16edba63cb629e07c5c8',  // g.jpg
+  '645a174eba63cb629e07c5c9',  // h.jpg
+  // '640d7c3f2573d8d74fe8e309',
+  // '6418fb5fc75e8fe3920a0431',
+  // '6418744458e7001f598ad655',
+  // '6418f04918f7c0b054811375',
 ]
 const Landing = () => {
   const navigate = useNavigate();
@@ -132,11 +138,11 @@ const Landing = () => {
 
 
     <Box sx={{ height: '100%', width: '100%', borderRadius: 1 }}>
-      <Box sx={{ py: 4 }}>
+      <Box sx={{ pb: 4 }}>
 
         
-        <Paper elevation={0} sx={{ py: 2, borderRadius: 2 }}>
-          <CoverflowGallery images={images} divider={false} thumb={false} />
+        <Paper elevation={0} sx={{ pb: 2, borderRadius: 2 }}>
+          <CoverflowGallery images={images} divider={false} thumb={false} simple={true} />
           {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
         </Paper>
         <Container maxWidth="lg">

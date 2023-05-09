@@ -5,11 +5,12 @@ import "swiper/css/autoplay";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
-import { EffectCoverflow, Autoplay, Pagination, Thumbs } from 'swiper';
+import "swiper/css/navigation";
+import { EffectCoverflow, Autoplay, Pagination, Thumbs, Navigation } from 'swiper';
 import { Box, Divider } from '@mui/material';
 import MediaService from '../../services/media.services';
 
-const CoverflowGallery = ({ images, divider=false, thumb=true }) => {
+const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [loadedImages, setLoadedImages] = useState([]);
   useEffect(() => {
@@ -34,6 +35,26 @@ const CoverflowGallery = ({ images, divider=false, thumb=true }) => {
   }, [images]);
 
   return (<Box sx={{display: "block", textAlign: "center", width: "auto", height: "auto", margin: "auto"}}>
+  {simple? <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiperSimple"
+  >
+    {loadedImages.map((image, index) => (
+      <SwiperSlide key={index}>
+        <img src={image.src} alt={image.title}  />
+      </SwiperSlide>
+    ))}
+  </Swiper>: 
   <Swiper
     effect={"coverflow"}
     grabCursor={true}
@@ -65,7 +86,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true }) => {
         </div>
       </SwiperSlide>
     ))}
-  </Swiper>
+  </Swiper>}
   {divider && <Divider sx={{ margin: "8px 0 1.2rem 0" }} />}
   {thumb && <Swiper
     onSwiper={setThumbsSwiper}

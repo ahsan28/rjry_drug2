@@ -259,3 +259,16 @@ body {
   background-color: #111;
 }
 
+
+/* swiper */
+.mySwiperSimple {
+  height: 550px; /* set the desired height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
