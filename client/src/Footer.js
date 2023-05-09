@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BottomNavigation, BottomNavigationAction, Box, IconButton } from '@mui/material';
 import { Facebook, Twitter, Instagram, Pinterest, LinkedIn, YouTube } from '@mui/icons-material';
+import { UserContext } from "./UserContext";
 
 function Footer() {
+  const { user, settings } = useContext(UserContext);
 
   return (
     <BottomNavigation as='footer' className='footer'>
@@ -49,14 +51,22 @@ function Footer() {
           </form>
         </div> */}
         <div>
-          <p className='title'>HUBUNGI</p>
+          <p className='title'>HUBUNGI KAMI</p>
       <p className='text'>
       Ada sebarang soalan atau maklum balas untuk kami? Kami ingin mendengar dari anda! Jangan ragu-ragu untuk menghubungi kami.
       </p>
-      <p className='text'>Email: <a href="mailto:ahabib.j@gmail.com">ahabib.j@gmail.com</a></p>
-      <p className='text'>1234 Main St.</p>
-      <p className='text'>Anytown, USA 12345</p>
-      <p className='text'>Phone: (123) 456-7890</p>
+      <div className='text'>Nama: <span>Prof. Dr. Ahmad Jazimin Bin Jusoh</span></div>
+      <div className='text'>Email: <a href="mailto:lrgs.ppda@gmail.com">lrgs.ppda@gmail.com</a>,<span><a href="mailto:jazimin@fpm.upsi.edu.my">jazimin@fpm.upsi.edu.my</a></span></div>
+      {/* <div className='text'>1234 Main St.</div> */}
+      {/* <div className='text'>Anytown, USA 12345</div> */}
+      {/* <div className='text'>Phone: (123) 456-7890</div> */}
+      <IconButton aria-label="Facebook" className='icon'>
+        <Facebook /> <a style={{color: 'white', textDecoration: 'none', fontSize: '1rem'}}
+          href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/">Facebook</a>
+      </IconButton>
+            <IconButton aria-label="Instagram" className='icon'>
+        <Instagram /> <a style={{color: 'white', textDecoration: 'none', fontSize: '1rem'}} href="https://www.instagram.com/lrgs_ppda/?hl=id">Instagram</a>
+      </IconButton>
     </div>
   </div>
 </BottomNavigation>

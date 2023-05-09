@@ -17,7 +17,7 @@ const MemberProfiles = () => {
       });
   }, []);
 
-
+  
   return (
     <Container elevation={0} sx={{ p: 2, gap: 2 }}>
       {users.map((user) => (
@@ -28,7 +28,10 @@ const MemberProfiles = () => {
                 <div>
                   <Typography variant="h6">{user.name}</Typography>
                   <Typography variant="subtitle1">{user.designation}</Typography>
+                  <Typography variant="subtitle1">{user.experties}</Typography>
                   <Typography variant="body1">{user.phone}</Typography>
+                  <Typography variant="body1">{user.email}</Typography>
+                  <Typography variant="body1">{user.affiliation}</Typography>
                 </div>
                 <Card sx={{ height: 100 }}>
                 <ViewImage image={user.avatar} />

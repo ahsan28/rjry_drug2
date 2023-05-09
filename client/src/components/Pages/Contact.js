@@ -75,7 +75,7 @@ const Contact = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Contact Us
+        Hubungi Kami
         </Typography>
         <Box component="form" onSubmit={sendEmail} noValidate sx={{ mt: 1 }}>
           <Grid container spacing={1}>

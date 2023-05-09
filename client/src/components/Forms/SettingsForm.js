@@ -115,18 +115,18 @@ const SettingsForm = () => {
   </>)
 
   else return (<Container>
-    <h1>User Settings</h1>
+    <h1>Website Theme Settings</h1>
     <Box sx={{ width: '100%' }}>
         <Box sx={{p: 2, my: 2, gap: 2, display: 'flex', flexDirection: 'column'}}>
             <Typography variant="h5" gutterBottom>
-                Header
+                Preview
             </Typography>
             {/* Preview a page at the center  */}
             <Box sx={{display: 'block', width: '100%', height: 250, position: 'relative', background: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)'}}>
-                <Paper elevation={1} sx={{p: 1, gap: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', width: 200, justifyContent: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+                <Paper elevation={1} sx={{p: 1, gap: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', width: "auto", justifyContent: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
                         <Box sx={{width: '100%', height: 40, backgroundColor: data.theme.backgroundColor}}>
                             <Typography sx={{color: data.theme.color, fontFamily: data.theme.fontFamily, fontSize: data.theme.fontSize, textAlign: 'center', lineHeight: '50px', fontWeight: 'bold', textTransform: 'uppercase'}}>
-                                Title
+                                Pengenalan Profil Aktiviti Penerbitan Produk Hubungi kami
                             </Typography>
                         </Box>
                         <Box sx={{width: '100%', height: 120, backgroundColor: data.body.backgroundColor}}>
