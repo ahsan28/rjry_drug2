@@ -3,8 +3,8 @@ import authHeader from './auth.header';
 
 
 
-const api = 'https://back.sekolahbebasdadah.tel/activity/'; 
-// const api = 'http://localhost:5000/activity/'  // "https://rjrydrug.herokuapp.com/activity/"
+// const api = 'https://back.sekolahbebasdadah.tel/activity/'; 
+const api = 'http://localhost:5000/activity/'  // "https://rjrydrug.herokuapp.com/activity/"
 
 
 const read = (id) => {
