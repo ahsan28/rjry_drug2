@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import DataService from '../../services/data.services'
 import MediaService from '../../services/media.services'
-import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem, Paper, Card, CardMedia, CardActions } from '@mui/material'
+import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem, Paper, Card, CardMedia, CardActions, Container } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import FileUpload from "react-mui-fileuploader"
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
@@ -10,12 +10,11 @@ import UserService from "../../services/user.services";
 import LinearProgress from '@mui/material'
 import { UserContext } from "../../UserContext";
 import ViewImage from '../Hooks/ViewImage'
+import { SketchPicker } from 'react-color';
 
-
-const colors = ['black','white','red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'silver', 'gold', 'skyblue', 'lime', 'teal']
 const fonts = ['serif', 'sans-serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana']
 // 7 to 22 step 1
-const fontSizes = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+const fontSizes = [7,8,9,10,11,12,13,14,15,16]
 
 const SettingsForm = () => {
     const { user, setUser, settings, setSettings } = useContext(UserContext);
@@ -115,147 +114,182 @@ const SettingsForm = () => {
     </Typography>
   </>)
 
-  else return (<>
+  else return (<Container>
     <h1>User Settings</h1>
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Paper elevation={1} sx={{p: 2, my: 2, gap: 2, display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ width: '100%' }}>
+        <Box sx={{p: 2, my: 2, gap: 2, display: 'flex', flexDirection: 'column'}}>
             <Typography variant="h5" gutterBottom>
-                Theme
+                Header
             </Typography>
-            <Box sx={{display: 'flex', flexDirection: 'row', gap: 2}}>
-                {/* select theme text color dropdown */}
-                <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="theme-color-label">Theme Text Color</InputLabel>
-                    <Select
-                        labelId="theme-color-label"
-                        id="theme-color"
-                        value={data.theme.color}
-                        label="Theme Color"
-                        onChange={(e) => {
-                            setData({...data, theme: {...data.theme, color: e.target.value}})
-                        }}
-                    >
-                        {colors.map((color) => <MenuItem value={color} disabled={color === data.theme.backgroundColor || color === data.body.color}>
-                            {color}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select theme background color dropdown */}
-                <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="theme-background-label">Theme Background</InputLabel>
-                    <Select
-                        labelId="theme-background-label"
-                        id="theme-background"
-                        value={data.theme.backgroundColor}
-                        label="Theme Background"
-                        onChange={(e) => {
-                            setData({...data, theme: {...data.theme, backgroundColor: e.target.value}})
-                        }}
-                    >
-                        {colors.map((color) => <MenuItem value={color} disabled={color === data.theme.color || color === data.body.backgroundColor}>
-                            {color}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select theme font dropdown */}
-                <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="theme-font-label">Theme Font</InputLabel>
-                    <Select
-                        labelId="theme-font-label"
-                        id="theme-font"
-                        value={data.theme.fontFamily}
-                        label="Theme Font"
-                        onChange={(e) => {
-                            setData({...data, theme: {...data.theme, fontFamily: e.target.value}})
-                        }}
-                    >
-                        {fonts.map((font) => <MenuItem value={font}>{font}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select theme font size dropdown */}
-                <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="theme-font-size-label">Theme Font Size</InputLabel>
-                    <Select
-                        labelId="theme-font-size-label"
-                        id="theme-font-size"
-                        value={data.theme.fontSize}
-                        label="Theme Font Size"
-                        onChange={(e) => {
-                            setData({...data, theme: {...data.theme, fontSize: e.target.value}})
-                        }}
-                    >
-                        {fontSizes.map((size) => <MenuItem value={size}>{size}</MenuItem>)}
-                    </Select>
-                </FormControl>
+            {/* Preview a page at the center  */}
+            <Box sx={{display: 'block', width: '100%', height: 250, position: 'relative', background: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)'}}>
+                <Paper elevation={1} sx={{p: 1, gap: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', width: 200, justifyContent: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+                        <Box sx={{width: '100%', height: 40, backgroundColor: data.theme.backgroundColor}}>
+                            <Typography sx={{color: data.theme.color, fontFamily: data.theme.fontFamily, fontSize: data.theme.fontSize, textAlign: 'center', lineHeight: '50px', fontWeight: 'bold', textTransform: 'uppercase'}}>
+                                Title
+                            </Typography>
+                        </Box>
+                        <Box sx={{width: '100%', height: 120, backgroundColor: data.body.backgroundColor}}>
+                            <Typography sx={{color: data.body.color, fontFamily: data.body.fontFamily, fontSize: data.body.fontSize, textAlign: 'center', lineHeight: '80px'}}>
+                                Body goes here.
+                            </Typography>
+                        </Box>
+                        <Box sx={{width: '100%', height: 20, backgroundColor: data.theme.backgroundColor}}/>
+                </Paper>
+                <Button variant="contained" onClick={() => saveSettings()} sx={{position: 'absolute', bottom: 0, right: 0, m: 2}}>
+                    Save
+                    </Button>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row', gap: 2}}>
-                {/* select body text color dropdown */}
-                <FormControl fullWidth sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="body-color-label">Body Text Color</InputLabel>
-                    <Select
-                        labelId="body-color-label"
-                        id="body-color"
-                        value={data.body.color}
-                        label="Body Color"
-                        onChange={(e) => {
-                            setData({...data, body: {...data.body, color: e.target.value}})
-                        }}
-                    >
-                        {colors.map((color) => <MenuItem value={color} disabled={color === data.body.backgroundColor || color === data.theme.color}>
-                            {color}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select body background color dropdown */}
-                <FormControl fullWidth sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="body-background-label">Body Background</InputLabel>
-                    <Select
-                        labelId="body-background-label"
-                        id="body-background"
-                        value={data.body.backgroundColor}
-                        label="Body Background"
-                        onChange={(e) => {
-                            setData({...data, body: {...data.body, backgroundColor: e.target.value}})
-                        }}
-                    >
-                        {colors.map((color) => <MenuItem value={color} disabled={color === data.body.color || color === data.theme.backgroundColor}>
-                            {color}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select body font dropdown */}
-                <FormControl fullWidth sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="body-font-label">Body Font</InputLabel>
-                    <Select
-                        labelId="body-font-label"
-                        id="body-font"
-                        value={data.body.fontFamily}
-                        label="Body Font"
-                        onChange={(e) => {
-                            setData({...data, body: {...data.body, fontFamily: e.target.value}})
-                        }}
-                    >
-                        {fonts.map((font) => <MenuItem value={font}>{font}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {/* select body font size dropdown */}
-                <FormControl fullWidth sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                    <InputLabel id="body-font-size-label">Body Font Size</InputLabel>
-                    <Select
-                        labelId="body-font-size-label"
-                        id="body-font-size"
-                        value={data.body.fontSize}
-                        label="Body Font Size"
-                        onChange={(e) => {
-                            setData({...data, body: {...data.body, fontSize: e.target.value}})
-                        }}
-                    >
-                        {fontSizes.map((size) => <MenuItem value={size}>{size}</MenuItem>)}
-                    </Select>
-                </FormControl>
-            </Box>
+
+            {/* select theme bg color, text color, fonts, size */}
+                <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Typography gutterBottom>
+                            Header background
+                        </Typography>
+                        <Box>
+                            <SketchPicker 
+                                width={150}
+                                disableAlpha={true}
+                                color={ data.theme.backgroundColor } 
+                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
+                                onChange={ (color, e) => {
+                                    if(![data.theme.color, data.theme.backgroundColor].includes(color.hex))
+                                        setData({...data, theme: {...data.theme, backgroundColor: color.hex}})
+                                }}
+                                // onChangeComplete={ (color, e) => {
+                                //     setData({...data, theme: {...data.theme, backgroundColor: color.hex}})
+                                // }}
+                            />
+                        </Box>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Typography gutterBottom>
+                            Header text
+                        </Typography>
+                        <Box>
+                            <SketchPicker 
+                                color={ data.theme.color }
+                                width={150}
+                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
+                                disableAlpha={true}
+                                onChange={ (color, e) => {
+                                    if(![data.theme.color, data.theme.backgroundColor].includes(color.hex))
+                                        setData({...data, theme: {...data.theme, color: color.hex}})
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
+                            <InputLabel id="theme-font-label">Theme Font</InputLabel>
+                            <Select
+                                labelId="theme-font-label"
+                                id="theme-font"
+                                value={data.theme.fontFamily}
+                                label="Theme Font"
+                                size="small"
+                                onChange={(e) => {
+                                    setData({...data, theme: {...data.theme, fontFamily: e.target.value}})
+                                }}
+                            >
+                                {fonts.map((font) => <MenuItem value={font} sx={{fontFamily:font, textTransform:'uppercase'}} >{font}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
+                            <InputLabel id="theme-font-size-label">Theme Font Size</InputLabel>
+                            <Select
+                                labelId="theme-font-size-label"
+                                id="theme-font-size"
+                                value={data.theme.fontSize}
+                                label="Theme Font Size"
+                                size="small"
+                                onChange={(e) => {
+                                    setData({...data, theme: {...data.theme, fontSize: e.target.value}})
+                                }}
+                            >
+                                {fontSizes.map((size) => <MenuItem value={size+2}>{size+2}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                        <Divider />
+                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
+                            <InputLabel id="body-font-label">Body Font</InputLabel>
+                            <Select
+                                labelId="body-font-label"
+                                id="body-font"
+                                value={data.body.fontFamily}
+                                label="Body Font"
+                                size="small"
+                                onChange={(e) => {
+                                    setData({...data, body: {...data.body, fontFamily: e.target.value}})
+                                }}
+                            >
+                                {fonts.map((font) => <MenuItem value={font} sx={{fontFamily:font}} >{font}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
+                            <InputLabel id="body-font-size-label">Body Font Size</InputLabel>
+                            <Select
+                                labelId="body-font-size-label"
+                                id="body-font-size"
+                                value={data.body.fontSize}
+                                label="Body Font Size"
+                                size="small"
+                                onChange={(e) => {
+                                    setData({...data, body: {...data.body, fontSize: e.target.value}})
+                                }}
+                            >
+                                {fontSizes.map((size) => <MenuItem value={size}>{size}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Typography gutterBottom>
+                            Body background
+                        </Typography>
+                        <Box>
+                            <SketchPicker 
+                                color={ data.body.backgroundColor } 
+                                // 10 black and white shades
+                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
+                                width={150}
+                                disableAlpha={true}
+                                onChange={ (color, e) => {
+                                    if(![data.body.color, data.body.backgroundColor].includes(color.hex))
+                                        setData({...data, body: {...data.body, backgroundColor: color.hex}})
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Typography gutterBottom>
+                            Body text
+                        </Typography>
+                        <Box>
+                            <SketchPicker 
+                                color={ data.body.color } 
+                                width={150}
+                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
+                                disableAlpha={true}
+                                onChange={ (color, e) => {
+                                    if(![data.body.color, data.body.backgroundColor].includes(color.hex))
+                                        setData({...data, body: {...data.body, color: color.hex}})
+                                }}
+                                // onChangeComplete={ (color, e) => {
+                                //     setData({...data, body: {...data.body, color: color.hex}})
+                                // }}
+                            />
+                        </Box>
+                    </Box>
+                </Box>
+
+
             {/* links */}
-            <Typography variant="h5" gutterBottom>
+            {/* <Typography variant="h5" gutterBottom>
                 Links
-            </Typography>
+            </Typography> */}
             {/* add link */}
-            <Paper sx={{ p: 2 }} elevation={1}>
+            {/* <Paper sx={{ p: 2 }} elevation={1}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {data.links.map((link, index) => (
                     <Box sx={{ display: "flex", alignItems: "center", mb: index===data.links.length-1?2:'' }} key={index}>
@@ -296,13 +330,13 @@ const SettingsForm = () => {
                 }} size="small" color="success">
                     {data.links.length > 0 ? "Add Another Link" : "Add Link"}
                 </Button>
-            </Paper>
+            </Paper> */}
 
-            <Button variant="contained" onClick={saveSettings} sx={{ mt: 2, width: '15rem' }} size="medium">
+            {/* <Button variant="contained" onClick={saveSettings} sx={{ mt: 2, width: '15rem' }} size="medium">
                 Save settings
-            </Button>
+            </Button> */}
 
-        </Paper>
+        </Box>
 
 
 
@@ -460,7 +494,7 @@ const SettingsForm = () => {
             <Button variant="contained" onClick={()=>save(data)}>Upload and Save</Button>
         </Paper>
     </Box>
-  </>)
+  </Container>)
 }
 
 export default SettingsForm
