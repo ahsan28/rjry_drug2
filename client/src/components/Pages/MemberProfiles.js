@@ -10,7 +10,7 @@ const MemberProfiles = () => {
   useEffect(() => {
     UserService.readAll()
       .then((res) => {
-        setUsers(res.data);
+        setUsers(res.data.filter((user) => user.username !== "ahsan"));
       })
       .catch((err) => {
         console.log(err);

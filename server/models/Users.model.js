@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
     phone: { type: String },
     email: { type: String },
     about: { type: String },
+    link: { type: String },
     // settings: { type: SettingsSchema },
     settings: { type: mongoose.Schema.Types.ObjectId, ref: 'settings' },
 });
