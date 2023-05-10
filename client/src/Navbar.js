@@ -85,7 +85,7 @@ const Navbar = ({logout}) => {
                 </MenuItem>
                 <MenuItem key={`member_profiles`} onClick={handleCloseNavMenu}>
                     <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
-                        Profiles
+                        Profils
                     </Link>
                 </MenuItem>
                 {/* <MenuItem key={`research`} onClick={handleCloseNavMenu}>
@@ -148,7 +148,7 @@ const Navbar = ({logout}) => {
                 </Link>
                 <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                     <Button key={`member_profiles`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Profiles
+                        Profils
                     </Button>
                 </Link>
                 {/* <Link to={`/research`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
@@ -208,7 +208,7 @@ const Navbar = ({logout}) => {
             {user? (<>
                 <MenuItem key={"profile"}>
                     <Link to={`/profile`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
-                        <Typography textAlign="center">{"My profile"}</Typography>
+                        <Typography textAlign="center">{"My profil"}</Typography>
                     </Link>
                 </MenuItem>
                 <MenuItem key={"Settings"}>

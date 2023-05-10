@@ -34,9 +34,9 @@ const Introduction = () => {
       });
   }, []);
 
-  return (<Container sx={{py:2}}>
+  return (<>
     <BasicPage data={data} cover={cover} page="introduction" />
-  </Container>);
+  </>);
 };
 
 export default Introduction;

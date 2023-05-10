@@ -9,14 +9,17 @@ const BasicPage = ({ data, cover, page }) => {
   console.log("🚀 ~ file: BasicPage.js:11 ~ BasicPage ~ page:", page)
 
   return (<>
-    {/* edit button */}
-    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-      <Button variant="contained" component={Link} to={`/form/${page}`}>Edit</Button>
-    </Box>}
-    <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom className="themeFont" align="center" sx={{ pb: 2 }}>
+    {/* edit button  at the top right corner absolute*/}
+    {/* orange box across width */}
+    <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
+      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, p: 2 }}>
+        <Button variant="contained" component={Link} to={`/form/${page}`}>Edit</Button>
+      </Box>}
+      <Typography variant="h5" gutterBottom className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
         {data ? data.title : "Loading..."}
       </Typography>
+    </Box>
+    <Container sx={{py:2}}>
 
       {/* load image */}
       {cover && <Paper elevation={3} sx={{ width: "100%", textAlign: 'center' }}>
@@ -70,7 +73,7 @@ const BasicPage = ({ data, cover, page }) => {
           </Typography>
         </>
       )}
-    </Box>
+    </Container>
   </>)
 };
 
