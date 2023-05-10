@@ -11,6 +11,8 @@ const UserSchema = new mongoose.Schema({
     name: { type: String },
     surname: { type: String },
     designation: { type: String },
+    expertise: { type: String },
+    affiliation: { type: String },
     avatar: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
 
     address: { type: String },

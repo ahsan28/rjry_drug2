@@ -18,7 +18,7 @@ const Introduction = () => {
         if (res.data) {
           setData(res.data);
           if (res.data.cover) {
-            MediaService.read(res.data.cover)
+            MediaService.loadImage(res.data.cover)
               .then((res2) => {
                 setCover(res2.data);
               })
