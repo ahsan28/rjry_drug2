@@ -29,7 +29,7 @@ const MemberProfiles = () => {
                 <div>
                   <Typography variant="h6">
                     <a href={user.link} target="_blank" rel="noreferrer">
-                    {user.name} {user.surname}
+                    {user.initials} {user.name} {user.surname}
                     </a>
                     </Typography>
                   {/* <Typography variant="subtitle1">{user.designation}</Typography> */}

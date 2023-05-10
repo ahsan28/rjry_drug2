@@ -38,7 +38,13 @@ header, footer, nav {
 .themeFont {
   font-family: var(--themeFont) !important;
 }
-.themeFull {
+.themeCBFS {
+  color: var(--themeFontColor) !important;
+  background-color: var(--themeBgColor) !important;
+  font-family: var(--themeFont) !important;
+  font-size: var(--themeSize) !important;
+}
+.themeCBF {
   color: var(--themeFontColor) !important;
   background-color: var(--themeBgColor) !important;
   font-family: var(--themeFont) !important;
@@ -47,6 +53,7 @@ header, footer, nav {
   color: var(--themeFontColor) !important;
   font-family: var(--themeFont) !important;
 }
+
 
 .App {
   text-align: center;
@@ -233,7 +240,7 @@ body {
 
 .MuiBottomNavigation-root .text {
   font-size: 0.8rem;
-  color: #666;
+  /* color: #666; */
   margin-bottom: 1rem;
   text-align: justify;
 }
