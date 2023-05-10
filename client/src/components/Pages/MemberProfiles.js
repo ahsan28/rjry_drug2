@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Paper, Card, CardContent, Typography, Avatar, Box, Container } from '@mui/material';
 import UserService from '../../services/user.services';
 import ViewImage from '../Hooks/ViewImage';
+import { Link } from 'react-router-dom';
 
 const MemberProfiles = () => {
   const [users, setUsers] = React.useState([]);
@@ -26,10 +27,14 @@ const MemberProfiles = () => {
             <CardContent>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-                  <Typography variant="h6">{user.name}</Typography>
-                  <Typography variant="subtitle1">{user.designation}</Typography>
+                  <Typography variant="h6">
+                    <a href={user.link} target="_blank" rel="noreferrer">
+                    {user.name} {user.surname}
+                    </a>
+                    </Typography>
+                  {/* <Typography variant="subtitle1">{user.designation}</Typography> */}
                   <Typography variant="subtitle1">{user.experties}</Typography>
-                  <Typography variant="body1">{user.phone}</Typography>
+                  {/* <Typography variant="body1">{user.phone}</Typography> */}
                   <Typography variant="body1">{user.email}</Typography>
                   <Typography variant="body1">{user.affiliation}</Typography>
                 </div>
