@@ -61,11 +61,11 @@ function Footer() {
       {/* <div className='text'>Anytown, USA 12345</div> */}
       {/* <div className='text'>Phone: (123) 456-7890</div> */}
       <IconButton aria-label="Facebook" className='icon'>
-        <Facebook /> <a style={{color: 'gray', textDecoration: 'none', fontSize: '1rem'}}
-          href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/">Facebook</a>
+        <Facebook /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '1rem'}}
+          href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/"> Facebook</a>
       </IconButton>
             <IconButton aria-label="Instagram" className='icon'>
-        <Instagram /> <a style={{color: 'gray', textDecoration: 'none', fontSize: '1rem'}} href="https://www.instagram.com/lrgs_ppda/?hl=id">Instagram</a>
+        <Instagram /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '1rem'}} href="https://www.instagram.com/lrgs_ppda/?hl=id"> Instagram</a>
       </IconButton>
     </div>
   </div>
