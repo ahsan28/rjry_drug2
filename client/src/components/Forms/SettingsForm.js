@@ -25,6 +25,7 @@ const SettingsForm = () => {
     const [logoFile, setLogoFile] = useState(null);
     const [footer, setFooter] = useState(null);
     const [footerFile, setFooterFile] = useState(null);
+    const [showEdit, setShowEdit] = useState(false);
     const [data, setData] = useState({
         theme: {
             color: 'black',
@@ -96,7 +97,7 @@ const SettingsForm = () => {
         .then((res) => {
             console.log('saveSettings', res)
             setSettings(data)
-            // navigate(`/`)
+            setShowEdit(false)
         })
         .catch((err) => {
             console.log(err);
@@ -118,34 +119,48 @@ const SettingsForm = () => {
     <h1>Website Theme Settings</h1>
     <Box sx={{ width: '100%' }}>
         <Box sx={{p: 2, my: 2, gap: 2, display: 'flex', flexDirection: 'column'}}>
-            <Typography variant="h5" gutterBottom>
-                Preview
-            </Typography>
             {/* Preview a page at the center  */}
             <Box sx={{display: 'block', width: '100%', height: 250, position: 'relative', background: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)'}}>
+                {/* make a stiky label near top left corner with border and radius */}
+                <Box sx={{position: 'absolute', top: 0, height:28, left: 18, width: 'auto', backgroundColor: '#79d2ff', border: '4px solid #b5daff', borderRadius: "0 0 12px 12px", display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: 3}}>
+                    <Typography gutterBottom sx={{px: 2, fontSize: 13, color: 'honeydew',fontFamily: 'monospace'}}>
+                        Preview
+                    </Typography>
+                </Box>
                 <Paper elevation={1} sx={{p: 1, gap: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', width: "auto", justifyContent: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
                         <Box sx={{width: '100%', height: 40, backgroundColor: data.theme.backgroundColor}}>
-                            <Typography sx={{color: data.theme.color, fontFamily: data.theme.fontFamily, fontSize: data.theme.fontSize, textAlign: 'center', lineHeight: '50px', fontWeight: 'bold', textTransform: 'uppercase'}}>
-                                Pengenalan Profil Aktiviti Penerbitan Produk Hubungi kami
+                            <Typography sx={{color: data.theme.color, fontFamily: data.theme.fontFamily, fontSize: data.theme.fontSize, textAlign: 'center', lineHeight: '50px', fontWeight: 'bold', textTransform: 'uppercase', px:2}}>
+                                Pengenalan  Profil  Aktiviti  Penerbitan  ...
                             </Typography>
                         </Box>
                         <Box sx={{width: '100%', height: 120, backgroundColor: data.body.backgroundColor}}>
                             <Typography sx={{color: data.body.color, fontFamily: data.body.fontFamily, fontSize: data.body.fontSize, textAlign: 'center', lineHeight: '80px'}}>
-                                Body goes here.
+                                Body color and text color, size, background etc. goes here.
                             </Typography>
                         </Box>
                         <Box sx={{width: '100%', height: 20, backgroundColor: data.theme.backgroundColor}}/>
                 </Paper>
-                <Button variant="contained" onClick={() => saveSettings()} sx={{position: 'absolute', bottom: 0, right: 0, m: 2}}>
-                    Save
-                    </Button>
+                <Box sx={{position: 'absolute', bottom: 0, right: 0, m:2 }}>
+                     <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
+                     {showEdit ? <>
+                            <Button variant="contained" onClick={saveSettings} size="small" color="success" sx={{width: '6rem'}}>
+                                Save
+                            </Button>
+                            <Button variant="contained" onClick={() => setShowEdit(false)} size="small" color="error" sx={{width: '6rem'}}>
+                                Cancel
+                            </Button>
+                        </>: <Button variant="contained" onClick={() => setShowEdit(true)} size="small" color="primary" sx={{width: '6rem'}}>
+                            Modify    
+                        </Button>}
+                    </Box>
+                </Box>
             </Box>
 
             {/* select theme bg color, text color, fonts, size */}
-                <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
+                {showEdit && <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Typography gutterBottom>
-                            Header background
+                            Menu background
                         </Typography>
                         <Box>
                             <SketchPicker 
@@ -165,7 +180,7 @@ const SettingsForm = () => {
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Typography gutterBottom>
-                            Header text
+                            Menu text
                         </Typography>
                         <Box>
                             <SketchPicker 
@@ -186,6 +201,7 @@ const SettingsForm = () => {
                             <Select
                                 labelId="theme-font-label"
                                 id="theme-font"
+                                sx={{textTransform:'uppercase', fontFamily: data.theme.fontFamily}}
                                 value={data.theme.fontFamily}
                                 label="Theme Font"
                                 size="small"
@@ -218,6 +234,7 @@ const SettingsForm = () => {
                                 labelId="body-font-label"
                                 id="body-font"
                                 value={data.body.fontFamily}
+                                sx={{fontFamily: data.body.fontFamily}}
                                 label="Body Font"
                                 size="small"
                                 onChange={(e) => {
@@ -282,7 +299,7 @@ const SettingsForm = () => {
                         </Box>
                     </Box>
                 </Box>
-
+            }
 
             {/* links */}
             {/* <Typography variant="h5" gutterBottom>

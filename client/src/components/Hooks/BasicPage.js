@@ -12,22 +12,23 @@ const BasicPage = ({ data, cover, page }) => {
     {/* edit button  at the top right corner absolute*/}
     {/* orange box across width */}
     <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
-      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, p: 2 }}>
-        <Button variant="contained" component={Link} to={`/form/${page}`}>Edit</Button>
-      </Box>}
-      <Typography variant="h5" gutterBottom className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+      <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
         {data ? data.title : "Loading..."}
       </Typography>
     </Box>
-    <Container sx={{py:2}}>
+    <Container sx={{py:2, position: "relative"}}>
+      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
+        <Button variant="contained" component={Link} to={`/form/${page}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+          Edit</Button>
+      </Box>}
 
       {/* load image */}
-      {cover && <Paper elevation={3} sx={{ width: "100%", textAlign: 'center' }}>
+      {cover && <Paper elevation={1} sx={{ width: "100%", textAlign: 'center' }}>
 
       {/* <Image src={cover.path} alt={cover.name} sx={{ borderRadius: "10px !important" }} /> */}
       <Card raised
         sx={{
-          // maxHeight: 380,
+          // height: 380,
           margin: "0 auto",
           padding: "0em",
         }}
@@ -38,7 +39,7 @@ const BasicPage = ({ data, cover, page }) => {
         // image={imageNetwork}
         alt={cover.originalname}
         // title={"titleasdasdsada"}
-        sx={{ padding: "0px", objectFit: "contain" }}
+        sx={{ padding: "0px", objectFit: "cover" }}
         image={URL.createObjectURL(cover)}
         title={cover.originalname}
       />

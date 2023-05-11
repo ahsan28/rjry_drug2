@@ -28,7 +28,7 @@ const MemberProfiles = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
                   <Typography variant="h6">
-                    <a href={user.link} target="_blank" rel="noreferrer">
+                    <a href={user.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                     {user.initials} {user.name} {user.surname}
                     </a>
                     </Typography>
