@@ -6,6 +6,7 @@ import UserForm from './components/Users/UserForm';
 import ActivityForm from './components/Forms/ActivityForm';
 import Profile from './components/Pages/Profile';
 import MemberProfiles from './components/Pages/MemberProfiles';
+import MemberForm from './components/Forms/MemberForm';
 import NoPage from './components/Pages/NoPage';
 import Introduction from './components/Pages/Introduction';
 import Research from './components/Pages/Research';
@@ -139,6 +140,7 @@ const App = () => {
               {/* <Route path="/rjry_drug" element={<Introduction />} /> */}
               <Route path="/introduction" element={<Introduction />} />
               <Route path="/member_profiles" element={<MemberProfiles />} />
+              <Route path="/form/member" element={<MemberForm />} />
               <Route path="/research" element={<Research />} />
               <Route path="/publications" element={<Publications />} />
               <Route path="/activity/:actId" element={<Activities />} />

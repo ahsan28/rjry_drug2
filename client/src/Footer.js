@@ -69,8 +69,8 @@ function Footer() {
       </IconButton>
     </div>
   </div>
-  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#222', width: '100%' }}>
-    <p className='text' style={{ fontSize: '0.7rem', color: '#eee', lineHeight: '0.7rem' }}>Copyright © 2023 Universiti Pendidikan Sultan Idris. All rights reserved.</p>
+  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#444', width: '100%' }}>
+    <p className='text' style={{ fontSize: '0.7rem', color: '#fff', lineHeight: '0.7rem' }}>Copyright © 2023 Universiti Pendidikan Sultan Idris. All rights reserved.</p>
   </Box>
 </BottomNavigation>
   );

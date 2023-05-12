@@ -4,8 +4,8 @@ import authHeader from './auth.header';
 const api = 'https://back.sekolahbebasdadah.tel/users/'; 
 // const api = 'http://localhost:5000/users/' // "https://rjrydrug.herokuapp.com/"
 
-const get = (username) => {
-    return axios.get(`${api}read/${username}`);
+const get = (uid) => {
+    return axios.get(`${api}read/${uid}`);
 }
 
 const readAll = () => {

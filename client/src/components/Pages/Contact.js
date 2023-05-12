@@ -12,6 +12,7 @@ const location = {
 
 const Contact = () => {
   const { user } = useContext(UserContext);
+  console.log("🚀 ~ file: Contact.js:15 ~ Contact ~ user:", user)
   const [mailData, setMailData] = useState({
     name: '',
     email: '',
@@ -24,7 +25,7 @@ const Contact = () => {
 
   useEffect(() => {
     if (user) {
-      UserService.get(user.username).then(res => {
+      UserService.get(user._id).then(res => {
         setData(res.data.siteLinks);
       }).catch(err => {
         console.log(err);

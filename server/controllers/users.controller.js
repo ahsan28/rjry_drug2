@@ -23,7 +23,9 @@ let EMAILTO = process.env.EMAILTO;
 
 const read = async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.params.username });
+        console.log("🚀 ~ file: users.controller.js:27 ~ read ~ req.params.id:", req.params.id)
+        const user = await User.findById(req.params.id);
+        console.log("🚀 ~ file: users.controller.js:28 ~ read ~ user:", user)
         res.status(200).json(user);
     } catch (err) {
         res.status(400).json({ message: err.message });

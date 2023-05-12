@@ -17,7 +17,7 @@ const profileDataFileFields = ['avatar'].map(x=>({name:x}))
 
 const router = express.Router();
 
-router.get("/read/:username", controller.read);
+router.get("/read/:id", controller.read);
 router.get("/settings", controller.getSettings);
 router.get("/settings/:id", controller.getSettings);
 router.put("/settings/:userid", controller.saveSettings);
