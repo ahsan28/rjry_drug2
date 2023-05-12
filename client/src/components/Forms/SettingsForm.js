@@ -118,7 +118,7 @@ const SettingsForm = () => {
   else return (<Container>
     <h1>Website Theme Settings</h1>
     <Box sx={{ width: '100%' }}>
-        <Box sx={{p: 2, my: 2, gap: 2, display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{my: 2, gap: 1, display: 'flex', flexDirection: 'column'}}>
             {/* Preview a page at the center  */}
             <Box sx={{display: 'block', width: '100%', height: 250, position: 'relative', background: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)'}}>
                 {/* make a stiky label near top left corner with border and radius */}
@@ -363,7 +363,7 @@ const SettingsForm = () => {
         
         <Divider sx={{ my: 2 }} />
         {/* upload file to be saved in the folder */}
-            <Paper sx={{ p: 2, my: 2 }} elevation={1}>
+            <Box sx={{ my: 2 }} >
                 <Typography variant="h5" gutterBottom>
                     Upload Image Files
                 </Typography>
@@ -509,7 +509,7 @@ const SettingsForm = () => {
             </Box>
             <Divider sx={{ my: 2 }} />
             <Button variant="contained" onClick={()=>save(data)}>Upload and Save</Button>
-        </Paper>
+        </Box>
     </Box>
   </Container>)
 }

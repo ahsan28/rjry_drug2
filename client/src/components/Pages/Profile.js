@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardMedia, Divider, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Container, Divider, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../UserContext";
@@ -12,7 +12,7 @@ import ViewImage from '../Hooks/ViewImage';
 import ProfileForm from '../Forms/ProfileForm';
 
 const StyledPaper = styled(Paper)({
-  padding: '2rem',
+  // padding: '2rem',
 //   maxWidth: '600px',
   margin: '0 auto',
 });
@@ -95,8 +95,8 @@ const Profile = () => {
   };
 
 
-  return (<>
-    <StyledPaper elevation={3}>
+  return (<Container>
+    <Box sx={{my:2}}>
     {/* edit button */}
     {user && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant="contained" onClick={handleDialogOpen}>Edit</Button>
@@ -165,11 +165,11 @@ const Profile = () => {
       <Button variant="contained" color="primary" component={Link} to={`/contact`} sx={{marginTop: '2rem'}}>
         Contact Us
       </Button>
-    </StyledPaper>
+    </Box>
     { user &&
       <ProfileForm open={dialogOpen} handleClose={handleDialogClose} handleSubmit={handleProfileSubmit} initialValues={{...user, accessToken:undefined}} />
     }
-  </>)
+  </Container>)
 }
 
 export default Profile
