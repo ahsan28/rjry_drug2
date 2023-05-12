@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BottomNavigation, BottomNavigationAction, Box, IconButton } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box, Container, IconButton } from '@mui/material';
 import { Facebook, Twitter, Instagram, Pinterest, LinkedIn, YouTube } from '@mui/icons-material';
 import { UserContext } from "./UserContext";
 
@@ -16,8 +16,8 @@ function Footer() {
           </p>
         </div>
         <div>
-          <p className='title'>MEDIA SOSIAL</p>
-          <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
+          <p className='title' style={{textAlign:'center'}}>MEDIA SOSIAL</p>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <IconButton aria-label="Facebook" className='icon'>
             <Facebook />
           </IconButton>
@@ -69,6 +69,9 @@ function Footer() {
       </IconButton>
     </div>
   </div>
+  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#222', width: '100%' }}>
+    <p className='text' style={{ fontSize: '0.7rem', color: '#eee', lineHeight: '0.7rem' }}>Copyright © 2023 Universiti Pendidikan Sultan Idris. All rights reserved.</p>
+  </Box>
 </BottomNavigation>
   );
 }
