@@ -24,7 +24,7 @@ let EMAILTO = process.env.EMAILTO;
 const read = async (req, res) => {
     try {
         console.log("🚀 ~ file: users.controller.js:27 ~ read ~ req.params.id:", req.params.id)
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).select('-password');
         console.log("🚀 ~ file: users.controller.js:28 ~ read ~ user:", user)
         res.status(200).json(user);
     } catch (err) {
@@ -237,6 +237,83 @@ const updateProfile = async (req, res) => {
     }
         
 }
+
+const updateMember = async (req, res) => {
+    try { // cover and logo are coming from the form, with font and theme color fields4
+        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.body", req.body)
+        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.files", req.files)
+        var body = req.body;
+        let userJson = await User.findById(body._id).lean();
+        if (body['avatar'] === 'remove') {
+            console.log("here remove")
+            await Media.findByIdAndDelete(userJson.avatar);
+            body['avatar'] = null; 
+
+            await User.findByIdAndUpdate(
+                body._id,
+                { $set: body },
+                { new: true }
+            ).then((user) => {
+                res.status(200).json(user);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        else if (['null', 'undefined', ''].includes(body['avatar'])|| body['avatar'].length == 24) {
+            console.log("here null")
+            body['avatar'] = userJson.avatar;
+
+            await User.findByIdAndUpdate(
+                body._id,
+                { $set: body },
+                { new: true }
+            ).then((user) => {
+                res.status(200).json(user);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        else {
+            console.log("here else")
+            if(req.files.avatar) {
+                await Media.insertMany([{
+                    ...req.files.avatar[0],
+                    type: req.files.avatar[0].mimetype.split('/')[0],
+                    extension: req.files.avatar[0].mimetype.split('/')[1],
+                    url: req.files.avatar[0].path,
+                    userid: user._id,
+                    username: user.username,
+                }]).then((media) => {
+                    User.findByIdAndUpdate(
+                        body._id,
+                        { $set: { ...body, avatar: media[0]._id } },
+                        { new: true }
+                    ).then((user) => {
+                        res.status(200).json(user);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+            } else {
+                User.findByIdAndUpdate(
+                    body._id,
+                    { $set: { ...body } },
+                    { new: true }
+                ).then((user) => {
+                    res.status(200).json(user);
+                }).catch((err) => {
+                    console.log(err);
+                });+s
+
+            }
+        }
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+        
+}
 // export default { 
 module.exports = {
     read,
@@ -246,6 +323,7 @@ module.exports = {
     login,
     sendEmail,
     updateProfile,
+    updateMember,
     getSettings,
     saveSettings,
 };
