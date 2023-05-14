@@ -38,33 +38,46 @@ const MemberProfiles = () => {
   };
 
   const handleProfileSubmit = (newProfileData) => {
-    console.log("🚀 ~ file: Profile.js:59 ~ handleProfileSubmit ~ newProfileData:", newProfileData)
+    console.log("🚀 ~ file: Profile.js:41 -------------------", newProfileData)
   
       let formData = new FormData();
-      formData.append('_id', user._id);
+      // formData.append('_id', user._id);
   
+      formData.append('initials', newProfileData.initials);
       formData.append('name', newProfileData.name);
       formData.append('surname', newProfileData.surname);
       formData.append('designation', newProfileData.designation);
-
-      formData.append('address', newProfileData.address);
-      formData.append('phone', newProfileData.phone);
+      formData.append('expertise', newProfileData.expertise);
+      formData.append('affiliation', newProfileData.affiliation);
+      
       formData.append('email', newProfileData.email);
+      formData.append('phone', newProfileData.phone);
+      formData.append('link', newProfileData.link);
+      formData.append('address', newProfileData.address);
       formData.append('about', newProfileData.about);
 
       formData.append('avatar', newProfileData.avatar);
       
-      
-      UserService.updateMember(formData)
-              .then((res) => {
-                  // setUser(res.data.user)
-                  // setUid('new');
-                  handleClose();
-                  // navigate(`/`)
-              })
-              .catch((err) => {
-                  console.log(err);
-              });
+      if(uid === 'new'){
+        UserService.createMember(formData)
+                .then((res) => {
+                    // setUser(res.data.user)
+                    // setUid('new');
+                    handleClose();
+                    // navigate(`/`)
+                })
+                .catch((err) => console.log(err));
+      } else {
+        formData.append('_id', uid);
+        UserService.updateMember(formData)
+                .then((res) => {
+                    // setUser(res.data.user)
+                    // setUid('new');
+                    handleClose();
+                    // navigate(`/`)
+                })
+                .catch((err) => console.log(err));
+      }
     };
   const memberList = users.map((user) => (
     <Box key={user._id} sx={{ gap: 1, pt:1 }}>
@@ -84,7 +97,7 @@ const MemberProfiles = () => {
                   </a>
                   </Typography>
                 {/* <Typography variant="subtitle1">{user.designation}</Typography> */}
-                <Typography variant="subtitle1">{user.experties}</Typography>
+                <Typography variant="subtitle1">{user.expertise}</Typography>
                 {/* <Typography variant="body1">{user.phone}</Typography> */}
                 <Typography variant="body1">{user.email}</Typography>
                 <Typography variant="body1">{user.affiliation}</Typography>
@@ -110,7 +123,10 @@ const MemberProfiles = () => {
     <Container elevation={0} sx={{ pt: 2, gap: 1, position: 'relative' }}>
       {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
         <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
-        onClick={()=>setOpenMemberForm(true)}>
+        onClick={()=>{
+          setUid('new')
+          setOpenMemberForm(true)
+          }}>
           +</Button>
       </Box>}
       {memberList}

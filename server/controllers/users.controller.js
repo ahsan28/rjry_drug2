@@ -238,6 +238,40 @@ const updateProfile = async (req, res) => {
         
 }
 
+const createMember = async (req, res) => {
+    console.log("🚀 ~ file: users.controller.js ~ line 193 ~ createMember ~ req.body", req.body)
+    console.log("🚀 ~ file: users.controller.js ~ line 193 ~ createMember ~ req.files", req.files)
+    try {
+        if(req.files.avatar) {
+            Media.insertMany([{
+                ...req.files.avatar[0],
+                type: req.files.avatar[0].mimetype.split('/')[0],
+                extension: req.files.avatar[0].mimetype.split('/')[1],
+                url: req.files.avatar[0].path,
+                userid: req.body.userid,
+                username: req.body.username,
+            }]).then((media) => {
+                req.body.avatar = media[0]._id;
+                User.create(req.body).then((user) => {
+                    res.status(200).json(user);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            User.create(req.body).then((user) => {
+                res.status(200).json(user);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 const updateMember = async (req, res) => {
     try { // cover and logo are coming from the form, with font and theme color fields4
         console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.body", req.body)
@@ -259,8 +293,7 @@ const updateMember = async (req, res) => {
                 console.log(err);
             });
         }
-        else if (['null', 'undefined', ''].includes(body['avatar'])|| body['avatar'].length == 24) {
-            console.log("here null")
+        else if (['null', 'undefined', ''].includes(body['avatar']) || !req.files.avatar || body['avatar']?.length == 24) {
             body['avatar'] = userJson.avatar;
 
             await User.findByIdAndUpdate(
@@ -274,15 +307,14 @@ const updateMember = async (req, res) => {
             });
         }
         else {
-            console.log("here else")
             if(req.files.avatar) {
                 await Media.insertMany([{
                     ...req.files.avatar[0],
                     type: req.files.avatar[0].mimetype.split('/')[0],
                     extension: req.files.avatar[0].mimetype.split('/')[1],
                     url: req.files.avatar[0].path,
-                    userid: user._id,
-                    username: user.username,
+                    userid: userJson._id,
+                    username: userJson.username,
                 }]).then((media) => {
                     User.findByIdAndUpdate(
                         body._id,
@@ -305,7 +337,7 @@ const updateMember = async (req, res) => {
                     res.status(200).json(user);
                 }).catch((err) => {
                     console.log(err);
-                });+s
+                });
 
             }
         }
@@ -323,6 +355,7 @@ module.exports = {
     login,
     sendEmail,
     updateProfile,
+    createMember,
     updateMember,
     getSettings,
     saveSettings,

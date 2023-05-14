@@ -27,6 +27,7 @@ router.put("/login", controller.login);
 router.put("/updateLinks/:username", controller.updateLinks);
 router.post("/send", controller.sendEmail);
 router.put("/updateprofile/:username", upload.fields(profileDataFileFields), controller.updateProfile);
+router.post("/createmember", upload.fields(profileDataFileFields), controller.createMember);
 router.put("/updatemember", upload.fields(profileDataFileFields), controller.updateMember);
 
 // export default router;

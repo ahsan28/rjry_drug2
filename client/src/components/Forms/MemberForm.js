@@ -27,6 +27,7 @@ const MemberForm = ({ open, handleClose, handleSubmit, uid }) => {
 
     const handleChange = (e) => {
       const { name, value } = e.target;
+      console.log("🚀 ~ file: MemberForm.js:30 ~ handleChange ~ name, value:", name, value)
       setFormValues({ ...formValues, [name]: value });
     };
   
@@ -34,11 +35,11 @@ const MemberForm = ({ open, handleClose, handleSubmit, uid }) => {
       console.log("🚀 ~ file: MemberForm.js:22 ~ handleFormSubmit ~ imgFile:", imgFile)
       if (imgFile) handleSubmit({ ...formValues, avatar: imgFile });
       else handleSubmit(formValues);
-      handleClose();
+      // handleClose();
     };
 
     const removeAvatar = () => {
-      setFormValues({ ...formValues, avatar: null });
+      setFormValues({ ...formValues, avatar: 'remove' });
       setImage(null);
       setImgFile(null);
     }
