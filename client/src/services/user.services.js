@@ -17,7 +17,15 @@ const updateLinks = (data,username) => {
 }
 
 const updateProfile = (data,username) => {
-    return axios.put(`${api}updateProfile/${username}`, data, { headers: authHeader() });
+    return axios.put(`${api}updateprofile/${username}`, data, { headers: authHeader() });
+}
+
+const createMember = (data) => {
+    return axios.post(`${api}createmember`, data, { headers: authHeader() });
+}
+
+const updateMember = (data) => {
+    return axios.put(`${api}updatemember`, data, { headers: authHeader() });
 }
 
 const register = (user) => {
@@ -62,6 +70,8 @@ const functions = {
     readAll,
     updateLinks,
     updateProfile,
+    createMember,
+    updateMember,
     register,
     login,
     getCurrentUser,

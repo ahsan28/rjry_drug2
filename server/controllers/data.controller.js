@@ -91,11 +91,38 @@ const update = async (req, res) => {
                 data.lastEditDate = new Date();
                 data.lastEditor = req.body.userid;
                 if (req.files.cover) {
-                    data.cover = req.files.cover[0]._id;
+                    let coverId = new ObjectId();
+                    await Media.insertMany([{
+                        _id: coverId,
+                        ...req.files.cover[0],
+                        type: req.files.cover[0].mimetype.split('/')[0],
+                        extension: req.files.cover[0].mimetype.split('/')[1],
+                        name: req.files.cover[0].filename,
+                        url: req.files.cover[0].path,
+                        username: req.body.username,
+                        userid: req.body.userid,
+                    }]);
+                    data.cover = coverId;
                 }
                 if (req.files.gallery) {
-                    data.gallery = req.files.gallery.map((file) => file._id);
+                    let galleryIds = req.files.gallery.map((file) => new ObjectId());
+                    await Media.insertMany(req.files.gallery.map((file, index) => ({
+                        _id: galleryIds[index],
+                        ...file,
+                        type: file.mimetype.split('/')[0],
+                        extension: file.mimetype.split('/')[1],
+                        name: file.filename,
+                        url: file.path,
+                        username: req.body.username,
+                        userid: req.body.userid,
+                    })));
+                    data.gallery = galleryIds;
                 }
+                    // data.gallery = req.files.gallery.map((file) => file._id);
+                await data.save();
+                res.status(200).json(data);
+            } else {
+                res.status(400).json({ message: "Gallery is a reserved name" });
             }
         }
     } catch (err) {

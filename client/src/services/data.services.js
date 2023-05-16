@@ -19,8 +19,8 @@ const createAll = () => {
     return axios.get(`${api}createAll`, { headers: authHeader() });
 }
 
-const save = (data) => {
-    return axios.put(api+data.name, data, { headers: authHeader() });
+const save = (data, page) => {
+    return axios.put(api+page, data, { headers: authHeader() });
 }
 
 const upload = (data) => {

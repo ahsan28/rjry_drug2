@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import DataService from '../../services/data.services'
 import MediaService from '../../services/media.services';
-import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Paper, Card, CardMedia, CardActions } from '@mui/material'
+import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Paper, Card, CardMedia, CardActions, Container } from '@mui/material'
 import {Link, useParams, useNavigate } from 'react-router-dom'
 import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
 import { UserContext } from "../../UserContext";
@@ -56,6 +56,8 @@ const CommonDataForm = () => {
         formData.append("name", data.name);
         formData.append("title", data.title);
         formData.append("description", data.description);
+        formData.append("userid", user._id);
+        formData.append("username", user.username);
 
         if (imgFile) formData.append("cover", imgFile);
         if (galleryFiles) formData.append("gallery", galleryFiles);
@@ -79,9 +81,10 @@ const CommonDataForm = () => {
             gap: 2
           }}
         >
-            <TextField name="title" label="Title" value={data ? data.title : ""} onChange={(e) => setData({...data, title: e.target.value})} sx={{width: "50%"}}/>
             {page!=="gallery" && 
-            <Paper elevation={1} sx={{padding: 2, width: "50%"}}>
+            // put cards left
+            <Container sx={{display: "flex", flexDirection: "row", width: "50%", pl: '0 !important' }}>
+                <Box sx={{display: "flex", flexDirection: "column" }}>
                 {image && <Card sx={{ maxWidth: 300, mb:2 }}>
                     <CardMedia
                         component="img"
@@ -116,14 +119,14 @@ const CommonDataForm = () => {
                             setData({...data, cover: e.target.files[0].name, coverUpdated: true})
                         }}
                         hidden
-
                     />
                     <Button variant="contained" component="span">
                         {image ? "Change Cover" : "Upload Cover"}
                     </Button>
                 </label>
+                </Box>
 
-                </Paper>}
+                </Container>}
             {page==="gallery" && 
             <Paper elevation={1} sx={{padding: 2, width: "50%"}}>
                 <Box sx={{display: "flex", flexDirection: "row", gap: 2}}>
@@ -173,6 +176,7 @@ const CommonDataForm = () => {
                 </Button>
             </label>
         </Paper>}
+        <TextField name="title" label="Title" value={data ? data.title : ""} onChange={(e) => setData({...data, title: e.target.value})} sx={{width: "50%"}}/>
         <TextField name="description" label="Description" value={data ? data.description : ""} onChange={(e) => setData({...data, description: e.target.value})} sx={{width: "50%"}}/>
         <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "50%"}}>
             <Button variant="contained" onClick={() => navigate(`/${page}`)} color="error" >Cancel</Button>
