@@ -58,17 +58,17 @@ const MemberForm = ({ open, handleClose, handleSubmit, uid }) => {
         <ImageUploader oldImgId={formValues.avatar} setFile={setImgFile} image={image} setImage={setImage} name={formValues.name}/>
         {/* clear image button */}
         
-        <TextField size='small' name="type" label="type" variant="outlined" fullWidth value={formValues.type} onChange={handleChange} sx={{mt:1}} />
-        <TextField size='small' name="initials" label="initials" variant="outlined" fullWidth value={formValues.initials} onChange={handleChange} sx={{mt:1}} />
+        <TextField size='small' name="type" label="Type" variant="outlined" fullWidth value={formValues.type} onChange={handleChange} sx={{mt:1}} />
+        <TextField size='small' name="initials" label="Initials" variant="outlined" fullWidth value={formValues.initials} onChange={handleChange} sx={{mt:1}} />
         <TextField size='small' name="name" label="Name" variant="outlined" fullWidth value={formValues.name} onChange={handleChange} sx={{mt:1}} />
         <TextField size='small' name="surname" label="Surname" variant="outlined" fullWidth value={formValues.surname} onChange={handleChange} sx={{mt:1}} />
         <TextField size='small' name="designation" label="Designation" variant="outlined" fullWidth value={formValues.designation} onChange={handleChange} sx={{mt:1}} />
-        <TextField size='small' name="expertise" label="expertise" variant="outlined" fullWidth value={formValues.expertise} onChange={handleChange} sx={{mt:1}} />
-        <TextField size='small' name="affiliation" label="affiliation" variant="outlined" fullWidth value={formValues.affiliation} onChange={handleChange} sx={{mt:1}} />
+        <TextField size='small' name="expertise" label="Expertise" variant="outlined" fullWidth value={formValues.expertise} onChange={handleChange} sx={{mt:1}} />
+        <TextField size='small' name="affiliation" label="Affiliation" variant="outlined" fullWidth value={formValues.affiliation} onChange={handleChange} sx={{mt:1}} />
 
         <TextField size='small' name="email" label="Email" variant="outlined" fullWidth value={formValues.email} onChange={handleChange} sx={{mt:1}} />
         <TextField size='small' name="phone" label="Phone" variant="outlined" fullWidth value={formValues.phone} onChange={handleChange} sx={{mt:1}} />
-        <TextField size='small' name="link" label="link" variant="outlined" fullWidth value={formValues.link} onChange={handleChange} sx={{mt:1}} />
+        <TextField size='small' name="link" label="Link" variant="outlined" fullWidth value={formValues.link} onChange={handleChange} sx={{mt:1}} />
         <TextField size='small' name="address" label="Address" variant="outlined" fullWidth value={formValues.address} onChange={handleChange} sx={{mt:1}} multiline rows={4}/>
         <TextField size='small' name="about" label="About" variant="outlined" fullWidth value={formValues.about} onChange={handleChange} sx={{mt:1}} multiline rows={4} />
       </DialogContent>

@@ -42,7 +42,6 @@ const ActivityForm = ({ actId }) => {
     formData.append("name", name);
     // formData.append("title", title);
     formData.append("description", description);
-    // formData.append("images", imgFiles);
     for (let i = 0; i < imgFiles.length; i++) {
       console.log(i,imgFiles[i])
       formData.append("images", imgFiles[i]);
