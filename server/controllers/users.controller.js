@@ -261,6 +261,7 @@ const createMember = async (req, res) => {
                 console.log(err);
             });
         } else {
+            if(req.body.avatar === 'remove' || req.body.avatar.length !== 24) delete req.body.avatar;
             User.create(req.body).then((user) => {
                 res.status(200).json(user);
             }).catch((err) => {
@@ -293,8 +294,9 @@ const updateMember = async (req, res) => {
                 console.log(err);
             });
         }
-        else if (['null', 'undefined', ''].includes(body['avatar']) || !req.files.avatar || body['avatar']?.length == 24) {
-            body['avatar'] = userJson.avatar;
+        else if (!req.files.avatar || body['avatar']?.length == 24) {
+            if (['null', 'undefined', ''].includes(body['avatar'])) delete body['avatar'];
+            else body['avatar'] = userJson.avatar;
 
             await User.findByIdAndUpdate(
                 body._id,
