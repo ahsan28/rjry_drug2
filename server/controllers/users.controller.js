@@ -262,6 +262,16 @@ const createMember = async (req, res) => {
             });
         } else {
             if(req.body.avatar === 'remove' || req.body.avatar.length !== 24) delete req.body.avatar;
+            // unique-fy username with a trailing number given that the body.username is empty/null
+            if(!req.body.username) {
+                let username = req.body.email.split('@')[0];
+                let users = await User.find({ username: { $regex: username, $options: 'i' } });
+                if(users.length > 0) {
+                    username = username + users.length;
+                }
+                req.body.username = username;
+            }
+
             User.create(req.body).then((user) => {
                 res.status(200).json(user);
             }).catch((err) => {

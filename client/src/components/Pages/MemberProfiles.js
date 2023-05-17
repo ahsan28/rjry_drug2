@@ -42,21 +42,23 @@ const MemberProfiles = () => {
   
       let formData = new FormData();
       // formData.append('_id', user._id);
-  
-      formData.append('initials', newProfileData.initials);
-      formData.append('name', newProfileData.name);
-      formData.append('surname', newProfileData.surname);
-      formData.append('designation', newProfileData.designation);
-      formData.append('expertise', newProfileData.expertise);
-      formData.append('affiliation', newProfileData.affiliation);
-      
-      formData.append('email', newProfileData.email);
-      formData.append('phone', newProfileData.phone);
-      formData.append('link', newProfileData.link);
-      formData.append('address', newProfileData.address);
-      formData.append('about', newProfileData.about);
-
       formData.append('avatar', newProfileData.avatar);
+      
+      if (newProfileData.type) formData.append('type', newProfileData.type);
+      // if (newProfileData.username) formData.append('username', newProfileData.username);
+      if (newProfileData.initials) formData.append('initials', newProfileData.initials);
+      if (newProfileData.name) formData.append('name', newProfileData.name);
+      if (newProfileData.surname) formData.append('surname', newProfileData.surname);
+      if (newProfileData.designation) formData.append('designation', newProfileData.designation);
+      if (newProfileData.expertise) formData.append('expertise', newProfileData.expertise);
+      if (newProfileData.affiliation) formData.append('affiliation', newProfileData.affiliation);
+      
+      if (newProfileData.email) formData.append('email', newProfileData.email);
+      if (newProfileData.phone) formData.append('phone', newProfileData.phone);
+      if (newProfileData.link) formData.append('link', newProfileData.link);
+      if (newProfileData.address) formData.append('address', newProfileData.address);
+      if (newProfileData.about) formData.append('about', newProfileData.about);
+
       
       if(uid === 'new'){
         UserService.createMember(formData)
