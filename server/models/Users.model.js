@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
     expertise: { type: String },
     affiliation: { type: String },
     avatar: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
+    type: { type: String },
 
     address: { type: String },
     phone: { type: String },

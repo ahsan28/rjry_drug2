@@ -20,7 +20,7 @@ const router = express.Router();
 // common data
 router.get("/read/:id", controller.read);
 router.get("/readAll", verifyJWT, controller.readAll);
-router.post("/create", upload.array('images'), controller.create);
+router.post("/create", upload.any('images'), controller.create);
 router.put("/update/:id", verifyJWT, controller.update);
 router.delete("/remove/:id", verifyJWT, controller.remove);
 

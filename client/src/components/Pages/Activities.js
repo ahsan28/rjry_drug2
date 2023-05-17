@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Grid, ListItemButton, ListItemIcon, ListItemText, Paper, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import {  useParams, useNavigate, Link } from "react-router-dom";
 import ActivityService from "../../services/activity.services";
@@ -36,10 +36,26 @@ const ActivityList = ({ activities, onItemClick }) => (
     <Typography variant="h6" sx={{ mb: 2 }}>
       Activities
     </Typography>
-    {activities.map((activity) => (
-      <Typography key={activity.id} onClick={() => onItemClick(activity)} sx={{ cursor: 'pointer', mb: 1 }}>
-        {activity.title}
-      </Typography>
+    {activities.map((activity,index) => (
+      <ListItemButton
+      key={activity.id}
+      sx={{ py: 0, minHeight: 32, cursor: 'pointer' }}
+      onClick={() => onItemClick(activity)}
+    >
+      <ListItemIcon sx={{ minWidth: 32 }}>
+        <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'medium' }}>
+          {index + 1}
+        </Typography>
+      </ListItemIcon>
+
+      <ListItemText
+        primary={activity.title}
+        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+      />
+    </ListItemButton>
+      // <Typography key={activity.id} onClick={() => onItemClick(activity)} sx={{ cursor: 'pointer', mb: 1 }}>
+      //   {activity.title}
+      // </Typography>
     ))}
   </Paper>
 );
@@ -59,13 +75,13 @@ const ActivityDetail = ({ activity }) => (
 const Activities = () => {
   const { user, setUser } = useContext(UserContext);
   const [selectedActivity, setSelectedActivity] = useState(null);
-  const [activities, setActivities] = useState(null);
+  // const [activities, setActivities] = useState(null);
   let { actId } = useParams();
 
   useEffect(() => {
     ActivityService.read(actId).then((res) => {
       if (res.data) {
-        setActivities(res.data);
+        // setActivities(res.data);
       }
     });
   }, [actId]);
@@ -78,12 +94,12 @@ const Activities = () => {
   {user && <Box sx={{display: "flex", justifyContent: "flex-end", mb: 2}}>
       <Button variant="contained" component={Link} to={`/activity_form/${actId}`}>Add new activity</Button>
     </Box>}
-    <Grid container spacing={3}>
+    <Grid container spacing={1}>
       {activities ? <>
-      <Grid item xs={12} sm={5}>
+      <Grid item xs={12} md={4} lg={3}>
         <ActivityList activities={activities} onItemClick={handleItemClick} />
       </Grid>
-      <Grid item xs={12} sm={7}>
+      <Grid item xs={12} md={8} lg={9}>
         {selectedActivity ? (
           <ActivityDetail activity={selectedActivity} />
         ) : (
