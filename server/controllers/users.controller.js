@@ -309,15 +309,17 @@ const updateMember = async (req, res) => {
             if (['null', 'undefined', ''].includes(body['avatar'])) delete body['avatar'];
             else body['avatar'] = userJson.avatar;
 
-            await User.findByIdAndUpdate(
-                body._id,
+            let user = await User.findByIdAndUpdate(body._id,
                 { $set: body },
-                { new: true }
-            ).then((user) => {
+                { new: true }).lean()
+                .catch((err) => {
+                    console.log(err);
+                });
+            if (user) {
                 res.status(200).json(user);
-            }).catch((err) => {
-                console.log(err);
-            });
+            } else {
+                res.status(400).json({ message: 'User not found' });
+            }
         }
         else {
             console.error("here create")
