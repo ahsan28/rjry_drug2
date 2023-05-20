@@ -290,7 +290,7 @@ const updateMember = async (req, res) => {
         var body = req.body;
         let userJson = await User.findById(body._id).lean();
         if (body['avatar'] === 'remove') {
-            console.log("here remove")
+            console.error("here remove")
             await Media.findByIdAndDelete(userJson.avatar);
             body['avatar'] = null; 
 
@@ -305,6 +305,7 @@ const updateMember = async (req, res) => {
             });
         }
         else if (!req.files.avatar || body['avatar']?.length == 24) {
+            console.error("here update")
             if (['null', 'undefined', ''].includes(body['avatar'])) delete body['avatar'];
             else body['avatar'] = userJson.avatar;
 
@@ -319,7 +320,9 @@ const updateMember = async (req, res) => {
             });
         }
         else {
+            console.error("here create")
             if(req.files.avatar) {
+                console.error("here create 2")
                 await Media.insertMany([{
                     ...req.files.avatar[0],
                     type: req.files.avatar[0].mimetype.split('/')[0],
@@ -341,9 +344,10 @@ const updateMember = async (req, res) => {
                     console.log(err);
                 });
             } else {
+                console.error("here create 3")
                 User.findByIdAndUpdate(
                     body._id,
-                    { $set: { ...body } },
+                    { $set: body },
                     { new: true }
                 ).then((user) => {
                     res.status(200).json(user);
