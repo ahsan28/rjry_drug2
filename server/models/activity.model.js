@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ActivitySchema = new mongoose.Schema({
+    type: { type: String },
     name: { type: String },
     title: { type: String },
     description: { type: String },
