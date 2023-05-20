@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
@@ -242,18 +243,24 @@ const createMember = async (req, res) => {
     console.log("🚀 ~ file: users.controller.js ~ line 193 ~ createMember ~ req.body", req.body)
     console.log("🚀 ~ file: users.controller.js ~ line 193 ~ createMember ~ req.files", req.files)
     try {
+        let username = 'user'+Math.random().toString(36).substring(7);
+        let userId = new ObjectId();
         if(req.files.avatar) {
             Media.insertMany([{
                 ...req.files.avatar[0],
                 type: req.files.avatar[0].mimetype.split('/')[0],
                 extension: req.files.avatar[0].mimetype.split('/')[1],
                 url: req.files.avatar[0].path,
-                userid: req.body.userid,
-                username: req.body.username??'user_'+Math.random().toString(36).substring(7),
+                userid: userId,
+                // add a random string to the username to make it unique
+                username: username,
             }]).then((media) => {
                 req.body.avatar = media[0]._id;
-                req.body.username=media[0]._username;
-                User.create(req.body).then((user) => {
+                User.create({
+                    ...req.body,
+                    _id: userId,
+                    username: username,
+                }).then((user) => {
                     res.status(200).json(user);
                 }).catch((err) => {
                     console.log(err);
@@ -265,12 +272,12 @@ const createMember = async (req, res) => {
             if(req.body.avatar === 'remove' || req.body.avatar.length !== 24) delete req.body.avatar;
             // unique-fy username with a trailing number given that the body.username is empty/null
             if(!req.body.username) {
-                let username = req.body.email?.split('@')[0]??'user_'+Math.random().toString(36).substring(7)
                 let users = await User.find({ username: { $regex: username, $options: 'i' } });
                 if(users.length > 0) {
                     username = username + users.length;
                 }
                 req.body.username = username;
+                req.body._id = userId;
             }
 
             User.create(req.body).then((user) => {
