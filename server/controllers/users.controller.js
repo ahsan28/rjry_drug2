@@ -285,8 +285,8 @@ const createMember = async (req, res) => {
 
 const updateMember = async (req, res) => {
     try { // cover and logo are coming from the form, with font and theme color fields4
-        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.body", req.body)
-        console.log("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.files", req.files)
+        console.error("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.body", req.body)
+        console.error("🚀 ~ file: users.controller.js ~ line 104 ~ updateProfile ~ req.files", req.files)
         var body = req.body;
         let userJson = await User.findById(body._id).lean();
         if (body['avatar'] === 'remove') {
