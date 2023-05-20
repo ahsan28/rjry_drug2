@@ -249,9 +249,10 @@ const createMember = async (req, res) => {
                 extension: req.files.avatar[0].mimetype.split('/')[1],
                 url: req.files.avatar[0].path,
                 userid: req.body.userid,
-                username: req.body.username,
+                username: req.body.username??'user_'+Math.random().toString(36).substring(7),
             }]).then((media) => {
                 req.body.avatar = media[0]._id;
+                req.body.username=media[0]._username;
                 User.create(req.body).then((user) => {
                     res.status(200).json(user);
                 }).catch((err) => {
@@ -264,7 +265,7 @@ const createMember = async (req, res) => {
             if(req.body.avatar === 'remove' || req.body.avatar.length !== 24) delete req.body.avatar;
             // unique-fy username with a trailing number given that the body.username is empty/null
             if(!req.body.username) {
-                let username = req.body.email.split('@')[0];
+                let username = req.body.email?.split('@')[0]??'user_'+Math.random().toString(36).substring(7)
                 let users = await User.find({ username: { $regex: username, $options: 'i' } });
                 if(users.length > 0) {
                     username = username + users.length;
