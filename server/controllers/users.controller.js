@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-const ObjectId = require('mongoose').Types.ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
