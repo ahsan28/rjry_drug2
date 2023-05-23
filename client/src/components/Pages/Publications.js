@@ -1,66 +1,112 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {  useParams, useNavigate, Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import Image from 'mui-image';
 import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+
+
+const articles = [{
+    title: "Article 1",
+    description: "Description 1",
+    link: "https://source.unsplash.com/random",
+  }, {
+    title: "Article 2",
+    description: "Description 2",
+    link: "https://source.unsplash.com/random",
+  } , {
+    title: "Article 3",
+    description: "Description 3",
+    link: "https://source.unsplash.com/random",
+  }]
+
+const books = [{
+    title: "Book 1",
+    description: "Description 1",
+    link: "https://source.unsplash.com/random",
+  }, {
+    title: "Book 2",
+    description: "Description 2",
+    link: "https://source.unsplash.com/random",
+  } , {
+    title: "Book 3",
+    description: "Description 3",
+    link: "https://source.unsplash.com/random",
+  }]
+
 const Publications = () => {
+  let { pubType } = useParams();
   const { user, setUser } = useContext(UserContext);
-  const [data, setData] = useState(null);
-  const [cover, setCover] = useState(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    DataService.read("Publications")
-      .then((res) => {
-        if (res.data) {
-          setData(res.data);
-          if (res.data.cover) {
-            MediaService.read(res.data.cover)
-              .then((res) => {
-                setCover(res.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        }
-        else setData({title: "Click edit button to entry", description: "Not in the database yet."});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    switch (pubType) {
+      case "artikel":
+        setData(articles);
+        break;
+      case "buku":
+        setData(books);
+        break;
+      case "akhbar":
+        setData([]);
+        break;
+      case 'module':
+        setData([]);
+        break;
+      default:
+        setData([]);
+        break;
+    }
+  }, [pubType]);
 
-  return (<>
+  // useEffect(() => {
+  //   DataService.read("Publications")
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setData(res.data);
+  //         if (res.data.cover) {
+  //           MediaService.read(res.data.cover)
+  //             .then((res) => {
+  //               setCover(res.data);
+  //             })
+  //             .catch((err) => {
+  //               console.log(err);
+  //             });
+  //         }
+  //       }
+  //       else setData({title: "Click edit button to entry", description: "Not in the database yet."});
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  return (<Container sx={{py:2}}>
     {/* edit button */}
     {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
       <Button variant="contained" component={Link} to={`/form/publications`}>Edit</Button>
     </Box>}
     <Box sx={{ width: "100%", textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom>
-        {data ? data.title : "Loading..."}
+      {/* List of Scientific Publications */}
+      <Typography variant="h4" component="h1" gutterBottom>
+        List of Scientific Publications
       </Typography>
 
-      {/* load image */}
-      {cover && <Image src={cover.path} alt={cover.name} />}
-
-      <Typography variant="subtitle1" gutterBottom>
-        {data ? data.description : "Loading..."}
-      </Typography>
-
-      {/* show an image as cover */}
-      {data && data.cover && data.cover.url && (
-        <>
-          <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom>
-            {data.cover.description}
-          </Typography>
-        </>
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <List component="nav" aria-label="main mailbox folders">
+      {data.map((datum, index) => (<ListItem button>
+          <ListItemText primary={datum.title} secondary={datum.link} />
+        </ListItem>)
       )}
+      </List>
     </Box>
-  </>);
+    </Box>
+  </Container>);
 };
 
 export default Publications;

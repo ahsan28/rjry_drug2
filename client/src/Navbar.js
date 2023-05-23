@@ -259,22 +259,22 @@ const Navbar = ({logout}) => {
           </Menu>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElPener} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElPener)} onClose={()=>handleClosePenerMenu()} >
             <MenuItem key={"buku"}>
-                <Link to={`/buku`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/buku`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Buku"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"artikel"}>
-                <Link to={`/artikel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/artikel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Artikel"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"akhbar"}>
-                <Link to={`/akhbar`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/akhbar`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Akhbar"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"module"}>
-                <Link to={`/module`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/module`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Module"}</Typography>
                 </Link>
             </MenuItem>

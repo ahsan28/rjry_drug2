@@ -142,7 +142,8 @@ const App = () => {
               <Route path="/member_profiles" element={<MemberProfiles />} />
               <Route path="/form/member" element={<MemberForm />} />
               <Route path="/research" element={<Research />} />
-              <Route path="/publications" element={<Publications />} />
+              <Route path="/publications/:pubType" element={<Publications />} />
+              <Route path="/publication_form/:pubId" element={<Publications />} />
               <Route path="/activity/:actType" element={<Activities />} />
               <Route path="/activity_form/:actId" element={<ActivityForm />} />
               <Route path="/certifications" element={<Certifications />} />
