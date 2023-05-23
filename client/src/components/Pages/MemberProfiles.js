@@ -81,37 +81,37 @@ const MemberProfiles = () => {
                 .catch((err) => console.log(err));
       }
     };
-  const memberList = users.map((user) => (
-    <Box key={user._id} sx={{ gap: 1, pt:1 }}>
-      <Card key={user._id}>
+  const memberList = users.map((u) => (
+    <Box key={u._id} sx={{ gap: 1, pt:1 }}>
+      <Card key={u._id}>
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Card sx={{ width: 80 }}>
-                <ViewImage image={user.avatar} />
+                <ViewImage image={u.avatar} />
               </Card>
               {/* vertical divider line */}
               <Divider orientation="vertical" flexItem />
               <Box>
                 <Typography variant="h6">
-                  <a href={user.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                  {user.initials} {user.name} {user.surname}
+                  <a href={u.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                  {u.initials} {u.name} {u.surname}
                   </a>
                   </Typography>
                 {/* <Typography variant="subtitle1">{user.designation}</Typography> */}
-                <Typography variant="subtitle1">{user.expertise}</Typography>
+                <Typography variant="subtitle1">{u.expertise}</Typography>
                 {/* <Typography variant="body1">{user.phone}</Typography> */}
-                <Typography variant="body1">{user.email}</Typography>
-                <Typography variant="body1">{user.affiliation}</Typography>
+                <Typography variant="body1">{u.email}</Typography>
+                <Typography variant="body1">{u.affiliation}</Typography>
 
               </Box>
             </Box>
-            <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem" }} size="small"
+            {user && <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem" }} size="small"
               onClick={() => {
-                setUid(user._id);
+                setUid(u._id);
                 setOpenMemberForm(true);
               }}>
-              Edit</Button>
+              Edit</Button>}
 
 
           </Box>
@@ -122,7 +122,7 @@ const MemberProfiles = () => {
 
   
   return (<>
-    <Container elevation={0} sx={{ pt: 2, gap: 1, position: 'relative' }}>
+    <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>
       {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
         <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
         onClick={()=>{

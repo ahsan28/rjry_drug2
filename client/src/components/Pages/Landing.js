@@ -1,6 +1,6 @@
-import { Box, Paper, Card, Grid, Button, Container, Typography } from "@mui/material";
+import { Box, Paper, Card, Grid, Button, Container, Typography, Divider, CardMedia, CardContent, CardActions, Link } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import Image from 'mui-image';
@@ -75,6 +75,26 @@ const Landing = () => {
       cursor: 'pointer',
     },
   }));
+
+  // UPSI, UKM, UCSI, UM
+  const sponsors = [{
+      name: 'Universiti Pendidikan Sultan Idris',
+      gd_logo: '1S9KX0H7cqJSbAwZ5HwBUmioHwJUhSpZX',
+      link: 'https://www.upsi.edu.my/'
+    },{
+      name: 'Universiti Kebangsaan Malaysia',
+      gd_logo: '1IYKq6JVJWHP2xeiaDxyuFN-va0bs2HFE',
+      link: 'https://www.ukm.my/'
+    },{
+      name: 'Universiti Tunku Abdul Rahman',
+      gd_logo: '1vd5WaQ5NMdwOlvhDOxQOKh0W8RTZDJeS',
+      link: 'https://www.utar.edu.my/'
+    },{
+      name: 'Universiti Malaya',
+      gd_logo: '1Zmxqy9GcSfVIeU3r7wJa2QCd2pq46p0Y',
+      link: 'https://www.um.edu.my/'
+    }];
+
 
   const tiles = [
     {
@@ -172,7 +192,7 @@ const Landing = () => {
 
             Jadi, mari kita memberi inspirasi satu sama lain, memotivasi antara satu sama lain, dan bekerja bersama menuju matlamat yang sama. Bersama-sama, kita boleh memberikan impak positif kepada kehidupan berbilang individu dan komuniti. Terima kasih kerana telah bergabung dengan kami dalam perjalanan yang penuh dengan kegembiraan ini, dan mari kita bermula!
           </Typography>
-          <Grid container spacing={4}>
+          {/* <Grid container spacing={4}>
             {tiles.map((tile) => (
               <Grid item xs={6} sm={4} md={3} key={tile.title}>
                 <Tile onClick={() => navigate(tile.link)} sx={{ backgroundColor: tile.color }}>
@@ -185,7 +205,47 @@ const Landing = () => {
                 </Tile>
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
+          {/* show sponsor organization's logos in the next row in some beautiful mui card tiles and link them to their respective websites */}
+          <Divider sx={{ my: 4, mx: 10 }} />
+          <Typography variant="h5" color="DarkBlue" mb={2} align="center" mt={4}>
+          Organisasi penaja
+          </Typography>
+          {/* flex grids with logos of sponsors */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexWrap: 'wrap' }} gutterBottom gap={2}>
+            {sponsors.map((sponsor) => (
+              <Box key={sponsor.name} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Card 
+                  sx={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '160px', height: '160px', borderRadius: 4, boxShadow: 'none', transition: '0.3s ease', '&:hover': { cursor: 'pointer', boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)' } }} 
+                  onClick={() => window.open(sponsor.link, '_blank')} >
+                  <CardMedia
+                  // square size and fit the image to the card, remove card elevation shadow
+                    component="img"
+                    image={`https://drive.google.com/uc?export=view&id=${sponsor.gd_logo}`}
+                    alt={sponsor.name}
+                    sx={{ objectFit: 'contain', height: '160px'}}
+                  />
+                  {/* transparent content background : mouse hober to change background color */ }
+                  <CardContent sx={{ flexGrow: 1, color:'transparent', bgcolor: 'transparent', position: 'absolute', bottom: 0, left: 0, right: 0, top:0, transition: '0.3s ease', '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' , color: 'black' } }}>
+                    {/* name with mui link */}
+                    <Typography gutterBottom >
+                        {sponsor.name}
+                      {/* <Box href={sponsor.link} target="_blank" rel="noreferrer" component="a" sx={{ textDecoration: 'none', color: 'gray', transition: '0.3s ease', '&:hover': { color: 'DarkSlateGray' }, cursor: 'pointer' }}>
+                      </Box> */}
+                    </Typography>
+                    {/* <Typography>
+                      {sponsor.description}
+                    </Typography> */}
+                  </CardContent>
+                  {/* <CardActions>
+                    <Button size="small" color="primary" href={sponsor.website} target="_blank">
+                      Website
+                    </Button>
+                  </CardActions> */}
+                </Card>
+              </Box>
+            ))}
+          </Box>
         </Container>
       </Box>
     </Box>
