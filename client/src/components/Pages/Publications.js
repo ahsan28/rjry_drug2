@@ -43,23 +43,29 @@ const Publications = () => {
   let { pubType } = useParams();
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState([]);
+  const [type, setType] = useState("Penerbitan");
 
   useEffect(() => {
     switch (pubType) {
       case "artikel":
         setData(articles);
+        setType("Artikel");
         break;
       case "buku":
         setData(books);
+        setType("Buku");
         break;
       case "akhbar":
         setData([]);
+        setType("Akhbar");
         break;
       case 'module':
         setData([]);
+        setType("Modul");
         break;
       default:
         setData([]);
+        setType("Penerbitan");
         break;
     }
   }, [pubType]);
@@ -94,7 +100,7 @@ const Publications = () => {
     <Box sx={{ width: "100%", textAlign: 'center' }}>
       {/* List of Scientific Publications */}
       <Typography variant="h4" component="h1" gutterBottom>
-        List of Scientific Publications
+        List of Scientific {type}
       </Typography>
 
       <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
