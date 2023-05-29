@@ -87,8 +87,9 @@ const MemberProfiles = () => {
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <Card sx={{ width: 80 }}>
-                <ViewImage image={u.avatar} />
+              <Card sx={{ maxWidth: 80, width:80, overflow: 'initial', bgcolor: 'transparent', boxShadow: 'none' }}>
+                {/* width 80, height auto */}
+                <ViewImage image={u.avatar} width={80} height={'auto'} sx={{minWidth:80, maxHeight:150}} />
               </Card>
               {/* vertical divider line */}
               <Divider orientation="vertical" flexItem />
