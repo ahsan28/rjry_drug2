@@ -8,11 +8,11 @@ const api = 'https://back.sekolahbebasdadah.tel/info/';
 
 
 const read = (id) => {
-    return axios.get(api+id, { headers: authHeader() });
+    return axios.get(api+'read/'+id, { headers: authHeader() });
 }
 
-const readAll = () => {
-    return axios.get(api+'readAll', { headers: authHeader() });
+const readAll = (category,type) => {
+    return axios.get(api+'readAll/'+category+'/'+type, { headers: authHeader() });
 }
 
 const create = (data) => {

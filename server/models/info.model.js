@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const InfoSchema = new mongoose.Schema({
-    catagory: { type: String },
+    category: { type: String },
     type: { type: String },
     title: { type: String },
     link: { type: String },

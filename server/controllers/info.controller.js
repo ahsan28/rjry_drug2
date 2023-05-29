@@ -22,7 +22,7 @@ const read = async (req, res) => {
 
 const readAll = async (req, res) => {
     try {
-        const data = await Info.find({});
+        const data = await Info.find({ category: req.params.category, type: req.params.type }).sort({ createdAt: -1 });
         res.send(data);
     }
     catch (err) {
@@ -32,7 +32,7 @@ const readAll = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const data = await Info.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const data = await Info.findByIdAndUpdate(req.body._id, req.body);
         res.status(200).json(data);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -43,8 +43,8 @@ const create = async (req, res) => {
     console.log('req.body::',req.body);
     console.log('req.files::',req.files);
     try {
-        // const data = await Info.create(req.body);
-        res.status(201).json('data');
+        const data = await Info.create(req.body);
+        res.status(200).json(data);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

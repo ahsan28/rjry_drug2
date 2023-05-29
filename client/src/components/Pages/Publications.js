@@ -43,7 +43,7 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
           console.log(err);
         });
     } else {
-      InfoService.update(formHelper.id, info)
+      InfoService.update(info)
         .then((res) => {
           console.log(res);
           setFormHelper({open: false, type: formHelper.pubType, id: "new"});
@@ -96,43 +96,6 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
   );
 };
 
-
-
-
-const articles = [{
-    _id: "1",
-    title: "Article 1",
-    description: "Description 1",
-    link: "https://source.unsplash.com/random",
-  }, {
-    _id: "2",
-    title: "Article 2",
-    description: "Description 2",
-    link: "https://source.unsplash.com/random",
-  } , {
-    _id: "3",
-    title: "Article 3",
-    description: "Description 3",
-    link: "https://source.unsplash.com/random",
-  }]
-
-const books = [{
-    _id: "1",
-    title: "Book 1",
-    description: "Description 1",
-    link: "https://source.unsplash.com/random",
-  }, {
-    _id: "2",
-    title: "Book 2",
-    description: "Description 2",
-    link: "https://source.unsplash.com/random",
-  } , {
-    _id: "3",
-    title: "Book 3",
-    description: "Description 3",
-    link: "https://source.unsplash.com/random",
-  }]
-
 const Publications = () => {
   let { pubType } = useParams();
   const { user, setUser } = useContext(UserContext);
@@ -143,27 +106,30 @@ const Publications = () => {
   useEffect(() => {
     switch (pubType) {
       case "artikel":
-        setData(articles);
         setType("Artikel");
         break;
       case "buku":
-        setData(books);
         setType("Buku");
         break;
       case "akhbar":
-        setData([]);
         setType("Akhbar");
         break;
       case 'module':
-        setData([]);
         setType("Modul");
         break;
       default:
-        setData([]);
         setType("Penerbitan");
         break;
     }
-  }, [pubType]);
+    InfoService.readAll("publication", pubType)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }, [pubType, formHelper.open]);
 
   // useEffect(() => {
   //   DataService.read("Publications")
@@ -205,10 +171,12 @@ const Publications = () => {
 
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <List component="nav" aria-label="main mailbox folders">
-        {data.map((datum, index) => (<ListItem button key={index} onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
+        {data.length>0? data.map((datum, index) => (<ListItem button key={index} onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
             <ListItemText primary={datum.title} secondary={datum.link} />
           </ListItem>)
-        )}
+        ): <ListItem button>
+            <ListItemText primary="No data" secondary={user?"Click + button to add new data.":null} />
+          </ListItem>}
         </List>
       </Box>
       </Box>
