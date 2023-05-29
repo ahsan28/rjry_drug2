@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const userRoute = require('./routes/users.route.js');
 const mediaRoute = require('./routes/media.route.js');
+const infoRoute = require('./routes/info.route.js');
 const dataRoute = require('./routes/data.route.js');
 const activityRoute = require('./routes/activity.route.js');
 const dotenv = require('dotenv');
@@ -24,6 +25,7 @@ app.use(cors());
 
 app.use('/', dataRoute);
 app.use('/users', userRoute);
+app.use('/info', infoRoute);
 app.use('/media', mediaRoute);
 app.use('/activity', activityRoute);
 
