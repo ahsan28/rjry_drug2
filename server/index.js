@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
-app.use('/', dataRoute);
+app.use('/data', dataRoute);
 app.use('/users', userRoute);
 app.use('/info', infoRoute);
 app.use('/media', mediaRoute);
