@@ -45,7 +45,7 @@ const MemberProfiles = () => {
       formData.append('avatar', newProfileData.avatar);
       
       if (newProfileData.type) formData.append('type', newProfileData.type);
-      // if (newProfileData.username) formData.append('username', newProfileData.username);
+      if (newProfileData.rank) formData.append('rank', newProfileData.rank);
       if (newProfileData.initials) formData.append('initials', newProfileData.initials);
       if (newProfileData.name) formData.append('name', newProfileData.name);
       if (newProfileData.surname) formData.append('surname', newProfileData.surname);
