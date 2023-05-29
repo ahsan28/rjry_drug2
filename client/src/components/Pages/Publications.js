@@ -21,19 +21,19 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
   });
 
   useEffect(() => {
-    if (formHelper.pubId !== "new") {
-      InfoService.read(formHelper.pubId).then((res) => {
+    if (formHelper.id !== "new") {
+      InfoService.read(formHelper.id).then((res) => {
         setInfo(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
     }
-  }, [formHelper.pubId]);
+  }, [formHelper.id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formHelper.pubId === "new") {
+    if (formHelper.id === "new") {
       InfoService.create(info)
         .then((res) => {
           console.log(res);
@@ -43,7 +43,7 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
           console.log(err);
         });
     } else {
-      InfoService.update(formHelper.pubId, info)
+      InfoService.update(formHelper.id, info)
         .then((res) => {
           console.log(res);
           setFormHelper({open: false, type: formHelper.pubType, id: "new"});
@@ -56,7 +56,7 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    InfoService.remove(formHelper.pubId)
+    InfoService.remove(formHelper.id)
       .then((res) => {
         console.log(res);
         setFormHelper({open: false, type: formHelper.pubType, id: "new"});
@@ -81,13 +81,13 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
             Cancel
           </Button>
           <Box sx={{ display: "flex", gap: 1 }}>
-            {formHelper.pubId !== "new" && (
+            {formHelper.id !== "new" && (
               <Button variant="contained" sx={{ bgcolor: "red", color: "white", width: "5rem" }} onClick={handleDelete}>
                 Delete
               </Button>
             )}
             <Button type="submit" variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem"}} onClick={handleSubmit}>
-              {formHelper.pubId === "new" ? "Add" : "Edit"}
+              {formHelper.id === "new" ? "Add" : "Update"}
             </Button>
           </Box>
         </Box>
