@@ -62,7 +62,7 @@ const saveSettings = async (req, res) => {
 
 const readAll = async (req, res) => {
     try { // sort by rank from small to big
-        const users = await User.find().sort({ rank: 1 }).select('-password');
+        const users = await User.find({}).sort({ rank: 1 }).select('-password').lean()
         res.status(200).json(users);
     } catch (err) {
         res.status(400).json({ message: err.message });
