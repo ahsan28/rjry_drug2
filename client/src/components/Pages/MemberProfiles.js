@@ -123,6 +123,11 @@ const MemberProfiles = () => {
 
   
   return (<>
+  <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
+      <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+        {"Members"}
+      </Typography>
+    </Box>
     <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>
       {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
         <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
