@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions } from '@mui/material';
+import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions, Card, CardMedia } from '@mui/material';
 import UserService from "../../services/user.services";
+import MediaService from "../../services/media.services";
 import { UserContext } from '../../UserContext';
 import MapSection from '../Map/Map';
 
@@ -19,6 +20,7 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [mapImg, setMapImg] = useState(null);
 
   const [data, setData] = useState({});
   const [open, setOpen] = useState(false);
@@ -31,6 +33,11 @@ const Contact = () => {
         console.log(err);
       });
     }
+    // mapimagid: 647f5282b7307719dc09f11d
+    MediaService.loadImage('647f5282b7307719dc09f11d').then(res => {
+      setMapImg(res.data);
+    }).catch(err => console.log(err));
+
   }, []);
 
   const sendEmail = event => {
@@ -61,10 +68,17 @@ const Contact = () => {
   };
 
 
-  return (<Container sx={{py:2}}>
-    {user && <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-      <Button variant="contained" onClick={() => setOpen(true)}>Edit</Button>
-    </Box>}
+  return (<>
+  <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
+      <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+        {"Hubungi Kami"}
+      </Typography>
+    </Box>
+    <Container sx={{ mt: 2, gap: 1, position: 'relative', mb:3}}>
+    {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
+        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={() => setOpen(true)}>
+          Edit</Button>
+      </Box>}
     <Container maxWidth="sm">
       <CssBaseline />
       <Box
@@ -140,7 +154,25 @@ const Contact = () => {
         </Box>
       </Box>
       {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5652344783493!2d101.5226819647588!3d3.685905047318148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cb890d916b37d9%3A0xfb56492063e6a825!2sUniversiti%20Pendidikan%20Sultan%20Idris!5e0!3m2!1sen!2smy!4v1680245184289!5m2!1sen!2smy" width="auto" height="400" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
-      <MapSection location={location} zoomLevel={15} />
+      {/* <MapSection location={location} zoomLevel={15} /> */}
+      {mapImg && <Card raised
+        sx={{
+          // height: 380,
+          margin: "0 auto",
+          padding: "0em",
+        }}
+      >
+      <CardMedia
+        component="img"
+        height="350"
+        // image={imageNetwork}
+        alt={mapImg.originalname}
+        // title={"titleasdasdsada"}
+        sx={{ padding: "0px", objectFit: "cover" }}
+        image={URL.createObjectURL(mapImg)}
+        title={mapImg.originalname}
+      />
+    </Card>}
 
     </Container>
     <Dialog open={open} onClose={() => setOpen(false)}>
@@ -158,7 +190,9 @@ const Contact = () => {
         <Button onClick={() => setOpen(false)}>Cancel</Button>
       </DialogActions>
     </Dialog>
-    </Container>);
+    </Container>
+  </>
+  );
 };
 
 export default Contact;
