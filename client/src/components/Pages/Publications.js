@@ -1,10 +1,11 @@
-import { Box, Button, Container, Dialog, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, Dialog, DialogContent, DialogTitle, Icon, IconButton, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import {  useParams, useNavigate, Link } from "react-router-dom";
 import DataService from "../../services/data.services";
 import Image from 'mui-image';
 import InfoService from "../../services/info.services";
 import { UserContext } from "../../UserContext";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -171,18 +172,42 @@ const Publications = () => {
       <Box sx={{ width: "100%", textAlign: 'center' }}>
         {/* List of Scientific Publications */}
         <Typography variant="h4" component="h1" gutterBottom>
-          List of Scientific {type}
+          Senarai {type} Ilmiah 
         </Typography>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <List component="nav" aria-label="main mailbox folders">
-        {data.length>0? data.map((datum, index) => (<ListItem button key={index} onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
+        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', mt: 2, gap: 1 }}>
+          {data.length>0? data.map((datum, index) => (<>
+            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1, bgcolor: 'background.paper' }}>
+              <Typography variant="body1" sx={{ width: '6rem', textAlign: 'center', color: 'primary.main', fontSize: '1.5rem' }}>
+                  {index + 1}
+              </Typography>
+              <Box sx={{ width: '100%', cursor:'pointer', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                onClick={()=>window.open(datum.link, "_blank")}>
+                <Typography variant="h6" sx={{ textAlign: 'left' }}>
+                  {datum.title}
+                </Typography>
+                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'grey.500', textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {datum.link}
+                </Typography>
+              </Box>
+              <Box sx={{ width: '5rem', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
+              {user && <IconButton aria-label="edit" onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
+                <EditOutlinedIcon />
+              </IconButton>}
+              </Box>
+            </Box>
+          </>)): <Typography variant="body1">
+            No data
+            </Typography>}
+        {/* <List component="nav" aria-label="main mailbox folders" >
+        {data.length>0? data.map((datum, index) => (<ListItem button key={index} sx={{ bgcolor: 'background.paper' }}
+          onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
             <ListItemText primary={datum.title} secondary={datum.link} />
           </ListItem>)
         ): <ListItem button>
             <ListItemText primary="No data" secondary={user?"Click + button to add new data.":null} />
           </ListItem>}
-        </List>
+        </List> */}
       </Box>
       </Box>
     </Container>

@@ -6,6 +6,7 @@ import GoogleMapReact from 'google-map-react'
 import PushPinIcon from '@mui/icons-material/PushPin';
 
 import './map.css'
+import { Card, CardMedia } from '@mui/material';
 
 const LocationPin = ({ text }) => (
   <div className="pin">
@@ -14,13 +15,13 @@ const LocationPin = ({ text }) => (
   </div>
 )
 
-const Map = ({ location, zoomLevel }) => (
+const Map = ({ location, zoomLevel, mapImg }) => (
   <div className="map">
     {/* add height space  */}
-    <div style={{ height: '100px', width: '100%' }} />
+    <div style={{ height: '20px', width: '100%' }} />
     <h2 className="map-h2">Visit Us at Our Campus</h2>
 
-    <div className="google-map">
+    {/* <div className="google-map">
       <GoogleMapReact
         bootstrapURLKeys={{ key: '' }}
         defaultCenter={location}
@@ -33,7 +34,25 @@ const Map = ({ location, zoomLevel }) => (
           text={location.address}
         />
       </GoogleMapReact>
-    </div>
+    </div> */}
+    <Card raised
+        sx={{
+          // height: 380,
+          margin: "0 auto",
+          padding: "0em",
+        }}
+      >
+      <CardMedia
+        component="img"
+        height="350"
+        // image={imageNetwork}
+        alt={mapImg.originalname}
+        // title={"titleasdasdsada"}
+        sx={{ padding: "0px", objectFit: "cover" }}
+        image={URL.createObjectURL(mapImg)}
+        title={mapImg.originalname}
+      />
+    </Card>
   </div>
 )
 

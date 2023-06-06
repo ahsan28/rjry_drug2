@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions, Card, CardMedia } from '@mui/material';
+import { TextField, Box, Grid, Typography, Container,CssBaseline, Button, DialogTitle, DialogContent, Dialog, DialogActions, Card, CardMedia, Divider } from '@mui/material';
 import UserService from "../../services/user.services";
 import MediaService from "../../services/media.services";
 import { UserContext } from '../../UserContext';
@@ -81,6 +81,8 @@ const Contact = () => {
       </Box>}
     <Container maxWidth="sm">
       <CssBaseline />
+      {mapImg && <MapSection location={location} zoomLevel={15} mapImg={mapImg} />}
+      <Divider sx={{mt:5, mb:3}} />
       <Box
         sx={{
           // marginTop: 8,
@@ -99,7 +101,7 @@ const Contact = () => {
                 // required
                 fullWidth
                 id="name"
-                label="Name"
+                label="Your name"
                 name="name"
                 autoComplete="name"
                 value={mailData.name}
@@ -111,7 +113,7 @@ const Contact = () => {
                 // required
                 fullWidth
                 id="email"
-                label="Your email"
+                label="Your email (to contact you back)"
                 name="email"
                 autoComplete="email"
                 value={mailData.email}
@@ -154,25 +156,7 @@ const Contact = () => {
         </Box>
       </Box>
       {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5652344783493!2d101.5226819647588!3d3.685905047318148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cb890d916b37d9%3A0xfb56492063e6a825!2sUniversiti%20Pendidikan%20Sultan%20Idris!5e0!3m2!1sen!2smy!4v1680245184289!5m2!1sen!2smy" width="auto" height="400" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
-      {/* <MapSection location={location} zoomLevel={15} /> */}
-      {mapImg && <Card raised
-        sx={{
-          // height: 380,
-          margin: "0 auto",
-          padding: "0em",
-        }}
-      >
-      <CardMedia
-        component="img"
-        height="350"
-        // image={imageNetwork}
-        alt={mapImg.originalname}
-        // title={"titleasdasdsada"}
-        sx={{ padding: "0px", objectFit: "cover" }}
-        image={URL.createObjectURL(mapImg)}
-        title={mapImg.originalname}
-      />
-    </Card>}
+      
 
     </Container>
     <Dialog open={open} onClose={() => setOpen(false)}>
