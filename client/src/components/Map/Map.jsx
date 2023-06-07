@@ -19,7 +19,7 @@ const Map = ({ location, zoomLevel, mapImg }) => (
   <div className="map">
     {/* add height space  */}
     <div style={{ height: '20px', width: '100%' }} />
-    <h2 className="map-h2">Visit Us at Our Campus</h2>
+    <h2 className="map-h2">Lawati Kami di Kampus Kami</h2>
 
     {/* <div className="google-map">
       <GoogleMapReact

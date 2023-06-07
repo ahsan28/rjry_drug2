@@ -10,9 +10,12 @@ import MemberForm from './components/Forms/MemberForm';
 import NoPage from './components/Pages/NoPage';
 import Introduction from './components/Pages/Introduction';
 import Research from './components/Pages/Research';
+import Product from './components/Pages/Product';
 import Contact from './components/Pages/Contact';
 import Publications from './components/Pages/Publications';
+import Publication2 from './components/Pages/Publication2';
 import Activities from './components/Pages/Activities';
+import Activity2 from './components/Pages/Activity2';
 import Certifications from './components/Pages/Certifications';
 import Gallery from './components/Pages/Gallery';
 import SignIn from './components/Pages/SignIn';
@@ -142,8 +145,11 @@ const App = () => {
               <Route path="/member_profiles" element={<MemberProfiles />} />
               <Route path="/form/member" element={<MemberForm />} />
               <Route path="/research" element={<Research />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/publication" element={<Publication2 />} />
               <Route path="/publications/:pubType" element={<Publications />} />
               <Route path="/publication_form/:pubId" element={<Publications />} />
+              <Route path="/activity" element={<Activity2 />} />
               <Route path="/activity/:actType" element={<Activities />} />
               <Route path="/activity_form/:actId" element={<ActivityForm />} />
               <Route path="/certifications" element={<Certifications />} />

@@ -19,7 +19,7 @@ const router = express.Router();
 
 // common data
 router.get("/read/:id", controller.read);
-router.get("/readAll/:category/:type", controller.readAll);
+router.get("/readAll/:category", controller.readAll);
 router.post("/create", controller.create);
 router.put("/update", controller.update);
 router.delete("/remove/:id", controller.remove);

@@ -22,7 +22,7 @@ const read = async (req, res) => {
 
 const readAll = async (req, res) => {
     try {
-        const data = await Info.find({ category: req.params.category, type: req.params.type }).sort({ createdAt: -1 });
+        const data = await Info.find({ category: req.params.category }).sort({ createdAt: -1 });
         res.send(data);
     }
     catch (err) {
