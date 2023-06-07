@@ -1,4 +1,4 @@
-import { Box, Button, Container, IconButton, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Container, Dialog, DialogContent, DialogTitle, IconButton, Tab, Tabs, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -11,12 +11,98 @@ import InfoService from "../../services/info.services";
 import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 
+const PublicationForm = ({ formHelper, setFormHelper }) => {
+  const { user, setUser } = useContext(UserContext);
+  const [info, setInfo] = useState({
+    category: "publication",
+    type: formHelper.type,
+    title: "",
+    // description: "",
+    link: "",
+  });
+
+  useEffect(() => {
+    if (formHelper.id !== "new") {
+      InfoService.read(formHelper.id).then((res) => {
+        setInfo(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [formHelper.id]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formHelper.id === "new") {
+      InfoService.create(info)
+        .then((res) => {
+          console.log(res);
+          setFormHelper({open: false, type: formHelper.type, id: "new"});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      InfoService.update(info)
+        .then((res) => {
+          console.log(res);
+          setFormHelper({open: false, type: formHelper.type, id: "new"});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+    InfoService.remove(formHelper.id)
+      .then((res) => {
+        console.log(res);
+        setFormHelper({open: false, type: formHelper.type, id: "new"});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", maxWidth: "100%", mt: 1 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <Box sx={{ width: "100%", maxWidth: "100%", mt: 1 }}>
+            <TextField id="category" label="Category" variant="outlined" fullWidth value={info.category} onChange={(e) => setInfo({ ...info, category: e.target.value })} hidden disabled margin='dense' />
+            <TextField id="type" label="Type" variant="outlined" fullWidth value={info.type} onChange={(e) => setInfo({ ...info, type: e.target.value })} hidden disabled margin='dense' />
+            <TextField id="title" label="Title" variant="outlined" fullWidth value={info.title} onChange={(e) => setInfo({ ...info, title: e.target.value })} margin='dense' />
+            {/* <TextField id="description" label="Description" variant="outlined" fullWidth value={info.description} onChange={(e) => setInfo({ ...info, description: e.target.value })} /> */}
+            <TextField id="link" label="Link" variant="outlined" fullWidth value={info.link} onChange={(e) => setInfo({ ...info, link: e.target.value })} margin='dense' />
+        </Box>
+        <Box sx={{ width: "100%", maxWidth: "100%", display: "flex", justifyContent: "space-between", mt: 3 }}>
+          <Button variant="contained" sx={{ bgcolor: "skyblue", color: "white", width: "5rem" }} onClick={() => setFormHelper({open: false, type: formHelper.type, id: "new"})}>
+            Cancel
+          </Button>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            {formHelper.id !== "new" && (
+              <Button variant="contained" sx={{ bgcolor: "red", color: "white", width: "5rem" }} onClick={handleDelete}>
+                Delete
+              </Button>
+            )}
+            <Button type="submit" variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem"}} onClick={handleSubmit}>
+              {formHelper.id === "new" ? "Add" : "Update"}
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
 const Publication = () => {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [cover, setCover] = useState(null);
   const [tab, setTab] = useState('buku');
-  const [tabData, setTabData] = useState([]);
+  // const [tabData, setTabData] = useState([]);
   const [formHelper, setFormHelper] = useState({ open: false, type: tab, id: "new" });
 
 
@@ -34,9 +120,9 @@ const Publication = () => {
       });
   }, []);
 
-  useEffect(() => {
-    setTabData(data.filter((item) => item.type === tab));
-  }, [tab]);
+  // useEffect(() => {
+  //   setTabData(data.filter((item) => item.type === tab));
+  // }, [tab]);
 
 
   return (<>
@@ -75,55 +161,52 @@ const Publication = () => {
               <Tab label={"Module"} value="module" />
             </TabList>
           </Box>
-          <TabPanel value="1">
-          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', mt: 2, gap: 1 }}>
-          {data.length>0? data.map((datum, index) => (<>
-            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1, bgcolor: 'background.paper' }}>
-              <Typography variant="body1" sx={{ width: '6rem', textAlign: 'center', color: 'primary.main', fontSize: '1.5rem' }}>
-                  {index + 1}
-              </Typography>
-              <Box sx={{ width: '100%', cursor:'pointer', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-                onClick={()=>window.open(datum.link, "_blank")}>
-                <Typography variant="h6" sx={{ textAlign: 'left' }}>
-                  {datum.title}
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 1, my: 2 }}>
+            {data.length>0? data.filter(val=>val.type===tab).map((datum, index) => (<>
+              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1, bgcolor: 'background.paper' }} key={datum._id}>
+                <Typography variant="body1" sx={{ width: '6rem', textAlign: 'center', color: 'primary.main', fontSize: '1.5rem' }}>
+                    {index + 1}
                 </Typography>
-                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'grey.500', textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {datum.link}
-                </Typography>
+                <Box sx={{ width: '100%', cursor:'pointer', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  onClick={()=>window.open(datum.link, "_blank")}>
+                  <Typography variant="h6" sx={{ textAlign: 'left' }}>
+                    {datum.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'grey.500', textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {datum.link}
+                  </Typography>
+                </Box>
+                <Box sx={{ width: '5rem', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
+                {user && <IconButton aria-label="edit" onClick={() => setFormHelper({open: true, type: tab, id: datum._id})}>
+                  <EditOutlinedIcon />
+                </IconButton>}
+                </Box>
               </Box>
-              <Box sx={{ width: '5rem', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
-              {user && <IconButton aria-label="edit" onClick={() => setFormHelper({open: true, type: tab, id: datum._id})}>
-                <EditOutlinedIcon />
-              </IconButton>}
-              </Box>
-            </Box>
-          </>)): <Typography variant="body1">
-            No data
-            </Typography>}
-        {/* <List component="nav" aria-label="main mailbox folders" >
-        {data.length>0? data.map((datum, index) => (<ListItem button key={index} sx={{ bgcolor: 'background.paper' }}
-          onClick={() => setFormHelper({open: true, type: pubType, id: datum._id})}>
-            <ListItemText primary={datum.title} secondary={datum.link} />
-          </ListItem>)
-        ): <ListItem button>
-            <ListItemText primary="No data" secondary={user?"Click + button to add new data.":null} />
-          </ListItem>}
-        </List> */}
-      </Box>
+            </>)): <Typography variant="body1">
+              No data
+              </Typography>}
+          </Box>
+          {/* <TabPanel value="buku" sx={{ px:0}}>
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value="artikel" sx={{ px:0}}>
             Item Two
           </TabPanel>
-          <TabPanel value="3">
+          <TabPanel value="akhbar" sx={{ px:0}}>
             Item Three
           </TabPanel>
-          <TabPanel value="4">
+          <TabPanel value="module" sx={{ px:0}}>
             Item Four
-          </TabPanel>
+          </TabPanel> */}
         </TabContext>
       </Box>
 
     </Container>
+    <Dialog open={formHelper.open} onClose={() => setFormHelper({open: false, type: tab, id: "new"})} fullWidth maxWidth="md">
+      <DialogTitle>{formHelper.id === "new" ? "Add" : "Edit"} {tab}</DialogTitle> 
+      <DialogContent>
+        <PublicationForm formHelper={formHelper} setFormHelper={setFormHelper} />
+      </DialogContent>
+    </Dialog>
   </>);
 };
 

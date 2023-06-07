@@ -119,13 +119,13 @@ const Product = () => {
             <Tab wrapped label={"Modul Digital Sekolah Bebas Dadah"} value="3" />
           </TabList>
         </Box>
-        <TabPanel value="1">
+        <TabPanel value="1" sx={{ px:0}}>
           Item One
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel value="2" sx={{ px:0}}>
           Item Two
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel value="3" sx={{ px:0}}>
           Item Three
         </TabPanel>
       </TabContext>

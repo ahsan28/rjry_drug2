@@ -15,7 +15,7 @@ const Activity = () => {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
-  const [tab, setTab] = useState('1');
+  const [tab, setTab] = useState('mesyuarat');
 
 
   const handleChange = (event, newValue) => {
@@ -43,23 +43,6 @@ const Activity = () => {
         console.log(err);
       });
   }, []);
-
-  useEffect(() => {
-    switch (tab) {
-      case "1":
-        // setTab("Kerangka Sekolah Bebas Dadah");
-        break;
-      case "2":
-        // setTab("Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah");
-        break;
-      case "3":
-        // setTab("Modul Digital Sekolah Bebas Dadah");
-        break;
-      default:
-        // setTab("Kerangka Sekolah Bebas Dadah");
-        break;
-    }
-  }, [tab]);
 
 
   return (<>
@@ -91,26 +74,26 @@ const Activity = () => {
               }}
               TabIndicatorProps={{style: {background:'orange'}}}
               >
-              <Tab label={"mesyuarat"} value="1" />
-              <Tab label={"bengkel"} value="2" />
-              <Tab label={"latihan"} value="3" />
-              <Tab label={"pengumpulan"} value="4" />
-              <Tab label={"kolaborasi"} value="5" />
+              <Tab label={"mesyuarat"} value="mesyuarat" />
+              <Tab label={"bengkel"} value="bengkel" />
+              <Tab label={"latihan"} value="latihan" />
+              <Tab label={"pengumpulan"} value="pengumpulan" />
+              <Tab label={"kolaborasi"} value="kolaborasi" />
             </TabList>
           </Box>
-          <TabPanel value="1">
+          <TabPanel value="mesyuarat" sx={{ px:0}}>
             Item One
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value="bengkel" sx={{ px:0}}>
             Item Two
           </TabPanel>
-          <TabPanel value="3">
+          <TabPanel value="latihan" sx={{ px:0}}>
             Item Three
           </TabPanel>
-          <TabPanel value="4">
+          <TabPanel value="pengumpulan" sx={{ px:0}}>
             Item Four
           </TabPanel>
-          <TabPanel value="5">
+          <TabPanel value="kolaborasi" sx={{ px:0}}>
             Item Five
           </TabPanel>
         </TabContext>
