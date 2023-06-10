@@ -304,7 +304,7 @@ const updateMember = async (req, res) => {
 
             await User.updateOne({ _id: body._id },
                 { $set: body },
-                { new: true }
+                { new: true, upsert: true } 
             ).then((user) => {
                 res.status(200).json(user);
             }).catch((err) => {
@@ -318,8 +318,8 @@ const updateMember = async (req, res) => {
 
             let user = await User.updateOne({ _id: body._id },
                 { $set: body },
-                { new: true }).lean()
-                .catch((err) => {
+                { new: true, upsert: true }
+                ).lean().catch((err) => {
                     console.log(err);
                 });
             if (user) {
@@ -342,7 +342,7 @@ const updateMember = async (req, res) => {
                 }]).then((media) => {
                     User.updateOne({ _id: body._id },
                         { $set: { ...body, avatar: media[0]._id } },
-                        { new: true }
+                        { new: true, upsert: true } 
                     ).then((user) => {
                         res.status(200).json(user);
                     }).catch((err) => {
@@ -355,7 +355,7 @@ const updateMember = async (req, res) => {
                 console.error("here create 3")
                 User.updateOne({ _id: body._id },
                     { $set: body },
-                    { new: true }
+                    { new: true, upsert: true } 
                 ).then((user) => {
                     res.status(200).json(user);
                 }).catch((err) => {
