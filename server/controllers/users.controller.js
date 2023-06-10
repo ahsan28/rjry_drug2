@@ -302,9 +302,8 @@ const updateMember = async (req, res) => {
             await Media.findByIdAndDelete(userJson.avatar);
             body['avatar'] = null; 
 
-            await User.findByIdAndUpdate(
-                body._id,
-                body,
+            await User.updateOne({ _id: body._id },
+                { $set: body },
                 { new: true }
             ).then((user) => {
                 res.status(200).json(user);
@@ -317,8 +316,8 @@ const updateMember = async (req, res) => {
             if (['null', 'undefined', ''].includes(body['avatar'])) delete body['avatar'];
             else body['avatar'] = userJson.avatar;
 
-            let user = await User.findByIdAndUpdate(body._id,
-                body,
+            let user = await User.updateOne({ _id: body._id },
+                { $set: body },
                 { new: true }).lean()
                 .catch((err) => {
                     console.log(err);
@@ -341,9 +340,8 @@ const updateMember = async (req, res) => {
                     userid: userJson._id,
                     username: userJson.username,
                 }]).then((media) => {
-                    User.findByIdAndUpdate(
-                        body._id,
-                        { ...body, avatar: media[0]._id },
+                    User.updateOne({ _id: body._id },
+                        { $set: { ...body, avatar: media[0]._id } },
                         { new: true }
                     ).then((user) => {
                         res.status(200).json(user);
@@ -355,9 +353,8 @@ const updateMember = async (req, res) => {
                 });
             } else {
                 console.error("here create 3")
-                User.findByIdAndUpdate(
-                    body._id,
-                    body,
+                User.updateOne({ _id: body._id },
+                    { $set: body },
                     { new: true }
                 ).then((user) => {
                     res.status(200).json(user);
