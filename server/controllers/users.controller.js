@@ -304,7 +304,7 @@ const updateMember = async (req, res) => {
 
             await User.findByIdAndUpdate(
                 body._id,
-                { $set: body },
+                body,
                 { new: true }
             ).then((user) => {
                 res.status(200).json(user);
@@ -318,7 +318,7 @@ const updateMember = async (req, res) => {
             else body['avatar'] = userJson.avatar;
 
             let user = await User.findByIdAndUpdate(body._id,
-                { $set: body },
+                body,
                 { new: true }).lean()
                 .catch((err) => {
                     console.log(err);
@@ -343,7 +343,7 @@ const updateMember = async (req, res) => {
                 }]).then((media) => {
                     User.findByIdAndUpdate(
                         body._id,
-                        { $set: { ...body, avatar: media[0]._id } },
+                        { ...body, avatar: media[0]._id },
                         { new: true }
                     ).then((user) => {
                         res.status(200).json(user);
@@ -357,7 +357,7 @@ const updateMember = async (req, res) => {
                 console.error("here create 3")
                 User.findByIdAndUpdate(
                     body._id,
-                    { $set: body },
+                    body,
                     { new: true }
                 ).then((user) => {
                     res.status(200).json(user);

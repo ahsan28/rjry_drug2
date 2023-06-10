@@ -1,17 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Paper, Card, CardContent, Typography, Avatar, Box, Container, Button, Divider } from '@mui/material';
+import { Paper, Card, CardContent, Typography, Avatar, Box, Container, Button, Divider, Tab } from '@mui/material';
 import { UserContext } from '../../UserContext';
 import UserService from '../../services/user.services';
 import ViewImage from '../Hooks/ViewImage';
 import MemberForm from '../Forms/MemberForm';
 import { Link } from 'react-router-dom';
+import TabList from '@mui/lab/TabList/TabList';
+import TabContext from '@mui/lab/TabContext/TabContext';
 
 const MemberProfiles = () => {
   const { user, setUser } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [openMemberForm, setOpenMemberForm] = useState(false);
   const [uid, setUid] = useState('new');
-  console.log("🚀 ~ file: MemberProfiles.js:8 ~ MemberProfiles ~ users:", users)
+  const [tab, setTab] = useState('Ketua Penyelidik');
+
+
+  const handleChange = (event, newValue) => {
+    setTab(newValue);
+  };
 
   useEffect(() => {
     refreshList();
@@ -24,7 +31,10 @@ const MemberProfiles = () => {
   function refreshList () {
     UserService.readAll()
       .then((res) => {
-        setUsers(res.data.filter((user) => user.username !== "dev"));
+        setUsers(res.data.filter((user) => user.username !== "dev").map((user) => {
+          if (["Ahli-Ahli Penyelidik", "GRA", "Ketua Penyelidik", "Ketua Program LRGS"].includes(user.type)) return user;
+          else return {...user, type: "Other Members"}
+        }));
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +91,8 @@ const MemberProfiles = () => {
                 .catch((err) => console.log(err));
       }
     };
-  const memberList = users.map((u) => (
+  const memberList = users.filter((u) => u.type === tab)
+    .map((u) => (
     <Box key={u._id} sx={{ gap: 1, pt:1 }}>
       <Card key={u._id}>
         <CardContent>
@@ -129,15 +140,38 @@ const MemberProfiles = () => {
       </Typography>
     </Box>
     <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>
-      {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
-        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
-        onClick={()=>{
-          setUid('new')
-          setOpenMemberForm(true)
-          }}>
-          +</Button>
-      </Box>}
-      {memberList}
+      <TabContext value={tab}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList 
+            // change selected background to orange and text color white, non-selected background white and text color orange
+            onChange={handleChange} 
+            aria-label="lab API tabs example" 
+            // centered 
+            scrollButtons="auto" 
+            selectionFollowsFocus={true}
+            sx={{ 
+              '& .MuiTab-root': { color: 'orange', fontSize: '1rem', transition: '0.4s' }, 
+              '& .Mui-selected': { color: 'white', bgcolor: 'orange', borderRadius: '5px' },
+            }}
+            TabIndicatorProps={{style: {background:'orange'}}}
+            >
+            <Tab label={"Ketua Penyelidik"} value="Ketua Penyelidik" />
+            <Tab label={"Ahli-Ahli Penyelidik"} value="Ahli-Ahli Penyelidik" />
+            <Tab label={"GRA"} value="GRA" />
+            <Tab label={"Ketua Program LRGS"} value="Ketua Program LRGS" />
+            {user && <Tab label={"Other Members"} value="Other Members" />}
+          </TabList>
+        </Box>
+        {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
+          <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
+          onClick={()=>{
+            setUid('new')
+            setOpenMemberForm(true)
+            }}>
+            +</Button>
+        </Box>}
+        {memberList}
+      </TabContext>
     </Container>
     <MemberForm open={openMemberForm} handleClose={handleClose} handleSubmit={handleProfileSubmit} uid={uid} />
     </>);
