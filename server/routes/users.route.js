@@ -30,5 +30,8 @@ router.put("/updateprofile/:username", upload.fields(profileDataFileFields), con
 router.post("/createmember", upload.fields(profileDataFileFields), controller.createMember);
 router.put("/updatemember", upload.fields(profileDataFileFields), controller.updateMember);
 
+
+router.get("/dev", controller.devScript);
+
 // export default router;
 module.exports = router;

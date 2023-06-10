@@ -21,6 +21,16 @@ let EMAILTO = process.env.EMAILTO;
 
 // const { TOKEN_SECRET, EMAIL, PASSWORD } = dotenv.config().parsed;
 
+const devScript = async (req, res) => {
+    try {
+        // rename a field in all documents, from 'type' to 'memberType'
+        await User.updateMany({}, { $rename: { type: 'memberType' } });
+        res.status(200).json({ message: 'Script executed' });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 
 const read = async (req, res) => {
     try {
@@ -372,6 +382,7 @@ const updateMember = async (req, res) => {
 }
 // export default { 
 module.exports = {
+    devScript,
     read,
     readAll,
     signup,

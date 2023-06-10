@@ -8,6 +8,7 @@ import Profile from './components/Pages/Profile';
 import MemberProfiles from './components/Pages/MemberProfiles';
 import MemberForm from './components/Forms/MemberForm';
 import NoPage from './components/Pages/NoPage';
+import Script from './components/Pages/Script';
 import Introduction from './components/Pages/Introduction';
 import Research from './components/Pages/Research';
 import Product from './components/Pages/Product';
@@ -141,6 +142,7 @@ const App = () => {
               <Route path="/landing" element={<Landing />} />
               
               {/* <Route path="/rjry_drug" element={<Introduction />} /> */}
+              <Route path="/script" element={<Script />} />
               <Route path="/introduction" element={<Introduction />} />
               <Route path="/member_profiles" element={<MemberProfiles />} />
               <Route path="/form/member" element={<MemberForm />} />

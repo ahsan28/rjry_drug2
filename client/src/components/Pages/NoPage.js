@@ -1,16 +1,17 @@
 import { Box, Typography } from "@mui/material";
 
 const NoPage = () => {
-    <Box sx={{ width: '100%', textAlign: 'center' }}>
-      <Typography variant="h1" gutterBottom>
+
+
+    return (<Box sx={{ width: '100%', textAlign: 'center' }}>
+      <Typography variant="h3" gutterBottom sx={{ mt: 2 }}>
       404
       </Typography>
 
       <Typography variant="subtitle1" gutterBottom>
-        subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur
+        Page not found
       </Typography>
-    </Box>
+    </Box>)
   
   };
   

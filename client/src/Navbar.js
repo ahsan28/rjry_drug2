@@ -78,6 +78,11 @@ const Navbar = ({logout}) => {
                         Users
                     </Link>
                 </MenuItem> */}
+                {user?.username === 'dev' && <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Button key={`script`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Script
+                    </Button>
+                </Link>}
                 <MenuItem key={`introduction`} onClick={handleCloseNavMenu}>
                     <Link to={`/introduction`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                         Pengenalan
@@ -146,6 +151,11 @@ const Navbar = ({logout}) => {
                         Users
                     </Button>
                 </Link> */}
+                {user?.username === 'dev' && <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Button key={`script`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                        Script
+                    </Button>
+                </Link>}
                 <Link to={`/introduction`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                     <Button key={`introduction`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Pengenalan

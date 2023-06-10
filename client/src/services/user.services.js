@@ -32,14 +32,12 @@ const register = (user) => {
     return axios.post(`${api}signup`, user, { headers: authHeader() });
 }
 
-const login = (user) => {
-    return axios.put(`${api}login`, user, { headers: authHeader() })
-    .then((response) => {
-        if (response.data.accessToken) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-        }
-        return response.data;
-    });
+const login = async (user) => {
+    const response = await axios.put(`${api}login`, user, { headers: authHeader() });
+    if (response.data.accessToken) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
 }
 
 const getCurrentUser = () => {
@@ -64,6 +62,10 @@ const sendEmail = (email) => {
     return axios.post(`${api}send`, email, { headers: authHeader() });
 }
 
+const devScript = () => {
+    return axios.get(`${api}dev`, { headers: authHeader() });
+}
+
 
 const functions = {
     get,
@@ -79,6 +81,7 @@ const functions = {
     updateSettings,
     logout,
     sendEmail,
+    devScript,
 }
 
 export default functions
