@@ -315,6 +315,7 @@ const updateMember = async (req, res) => {
             console.error("here update")
             if (['null', 'undefined', ''].includes(body['avatar'])) delete body['avatar'];
             else body['avatar'] = userJson.avatar;
+            console.log("🚀 ~ file: users.controller.js:318 ~ updateMember ~ body:", body)
 
             let user = await User.updateOne({ _id: body._id },
                 { $set: body },

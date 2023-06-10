@@ -58,7 +58,7 @@ const MemberForm = ({ open, handleClose, handleSubmit, uid }) => {
         <ImageUploader oldImgId={formValues.avatar} setFile={setImgFile} image={image} setImage={setImage} name={formValues.name}/>
         {/* clear image button */}
         
-        <TextField size='small' name="type" label="Type" variant="outlined" fullWidth value={formValues.type} onChange={handleChange} margin='dense' />
+        <TextField size='small' name="memberType" label="Type" variant="outlined" fullWidth value={formValues.memberType} onChange={handleChange} margin='dense' />
         <TextField size='small' name="rank" label="Serial number" variant="outlined" fullWidth value={formValues.rank} onChange={handleChange} margin='dense' />
         <TextField size='small' name="initials" label="Initials" variant="outlined" fullWidth value={formValues.initials} onChange={handleChange} margin='dense' />
         <TextField size='small' name="name" label="Name" variant="outlined" fullWidth value={formValues.name} onChange={handleChange} margin='dense' />

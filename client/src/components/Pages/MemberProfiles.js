@@ -32,7 +32,7 @@ const MemberProfiles = () => {
     UserService.readAll()
       .then((res) => {
         setUsers(res.data.filter((user) => user.username !== "dev").map((user) => {
-          if (["Ahli-Ahli Penyelidik", "GRA", "Ketua Penyelidik", "Ketua Program LRGS"].includes(user.type)) return user;
+          if (["Ahli-Ahli Penyelidik", "GRA", "Ketua Penyelidik", "Ketua Program LRGS"].includes(user.memberType)) return user;
           else return {...user, type: "Other Members"}
         }));
       })
@@ -54,7 +54,7 @@ const MemberProfiles = () => {
       // formData.append('_id', user._id);
       formData.append('avatar', newProfileData.avatar);
       
-      if (newProfileData.type) formData.append('type', newProfileData.type);
+      if (newProfileData.memberType) formData.append('memberType', newProfileData.memberType);
       if (newProfileData.rank) formData.append('rank', newProfileData.rank);
       if (newProfileData.initials) formData.append('initials', newProfileData.initials);
       if (newProfileData.name) formData.append('name', newProfileData.name);
@@ -91,7 +91,7 @@ const MemberProfiles = () => {
                 .catch((err) => console.log(err));
       }
     };
-  const memberList = users.filter((u) => u.type === tab)
+  const memberList = users.filter((u) => u.memberType === tab)
     .map((u) => (
     <Box key={u._id} sx={{ gap: 1, pt:1 }}>
       <Card key={u._id}>
