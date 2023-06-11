@@ -15,7 +15,7 @@ const Product = () => {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
-  const [tab, setTab] = useState('1');
+  const [tab, setTab] = useState('Kerangka');
 
 
   const handleChange = (event, newValue) => {
@@ -107,25 +107,25 @@ const Product = () => {
             scrollButtons="auto" 
             sx={{ 
               '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
-              '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'orange' },
+              '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'black' },
             }}
             TabIndicatorProps={{style: {background:'orange'}}}
             // textColor="secondary"
             // variant="fullWidth"
             // orientation="vertical"
             >
-            <Tab wrapped label={"Kerangka Sekolah Bebas Dadah"} value="1" />
-            <Tab wrapped label={"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"} value="2" />
-            <Tab wrapped label={"Modul Digital Sekolah Bebas Dadah"} value="3" />
+            <Tab label={"Kerangka"} title={"Kerangka Sekolah Bebas Dadah"} value="Kerangka" />
+            <Tab label={"Rubrik Guru"} title={"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"} value="2" />
+            <Tab label={"Modul Digital"} title={"Modul Digital Sekolah Bebas Dadah"} value="3" />
           </TabList>
         </Box>
-        <TabPanel value="1" sx={{ px:0}}>
+        <TabPanel value="Kerangka" sx={{ px:0}}>
           Item One
         </TabPanel>
-        <TabPanel value="2" sx={{ px:0}}>
+        <TabPanel value="Rubrik Guru" sx={{ px:0}}>
           Item Two
         </TabPanel>
-        <TabPanel value="3" sx={{ px:0}}>
+        <TabPanel value="Modul Digital" sx={{ px:0}}>
           Item Three
         </TabPanel>
       </TabContext>
