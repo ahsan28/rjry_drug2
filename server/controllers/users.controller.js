@@ -24,8 +24,12 @@ let EMAILTO = process.env.EMAILTO;
 const devScript = async (req, res) => {
     try {
         // rename a field in all documents, from 'type' to 'memberType'
-        await User.updateMany({}, { $rename: { type: 'memberType' } });
-        res.status(200).json({ message: 'Script executed' });
+        let user = await User.updateMany({}, { $rename: { type: 'memberType' } }, { strict: false });
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(400).json({ message: 'User not found' });
+        }
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

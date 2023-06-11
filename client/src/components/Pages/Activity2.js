@@ -69,8 +69,8 @@ const Activity = () => {
               scrollButtons="auto" 
               selectionFollowsFocus={true}
               sx={{ 
-                '& .MuiTab-root': { color: 'orange', fontSize: '1rem', transition: '0.4s' }, 
-                '& .Mui-selected': { color: 'white', bgcolor: 'orange', borderRadius: '5px' },
+                '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
+                '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'orange' },
               }}
               TabIndicatorProps={{style: {background:'orange'}}}
               >

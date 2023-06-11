@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Paper, Card, CardContent, Typography, Avatar, Box, Container, Button, Divider, Tab } from '@mui/material';
+import { Paper, Card, CardContent, Typography, Avatar, Box, Container, Button, Divider, Tab, IconButton } from '@mui/material';
 import { UserContext } from '../../UserContext';
 import UserService from '../../services/user.services';
 import ViewImage from '../Hooks/ViewImage';
@@ -7,6 +7,7 @@ import MemberForm from '../Forms/MemberForm';
 import { Link } from 'react-router-dom';
 import TabList from '@mui/lab/TabList/TabList';
 import TabContext from '@mui/lab/TabContext/TabContext';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const MemberProfiles = () => {
   const { user, setUser } = useContext(UserContext);
@@ -33,7 +34,7 @@ const MemberProfiles = () => {
       .then((res) => {
         setUsers(res.data.filter((user) => user.username !== "dev").map((user) => {
           if (["Ahli-Ahli Penyelidik", "GRA", "Ketua Penyelidik", "Ketua Program LRGS"].includes(user.memberType)) return user;
-          else return {...user, type: "Other Members"}
+          else return {...user, memberType: "Other Members"}
         }));
       })
       .catch((err) => {
@@ -96,7 +97,7 @@ const MemberProfiles = () => {
     <Box key={u._id} sx={{ gap: 1, pt:1 }}>
       <Card key={u._id}>
         <CardContent>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Card sx={{ maxWidth: 80, width:80, overflow: 'initial', bgcolor: 'transparent', boxShadow: 'none' }}>
                 {/* width 80, height auto */}
@@ -118,14 +119,12 @@ const MemberProfiles = () => {
 
               </Box>
             </Box>
-            {user && <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem" }} size="small"
-              onClick={() => {
+            {user && <IconButton aria-label="edit" onClick={() => {
                 setUid(u._id);
                 setOpenMemberForm(true);
               }}>
-              Edit</Button>}
-
-
+              <EditOutlinedIcon />
+            </IconButton>}
           </Box>
         </CardContent>
       </Card>
@@ -150,8 +149,8 @@ const MemberProfiles = () => {
             scrollButtons="auto" 
             selectionFollowsFocus={true}
             sx={{ 
-              '& .MuiTab-root': { color: 'orange', fontSize: '1rem', transition: '0.4s' }, 
-              '& .Mui-selected': { color: 'white', bgcolor: 'orange', borderRadius: '5px' },
+              '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
+              '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'orange' },
             }}
             TabIndicatorProps={{style: {background:'orange'}}}
             >
