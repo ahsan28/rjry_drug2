@@ -37,7 +37,8 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
   return (<Box sx={{display: "block", textAlign: "center", width: "auto", height: "auto", margin: "auto"}}>
   {simple? <Swiper
             spaceBetween={30}
-            centeredSlides={true}
+            centeredSlides={true}    
+            thumbs={{ swiper: thumbsSwiper }}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
@@ -46,7 +47,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
               clickable: true,
             }}
             navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
+            modules={[Autoplay, Pagination, Navigation, Thumbs]}
             className="mySwiperSimple"
   >
     {loadedImages.map((image, index) => (
@@ -79,7 +80,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
   >
     {loadedImages.map((image, index) => (
       <SwiperSlide key={index}>
-        <img src={image.src} alt={image.title} style={{ objectFit: "cover", borderRadius: "10px", border: "2px solid #ccc", maxHeight: "600px", boxShadow: "0 0 10px #ccc", backgroundColor: "#fff", width: "auto", maxWidth: "100%", minHeight: "500px" }} />
+        <img src={image.src} alt={image.title} style={{ objectFit: "cover", borderRadius: "10px", maxHeight: "600px", boxShadow: "0 0 10px #ccc", backgroundColor: "#fff", width: "auto", maxWidth: "100%", minHeight: "500px" }} />
         <div className="swiper-slide-caption">
           <h3>{"image.title"}</h3>
           <p>{"image.date"}</p>
@@ -93,11 +94,12 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
     slidesPerView={7}
     watchSlidesVisibility
     watchSlidesProgress
+    spaceBetween={10}
     className="mySwiper"
   >
     {loadedImages.map((image, index) => (
-      <SwiperSlide key={index}>
-        <img src={image.src} alt={image.title} height="80px" style={{ objectFit: "cover", borderRadius: "4px" }} />
+      <SwiperSlide key={index} onClick={() => thumbsSwiper.slideTo(index)} style={{ backgroundColor: '#ddd' }}>
+        <img src={image.src} alt={image.title} height="80px" style={{ objectFit: "cover", borderRadius: "4px", padding:'2px' }} />
       </SwiperSlide>
     ))}
   </Swiper>}

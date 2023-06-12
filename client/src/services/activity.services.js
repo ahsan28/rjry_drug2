@@ -11,8 +11,8 @@ const read = (id) => {
     return axios.get(api+id, { headers: authHeader() });
 }
 
-const readAll = () => {
-    return axios.get(api+'readAll', { headers: authHeader() });
+const readAll = (infoType) => {
+    return axios.get(api+'readAll/'+infoType, { headers: authHeader() });
 }
 
 const create = (data) => {

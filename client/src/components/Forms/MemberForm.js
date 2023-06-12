@@ -74,8 +74,8 @@ const MemberForm = ({ open, handleClose, handleSubmit, uid }) => {
         <TextField size='small' name="about" label="About" variant="outlined" fullWidth value={formValues.about} onChange={handleChange} margin='dense' multiline rows={4} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleFormSubmit} color="primary">Save</Button>
+        <Button onClick={handleClose} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}>Cancel</Button>
+        <Button onClick={handleFormSubmit} variant="contained" sx={{ bgcolor: "orange", color: "white" }}>Save</Button>
       </DialogActions>
     </Dialog>
   )

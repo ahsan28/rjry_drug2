@@ -19,10 +19,10 @@ const router = express.Router();
 
 // common data
 router.get("/read/:id", controller.read);
-router.get("/readAll", verifyJWT, controller.readAll);
+router.get("/readAll/:infoType", controller.readAll);
 router.post("/create", upload.any('images'), controller.create);
-router.put("/update/:id", verifyJWT, controller.update);
-router.delete("/remove/:id", verifyJWT, controller.remove);
+router.put("/update/:id", controller.update);
+router.delete("/remove/:id", controller.remove);
 
 // export default router;
 module.exports = router;

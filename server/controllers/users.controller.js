@@ -5,6 +5,7 @@
 // import nodemailer from 'nodemailer';
 
 const User = require('../models/users.model.js');
+const Info = require('../models/info.model.js');
 const Media = require('../models/media.model.js');
 const Settings = require('../models/settings.model.js');
 const bcrypt = require('bcrypt');
@@ -24,7 +25,7 @@ let EMAILTO = process.env.EMAILTO;
 const devScript = async (req, res) => {
     try {
         // rename a field in all documents, from 'type' to 'memberType'
-        let user = await User.updateMany({}, { $rename: { type: 'memberType' } }, { strict: false });
+        let user = await Info.updateMany({}, { $rename: { type: 'infoType' } }, { strict: false });
         if (user) {
             res.status(200).json(user);
         } else {
