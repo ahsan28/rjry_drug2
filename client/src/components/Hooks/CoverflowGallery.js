@@ -98,7 +98,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
     className="mySwiper"
   >
     {loadedImages.map((image, index) => (
-      <SwiperSlide key={index} onClick={() => thumbsSwiper.slideTo(index)} style={{ backgroundColor: '#ddd' }}>
+      <SwiperSlide key={index} onClick={() => thumbsSwiper.slideTo(index)} style={{ height: '100%' }}>
         <img src={image.src} alt={image.title} height="80px" style={{ objectFit: "cover", borderRadius: "4px", padding:'2px' }} />
       </SwiperSlide>
     ))}

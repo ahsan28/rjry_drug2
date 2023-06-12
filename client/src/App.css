@@ -189,8 +189,12 @@ body {
   background-color: #777;
 }
 
+.swiper-slide-thumb>img {
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 6px 0px transparent;
+}
 .swiper-slide-thumb-active>img {
-  border: 2px solid #009688;
+  border: 2px solid orange;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.4);
 }
 
