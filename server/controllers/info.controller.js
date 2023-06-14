@@ -50,6 +50,33 @@ const create = async (req, res) => {
     }
 }
 
+const createProduct = async (req, res) => {
+    console.log('req.body::',req.body);
+    console.log('req.files::',req.files);
+    try {
+        // save uploaded pdf file
+        if (req.files && req.files.documents) {
+            let docId = new ObjectId();
+            const media = await Media.create({
+                ...req.files.documents[0],
+                _id: docId,
+                type: req.files.documents[0].mimetype.split('/')[0],
+                extension: req.files.documents[0].mimetype.split('/')[1],
+                name: req.files.documents[0].filename,
+                url: req.files.documents[0].path,
+                userid: req.body.userid,
+                username: req.body.username,
+            });
+            req.body.documents = [docId];
+        }
+        const data = await Info.create(req.body);
+        res.status(200).json(data);
+
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 const remove = async (req, res) => {
     try {
         await Info.findByIdAndDelete(req.params.id);
@@ -63,6 +90,7 @@ const remove = async (req, res) => {
 // export default { 
 module.exports = {
     create,
+    createProduct,
     read,
     readAll, 
     update,

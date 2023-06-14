@@ -18,7 +18,7 @@ const InfoSchema = new mongoose.Schema({
     // files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
     // videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
     // audios: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
-    // documents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
+    documents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
 
 }, { timestamps: true });
 

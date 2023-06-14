@@ -5,18 +5,25 @@ import Image from 'mui-image';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
+import { Document, Page } from 'react-pdf';
 
 import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
+import ProductForm from "../Forms/ProductForm";
 
 const Product = () => {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
   const [tab, setTab] = useState('Kerangka');
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [formHelper, setFormHelper] = useState({open: false, infoType: "product", id: "new"});
 
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
@@ -92,21 +99,36 @@ const Product = () => {
           </TabList>
         </Box>
         {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, m: 2 }}>
-          <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+          <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
+            onClick={()=>{ setFormHelper({open: true, infoType: tab, id: "new"}) }}>
             +</Button>
         </Box>}
         <TabPanel value="Kerangka" sx={{ px:0}}>
           Item One
         </TabPanel>
         <TabPanel value="Rubrik Guru" sx={{ px:0}}>
-          Item Two
+          <Document
+            file="C:/Users/ahabi/Downloads/M2U_20230505_1819.pdf"
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            {Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
+          </Document>
         </TabPanel>
         <TabPanel value="Modul Digital" sx={{ px:0}}>
-          Item Three
+          <div>
+            <Document file="C:/Users/ahabi/Downloads/M2U_20230505_1819.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+              <Page pageNumber={pageNumber} />
+            </Document>
+            <p>
+              Page {pageNumber} of {numPages}
+            </p>
+          </div>
         </TabPanel>
       </TabContext>
     </Box>
-
+    <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} />
     </Container>
   </>);
 };

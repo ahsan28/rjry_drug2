@@ -19,6 +19,11 @@ const create = (data) => {
     return axios.post(api+'create', data, { headers: authHeader() });
 }
 
+const createProduct = (data) => {
+    console.log('data::',data);
+    return axios.post(api+'createProduct', data, { headers: authHeader() });
+}
+
 const update = (data) => {
     return axios.put(api+'update', data, { headers: authHeader() });
 }
@@ -31,6 +36,7 @@ const functions = {
     read,
     readAll,
     create,
+    createProduct,
     update,
     remove,
     

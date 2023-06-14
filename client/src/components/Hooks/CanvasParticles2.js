@@ -26,7 +26,7 @@ const CanvasParticles2 = () => {
 
       draw() {
         context.fillStyle = 'white';
-        context.strokeStyle = '#E0E0E0';
+        context.strokeStyle = '#EAEAEA';
         context.lineWidth = 1;
         context.beginPath();
         context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -50,8 +50,8 @@ const CanvasParticles2 = () => {
         particlesArray.push(new Particle(
           Math.random() * canvas.width, // random xPos
           Math.random() * canvas.height, // random yPos
-          Math.random() * 10 + 10, // random size
-          Math.random() * 1, // RANDOM SPEED
+          Math.random() * 20 + 5, // random size
+          Math.random() * 0.75, // RANDOM SPEED
           Math.random() * Math.PI * 2 // random direction
         ));
       }
