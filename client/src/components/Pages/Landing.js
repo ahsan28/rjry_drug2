@@ -148,12 +148,11 @@ const Landing = () => {
     ];
 
   return (
-    <Paper
+    <Box
       sx={{
         height: 'auto',
         width: '100%',
       }}
-      elevation={0}
     >
 
 
@@ -250,7 +249,7 @@ const Landing = () => {
       </Box>
     </Box>
 
-    </Paper>
+    </Box>
   );
 };
 
