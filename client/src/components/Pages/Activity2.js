@@ -119,17 +119,10 @@ const Activity = () => {
     </Box>
 
     <Container sx={{ mt: 2, gap: 1, position: 'relative', mb:3, height: "100%" }}>
-      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
-        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
-          setFormHelper({open: true, category: "activity", id: "new", infoType: tab});
-          } }>
-          +
-        </Button>
-      </Box>}
 
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={tab}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb:2 }}>
             <TabList 
               // change selected background to orange and text color white, non-selected background white and text color orange
               onChange={handleChange} 
@@ -150,6 +143,13 @@ const Activity = () => {
               <Tab label={"kolaborasi"} value="kolaborasi" />
             </TabList>
           </Box>
+          {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2 }}>
+        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
+          setFormHelper({open: true, category: "activity", id: "new", infoType: tab});
+          } }>
+          +
+        </Button>
+      </Box>}
           <Grid container spacing={1}>
             {activities ? <>
             <Grid item xs={12} md={4} lg={3}>

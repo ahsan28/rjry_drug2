@@ -69,34 +69,6 @@ const Product = () => {
       </Typography>
     </Box>
     <Container sx={{ mt: 2, gap: 1, position: 'relative', mb:3}}>
-      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
-        <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
-          +</Button>
-      </Box>}
-   
-      {/* <Box sx={{ width: '100%' }}>
-        <Tabs
-          value={tab}
-          onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
-          aria-label="secondary tabs example"
-          wrapped
-        >
-          <Tab value="one" label={"Kerangka Sekolah Bebas Dadah"} />
-          <Tab value="two" label={"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"} />
-          <Tab value="three" label={"Modul Digital Sekolah Bebas Dadah"} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel> */}
       <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={tab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -115,10 +87,14 @@ const Product = () => {
             // orientation="vertical"
             >
             <Tab label={"Kerangka"} title={"Kerangka Sekolah Bebas Dadah"} value="Kerangka" />
-            <Tab label={"Rubrik Guru"} title={"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"} value="2" />
-            <Tab label={"Modul Digital"} title={"Modul Digital Sekolah Bebas Dadah"} value="3" />
+            <Tab label={"Rubrik Guru"} title={"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"} value="Rubrik Guru" />
+            <Tab label={"Modul Digital"} title={"Modul Digital Sekolah Bebas Dadah"} value="Modul Digital" />
           </TabList>
         </Box>
+        {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, m: 2 }}>
+          <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+            +</Button>
+        </Box>}
         <TabPanel value="Kerangka" sx={{ px:0}}>
           Item One
         </TabPanel>

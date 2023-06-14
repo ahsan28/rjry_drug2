@@ -94,7 +94,7 @@ const MemberProfiles = () => {
     };
   const memberList = users.filter((u) => u.memberType === tab)
     .map((u) => (
-    <Box key={u._id} sx={{ gap: 1, pt:1 }}>
+    <Box key={u._id} sx={{ gap: 1, mt:2 }}>
       <Card key={u._id}>
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -161,7 +161,7 @@ const MemberProfiles = () => {
             {user && <Tab label={"Other Members"} value="Other Members" />}
           </TabList>
         </Box>
-        {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
+        {user && <Box sx={{ position: "absolute", mt: 2, right: 0, zIndex: 1, mx: 2 }}>
           <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
           onClick={()=>{
             setUid('new')

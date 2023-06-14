@@ -133,11 +133,6 @@ const Publication = () => {
     </Box>
 
     <Container sx={{ mt: 2, gap: 1, position: 'relative', mb:3}}>
-      {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
-        <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
-          +</Button>
-      </Box>}
-
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={tab}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -161,6 +156,10 @@ const Publication = () => {
               <Tab label={"Module"} value="module" />
             </TabList>
           </Box>
+          {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2, mt:2 }}>
+            <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+              +</Button>
+          </Box>}
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 1, my: 2 }}>
             {data.length>0? data.filter(val=>val.infoType===tab).map((datum, index) => (<>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1, bgcolor: 'background.paper' }} key={datum._id}>
