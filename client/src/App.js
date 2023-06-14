@@ -1,5 +1,10 @@
 import Container from '@mui/material/Container'
 import { Routes, Route } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react';
+import { Box, CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CanvasParticles2 from './components/Hooks/CanvasParticles2';
+
 import { UserContext } from './UserContext';
 import UserList from './components/Users/UserList';
 import UserForm from './components/Users/UserForm';
@@ -26,10 +31,7 @@ import Footer from './Footer';
 import CommonDataForm from './components/Forms/CommonDataForm';
 import Navbar from './Navbar';
 import UserService from './services/user.services';
-import { useContext, useEffect, useState } from 'react';
-import { Box, CssBaseline } from '@mui/material';
 import Landing from './components/Pages/Landing';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css'
 
 const theme = createTheme({
@@ -126,6 +128,7 @@ const App = () => {
 
     
   return (<>
+
     <CssBaseline />
     <ThemeProvider theme={theme}>
       {/* fixed navbar at the top and footer at the bottom and flex container for main content */}
@@ -134,6 +137,7 @@ const App = () => {
       <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
       <Container maxWidth={false} disableGutters={true} component='main' sx={{display: 'flex', flexDirection: 'column', flexGrow: 1,overflowY: 'auto', overflowX: 'hidden'}}>
+              <CanvasParticles2 />
             <Routes>
               <Route path="/users" element={<UserList />} />
               <Route path="/users/:userId" element={<UserForm />} />

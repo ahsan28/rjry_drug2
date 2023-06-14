@@ -101,7 +101,7 @@ const Publication = () => {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [cover, setCover] = useState(null);
-  const [tab, setTab] = useState('buku');
+  const [tab, setTab] = useState('artikel');
   // const [tabData, setTabData] = useState([]);
   const [formHelper, setFormHelper] = useState({ open: false, infoType: tab, id: "new" });
 
@@ -155,8 +155,8 @@ const Publication = () => {
               // variant="fullWidth"
               // orientation="vertical"
               >
-              <Tab label={"Buku"} value="buku" />
               <Tab label={"Artikel"} value="artikel" />
+              <Tab label={"Buku"} value="buku" />
               <Tab label={"Akhbar"} value="akhbar" />
               <Tab label={"Module"} value="module" />
             </TabList>
