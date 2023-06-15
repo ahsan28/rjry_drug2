@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, ListItemButton, ListItemIcon, Paper, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Grid, ListItemButton, ListItemIcon, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -59,9 +59,9 @@ const ActivityList = ({ activities, onItemClick, selectedActivity }) => {
         }}
         onClick={() => {handleItemClick(index); onItemClick(activity)}}
       >
-        <ListItemIcon sx={{ minWidth: 20 }}>
+        <ListItemIcon sx={{ minWidth: 24 }}>
           <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', color: selectedActivity && selectedActivity._id === activity._id ? 'white' : 'black' }}>
-            {index + 1}
+            {index + 1}.
           </Typography>
         </ListItemIcon>
 
@@ -85,10 +85,15 @@ const ActivityDetail = ({ activity }) => {
 
   return (
   <Paper sx={{ p: 2, width: "100%", height: "100%" }}>
-    <Typography variant="h6">
+    <Typography variant="h6" sx={{ mb: 2, textTransform: 'capitalize', fontWeight: 'bold', fontSize: 20, textAlign: 'center' }}>
       {activity.title}
+      <Divider sx={{ my: 1, borderColor: 'transparent' }} />
     </Typography>
-    <Typography variant="body1" sx={{ mb: 2 }}>
+
+    <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', mb: 1, fontStyle: 'italic', color: '#007aff' }}>
+      Description
+    </Typography>
+    <Typography variant="body1" sx={{ mb: 2, whiteSpace: 'pre-line', textAlign: 'justify' }}>
       {activity.description}
     </Typography>
     <CoverflowGallery images={activity.images} divider={true} thumb={true} simple={true} />
