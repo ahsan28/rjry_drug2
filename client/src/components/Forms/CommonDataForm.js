@@ -8,7 +8,7 @@ import { UserContext } from "../../UserContext";
 
 
 const CommonDataForm = () => {
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser, setIsLoading } = useContext(UserContext);
     const [data, setData] = useState(null);
     const [gallery, setGallery] = useState([]);
     const [galleryFiles, setGalleryFiles] = useState([]);

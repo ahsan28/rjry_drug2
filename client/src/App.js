@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CanvasParticles2 from './components/Hooks/CanvasParticles2';
+import Loader from './components/Pages/Loader';
 
 import { UserContext } from './UserContext';
 import UserList from './components/Users/UserList';
@@ -76,7 +77,7 @@ const theme = createTheme({
 });
 
 const App = () => {
-  const { user, setUser, settings, setSettings } = useContext(UserContext);
+  const { user, setUser, settings, setSettings, isLoading, setIsLoading } = useContext(UserContext);
 
   const logout = () => {
     UserService.logout();
@@ -84,12 +85,14 @@ const App = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true)
     let currentUser = UserService.getCurrentUser();
     if (currentUser) {
       setUser(currentUser);
     }
     UserService.getSettings(currentUser?.settings).then((response) => {
       setSettings(response.data);
+      setIsLoading(false)
     }).catch((error) => {
       console.log(error);
     });
@@ -128,7 +131,7 @@ const App = () => {
 
     
   return (<>
-
+    {isLoading && <Loader />}
     <CssBaseline />
     <ThemeProvider theme={theme}>
       {/* fixed navbar at the top and footer at the bottom and flex container for main content */}

@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 const PublicationForm = ({ formHelper, setFormHelper }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [info, setInfo] = useState({
     category: "publication",
     type: formHelper.type,
@@ -99,7 +99,7 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
 
 const Publications = () => {
   let { pubType } = useParams();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [type, setType] = useState("Penerbitan");
   const [formHelper, setFormHelper] = useState({ open: false, type: pubType, id: "new" });

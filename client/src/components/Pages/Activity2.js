@@ -13,6 +13,7 @@ import ActivityService from "../../services/activity.services";
 import MediaService from "../../services/media.services";
 import ViewImage from "../Hooks/ViewImage";
 import { UserContext } from "../../UserContext";
+import Loader from "../Pages/Loader";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -101,22 +102,23 @@ const ActivityDetail = ({ activity }) => {
 )};
 
 const Activity = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [activities, setActivities] = useState([]);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [tab, setTab] = useState('mesyuarat');
   const [formHelper, setFormHelper] = useState({open: false, category: "activity", id: "new", infoType: tab});
 
-
   const handleChange = (event, newValue) => {
     setTab(newValue);
     // setSelectedActivity(null);
   };
-
+  
   useEffect(() => {
+    setIsLoading(true);
     ActivityService.readAll(tab).then((res) => {
       if (res.data) {
         setActivities(res.data);
+        setIsLoading(false);
         if (res.data.length > 0) setSelectedActivity(res.data[0]);
         else setSelectedActivity(null);
       }

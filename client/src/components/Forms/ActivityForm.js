@@ -5,7 +5,7 @@ import { UserContext } from "../../UserContext";
 import ActivityService from "../../services/activity.services";
 
 const ActivityForm = ({ formHelper, setFormHelper }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   // let { infoType } = useParams();
   // console.log("🚀 ~ file: ActivityForm.js:10 ~ ActivityForm ~ infoType:", infoType)
   const [selectedActId, setSelectedActId] = useState(null);

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
 const Gallery = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
 

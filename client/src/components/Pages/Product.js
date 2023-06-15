@@ -13,7 +13,7 @@ import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
 const Product = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
   const [tab, setTab] = useState('Kerangka');
@@ -30,6 +30,7 @@ const Product = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true)
     DataService.read("Research")
       .then((res) => {
         if (res.data) {
@@ -45,6 +46,7 @@ const Product = () => {
           }
         }
         else setData({title: "Click edit button to entry", description: "Not in the database yet."});
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);

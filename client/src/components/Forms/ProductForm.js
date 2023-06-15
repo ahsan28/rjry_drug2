@@ -5,7 +5,7 @@ import { UserContext } from "../../UserContext";
 import InfoService from "../../services/info.services";
 
 const ProductForm = ({ formHelper, setFormHelper }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   // let { infoType } = useParams();
   // console.log("🚀 ~ file: ProductForm.js:10 ~ ProductForm ~ infoType:", infoType)
   const [selectedActId, setSelectedActId] = useState(null);

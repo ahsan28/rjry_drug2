@@ -7,7 +7,7 @@ import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 
 const Certifications = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState({
     title: "Certifications",
   });

@@ -43,7 +43,7 @@ const items = [
   ];
 
 const Profile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [ avatar, setAvatar ] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(false);
   let navigate = useNavigate();

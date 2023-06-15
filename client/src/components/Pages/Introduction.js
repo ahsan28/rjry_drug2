@@ -8,11 +8,12 @@ import { UserContext } from "../../UserContext";
 import BasicPage from "../Hooks/BasicPage";
 
 const Introduction = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
 
   useEffect(() => {
+    setIsLoading(true)
     DataService.read("Introduction")
       .then((res) => {
         if (res.data) {
@@ -28,6 +29,7 @@ const Introduction = () => {
           }
         }
         else setData({title: "Click edit button to entry", description: "Not in the database yet."});
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);

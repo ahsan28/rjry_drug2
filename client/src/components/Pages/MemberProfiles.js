@@ -10,7 +10,7 @@ import TabContext from '@mui/lab/TabContext/TabContext';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const MemberProfiles = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [openMemberForm, setOpenMemberForm] = useState(false);
   const [uid, setUid] = useState('new');
@@ -30,12 +30,14 @@ const MemberProfiles = () => {
   }, [uid]);
 
   function refreshList () {
+    setIsLoading(true)
     UserService.readAll()
       .then((res) => {
         setUsers(res.data.filter((user) => user.username !== "dev").map((user) => {
           if (["Ahli-Ahli Penyelidik", "GRA", "Ketua Penyelidik", "Ketua Program LRGS"].includes(user.memberType)) return user;
           else return {...user, memberType: "Other Members"}
         }));
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);

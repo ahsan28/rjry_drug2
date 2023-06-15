@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Image from 'mui-image';
 
 const BasicPage = ({ data, cover, page }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   console.log("🚀 ~ file: BasicPage.js:11 ~ BasicPage ~ page:", page)
 
   return (<>

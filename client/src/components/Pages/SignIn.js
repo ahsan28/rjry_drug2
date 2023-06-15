@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import UserService from "../../services/user.services";
 import { UserContext } from "../../UserContext";
+import { useContext } from "react";
 
 function Copyright(props) {
   return (
@@ -36,19 +37,21 @@ const theme = createTheme();
 export default function SignIn() {
   let navigate = useNavigate();
 
-  const { setUser } = React.useContext(UserContext);
+  const { setUser, setIsLoading } = useContext(UserContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-      UserService.login({
-        username: data.get("username"),
-        password: data.get("password"),
-      })
-      .then((res) => {
-        console.log(res);
-        setUser(res);
-        navigate("/");
-      })
+    setIsLoading(true)
+    UserService.login({
+      username: data.get("username"),
+      password: data.get("password"),
+    })
+    .then((res) => {
+      console.log(res);
+      setUser(res);
+      navigate("/");
+      setIsLoading(false)
+    })
   };
 
 

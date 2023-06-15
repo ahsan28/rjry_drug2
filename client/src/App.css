@@ -54,6 +54,48 @@ header, footer, nav {
   font-family: var(--themeFont) !important;
 }
 
+.loader {
+  border: 8px solid #ff717181;
+  border-radius: 50%;
+  border-top: 8px solid #5abafabd;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  -webkit-animation: spin 2s linear infinite; 
+  animation: spin 2s linear infinite;
+}
+
+.loader2 {
+  border: 8px solid #9dff005b;
+  border-radius: 50%;
+  border-top: 8px solid #ff006abd;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  -webkit-animation: spin2 1.5s linear infinite; 
+  animation: spin2 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+  0% { -webkit-transform: rotate(360deg); }
+  100% { -webkit-transform: rotate(0deg); }
+}
+
+@keyframes spin2 {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
 
 .App {
   text-align: center;

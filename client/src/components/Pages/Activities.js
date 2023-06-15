@@ -73,7 +73,7 @@ const ActivityDetail = ({ activity }) => (
 );
 
 const Activities = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [selectedActivity, setSelectedActivity] = useState(null);
   // const [activities, setActivities] = useState(null);
   let { actId } = useParams();

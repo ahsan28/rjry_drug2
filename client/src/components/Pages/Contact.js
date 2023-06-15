@@ -12,7 +12,7 @@ const location = {
 } // our location object from earlier
 
 const Contact = () => {
-  const { user } = useContext(UserContext);
+  const { user, setIsLoading } = useContext(UserContext);
   console.log("🚀 ~ file: Contact.js:15 ~ Contact ~ user:", user)
   const [mailData, setMailData] = useState({
     name: '',
@@ -26,6 +26,7 @@ const Contact = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true)
     if (user) {
       UserService.get(user._id).then(res => {
         setData(res.data.siteLinks);
@@ -36,14 +37,17 @@ const Contact = () => {
     // mapimagid: 647f5282b7307719dc09f11d
     MediaService.loadImage('647f5282b7307719dc09f11d').then(res => {
       setMapImg(res.data);
+      setIsLoading(false)
     }).catch(err => console.log(err));
 
   }, []);
 
   const sendEmail = event => {
+    setIsLoading(true)
     event.preventDefault();
     UserService.sendEmail(mailData).then(res => {
       console.log(res);
+      setIsLoading(false)
     }).catch(err => {
       console.log(err);
     }); 

@@ -7,7 +7,7 @@ import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 
 const Research = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
 

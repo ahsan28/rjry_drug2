@@ -39,9 +39,10 @@ const Landing = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
 
   useEffect(() => {
+    setIsLoading(true)
     DataService.read("Landing")
       .then((res) => {
         if (res.data) {
@@ -57,6 +58,7 @@ const Landing = () => {
           }
         }
         else setData({title: "Click edit button to entry", description: "Not in the database yet."});
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);

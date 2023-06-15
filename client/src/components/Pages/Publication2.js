@@ -12,7 +12,7 @@ import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 
 const PublicationForm = ({ formHelper, setFormHelper }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [info, setInfo] = useState({
     category: "publication",
     infoType: formHelper.infoType,
@@ -98,7 +98,7 @@ const PublicationForm = ({ formHelper, setFormHelper }) => {
 };
 
 const Publication = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [cover, setCover] = useState(null);
   const [tab, setTab] = useState('artikel');
@@ -111,9 +111,11 @@ const Publication = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true)
     InfoService.readAll("publication")
       .then((res) => {
         setData(res.data);
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);
