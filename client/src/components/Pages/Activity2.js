@@ -1,11 +1,12 @@
-import { Box, Button, Container, Grid, ListItemButton, ListItemIcon, ListItemText, Paper, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, ListItemButton, ListItemIcon, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
+import { List, ListItem, ListItemText } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import CoverflowGallery from "../Hooks/CoverflowGallery";
 import ActivityForm from "../Forms/ActivityForm";
 import ActivityService from "../../services/activity.services";
@@ -13,56 +14,67 @@ import MediaService from "../../services/media.services";
 import ViewImage from "../Hooks/ViewImage";
 import { UserContext } from "../../UserContext";
 
-// const activities = [
-//   {
-//     id: 1,
-//     title: 'Hiking at Mount Everest',
-//     date: '2022-01-01',
-//     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//   },
-//   {
-//     id: 2,
-//     title: 'Swimming with dolphins',
-//     date: '2022-02-01',
-//     description: 'Suspendisse potenti. Praesent eget molestie sapien, quis ullamcorper quam.',
-//   },
-//   {
-//     id: 3,
-//     title: 'Camping at Yosemite National Park',
-//     date: '2022-03-01',
-//     description: 'Nulla tempus, arcu non pharetra commodo, enim lorem tincidunt erat, ac rhoncus leo turpis eu ipsum.',
-//   },
-// ];
 
-const ActivityList = ({ activities, onItemClick }) => {
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    position: 'relative',
+    transition: 'background-color 0.3s',
+    backgroundColor: 'transparent',
+    '&.active': {
+      backgroundColor: theme.palette.primary.main,
+    },
+    '&.sliding': {
+      transition: 'transform 0.3s',
+      transform: 'translateX(0)',
+    },
+  },
+}));
+
+const ActivityList = ({ activities, onItemClick, selectedActivity }) => {
   console.log("🚀 ~ file: Activity2.js:100 ~ ActivityList ~ activities", activities)
+  const classes = useStyles();
+  const [activeItem, setActiveItem] = useState(0);
+  const [slidingIndex, setSlidingIndex] = useState(-1);
 
+  const handleItemClick = (index) => {
+    setSlidingIndex(activeItem);
+    setActiveItem(index);
+  };
   return (
   <Paper sx={{ p: 2, width: "100%", height: "100%" }}>
     <Typography variant="h6" sx={{ mb: 2 }}>
       Aktiviti
     </Typography>
-    {activities.map((activity,index) => (
-      <ListItemButton
-      key={activity.id}
-      sx={{ py: 0, minHeight: 32, cursor: 'pointer' }}
-      onClick={() => onItemClick(activity)}
-    >
-      <ListItemIcon sx={{ minWidth: 32 }}>
-        <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'medium' }}>
-          {index + 1}
-        </Typography>
-      </ListItemIcon>
+    <List>
+      {activities.map((activity,index) => (
+        <ListItem
+        button
+        key={index}
+        selected={selectedActivity && selectedActivity._id === activity._id}
+        // className={`${classes.listItem} ${ activeItem === index ? 'active' : '' } ${slidingIndex >= 0 && index > slidingIndex ? 'sliding' : ''}`}
+        sx={{ p: 0, minHeight: 32, borderRadius: 0.5, cursor: 'pointer', transition: '0.2s', mb: 0.5,
+          '&:hover': { pl: 1 }, 
+          '&.Mui-selected': { bgcolor: 'orange', pl: 1, ml: -1, color: 'white' },
+          '&.Mui-selected:hover': { bgcolor: 'lightsalmon', ml: -0.5 },  
+        }}
+        onClick={() => {handleItemClick(index); onItemClick(activity)}}
+      >
+        <ListItemIcon sx={{ minWidth: 20 }}>
+          <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', color: selectedActivity && selectedActivity._id === activity._id ? 'white' : 'black' }}>
+            {index + 1}
+          </Typography>
+        </ListItemIcon>
 
-      <ListItemText
-        primary={activity.title}
-        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-      />
-    </ListItemButton>
-      // <Typography key={activity.id} onClick={() => onItemClick(activity)} sx={{ cursor: 'pointer', mb: 1 }}>
-      //   {activity.title}
-      // </Typography>
-    ))}
+        <ListItemText
+          primary={activity.title}
+          primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+        />
+      </ListItem>
+        // <Typography key={activity.id} onClick={() => onItemClick(activity)} sx={{ cursor: 'pointer', mb: 1 }}>
+        //   {activity.title}
+        // </Typography>
+      ))}
+    </List>
   </Paper>
 )};
 
@@ -153,7 +165,7 @@ const Activity = () => {
           <Grid container spacing={1}>
             {activities ? <>
             <Grid item xs={12} md={4} lg={3}>
-              <ActivityList activities={activities} onItemClick={handleItemClick} />
+              <ActivityList activities={activities} onItemClick={handleItemClick} selectedActivity={selectedActivity} />
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
               {selectedActivity ? (
