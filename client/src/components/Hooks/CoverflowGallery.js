@@ -88,7 +88,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
       </SwiperSlide>
     ))}
   </Swiper>}
-  {divider && <Divider sx={{ margin: "8px 0 1.2rem 0" }} />}
+  {divider && <Divider sx={{ margin: "1rem 0 14px 0" }} />}
   {thumb && <Swiper
     onSwiper={setThumbsSwiper}
     slidesPerView={7}
