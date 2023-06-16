@@ -96,7 +96,7 @@ const MemberProfiles = () => {
     };
   const memberList = users.filter((u) => u.memberType === tab)
     .map((u) => (
-    <Box key={u._id} sx={{ gap: 1, mt:1 }}>
+    <Box key={u._id} sx={{bgcolor: '#1976d212', borderRadius: '10px',gap:1, mb:1}}>
       <Card key={u._id} sx={{bgcolor: '#1976d212', borderRadius: '10px'}}>
         <CardContent >
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -142,7 +142,7 @@ const MemberProfiles = () => {
     </Box>
     <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>
       <TabContext value={tab}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb:2 }}>
           <TabList 
             // change selected background to orange and text color white, non-selected background white and text color orange
             onChange={handleChange} 

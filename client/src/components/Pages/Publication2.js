@@ -1,4 +1,4 @@
-import { Box, Button, Container, Dialog, DialogContent, DialogTitle, IconButton, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Dialog, DialogContent, DialogTitle, IconButton, Tab, Tabs, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -163,8 +163,8 @@ const Publication = () => {
               +</Button>
           </Box>}
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 1, my: 2 }}>
-            {data.length>0? data.filter(val=>val.infoType===tab).map((datum, index) => (<>
-              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1, bgcolor: 'background.paper' }} key={datum._id}>
+            {data.length>0? data.filter(val=>val.infoType===tab).map((datum, index) => (<Card sx={{bgcolor: '#1976d212', width: '100%'}} key={datum._id}>
+              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', p: 1 }} key={datum._id}>
                 <Typography variant="body1" sx={{ width: '6rem', textAlign: 'center', color: 'primary.main', fontSize: '1.5rem' }}>
                     {index + 1}
                 </Typography>
@@ -183,7 +183,7 @@ const Publication = () => {
                 </IconButton>}
                 </Box>
               </Box>
-            </>)): <Typography variant="body1">
+            </Card>)): <Typography variant="body1">
               No data
               </Typography>}
           </Box>

@@ -121,7 +121,7 @@ nav .MuiBox-root button {
 }
 
 .MuiPaper-root {
-  background-color: var(--bodyBgColor) !important;
+  /* background-color: var(--bodyBgColor) !important; */
   color: var(--bodyFontColor) !important;
 }
 
