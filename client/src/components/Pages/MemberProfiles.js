@@ -96,7 +96,7 @@ const MemberProfiles = () => {
     };
   const memberList = users.filter((u) => u.memberType === tab)
     .map((u) => (
-    <Box key={u._id} sx={{ gap: 1, mt:2 }}>
+    <Box key={u._id} sx={{ gap: 1, mt:1 }}>
       <Card key={u._id} sx={{bgcolor: '#1976d212', borderRadius: '10px'}}>
         <CardContent >
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
