@@ -54,26 +54,37 @@ header, footer, nav {
   font-family: var(--themeFont) !important;
 }
 
+/* add a 3d effect on hover to the loaders */
 .loader {
-  border: 8px solid #ff717181;
+  border: 8px solid #2a2679;
   border-radius: 50%;
-  border-top: 8px solid #5abafabd;
-  width: 120px;
-  height: 120px;
+  border-top: 8px solid #2a26793d;
+  width: 5.5vh;
+  height: 5.5vh;
   position: absolute;
   -webkit-animation: spin 2s linear infinite; 
   animation: spin 2s linear infinite;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    -webkit-animation: spin 0.5s linear infinite; 
+    animation: spin 0.5s linear infinite;
+  }
 }
 
 .loader2 {
-  border: 8px solid #9dff005b;
+  border: 1vh solid #db25003d;
   border-radius: 50%;
-  border-top: 8px solid #ff006abd;
-  width: 100px;
-  height: 100px;
+  border-top: 1vh solid #db2300;
+  width: 4.5vh;
+  height: 4.5vh;
   position: absolute;
-  -webkit-animation: spin2 1.5s linear infinite; 
-  animation: spin2 1.5s linear infinite;
+  -webkit-animation: spin2 1.8s linear infinite; 
+  animation: spin2 1.8s linear infinite;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    -webkit-animation: spin2 0.4s linear infinite; 
+    animation: spin2 0.4s linear infinite;
+  }
 }
 
 @-webkit-keyframes spin {
