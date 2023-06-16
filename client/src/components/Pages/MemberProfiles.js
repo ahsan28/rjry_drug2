@@ -163,7 +163,7 @@ const MemberProfiles = () => {
             {user && <Tab label={"Other Members"} value="Other Members" />}
           </TabList>
         </Box>
-        {user && <Box sx={{ position: "absolute", mt: 2, right: 0, zIndex: 1, mx: 2 }}>
+        {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2 }}>
           <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
           onClick={()=>{
             setUid('new')
