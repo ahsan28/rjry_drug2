@@ -65,6 +65,7 @@ header, footer, nav {
   -webkit-animation: spin 2s linear infinite; 
   animation: spin 2s linear infinite;
   transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 0px 1px #fcf300;
   &:hover {
     -webkit-animation: spin 0.5s linear infinite; 
     animation: spin 0.5s linear infinite;
@@ -72,7 +73,7 @@ header, footer, nav {
 }
 
 .loader2 {
-  border: 1vh solid #db25003d;
+  border: 1vh solid #db23003d;
   border-radius: 50%;
   border-top: 1vh solid #db2300;
   width: 4.5vh;
@@ -81,6 +82,7 @@ header, footer, nav {
   -webkit-animation: spin2 1.8s linear infinite; 
   animation: spin2 1.8s linear infinite;
   transition: all 0.2s ease-in-out;
+  box-shadow: inset 0px 0px 3px 0px white;
   &:hover {
     -webkit-animation: spin2 0.4s linear infinite; 
     animation: spin2 0.4s linear infinite;

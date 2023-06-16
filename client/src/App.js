@@ -131,7 +131,7 @@ const App = () => {
 
     
   return (<>
-    {isLoading||true && <Loader />}
+    {isLoading && <Loader />}
     <CssBaseline />
     <ThemeProvider theme={theme}>
       {/* fixed navbar at the top and footer at the bottom and flex container for main content */}
