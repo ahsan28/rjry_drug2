@@ -1,4 +1,4 @@
-import { Box, Button, Container, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Container, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tab, Tabs, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -6,15 +6,26 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { Document, Page } from 'react-pdf';
+import ImageIcon from '@mui/icons-material/Image';
+import DownloadIcon from '@mui/icons-material/Download';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import DataService from "../../services/data.services";
 import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
+const product = {
+  category: "product",
+  infoType: "Kerangka",
+  documents: ['6418f8c66a237a2840c52ba0','645a165fba63cb629e07c5c4'],
+}
+
 const Product = () => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState(null);
+  const [documents, setDocuments] = useState([]); // ['6418f8c66a237a2840c52ba0','645a165fba63cb629e07c5c4']
   const [cover, setCover] = useState(null);
   const [tab, setTab] = useState('Kerangka');
   const [numPages, setNumPages] = useState(null);
@@ -29,28 +40,15 @@ const Product = () => {
     setTab(newValue);
   };
 
+
   useEffect(() => {
     setIsLoading(true)
-    DataService.read("Research")
-      .then((res) => {
-        if (res.data) {
-          setData(res.data);
-          if (res.data.cover) {
-            MediaService.read(res.data.cover)
-              .then((res) => {
-                setCover(res.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        }
-        else setData({title: "Click edit button to entry", description: "Not in the database yet."});
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const promises = product.documents.map((doc) => MediaService.read(doc));
+    Promise.all(promises).then((res) => {
+      console.log("🚀 ~ file: Product.js:44 ~ Promise.all ~ res:", res)
+      setDocuments(res.map((doc) => doc.data));
+      setIsLoading(false)
+    }).catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -105,20 +103,44 @@ const Product = () => {
             onClick={()=>{ setFormHelper({open: true, infoType: tab, id: "new"}) }}>
             +</Button>
         </Box>}
-        <TabPanel value="Kerangka" sx={{ px:0}}>
-          Item One
-        </TabPanel>
-        <TabPanel value="Rubrik Guru" sx={{ px:0}}>
-          <Document
-            file="C:/Users/ahabi/Downloads/M2U_20230505_1819.pdf"
-            onLoadSuccess={onDocumentLoadSuccess}
-          >
-            {Array.from(new Array(numPages), (el, index) => (
-              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-            ))}
-          </Document>
-        </TabPanel>
-        <TabPanel value="Modul Digital" sx={{ px:0}}>
+        {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
+        <List sx={{ width: '100%'  }}>
+          {documents.length>0? documents.map((doc, index) => (<Card key={index} sx={{ width: '100%', bgcolor: '#1976d212', my:1, borderRadius: "10px" }}>
+          <CardContent>
+              <ListItem
+              key={index} 
+              secondaryAction={<>
+                <IconButton edge="end" aria-label="download">
+                  <DownloadIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="edit">
+                  <EditIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </>
+              }>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ImageIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText 
+                  primary={doc.filename.split('.')[0]}
+                  secondary={doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
+                />
+              </ListItem>
+          </CardContent>
+          </Card>
+          )):<Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
+            <Typography variant="h6" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+              {"Tiada dokumen"}
+            </Typography>
+          </Box>
+          }
+        </List>
+        {/* <TabPanel value="Modul Digital" sx={{ px:0}}>
           <div>
             <Document file="C:/Users/ahabi/Downloads/M2U_20230505_1819.pdf" onLoadSuccess={onDocumentLoadSuccess}>
               <Page pageNumber={pageNumber} />
@@ -127,7 +149,7 @@ const Product = () => {
               Page {pageNumber} of {numPages}
             </p>
           </div>
-        </TabPanel>
+        </TabPanel> */}
       </TabContext>
     </Box>
     <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} />

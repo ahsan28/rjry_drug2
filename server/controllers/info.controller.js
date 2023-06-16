@@ -13,7 +13,7 @@ let TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 const read = async (req, res) => {
     try {
-        const data = await Info.findById(req.params.id);
+        const data = await Info.findById(req.params.id).populate('cover').populate('images').populate('documents');
         res.status(200).json(data);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -22,7 +22,8 @@ const read = async (req, res) => {
 
 const readAll = async (req, res) => {
     try {
-        const data = await Info.find({ category: req.params.category }).sort({ createdAt: -1 });
+        const data = await Info.find({ category: req.params.category })
+        .populate('cover').populate('images').populate('documents').sort({ createdAt: -1 });
         res.send(data);
     }
     catch (err) {
