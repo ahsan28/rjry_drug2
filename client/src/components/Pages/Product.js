@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardContent, Container, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Container, Dialog, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tab, Tabs, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import InfoService from "../../services/info.services";
+import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
@@ -21,7 +22,7 @@ const Product = () => {
   const [data, setData] = useState([]);
   console.log("🚀 ~ file: Product.js:27 ~ Product ~ data:", data)
   const [tab, setTab] = useState('Kerangka');
-  const [numPages, setNumPages] = useState(null);
+  const [editHelper, setEditHelper] = useState({open: false, infoId: null, fileId: null, name: ''});
   const [formHelper, setFormHelper] = useState({open: false, infoType: "product", id: "new"});
 
   const handleChange = (event, newValue) => {
@@ -57,6 +58,22 @@ const Product = () => {
         break;
     }
   }, [tab]);
+
+  const downloadFile = (fileId) => {
+    // load the file using loadImage function from media controller, then create a blob url and download it, keep original file name and extension
+    MediaService.read(fileId).then((res) => {
+      const filename = res.data.originalname;
+      MediaService.loadImage(fileId).then((res) => {
+        const url = URL.createObjectURL(res.data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+      });
+    });
+  };
+
 
 
   return (<>
@@ -96,30 +113,31 @@ const Product = () => {
         {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
         <List sx={{ width: '100%' }}>
           {data.length>0? data.map((doc, index) => (<Card key={index} sx={{ width: '100%', bgcolor: '#1976d212', my:1, borderRadius: "10px" }}>
-          <CardContent sx={{ p:'0 !important' }}>
+          <CardContent sx={{ py:'0 !important' }}>
               <ListItem
               key={index} 
-              secondaryAction={<>
-                <IconButton edge="end" aria-label="download">
+              secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                <IconButton edge="end" aria-label="download" onClick={()=>{downloadFile(doc._id)}}>
                   <DownloadIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="edit">
-                  <EditIcon />
-                </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick={()=>{
-                  if (window.confirm("Are you sure you want to delete this file?"))
-                    InfoService.removeFile(doc._id)
-                      .then((res) => {
-                        console.log("🚀 ~ file: Product.js:144 ~ .then ~ res", res)
-                        setData(data.filter((item) => item._id !== doc._id));
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                }}>
-                  <DeleteIcon />
-                </IconButton>
-              </>
+                {user && <>
+                  <IconButton edge="end" aria-label="edit" onClick={()=>{setEditHelper({open: true, infoId: doc.infoId, fileId: doc._id, name: doc.originalname })}}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton edge="end" aria-label="delete" onClick={()=>{
+                    if (window.confirm("Are you sure you want to delete this file?"))
+                      InfoService.removeFile(doc._id)
+                        .then((res) => {
+                          setData(data.filter((item) => item._id !== doc._id));
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                  }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </>}
+              </Box>
               }>
                 <ListItemAvatar>
                   <Avatar>
@@ -161,6 +179,24 @@ const Product = () => {
     </Box>
     <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} />
     </Container>
+    <Dialog open={editHelper.open} onClose={()=>{setEditHelper({open: false, infoId: null, fileId: null, name: ''})}}>
+      <Box sx={{ p: 2, width: "500px" }}>
+        <TextField label="Name" variant="outlined" value={editHelper.name} onChange={(e)=>{setEditHelper({...editHelper, name: e.target.value})}} />
+        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
+          MediaService.updateFile({_id:editHelper.fileId, originalname: editHelper.name})
+            .then((res) => {
+              console.log("🚀 ~ file: Product.js:144 ~ .then ~ res", res)
+              setData(data.map((item) => item._id === editHelper.fileId ? {...item, originalname: editHelper.name} : item));
+              setEditHelper({open: false, infoId: null, fileId: null, name: ''});
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        }>
+          Save</Button>
+      </Box>
+    </Dialog>
   </>);
 };
 

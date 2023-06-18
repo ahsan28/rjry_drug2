@@ -12,10 +12,20 @@ const loadImage = (id) => {
     return axios.get(`${api}loadImage/${id}`, { responseType: "blob" })
 }
 
+const loadFile = (id) => {
+    return axios.get(`${api}loadFile/${id}`, { responseType: "blob" })
+}
+
+const updateFile = (data) => {
+    return axios.put(api+'update', data, { headers: authHeader() });
+}
+
 
 const functions = {
     read,
     loadImage,
+    loadFile,
+    updateFile
 }
 
 export default functions

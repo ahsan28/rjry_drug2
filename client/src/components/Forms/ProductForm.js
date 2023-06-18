@@ -84,7 +84,7 @@ const ProductForm = ({ formHelper, setFormHelper }) => {
     
     formData.append("category", "product");
     formData.append("infoType", formHelper.infoType);
-    
+
     documents.forEach(file => formData.append('files', file.file));
     
     try {
@@ -118,6 +118,8 @@ const ProductForm = ({ formHelper, setFormHelper }) => {
       console.log("Error uploading files: ", error);
     }
   };
+
+
 
   return (<Dialog 
     open={formHelper.open} 

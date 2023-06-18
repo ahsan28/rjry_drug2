@@ -11,6 +11,7 @@ const router = express.Router();
 router.get("/:id", controller.read);
 router.get("/loadImage/:id", controller.loadImage);
 router.post("/loadImages", controller.loadImages);
+router.put("/update", controller.update);
 
 // export default router;
 module.exports = router;
