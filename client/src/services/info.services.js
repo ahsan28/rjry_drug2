@@ -3,8 +3,8 @@ import authHeader from './auth.header';
 
 
 
-const api = 'https://back.sekolahbebasdadah.tel/info/'; 
-// const api = 'http://localhost:5000/info/'  // "https://rjrydrug.herokuapp.com/info/"
+// const api = 'https://back.sekolahbebasdadah.tel/info/'; 
+const api = 'http://localhost:5000/info/'  // "https://rjrydrug.herokuapp.com/info/"
 
 
 const read = (id) => {
@@ -32,6 +32,10 @@ const remove = (id) => {
     return axios.delete(api+'remove/'+id, { headers: authHeader() });
 }
 
+const removeFile = (id) => {
+    return axios.delete(api+'removeFile/'+id, { headers: authHeader() });
+}
+
 const functions = {
     read,
     readAll,
@@ -39,7 +43,7 @@ const functions = {
     createProduct,
     update,
     remove,
-    
+    removeFile
 }
 
 export default functions

@@ -6,49 +6,39 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { Document, Page } from 'react-pdf';
-import ImageIcon from '@mui/icons-material/Image';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import DataService from "../../services/data.services";
-import MediaService from "../../services/media.services";
+import InfoService from "../../services/info.services";
 import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
-const product = {
-  category: "product",
-  infoType: "Kerangka",
-  documents: ['6418f8c66a237a2840c52ba0','645a165fba63cb629e07c5c4'],
-}
 
 const Product = () => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
-  const [data, setData] = useState(null);
-  const [documents, setDocuments] = useState([]); // ['6418f8c66a237a2840c52ba0','645a165fba63cb629e07c5c4']
-  const [cover, setCover] = useState(null);
+  const [data, setData] = useState([]);
+  console.log("🚀 ~ file: Product.js:27 ~ Product ~ data:", data)
   const [tab, setTab] = useState('Kerangka');
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const [formHelper, setFormHelper] = useState({open: false, infoType: "product", id: "new"});
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
   };
 
-
   useEffect(() => {
     setIsLoading(true)
-    const promises = product.documents.map((doc) => MediaService.read(doc));
-    Promise.all(promises).then((res) => {
-      console.log("🚀 ~ file: Product.js:44 ~ Promise.all ~ res:", res)
-      setDocuments(res.map((doc) => doc.data));
-      setIsLoading(false)
-    }).catch((err) => console.log(err));
+    InfoService.readAll("product")
+      .then((res) => {
+        let tabData = res.data.filter((doc) => doc.infoType === tab);
+        setData(tabData.flatMap((doc) => doc.files));
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -104,9 +94,9 @@ const Product = () => {
             +</Button>
         </Box>}
         {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
-        <List sx={{ width: '100%'  }}>
-          {documents.length>0? documents.map((doc, index) => (<Card key={index} sx={{ width: '100%', bgcolor: '#1976d212', my:1, borderRadius: "10px" }}>
-          <CardContent>
+        <List sx={{ width: '100%' }}>
+          {data.length>0? data.map((doc, index) => (<Card key={index} sx={{ width: '100%', bgcolor: '#1976d212', my:1, borderRadius: "10px" }}>
+          <CardContent sx={{ p:'0 !important' }}>
               <ListItem
               key={index} 
               secondaryAction={<>
@@ -116,19 +106,36 @@ const Product = () => {
                 <IconButton edge="end" aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete">
+                <IconButton edge="end" aria-label="delete" onClick={()=>{
+                  if (window.confirm("Are you sure you want to delete this file?"))
+                    InfoService.removeFile(doc._id)
+                      .then((res) => {
+                        console.log("🚀 ~ file: Product.js:144 ~ .then ~ res", res)
+                        setData(data.filter((item) => item._id !== doc._id));
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                }}>
                   <DeleteIcon />
                 </IconButton>
               </>
               }>
                 <ListItemAvatar>
                   <Avatar>
-                    <ImageIcon />
+                    <InsertDriveFileIcon />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText 
-                  primary={doc.filename.split('.')[0]}
-                  secondary={doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
+                  primary={doc.originalname.split('.')[0]}
+                  secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography variant="body2" sx={{ color: "grey.500" }}>
+                    {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "grey.500" }}>
+                      {new Date(doc.createdAt).toLocaleDateString()}
+                    </Typography>
+                  </Box>}
                 />
               </ListItem>
           </CardContent>

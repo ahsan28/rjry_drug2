@@ -24,6 +24,7 @@ router.post("/create", controller.create);
 router.post("/createProduct", upload.any('files'), controller.createProduct);
 router.put("/update", controller.update);
 router.delete("/remove/:id", controller.remove);
+router.delete("/removeFile/:id", controller.removeFile);
 
 // export default router;
 module.exports = router;

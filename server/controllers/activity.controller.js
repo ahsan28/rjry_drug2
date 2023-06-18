@@ -46,7 +46,7 @@ const create = async (req, res) => {
     try {
         // const data = await Activity.create(req.body);
         if(req.files.length>0){
-            req.body.images = req.files.map((file) => new ObjectId());
+            req.body.images = req.files.map(() => new ObjectId());
             console.log("🚀 ~ file: activity.controller.js:50 ~ create ~ req.body:", req.body)
             const media = await Media.insertMany(req.files.map((file, index) => ({
                 _id: req.body.images[index],

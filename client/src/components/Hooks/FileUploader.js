@@ -21,11 +21,17 @@ const FileUploader = ({isEditing, setIsEditing, files, setFiles}) => {
 
   const handleEdit = (index, newName) => {
     setFiles((prevFiles) =>
-      prevFiles.map((file, i) =>
-        i === index ? { ...file, name: newName, editing: false } : file
-      )
+      prevFiles.map((file, i) => {
+        if (i === index) {
+          const newFile = new File([file.file], newName, { type: file.file.type });
+          return { file: newFile, name: newName, editing: false };
+        } else {
+          return file;
+        }
+      })
     );
   };
+  
 
   const handleRemove = (index) => {
     setFiles((prevFiles) =>

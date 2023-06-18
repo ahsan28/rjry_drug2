@@ -13,7 +13,7 @@ let TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 const read = async (req, res) => {
     try {
-        const data = await Info.findById(req.params.id).populate('cover').populate('images').populate('documents');
+        const data = await Info.findById(req.params.id).populate('cover').populate('images').populate('files');
         res.status(200).json(data);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -23,7 +23,7 @@ const read = async (req, res) => {
 const readAll = async (req, res) => {
     try {
         const data = await Info.find({ category: req.params.category })
-        .populate('cover').populate('images').populate('documents').sort({ createdAt: -1 });
+        .populate('cover').populate('images').populate('files').sort({ createdAt: -1 });
         res.send(data);
     }
     catch (err) {
@@ -56,8 +56,8 @@ const createProduct = async (req, res) => {
     console.log('req.files::',req.files);
     try {
         // save uploaded multiple files
-        if (req.files && req.files.files) {
-            req.body.images = req.files.map((file) => new ObjectId());
+        if (req.files?.length > 0) {
+            req.body.files = req.files.map(() => new ObjectId());
             const media = await Media.insertMany(req.files.map((file, index) => ({
                 _id: req.body.files[index],
                 ...file,
@@ -68,8 +68,9 @@ const createProduct = async (req, res) => {
                 userid: req.body.userid,
                 username: req.body.username,
             }))).catch((err) => console.log(err));
+            console.error('media:',media);
         }
-        const data = await Info.create(req.body).catch((err) => console.log(err));
+            const data = await Info.create(req.body).catch((err) => console.log(err));
 
         if (data) return res.status(200).json(data);
         else return res.status(400).json({ message: 'Error creating product' });
@@ -78,15 +79,37 @@ const createProduct = async (req, res) => {
     }
 }
 
+// remove info doc and corresponding media docs from 'images', 'cover', 'files'
 const remove = async (req, res) => {
     try {
-        await Info.findByIdAndDelete(req.params.id);
-        res.status(200).json({ message: 'Info deleted successfully' });
+        const data = await Info.findByIdAndRemove(req.params.id);
+        console.log("🚀 ~ file: info.controller.js:86 ~ remove ~ data:", data)
+        if (data) {
+            // remove media docs from 'images', 'cover', 'files'
+            await Media.deleteMany({ _id: { $in: [...data.images, data.cover, ...data.files] } });
+            res.status(200).json(data);
+        } else {
+            res.status(400).json({ message: 'Error removing info' });
+        }
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 }
 
+const removeFile = async (req, res) => {
+    try {
+        const data = await Info.findOneAndUpdate({ files: req.body.id }, { $pull: { files: req.body.id } });
+        console.log("🚀 ~ file: info.controller.js:102 ~ removeFile ~ data:", data)
+        if (data) {
+            await Media.deleteOne({ _id: req.body.id });
+            res.status(200).json(data);
+        } else {
+            res.status(400).json({ message: 'Error removing file' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
 
 // export default { 
 module.exports = {
@@ -96,4 +119,5 @@ module.exports = {
     readAll, 
     update,
     remove,
+    removeFile
 };
