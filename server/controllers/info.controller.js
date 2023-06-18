@@ -98,10 +98,10 @@ const remove = async (req, res) => {
 
 const removeFile = async (req, res) => {
     try {
-        const data = await Info.findOneAndUpdate({ files: req.body.id }, { $pull: { files: req.body.id } });
+        const data = await Info.findOneAndUpdate({ files: req.params.id }, { $pull: { files: req.params.id } });
         console.log("🚀 ~ file: info.controller.js:102 ~ removeFile ~ data:", data)
         if (data) {
-            await Media.deleteOne({ _id: req.body.id });
+            await Media.deleteOne({ _id: req.params.id });
             res.status(200).json(data);
         } else {
             res.status(400).json({ message: 'Error removing file' });
