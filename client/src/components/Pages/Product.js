@@ -180,7 +180,7 @@ const Product = () => {
     <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} />
     </Container>
     <Dialog open={editHelper.open} onClose={()=>{setEditHelper({open: false, infoId: null, fileId: null, name: ''})}}>
-      <Box sx={{ p: 2, width: "500px" }}>
+      <Box sx={{ p: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
         <TextField label="Name" variant="outlined" value={editHelper.name} onChange={(e)=>{setEditHelper({...editHelper, name: e.target.value})}} />
         <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
           MediaService.updateFile({_id:editHelper.fileId, originalname: editHelper.name})
