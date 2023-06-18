@@ -4,7 +4,7 @@ const verifyJWT = require("../middlewares/auth.middleware.js");
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/documents/')
+        cb(null, 'public/files/')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname.toLowerCase().split(' ').join('_'))
@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-const fields = ['document'].map(x=>({name:x}))
+const fields = ['files'].map(x=>({name:x}))
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ const router = express.Router();
 router.get("/read/:id", controller.read);
 router.get("/readAll/:category", controller.readAll);
 router.post("/create", controller.create);
-router.post("/createProduct", upload.fields(fields), controller.createProduct);
+router.post("/createProduct", upload.any('files'), controller.createProduct);
 router.put("/update", controller.update);
 router.delete("/remove/:id", controller.remove);
 

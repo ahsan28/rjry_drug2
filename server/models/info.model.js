@@ -15,10 +15,10 @@ const InfoSchema = new mongoose.Schema({
     details: { type: String },
     cover: { type: mongoose.Schema.Types.ObjectId, ref: 'media' },
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
-    // files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
+    files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
     // videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
     // audios: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
-    documents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
+    // documents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'media' }],
 
 }, { timestamps: true });
 
