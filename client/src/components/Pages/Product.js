@@ -23,7 +23,7 @@ const Product = () => {
   console.log("🚀 ~ file: Product.js:27 ~ Product ~ data:", data)
   const [tab, setTab] = useState('Kerangka');
   const [editHelper, setEditHelper] = useState({open: false, infoId: null, fileId: null, name: ''});
-  const [formHelper, setFormHelper] = useState({open: false, infoType: "product", id: "new"});
+  const [formHelper, setFormHelper] = useState({open: false, infoType: tab, id: "new"});
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
@@ -40,7 +40,7 @@ const Product = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     switch (tab) {
