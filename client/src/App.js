@@ -78,7 +78,7 @@ const theme = createTheme({
 
 const App = () => {
   const { user, setUser, settings, setSettings, isLoading, setIsLoading } = useContext(UserContext);
-
+  const [showAnimation, setShowAnimation] = useState(false);
   const logout = () => {
     UserService.logout();
     setUser(null);
@@ -140,7 +140,7 @@ const App = () => {
       <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
       <Container maxWidth={false} disableGutters={true} component='main' sx={{display: 'flex', flexDirection: 'column', flexGrow: 1,overflowY: 'auto', overflowX: 'hidden'}}>
-              <CanvasParticles2 />
+              {/* {showAnimation && <CanvasParticles2 />} */}
             <Routes>
               <Route path="/users" element={<UserList />} />
               <Route path="/users/:userId" element={<UserForm />} />
@@ -163,7 +163,7 @@ const App = () => {
               <Route path="/activity_form/:actId" element={<ActivityForm />} />
               <Route path="/certifications" element={<Certifications />} />
               <Route path="/gallery" element={<Gallery />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<Contact setShowAnimation={setShowAnimation} />} />
 
               <Route path="/form/:page" element={<CommonDataForm />} />
 

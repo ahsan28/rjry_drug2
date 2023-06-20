@@ -11,7 +11,7 @@ const location = {
   lng: 101.522682,
 } // our location object from earlier
 
-const Contact = () => {
+const Contact = ({setShowAnimation}) => {
   const { user, setIsLoading } = useContext(UserContext);
   console.log("🚀 ~ file: Contact.js:15 ~ Contact ~ user:", user)
   const [mailData, setMailData] = useState({
@@ -26,6 +26,7 @@ const Contact = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    // setShowAnimation(true)
     setIsLoading(true)
     if (user) {
       UserService.get(user._id).then(res => {
