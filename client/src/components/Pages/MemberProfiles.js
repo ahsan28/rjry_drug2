@@ -137,7 +137,7 @@ const MemberProfiles = () => {
   return (<>
   <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
       <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
-        {"Members"}
+        {"Profil"}
       </Typography>
     </Box>
     <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>

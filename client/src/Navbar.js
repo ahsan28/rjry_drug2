@@ -90,7 +90,7 @@ const Navbar = ({logout}) => {
                 </MenuItem>
                 <MenuItem key={`member_profiles`} onClick={handleCloseNavMenu}>
                     <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
-                        Profils
+                        Profil
                     </Link>
                 </MenuItem>
                 <MenuItem key={`publication`} onClick={handleCloseNavMenu}>
@@ -163,7 +163,7 @@ const Navbar = ({logout}) => {
                 </Link>
                 <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                     <Button key={`member_profiles`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
-                        Profils
+                        Profil
                     </Button>
                 </Link>
                     <Link to={`/activity`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
