@@ -112,7 +112,7 @@ const Product = () => {
         </Box>}
         {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
         <List sx={{ width: '100%' }}>
-          {data.length>0? data.map((doc, index) => (<Card key={index} sx={{ width: '100%', bgcolor: '#1976d212', my:1, borderRadius: "10px" }}>
+          {data.length>0? data.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }}>
           <CardContent sx={{ py:'0 !important' }}>
               <ListItem
               key={index} 
