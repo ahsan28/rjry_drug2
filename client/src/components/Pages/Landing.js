@@ -84,17 +84,17 @@ const Landing = () => {
       gd_logo: '1S9KX0H7cqJSbAwZ5HwBUmioHwJUhSpZX',
       link: 'https://www.upsi.edu.my/'
     },{
+      name: 'Universiti Malaya',
+      gd_logo: '1Zmxqy9GcSfVIeU3r7wJa2QCd2pq46p0Y',
+      link: 'https://www.um.edu.my/'
+    },{
       name: 'Universiti Kebangsaan Malaysia',
       gd_logo: '1IYKq6JVJWHP2xeiaDxyuFN-va0bs2HFE',
       link: 'https://www.ukm.my/'
     },{
-      name: 'Universiti Tunku Abdul Rahman',
-      gd_logo: '1vd5WaQ5NMdwOlvhDOxQOKh0W8RTZDJeS',
-      link: 'https://www.utar.edu.my/'
-    },{
-      name: 'Universiti Malaya',
-      gd_logo: '1Zmxqy9GcSfVIeU3r7wJa2QCd2pq46p0Y',
-      link: 'https://www.um.edu.my/'
+      name: 'UCSI University',
+      gd_logo: '15fWKySb03B8EQgVOYemraU7YFRc05CS5',
+      link: 'https://www.ucsiuniversity.edu.my/'
     }];
 
 
