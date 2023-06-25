@@ -56,6 +56,7 @@ const ProductForm = ({ formHelper, setFormHelper, reload }) => {
         }).then((res) => {
           setInfo({title: '', link: ''});
           setFormHelper({open: false, type: formHelper.type, id: "new"});
+          reload();
         }).catch((err) => console.log(err));
         return;
       }
@@ -73,6 +74,7 @@ const ProductForm = ({ formHelper, setFormHelper, reload }) => {
         setDocuments([]);
         setDocFiles([]);
         setFormHelper({open: false, type: formHelper.type, id: "new"});
+        reload();
     })
     .catch((err) => {
         console.log(err);

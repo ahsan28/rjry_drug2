@@ -55,9 +55,7 @@ function getThumpnail(url) {
   }
   else if (url.includes('drive')) {
     let id = getGoogleDriveId(url);
-    console.log("🚀 ~ file: Product.js:57 ~ getThumpnail ~ id:", id)
     let ID = id.split('/')[0]
-    console.log("🚀 ~ file: Product.js:60 ~ getThumpnail ~ ID:", ID)
     // return `https://drive.google.com/uc?export=view&id=${ID}`
     return `https://drive.google.com/thumbnail?sz=w640&id=${ID}`
   }
@@ -68,7 +66,6 @@ const Product = () => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
   const [data, setData] = useState([]); // files
   const [data2, setData2] = useState([]); // links
-  console.log("🚀 ~ file: Product.js:27 ~ Product ~ data:", data)
   const [tab, setTab] = useState('Kerangka');
   const [editHelper, setEditHelper] = useState({open: false, infoId: null, fileId: null, name: ''});
   const [formHelper, setFormHelper] = useState({open: false, infoType: tab, id: "new"});
@@ -113,7 +110,6 @@ const Product = () => {
   };
 
   const linkHandler = (doc) => {
-    console.log("🚀 ~ file: Product.js:110 ~ linkHandler ~ doc:", doc)
     
     if(doc.link?.includes('youtube')||doc.link?.includes('drive')) {
       setIsLoading(true);
@@ -209,8 +205,9 @@ const Product = () => {
           </Card>
           ))}
           {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
-          <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
-              <ListItem key={index} secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+          <CardContent sx={{ p:'0 8px 0 0 !important' }}>
+              <ListItem sx={{pl:0}} key={index} 
+                secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
                 <IconButton edge="end" aria-label="download" onClick={()=>linkHandler(doc)}>
                   <VisibilityIcon />
                 </IconButton>
@@ -233,13 +230,13 @@ const Product = () => {
                 </>}
               </Box>
               }>
-                <ListItemAvatar >
-                  <Avatar sx={{cursor:"pointer", borderRadius: "4px"}}
+                <ListItemAvatar sx={{pl:0, my:-1, cursor:"pointer", borderRadius: "4px"}}
                   onClick={()=>linkHandler(doc)}>
-                    <Image src={getThumpnail(doc.link)} alt={doc.title} />
-                  </Avatar>
+                  <Image src={getThumpnail(doc.link)} alt={doc.title} width={163} height={92} />
+                  {/* <Avatar>
+                  </Avatar> */}
                 </ListItemAvatar>
-                <ListItemText sx={{cursor:"pointer"}} onClick={()=>linkHandler(doc)}
+                <ListItemText sx={{cursor:"pointer", pl:2}} onClick={()=>linkHandler(doc)}
                   primary={doc.title}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
