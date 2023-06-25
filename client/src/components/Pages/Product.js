@@ -11,13 +11,57 @@ import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 import InfoService from "../../services/info.services";
 import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
+function getYouTubeId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2].length === 11)
+    ? match[2]
+    : null;
+}
+
+function getGoogleDriveId(url) {
+  const regExp = /^.*(drive\.google\.com\/file\/d\/|drive\.google\.com\/open\?id=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2])
+    ? match[2]
+    : null;
+}
+
+function getEmbedUrl(url) {
+  if (url.includes('youtube')) {
+    let id = getYouTubeId(url);
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  else if (url.includes('drive')) {
+    let id = getGoogleDriveId(url);
+    return `https://drive.google.com/file/d/${id}`;
+  }
+  else return url;
+}
+
+function getThumpnail(url) {
+  if (url.includes('youtube')) {
+    let id = getYouTubeId(url);
+    // remove '/preview' string from id
+    id = id.replace('/preview', '');
+    return `https://img.youtube.com/vi/${id}/default.jpg`;
+  }
+  else if (url.includes('drive')) {
+    let id = getGoogleDriveId(url);
+    // remove '/preview' string from id
+    id = id.replace('/preview', '');
+    return `https://drive.google.com/thumbnail?sz=w640&id=${id}`
+  }
+  else return url;
+}
 
 const Product = () => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
@@ -190,8 +234,9 @@ const Product = () => {
               </Box>
               }>
                 <ListItemAvatar >
-                  <Avatar sx={{cursor:"pointer"}} onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
-                    <PlayCircleOutlineIcon />
+                  <Avatar sx={{cursor:"pointer", borderRadius: "4px"}}
+                  onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
+                    <Image src={getThumpnail(doc.link)} alt={doc.title} />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText sx={{cursor:"pointer"}} onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}
@@ -254,7 +299,14 @@ const Product = () => {
         </Typography>
       </DialogTitle>
       <DialogContent>
-      <iframe src={previewHelper.info.link} allow="autoplay" title={previewHelper.info.title} width="100%" height="640px" frameBorder="0" allowFullScreen onLoad={()=>{setIsLoading(false)}}></iframe>
+      {previewHelper.info.link && <iframe 
+        src={getEmbedUrl(previewHelper.info.link)}
+        allow="autoplay" 
+        title={previewHelper.info.title} 
+        width="100%" height="640px" 
+        frameBorder="0" allowFullScreen 
+        onLoad={()=>{setIsLoading(false)}}
+      />}
       </DialogContent>
       <DialogActions sx={{ gap: 1, mx: 2, mb:2 }}>
         <Button onClick={() => setPreviewHelper({open: false, info: {}})} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}>
