@@ -91,23 +91,6 @@ const Product = () => {
       });
   }, [tab]);
 
-  useEffect(() => {
-    switch (tab) {
-      case "1":
-        // setTab("Kerangka Sekolah Bebas Dadah");
-        break;
-      case "2":
-        // setTab("Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah");
-        break;
-      case "3":
-        // setTab("Modul Digital Sekolah Bebas Dadah");
-        break;
-      default:
-        // setTab("Kerangka Sekolah Bebas Dadah");
-        break;
-    }
-  }, [tab]);
-
   const downloadFile = (fileId) => {
     // load the file using loadImage function from media controller, then create a blob url and download it, keep original file name and extension
     MediaService.read(fileId).then((res) => {
@@ -123,6 +106,16 @@ const Product = () => {
     });
   };
 
+  const linkHandler = (doc) => {
+    
+    if(doc.link?.includes('youtube')||doc.link?.includes('drive')) {
+      setIsLoading(true);
+      setPreviewHelper({open: true, info: doc})
+      return
+    }
+    // open link in new tab
+    window.open(doc.link,'_blank', 'rel=noopener noreferrer')
+  }
 
 
   return (<>
@@ -211,7 +204,7 @@ const Product = () => {
           {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
           <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
               <ListItem key={index} secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                <IconButton edge="end" aria-label="download" onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
+                <IconButton edge="end" aria-label="download" onClick={linkHandler}>
                   <VisibilityIcon />
                 </IconButton>
                 {user && <>
@@ -235,11 +228,11 @@ const Product = () => {
               }>
                 <ListItemAvatar >
                   <Avatar sx={{cursor:"pointer", borderRadius: "4px"}}
-                  onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
+                  onClick={linkHandler}>
                     <Image src={getThumpnail(doc.link)} alt={doc.title} />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText sx={{cursor:"pointer"}} onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}
+                <ListItemText sx={{cursor:"pointer"}} onClick={linkHandler}
                   primary={doc.title}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
@@ -254,7 +247,7 @@ const Product = () => {
           </CardContent>
           </Card>
           ))}
-          {(data.length>0 || data2.length>0) && <Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
+          {(data.length===0 && data2.length===0) && <Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
             <Typography variant="h6" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
               {"Tiada dokumen"}
             </Typography>
