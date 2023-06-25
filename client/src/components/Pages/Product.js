@@ -42,7 +42,8 @@ function getEmbedUrl(url) {
   }
   else if (url.includes('drive')) {
     let id = getGoogleDriveId(url);
-    return `https://drive.google.com/file/d/${id}`;
+    let ID = id.split('/')[0]
+    return `https://drive.google.com/file/d/${ID}/preview`
   }
   else return url;
 }
@@ -50,15 +51,15 @@ function getEmbedUrl(url) {
 function getThumpnail(url) {
   if (url.includes('youtube')) {
     let id = getYouTubeId(url);
-    // remove '/preview' string from id
-    id = id.replace('/preview', '');
     return `https://img.youtube.com/vi/${id}/default.jpg`;
   }
   else if (url.includes('drive')) {
     let id = getGoogleDriveId(url);
-    // remove '/preview' string from id
-    id = id.replace('/preview', '');
-    return `https://drive.google.com/thumbnail?sz=w640&id=${id}`
+    console.log("🚀 ~ file: Product.js:57 ~ getThumpnail ~ id:", id)
+    let ID = id.split('/')[0]
+    console.log("🚀 ~ file: Product.js:60 ~ getThumpnail ~ ID:", ID)
+    // return `https://drive.google.com/uc?export=view&id=${ID}`
+    return `https://drive.google.com/thumbnail?sz=w640&id=${ID}`
   }
   else return url;
 }
@@ -78,6 +79,11 @@ const Product = () => {
   };
 
   useEffect(() => {
+    reload()
+  }, [tab]);
+
+
+  const reload = () => {
     setIsLoading(true)
     InfoService.readAll("product")
       .then((res) => {
@@ -89,7 +95,7 @@ const Product = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [tab]);
+  }
 
   const downloadFile = (fileId) => {
     // load the file using loadImage function from media controller, then create a blob url and download it, keep original file name and extension
@@ -107,6 +113,7 @@ const Product = () => {
   };
 
   const linkHandler = (doc) => {
+    console.log("🚀 ~ file: Product.js:110 ~ linkHandler ~ doc:", doc)
     
     if(doc.link?.includes('youtube')||doc.link?.includes('drive')) {
       setIsLoading(true);
@@ -204,11 +211,11 @@ const Product = () => {
           {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
           <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
               <ListItem key={index} secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                <IconButton edge="end" aria-label="download" onClick={linkHandler}>
+                <IconButton edge="end" aria-label="download" onClick={()=>linkHandler(doc)}>
                   <VisibilityIcon />
                 </IconButton>
                 {user && <>
-                  <IconButton edge="end" aria-label="edit" onClick={()=>{setEditHelper({open: true, infoId: doc._id, fileId: null, name: doc.link })}}>
+                  <IconButton edge="end" aria-label="edit" onClick={()=>{setFormHelper({open: true, infoType: tab, id: doc._id})}}>
                     <EditIcon />
                   </IconButton>
                   <IconButton edge="end" aria-label="delete" onClick={()=>{
@@ -228,11 +235,11 @@ const Product = () => {
               }>
                 <ListItemAvatar >
                   <Avatar sx={{cursor:"pointer", borderRadius: "4px"}}
-                  onClick={linkHandler}>
+                  onClick={()=>linkHandler(doc)}>
                     <Image src={getThumpnail(doc.link)} alt={doc.title} />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText sx={{cursor:"pointer"}} onClick={linkHandler}
+                <ListItemText sx={{cursor:"pointer"}} onClick={()=>linkHandler(doc)}
                   primary={doc.title}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
@@ -265,24 +272,26 @@ const Product = () => {
         </TabPanel> */}
       </TabContext>
     </Box>
-    <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} />
+    <ProductForm formHelper={formHelper} setFormHelper={setFormHelper} reload={reload} />
     </Container>
-    <Dialog open={editHelper.open} onClose={()=>{setEditHelper({open: false, infoId: null, fileId: null, name: ''})}}>
-      <Box sx={{ p: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <TextField label="Name" variant="outlined" value={editHelper.name} onChange={(e)=>{setEditHelper({...editHelper, name: e.target.value})}} />
-        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
+    <Dialog open={editHelper.open} onClose={()=>{setEditHelper({open: false, infoId: null, fileId: null, name: ''})}} maxWidth="md" fullWidth>
+      <Box sx={{ p: 2, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+        <TextField label="Name" variant="outlined" value={editHelper.name} onChange={(e)=>{setEditHelper({...editHelper, name: e.target.value})}} fullWidth />
+        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem" }} onClick={()=>{
           MediaService.updateFile({_id:editHelper.fileId, originalname: editHelper.name})
             .then((res) => {
               console.log("🚀 ~ file: Product.js:144 ~ .then ~ res", res)
               setData(data.map((item) => item._id === editHelper.fileId ? {...item, originalname: editHelper.name} : item));
               setEditHelper({open: false, infoId: null, fileId: null, name: ''});
             })
+            .then((res) => {
+              reload()
+            })
             .catch((err) => {
               console.log(err);
             });
-        }
-        }>
-          Save</Button>
+        }}>
+          Update</Button>
       </Box>
     </Dialog>
     <Dialog open={previewHelper.open} onClose={()=>{setPreviewHelper({open: false, info: {}})}} maxWidth="xl" fullWidth>

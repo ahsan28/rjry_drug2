@@ -5,78 +5,43 @@ import { UserContext } from "../../UserContext";
 import InfoService from "../../services/info.services";
 import FileUploader from "../Hooks/FileUploader";
 
-const ProductForm = ({ formHelper, setFormHelper }) => {
+const ProductForm = ({ formHelper, setFormHelper, reload }) => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
-  // let { infoType } = useParams();
-  // console.log("🚀 ~ file: ProductForm.js:10 ~ ProductForm ~ infoType:", infoType)
-  const [selectedDocId, setSelectedDocId] = useState(null);
   const [documents, setDocuments] = useState([]);
-  console.log("🚀 ~ file: ProductForm.js:17 ~ ProductForm ~ files:", documents)
   const [docFiles, setDocFiles] = useState([]);
-  console.log("🚀 ~ file: ProductForm.js:19 ~ ProductForm ~ imgFiles:", docFiles)
   const [isEditing, setIsEditing] = useState(false);
   const [isLink, setIsLink] = useState(false);
   const [info, setInfo] = useState({});
-  
-  
 
+  useEffect(() => {
+    if (formHelper.id !== "new") {
+      setIsLink(true);
+      InfoService.read(formHelper.id)
+        .then((res) => {
+          console.log("🚀 ~ file: ProductForm.js:26 ~ useEffect ~ res", res);
+          setInfo(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [formHelper.id]);
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let formData = new FormData();
-    formData.append("userid", user._id);
-    formData.append("username", user.username);
-    
-    formData.append("category", "product");
-    formData.append("infoType", formHelper.infoType);
-    // formData.append("title", title);
-    for (let i = 0; i < docFiles.length; i++) {
-      console.log(i,docFiles[i])
-      formData.append("document", docFiles[i]);
-    }
-    console.log("🚀 ~ file: ProductForm.js:44 ~ handleSubmit ~ files:", documents)
-    console.log("🚀 ~ file: ProductForm.js:44 ~ handleSubmit ~ docFiles:", docFiles)
-    // formData.append("links", links);
-    // const product = { name, title, description, files, links };
-    // console.log("🚀 ~ file: ProductForm.js:18 ~ handleSubmit ~ product:", product)
-    // onAdd(product);
-    
-
-    InfoService.createProduct(formData)
-        .then((res) => {
-            console.log("🚀 ~ file: ProductForm.js:21 ~ handleSubmit ~ res", res);
-
-            // setName("");
-            setDocuments([]);
-            setDocFiles([]);
-            setFormHelper({open: false, type: formHelper.type, id: "new"});
-            
-            // setLinks([]);
-            
-            // navigate("/product/" + infoType);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    setIsEditing(true);
+    InfoService.update(info)
+      .then((res) => {
+        console.log("🚀 ~ file: ProductForm.js:26 ~ handleSubmit ~ res", res);
+        setFormHelper({open: false, type: formHelper.type, id: "new"});
+        setIsEditing(false);
+        reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-  // const handleLinkChange = (index, event, field) => {
-  //   const values = [...links];
-  //   values[index][field] = event.target.value;
-  //   setLinks(values);
-  // };
-
-  // const handleAddLink = () => {
-  //   const values = [...links];
-  //   values.push({ link: "", name: "" });
-  //   setLinks(values);
-  // };
-
-  // const handleRemoveLink = (index) => {
-  //   const values = [...links];
-  //   values.splice(index, 1);
-  //   setLinks(values);
-  // };
 
   const saveFiles = async () => {
     try {
@@ -113,15 +78,6 @@ const ProductForm = ({ formHelper, setFormHelper }) => {
         console.log(err);
     });
 
-      // const response = await axios.post('http://mywebsite.com/api/upload', formData, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data'
-      //   }
-      // });
-      
-      // if(response.status === 200) {
-      //   console.log("Files uploaded successfully.");
-      // }
     } catch (error) {
       console.log("Error uploading files: ", error);
     }
@@ -138,8 +94,8 @@ const ProductForm = ({ formHelper, setFormHelper }) => {
         Add Product ({isLink?'Video Link':'Files'})
       </Typography>
       {/* add a toggle to switch between files and links */}
-      <ToggleButtonGroup value={isLink} exclusive onChange={(event, value) => setIsLink(value)}>
-        <ToggleButton value={false}>Files</ToggleButton>
+      <ToggleButtonGroup value={isLink} exclusive onChange={(event, value) => setIsLink(value)} disabled={formHelper.id !== "new"}>
+        <ToggleButton value={false} disabled={formHelper.id !== "new"}>Files</ToggleButton>
         <ToggleButton value={true}>Links</ToggleButton>
       </ToggleButtonGroup>
     </DialogTitle>
@@ -157,9 +113,12 @@ const ProductForm = ({ formHelper, setFormHelper }) => {
       <Button onClick={() => setFormHelper({open: false, type: formHelper.type, id: "new"})} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}> 
         Cancel
       </Button>
+      {formHelper.id !== "new"? <Button onClick={handleSubmit} variant="contained" sx={{ bgcolor: "green", color: "white" }} disabled={isEditing}>
+        Update
+      </Button>:
       <Button onClick={saveFiles} variant="contained" sx={{ bgcolor: "orange", color: "white" }} disabled={isEditing}>
-        Add Product
-      </Button>
+        {isLink?'Add Link':'Add Files'}
+      </Button>}
     </DialogActions>
   </Dialog>);
 };
