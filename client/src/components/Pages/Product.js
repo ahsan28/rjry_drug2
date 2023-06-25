@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardContent, Container, Dialog, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tab, Tabs, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from 'mui-image';
@@ -10,6 +10,8 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 import InfoService from "../../services/info.services";
 import MediaService from "../../services/media.services";
@@ -19,11 +21,13 @@ import ProductForm from "../Forms/ProductForm";
 
 const Product = () => {
   const { user, setUser, setIsLoading } = useContext(UserContext);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // files
+  const [data2, setData2] = useState([]); // links
   console.log("🚀 ~ file: Product.js:27 ~ Product ~ data:", data)
   const [tab, setTab] = useState('Kerangka');
   const [editHelper, setEditHelper] = useState({open: false, infoId: null, fileId: null, name: ''});
   const [formHelper, setFormHelper] = useState({open: false, infoType: tab, id: "new"});
+  const [previewHelper, setPreviewHelper] = useState({open: false, info: {}});
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
@@ -35,6 +39,7 @@ const Product = () => {
       .then((res) => {
         let tabData = res.data.filter((doc) => doc.infoType === tab);
         setData(tabData.flatMap((doc) => doc.files));
+        setData2(tabData.filter(info=> info.link))
         setIsLoading(false)
       })
       .catch((err) => {
@@ -112,8 +117,8 @@ const Product = () => {
         </Box>}
         {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
         <List sx={{ width: '100%' }}>
-          {data.length>0? data.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }}>
-          <CardContent sx={{ py:'0 !important' }}>
+          {data.length>0 && data.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }}>
+          <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
               <ListItem
               key={index} 
               secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
@@ -158,12 +163,57 @@ const Product = () => {
               </ListItem>
           </CardContent>
           </Card>
-          )):<Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
+          ))}
+          {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
+          <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
+              <ListItem key={index} secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                <IconButton edge="end" aria-label="download" onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
+                  <VisibilityIcon />
+                </IconButton>
+                {user && <>
+                  <IconButton edge="end" aria-label="edit" onClick={()=>{setEditHelper({open: true, infoId: doc._id, fileId: null, name: doc.link })}}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton edge="end" aria-label="delete" onClick={()=>{
+                    if (window.confirm("Are you sure you want to delete this link?"))
+                      InfoService.update({_id: doc._id, link: null})
+                        .then((res) => {
+                          setData2(data2.filter((item) => item._id !== doc._id));
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                  }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </>}
+              </Box>
+              }>
+                <ListItemAvatar >
+                  <Avatar sx={{cursor:"pointer"}} onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}>
+                    <PlayCircleOutlineIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText sx={{cursor:"pointer"}} onClick={()=>{setIsLoading(true);setPreviewHelper({open: true, info: doc})}}
+                  primary={doc.title}
+                  secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography variant="body2" sx={{ color: "grey.500" }}>
+                    {doc.link.includes('youtube') ? 'Youtube' : 'Google Drive'} link
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "grey.500" }}>
+                      {new Date(doc.createdAt).toLocaleDateString()}
+                    </Typography>
+                  </Box>}
+                />
+              </ListItem>
+          </CardContent>
+          </Card>
+          ))}
+          {(data.length>0 || data2.length>0) && <Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
             <Typography variant="h6" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
               {"Tiada dokumen"}
             </Typography>
-          </Box>
-          }
+          </Box>}
         </List>
         {/* <TabPanel value="Modul Digital" sx={{ px:0}}>
           <div>
@@ -196,6 +246,21 @@ const Product = () => {
         }>
           Save</Button>
       </Box>
+    </Dialog>
+    <Dialog open={previewHelper.open} onClose={()=>{setPreviewHelper({open: false, info: {}})}} maxWidth="xl" fullWidth>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
+        <Typography variant="h4" component="h1" gutterBottom>
+          {previewHelper.info.title}
+        </Typography>
+      </DialogTitle>
+      <DialogContent>
+      <iframe src={previewHelper.info.link} allow="autoplay" title={previewHelper.info.title} width="100%" height="640px" frameBorder="0" allowFullScreen onLoad={()=>{setIsLoading(false)}}></iframe>
+      </DialogContent>
+      <DialogActions sx={{ gap: 1, mx: 2, mb:2 }}>
+        <Button onClick={() => setPreviewHelper({open: false, info: {}})} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}>
+          Close
+        </Button>
+      </DialogActions>
     </Dialog>
   </>);
 };

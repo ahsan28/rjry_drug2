@@ -248,6 +248,7 @@ const Landing = () => {
             ))}
           </Box>
         </Container>
+        <iframe src="https://drive.google.com/file/d/1JOZBkMwOllSNg7ameXnAj1dlagusMeux/preview" width="640" height="480" allow="autoplay"></iframe>
       </Box>
     </Box>
 
