@@ -4,10 +4,10 @@ const Media = require('../models/media.model.js');
 const read = async (req, res) => {
     try {
         const media = await Media.findById(req.params.id);
-        res.send(media);
+        res.json(media);
     }
     catch (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
     }
 }
 
@@ -17,7 +17,7 @@ const loadImage = async (req, res) => {
         console.log("🚀 ~ file: media.controller.js:18 ~ loadImage ~ req.params.id:", req.params)
         const media = await Media.findById(req.params.id).catch(err=>console.log(err));
         console.log("🚀 ~ file: media.controller.js:18 ~ loadImage ~ media:", media)
-        if(!media) return res.status(404).send("No media found.");
+        if(!media) return res.status(404).json("No media found.");
         else return res.sendFile(media.filename, { root: media.destination });
         
     }
@@ -41,7 +41,7 @@ const loadImages = async (req, res) => {
 const update = async (req, res) => {
     try {
         const media = await Media.updateOne({ _id: req.body._id }, req.body, { new: true });
-        res.send(media);
+        res.json(media);
     }
     catch (err) {
         console.log(err);
