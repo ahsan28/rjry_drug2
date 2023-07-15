@@ -78,11 +78,16 @@ const Navbar = ({logout}) => {
                         Users
                     </Link>
                 </MenuItem> */}
-                {user?.username === 'dev' && <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
-                    <Button key={`script`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
+                <MenuItem key={`home`} onClick={handleCloseNavMenu}>
+                    <Link to={`/`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                        Lendarat
+                    </Link>
+                </MenuItem>
+                {user?.username === 'dev' && <MenuItem key={`script`} onClick={handleCloseNavMenu}>
+                    <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                         Script
-                    </Button>
-                </Link>}
+                    </Link>
+                </MenuItem>}
                 <MenuItem key={`introduction`} onClick={handleCloseNavMenu}>
                     <Link to={`/introduction`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
                         Pengenalan
