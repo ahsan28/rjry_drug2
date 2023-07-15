@@ -148,7 +148,8 @@ const MemberProfiles = () => {
             onChange={handleChange} 
             aria-label="lab API tabs example" 
             // centered 
-            scrollButtons="auto" 
+            variant="scrollable"
+            scrollButtons="auto"
             selectionFollowsFocus={true}
             sx={{ 
               '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 

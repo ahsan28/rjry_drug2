@@ -15,12 +15,12 @@ import TextCarousel from "../Hooks/TextCarousel";
 import { styled } from '@mui/material/styles';
 
 const texts = [
-  "Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
-  "Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Narkoba",
-  "Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Narkoba",
-  "Mengamankan Ruang Aman: Mencari Sekolah Bebas Narkoba di Malaysia",
-  "Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Narkoba di Malaysia",
-  "Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
+  "[Sample text taken from AI] Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
+  "[Sample text taken from AI] Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Narkoba",
+  "[Sample text taken from AI] Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Narkoba",
+  "[Sample text taken from AI] Mengamankan Ruang Aman: Mencari Sekolah Bebas Narkoba di Malaysia",
+  "[Sample text taken from AI] Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Narkoba di Malaysia",
+  "[Sample text taken from AI] Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
 ];
 const images = [
   '6418f8c66a237a2840c52ba0',  // a.jpg

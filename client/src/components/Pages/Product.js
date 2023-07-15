@@ -135,7 +135,8 @@ const Product = () => {
             onChange={handleChange} 
             aria-label="lab API tabs example" 
             // centered 
-            scrollButtons="auto" 
+            variant="scrollable"
+            scrollButtons="auto"
             sx={{ 
               '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
               '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'black' },
