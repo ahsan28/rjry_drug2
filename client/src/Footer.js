@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BottomNavigation, BottomNavigationAction, Box, Container, IconButton } from '@mui/material';
 import { Facebook, Twitter, Instagram, Pinterest, LinkedIn, YouTube } from '@mui/icons-material';
 import { UserContext } from "./UserContext";
+import { Link } from 'react-router-dom';
 
 function Footer() {
   const { user, settings } = useContext(UserContext);
@@ -18,19 +19,19 @@ function Footer() {
         <div>
           <p className='title' style={{textAlign:'center'}}>MEDIA SOSIAL</p>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <IconButton aria-label="Facebook" className='icon'>
+          <IconButton aria-label="Facebook" className='icon' href="https://www.facebook.com/UPSIMalaysia/" target="_blank">
             <Facebook />
           </IconButton>
-          <IconButton aria-label="Twitter" className='icon'>
+          <IconButton aria-label="Twitter" className='icon' href="https://twitter.com/UPSI_Malaysia" target="_blank">
             <Twitter />
           </IconButton>
-          <IconButton aria-label="Instagram" className='icon'>
+          <IconButton aria-label="Instagram" className='icon' href="https://www.instagram.com/upsi_malaysia/" target="_blank">
             <Instagram />
           </IconButton>
-          <IconButton aria-label="LinkedIn" className='icon'>
+          <IconButton aria-label="LinkedIn" className='icon' href="https://www.linkedin.com/school/universiti-pendidikan-sultan-idris/" target="_blank">
             <LinkedIn />
           </IconButton>
-          <IconButton aria-label="YouTube" className='icon'>
+          <IconButton aria-label="YouTube" className='icon' href="https://www.youtube.com/@OfficialUPSIEduInnovation" target="_blank">
             <YouTube />
           </IconButton>
           </Box>
@@ -55,18 +56,27 @@ function Footer() {
       <p className='text'>
       Ada sebarang soalan atau maklum balas untuk kami? Kami ingin mendengar dari anda! Jangan ragu-ragu untuk menghubungi kami.
       </p>
-      <div className='text'>Nama: <span>Prof. Dr. Ahmad Jazimin Bin Jusoh</span></div>
-      <div className='text'>Email: <a href="mailto:lrgs.ppda@gmail.com">lrgs.ppda@gmail.com</a>,<span><a href="mailto:jazimin@fpm.upsi.edu.my">jazimin@fpm.upsi.edu.my</a></span></div>
+      <Box className='text' sx={{mb:'0 !important'}}>Nama: <span>Prof. Dr. Ahmad Jazimin Bin Jusoh</span></Box>
+      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'row' }}>
+        <Box className='text'>Email:</Box>
+        <Box sx={{ pl:1, display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'column' }} className='text'>
+          <a href="mailto:lrgs.ppda@gmail.com">lrgs.ppda@gmail.com</a>
+          <a href="mailto:jazimin@fpm.upsi.edu.my">jazimin@fpm.upsi.edu.my</a>
+        </Box>
+      </Box>
       {/* <div className='text'>1234 Main St.</div> */}
       {/* <div className='text'>Anytown, USA 12345</div> */}
       {/* <div className='text'>Phone: (123) 456-7890</div> */}
-      <IconButton aria-label="Facebook" className='icon'>
-        <Facebook /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '1rem'}}
-          href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/"> Facebook</a>
-      </IconButton>
-            <IconButton aria-label="Instagram" className='icon'>
-        <Instagram /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '1rem'}} href="https://www.instagram.com/lrgs_ppda/?hl=id"> Instagram</a>
-      </IconButton>
+      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'row', ml:-2 }}>
+        <IconButton aria-label="Facebook" className='icon'>
+          <Facebook sx={{fontSize:'1rem'}} /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '.8rem'}}
+            href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/"> Facebook</a>
+        </IconButton>
+        <IconButton aria-label="Instagram" className='icon'>
+          <Instagram sx={{fontSize:'1rem'}} /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '.8rem'}} 
+            href="https://www.instagram.com/lrgs_ppda/?hl=id"> Instagram</a>
+        </IconButton>
+      </Box>
     </div>
   </div>
   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#444', width: '100%' }}>
