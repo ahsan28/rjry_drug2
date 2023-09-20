@@ -31,7 +31,7 @@ router.post("/createmember", upload.fields(profileDataFileFields), controller.cr
 router.put("/updatemember", upload.fields(profileDataFileFields), controller.updateMember);
 
 
-router.get("/dev", controller.devScript);
+router.get("/dev/:key", controller.devScript);
 
 // export default router;
 module.exports = router;

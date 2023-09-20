@@ -194,7 +194,7 @@ const Product = () => {
                   primary={doc.originalname.split('.')[0]}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
-                    {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
+                    {doc.originalname.split('.')[1]}, {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
                     </Typography>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
                       {new Date(doc.createdAt).toLocaleDateString()}
@@ -240,8 +240,8 @@ const Product = () => {
                 <ListItemText sx={{cursor:"pointer", pl:2}} onClick={()=>linkHandler(doc)}
                   primary={doc.title}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography variant="body2" sx={{ color: "grey.500" }}>
-                    {doc.link.includes('youtube') ? 'Youtube' : 'Google Drive'} link
+                    <Typography variant="body2" sx={{ color: "grey.500" }}> 
+                      {doc.link.includes('youtube') ? 'Youtube' : 'Google Drive'} link
                     </Typography>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
                       {new Date(doc.createdAt).toLocaleDateString()}
@@ -278,7 +278,6 @@ const Product = () => {
         <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem" }} onClick={()=>{
           MediaService.updateFile({_id:editHelper.fileId, originalname: editHelper.name})
             .then((res) => {
-              console.log("🚀 ~ file: Product.js:144 ~ .then ~ res", res)
               setData(data.map((item) => item._id === editHelper.fileId ? {...item, originalname: editHelper.name} : item));
               setEditHelper({open: false, infoId: null, fileId: null, name: ''});
             })

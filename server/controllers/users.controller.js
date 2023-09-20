@@ -24,13 +24,30 @@ let EMAILTO = process.env.EMAILTO;
 
 const devScript = async (req, res) => {
     try {
-        // rename a field in all documents, from 'type' to 'memberType'
-        let user = await Info.updateMany({}, { $rename: { type: 'infoType' } }, { strict: false });
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(400).json({ message: 'User not found' });
+        
+        switch (req.params.key) {
+            case 'renameType':{ // rename a field in all documents, from 'type' to 'memberType'
+                let user = await Info.updateMany({}, { $rename: { type: 'infoType' } }, { strict: false });
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(400).json({ message: 'User not found' });
+                }
+            }
+            break;
+            case 'removeBin':{ // remove ' bin ' and ' binti ' from all names
+                let users = await User.updateMany({}, { $set: { name: { $trim: { input: { $replaceOne: { input: { $replaceOne: { input: "$name", find: " bin ", replacement: " " } }, find: " binti ", replacement: " " } } } } } }, { strict: false });
+                if (users) {
+                    res.status(200).json(users);
+                } else {
+                    res.status(400).json({ message: 'User not found' });
+                }
+            }
+            break;
+            default:
+                res.status(400).json({ message: 'Key not found' });
         }
+                
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

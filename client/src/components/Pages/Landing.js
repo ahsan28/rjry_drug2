@@ -169,7 +169,7 @@ const Landing = () => {
         <Container maxWidth="lg">
           {/* Title , centered */}
           <Typography variant="h4" color="DarkBlue" mb={2} align="center">
-          Mencegah Penggunaan Dadah di Sekolah-Sekolah Malaysia
+          Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
           </Typography>
                   {/* Slogan */}
         <Typography variant="body2" align="center" color="SlateGray" mb={4}>

@@ -62,8 +62,8 @@ const sendEmail = (email) => {
     return axios.post(`${api}send`, email, { headers: authHeader() });
 }
 
-const devScript = () => {
-    return axios.get(`${api}dev`, { headers: authHeader() });
+const devScript = (key='none') => {
+    return axios.get(`${api}dev/${key}`, { headers: authHeader() });
 }
 
 
