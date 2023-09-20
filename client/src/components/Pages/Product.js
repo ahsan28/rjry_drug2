@@ -194,7 +194,7 @@ const Product = () => {
                   primary={doc.originalname.split('.')[0]}
                   secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
-                    {doc.originalname.split('.')[1]}, {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)} KB` : `${(doc.size/1000000).toFixed(2)} MB`}
+                    {doc.originalname.split('.').pop().toUpperCase()}, {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)}KB` : `${(doc.size/1000000).toFixed(2)}MB`}
                     </Typography>
                     <Typography variant="body2" sx={{ color: "grey.500" }}>
                       {new Date(doc.createdAt).toLocaleDateString()}
