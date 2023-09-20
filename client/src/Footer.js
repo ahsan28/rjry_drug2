@@ -67,7 +67,7 @@ function Footer() {
       {/* <div className='text'>1234 Main St.</div> */}
       {/* <div className='text'>Anytown, USA 12345</div> */}
       {/* <div className='text'>Phone: (123) 456-7890</div> */}
-      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'row', ml:-2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'row', ml:-1 }}>
         <IconButton aria-label="Facebook" className='icon'>
           <Facebook sx={{fontSize:'1rem'}} /> <a className='themeCBF' style={{ textDecoration: 'none', fontSize: '.8rem'}}
             href="https://www.facebook.com/people/LRGS-PPDa/100063747416057/"> Facebook</a>
