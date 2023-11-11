@@ -10,7 +10,7 @@ import { EffectCoverflow, Autoplay, Pagination, Thumbs, Navigation } from 'swipe
 import { Box, Divider } from '@mui/material';
 import MediaService from '../../services/media.services';
 
-const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) => {
+const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false, setCLoading }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [loadedImages, setLoadedImages] = useState([]);
   useEffect(() => {
@@ -21,12 +21,13 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false }) =
     Promise.all(promises)
       .then((res) => {
         console.log("res", res);
-        setLoadedImages(prev => res.map((image) => {
+        setLoadedImages(() => res.map((image) => {
           return {
             src: URL.createObjectURL(image.data),
             title: image.config.url.split("/")[1]
           }
         }));
+        setCLoading(false);
       })
       .catch((err) => {
         console.log(err);

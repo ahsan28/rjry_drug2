@@ -14,6 +14,7 @@ import MediaService from "../../services/media.services";
 import ViewImage from "../Hooks/ViewImage";
 import { UserContext } from "../../UserContext";
 import Loader from "../Pages/Loader";
+import ComponentLoader from '../Pages/ComponentLoader';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,13 +80,14 @@ const ActivityList = ({ activities, onItemClick, selectedActivity }) => {
   </Paper>
 )};
 
-const ActivityDetail = ({ activity }) => {
+const ActivityDetail = ({ activity, cLoading, setCLoading }) => {
+  console.log("🚀 ~ file: Activity2.js:84 ~ ActivityDetail ~ cLoading:", cLoading)
   useEffect(() => {
     console.log("🚀 ~ updated: Activity", activity)
   }, [activity])
 
   return (
-  <Paper sx={{ p: 2, width: "100%", height: "100%" }}>
+  <Paper sx={{ p: 2, width: "100%", height: "100%", position: 'relative' }}>
     <Typography variant="h6" sx={{ mb: 2, textTransform: 'capitalize', fontWeight: 'bold', fontSize: 20, textAlign: 'center' }}>
       {activity.title}
       <Divider sx={{ my: 1, borderColor: 'transparent' }} />
@@ -97,7 +99,8 @@ const ActivityDetail = ({ activity }) => {
     <Typography variant="body1" sx={{ mb: 2, whiteSpace: 'pre-line', textAlign: 'justify' }}>
       {activity.description}
     </Typography>
-    <CoverflowGallery images={activity.images} divider={true} thumb={true} simple={true} />
+    <CoverflowGallery images={activity.images} divider={true} thumb={true} simple={true} setCLoading={setCLoading} />
+    {cLoading && <ComponentLoader />}
   </Paper>
 )};
 
@@ -107,9 +110,11 @@ const Activity = () => {
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [tab, setTab] = useState('mesyuarat');
   const [formHelper, setFormHelper] = useState({open: false, category: "activity", id: "new", infoType: tab});
+  const [cLoading, setCLoading] = useState(false);
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
+
     // setSelectedActivity(null);
   };
   
@@ -126,6 +131,7 @@ const Activity = () => {
   }, [tab]);
 
   const handleItemClick = (activity) => {
+    setCLoading(true);
     setSelectedActivity(activity);
   };
 
@@ -177,7 +183,7 @@ const Activity = () => {
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
               {selectedActivity ? (
-                <ActivityDetail activity={selectedActivity} />
+                <ActivityDetail activity={selectedActivity} cLoading={cLoading} setCLoading={setCLoading} />
               ) : (
                 <Paper sx={{ p: 2 }}>
                   <Typography variant="subtitle1">Select an activity to view details</Typography>

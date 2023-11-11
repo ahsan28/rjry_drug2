@@ -98,57 +98,6 @@ const Landing = () => {
     }];
 
 
-  const tiles = [
-    {
-      title: 'Pengenalan',
-      subtitle: 'Ketahui tentang organisasi kami',
-      link: '/introduction',
-      color: 'primary.main',
-    },
-    {
-      title: 'Profil',
-      subtitle: 'Pelajari lebih lanjut tentang anggota organisasi kami',
-      link: '/profile',
-      color: 'secondary.main',
-    },
-    {
-      title: 'Penelitian',
-      subtitle: 'Lihat penelitian dan pengembangan kami',
-      link: '/research',
-      color: 'info.main',
-    },
-    {
-      title: 'Produk',
-      subtitle: 'Jelajahi berbagai produk kami',
-      link: '/products',
-      color: 'success.main',
-    },
-    {
-      title: 'Kegiatan',
-      subtitle: 'Lihat kegiatan kami',
-      link: '/activities',
-      color: 'warning.main',
-    },
-    {
-      title: 'Kontak',
-      subtitle: 'Hubungi kami',
-      link: '/contact',
-      color: 'error.main',
-    },
-    {
-      title: 'Masuk',
-      subtitle: 'Masuk ke akun Anda',
-      link: '/login',
-      color: 'orange',
-    },
-    {
-      title: 'Daftar',
-      subtitle: 'Daftar akun',
-      link: '/register',
-      color: 'purple',
-    },
-    ];
-
   return (
     <Box
       sx={{
