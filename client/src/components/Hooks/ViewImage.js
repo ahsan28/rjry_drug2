@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MediaService from "../../services/media.services";
 import { Box, CardMedia } from "@mui/material";
-
+import ComponentLoader from "../Pages/ComponentLoader";
 
 
 const ViewImage = ({ image, ...props }) => {
@@ -19,7 +19,7 @@ const ViewImage = ({ image, ...props }) => {
 
   return (
     <div>
-      {imageUrl && (
+      {imageUrl? (
         <CardMedia
           component="img"
           height="100"
@@ -27,7 +27,7 @@ const ViewImage = ({ image, ...props }) => {
           alt="Paella dish"
           {...props}
         />
-      )}
+      ): <CardMedia sx={{height: 100, position:'relative'}} {...props}><ComponentLoader /></CardMedia>}
 
     </div>
   );

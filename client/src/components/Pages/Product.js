@@ -122,7 +122,8 @@ const Product = () => {
 
 
   return (<>
-    <Box sx={{ width: "100%", textAlign: 'center', bgcolor: "orange", color: "white", p: 2, position: "relative" }}>
+    <Box className="themeCBF" sx={{ height: '72px' }} />
+<Box className="stripTheme" sx={{ width: "100%", textAlign: 'center', p: 2, position: "relative" }}>
       <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
         {"Produk"}
       </Typography>

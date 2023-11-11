@@ -139,7 +139,7 @@ const App = () => {
       {/* <Header /> */}
       <Navbar logout={logout} component='header' />
       {/* make items inside container center */}
-      <Container maxWidth={false} disableGutters={true} component='main' sx={{display: 'flex', flexDirection: 'column', flexGrow: 1,overflowY: 'auto', overflowX: 'hidden'}}>
+      <Container maxWidth={false} disableGutters={true} component='main' sx={{display: 'flex', flexDirection: 'column', flexGrow: 1,overflowY: 'auto', overflowX: 'hidden', position: 'relative', top: '-72px'}}>
               {/* {showAnimation && <CanvasParticles2 />} */}
             <Routes>
               <Route path="/users" element={<UserList />} />

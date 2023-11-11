@@ -8,6 +8,11 @@
   --bodyBgColor: white;
   --bodyFontColor: black;
   --bodySize: 1rem;
+
+  --stripFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
+  --stripBgColor: orange;
+  --stripFontColor: white;
+  --stripSize: 2.5rem;
 }
 body {
   font-family: var(--bodyFont) !important;
@@ -52,6 +57,29 @@ header, footer, nav {
 .theme {
   color: var(--themeFontColor) !important;
   font-family: var(--themeFont) !important;
+}
+
+.bodyTheme {
+  color: var(--bodyFontColor) !important;
+  background-color: var(--bodyBgColor) !important;
+  font-family: var(--bodyFont) !important;
+  font-size: var(--bodySize) !important;
+}
+
+.stripTheme {
+  color: var(--stripFontColor) !important;
+  background-color: var(--stripBgColor) !important;
+  font-family: var(--stripFont) !important;
+  font-size: var(--stripSize) !important;
+}
+
+main a {
+  text-decoration: none;
+  color: var(--bodyFontColor) !important;
+}
+
+main button {
+  color: var(--bodyFontColor) !important;
 }
 
 /* add a 3d effect on hover to the loaders */
@@ -147,22 +175,38 @@ header, footer, nav {
 .App {
   text-align: center;
 }
-
-nav .MuiBox-root button {
-  font-weight: 700;
-  color: var(--themeFontColor) !important;
-  font-size: var(--themeSize) !important;
-}
-
 .MuiPaper-root {
   background-color: var(--bodyBgColor) !important;
   color: var(--bodyFontColor) !important;
+  z-index: 100;
 }
 
-nav.MuiPaper-root {
-  background-color: var(--themeBgColor) !important;
+nav .MuiBox-root button {
+  font-weight: 700;
+  letter-spacing: 1px;
   color: var(--themeFontColor) !important;
+  font-size: var(--themeSize) !important;
+  text-shadow: 0px 0px 2px #000;
+  -webkit-text-stroke: 0.2px #fff;
+  -webkit-text-fill-color: var(--themeFontColor);
 }
+nav.MuiPaper-root:hover button {
+  text-shadow: none !important;
+  -webkit-text-stroke: none !important;
+}
+
+
+nav.MuiPaper-root {
+  background-color: transparent !important;
+  color: var(--themeFontColor) !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease-in-out;
+}
+nav.MuiPaper-root:hover {
+  background-color: var(--themeBgColor) !important;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12) !important;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -234,8 +278,8 @@ body {
 }
 
 .nav {
-  background-color: #333;
-  color: white;
+  background-color: var(--themeBgColor);
+  color: var(--themeFontColor);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -333,9 +377,22 @@ body {
 
 .MuiBottomNavigation-root .text {
   font-size: 0.8rem;
-  /* color: #666; */
+  /* color: #888; */
   margin-bottom: 1rem;
   text-align: justify;
+}
+
+.copyright {
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  /* font-family:  */
+  /* background-color: #333; */
+  color: #fff;
+  /* -webkit-text-stroke: 0.25px #000;
+  -webkit-text-fill-color: #fff; */
+  text-shadow: 0px 0px 2px #000;
 }
 
 .MuiBottomNavigation-root form {
@@ -343,16 +400,21 @@ body {
 }
 
 .MuiBottomNavigation-root .icon {
-  color: #333;
+  color: var(--themeFontColor);
 }
 
 .MuiBottomNavigation-root .button {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--themeBgColor);
+  color: var(--themeFontColor);
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 50px;
   transition: all 0.2s ease-in-out;
+}
+
+.MuiBottomNavigation-root a {
+  color: var(--themeFontColor);
+  text-decoration: none;
 }
 
 .MuiBottomNavigation-root .button:hover {

@@ -74,62 +74,62 @@ const Navbar = ({logout}) => {
             </IconButton>
             <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{   vertical: "bottom",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{   display: { xs: "block", md: "none" }, }} >
                 {/* <MenuItem key={`users`} onClick={handleCloseNavMenu}>
-                    <Link to={`/users`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/users`} style={{ textDecoration: 'none' }}>
                         Users
                     </Link>
                 </MenuItem> */}
                 <MenuItem key={`home`} onClick={handleCloseNavMenu}>
-                    <Link to={`/`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/`} style={{ textDecoration: 'none' }}>
                         Lendarat
                     </Link>
                 </MenuItem>
                 {user?.username === 'dev' && <MenuItem key={`script`} onClick={handleCloseNavMenu}>
-                    <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/script`} style={{ textDecoration: 'none' }}>
                         Script
                     </Link>
                 </MenuItem>}
                 <MenuItem key={`introduction`} onClick={handleCloseNavMenu}>
-                    <Link to={`/introduction`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/introduction`} style={{ textDecoration: 'none' }}>
                         Pengenalan
                     </Link>
                 </MenuItem>
                 <MenuItem key={`member_profiles`} onClick={handleCloseNavMenu}>
-                    <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/member_profiles`} style={{ textDecoration: 'none' }}>
                         Profil
                     </Link>
                 </MenuItem>
                 <MenuItem key={`publication`} onClick={handleCloseNavMenu}>
-                    <Link to={`/publication`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/publication`} style={{ textDecoration: 'none' }}>
                         Penerbitan
                     </Link>
                 </MenuItem>
                 <MenuItem key={`activity`} onClick={handleCloseNavMenu}>
-                    <Link to={`/activity`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/activity`} style={{ textDecoration: 'none' }}>
                         Aktiviti
                     </Link>
                 </MenuItem>
                 <MenuItem key={`product`} onClick={handleCloseNavMenu}>
-                    <Link to={`/product`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/product`} style={{ textDecoration: 'none' }}>
                         Produk
                     </Link>
                 </MenuItem>
                 {/* <MenuItem key={`research`} onClick={handleCloseNavMenu}>
-                    <Link to={`/research`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/research`} style={{ textDecoration: 'none' }}>
                         Penyelidikan
                     </Link>
                 </MenuItem>
                 <MenuItem key={`mode`} onClick={handleCloseNavMenu}>
-                    <Link to={`/mode`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/mode`} style={{ textDecoration: 'none' }}>
                         Modul
                     </Link>
                 </MenuItem>
                 <MenuItem key={`certifications`} onClick={handleCloseNavMenu}>
-                    <Link to={`/certifications`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/certifications`} style={{ textDecoration: 'none' }}>
                         Pensijilan
                     </Link>
                 </MenuItem>
                 <MenuItem key={`gallery`} onClick={handleCloseNavMenu}>
-                    <Link to={`/gallery`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/gallery`} style={{ textDecoration: 'none' }}>
                         Galeri
                     </Link>
                 </MenuItem> */}
@@ -143,7 +143,7 @@ const Navbar = ({logout}) => {
                         Produk
                 </MenuItem> */}
                 <MenuItem key={`contact`} onClick={handleCloseNavMenu}>
-                    <Link to={`/contact`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/contact`} style={{ textDecoration: 'none' }}>
                         Hubungi kami
                     </Link>
                 </MenuItem>
@@ -151,57 +151,57 @@ const Navbar = ({logout}) => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end", mr:2 }}>
-                {/* <Link to={`/users`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                {/* <Link to={`/users`} style={{ textDecoration: 'none' }}>
                     <Button key={`users`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Users
                     </Button>
                 </Link> */}
-                {user?.username === 'dev' && <Link to={`/script`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                {user?.username === 'dev' && <Link to={`/script`} style={{ textDecoration: 'none' }}>
                     <Button key={`script`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Script
                     </Button>
                 </Link>}
-                <Link to={`/introduction`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/introduction`} style={{ textDecoration: 'none' }}>
                     <Button key={`introduction`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Pengenalan
                     </Button>
                 </Link>
-                <Link to={`/member_profiles`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/member_profiles`} style={{ textDecoration: 'none' }}>
                     <Button key={`member_profiles`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Profil
                     </Button>
                 </Link>
-                    <Link to={`/activity`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                    <Link to={`/activity`} style={{ textDecoration: 'none' }}>
                         <Button key={`activity`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                             Aktiviti
                         </Button>
                     </Link>
-                <Link to={`/publication`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/publication`} style={{ textDecoration: 'none' }}>
                     <Button key={`publication`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Penerbitan
                     </Button>
                 </Link>
-                <Link to={`/product`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/product`} style={{ textDecoration: 'none' }}>
                     <Button key={`product`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Produk
                     </Button>
                 </Link>
-                {/* <Link to={`/research`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                {/* <Link to={`/research`} style={{ textDecoration: 'none' }}>
                     <Button key={`research`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Penyelidikan
                     </Button>
                 </Link>
-                <Link to={`/mode`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/mode`} style={{ textDecoration: 'none' }}>
                     <Button key={`mode`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Modul
                     </Button>
                 </Link>
-                <Link to={`/certifications`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/certifications`} style={{ textDecoration: 'none' }}>
                     <Button key={`certifications`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Pensijilan
                     </Button>
                 </Link>
-                <Link to={`/gallery`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/gallery`} style={{ textDecoration: 'none' }}>
                     <Button key={`gallery`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Galeri
                     </Button>
@@ -215,7 +215,7 @@ const Navbar = ({logout}) => {
                 <Button key={`product`} onClick={(e)=>setAnchorElProduk(e.currentTarget)} sx={{ my: 2, color: "white", display: "block" }} >
                     Produk
                 </Button> */}
-                <Link to={`/contact`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }}>
+                <Link to={`/contact`} style={{ textDecoration: 'none' }}>
                     <Button key={`contact`} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }} >
                         Hubungi kami
                     </Button>
@@ -232,91 +232,91 @@ const Navbar = ({logout}) => {
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElUser} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElUser)} onClose={()=>handleCloseUserMenu()} >
             {user? (<>
                 <MenuItem key={"profile"}>
-                    <Link to={`/profile`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
+                    <Link to={`/profile`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseUserMenu()}>
                         <Typography textAlign="center">{"My profil"}</Typography>
                     </Link>
                 </MenuItem>
                 <MenuItem key={"Settings"}>
-                    <Link to={`/settings`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
+                    <Link to={`/settings`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseUserMenu()}>
                         <Typography textAlign="center">{"Settings"}</Typography>
                     </Link>
                 </MenuItem>
                 {/* horizontal line */}
                 <Divider />
                 <MenuItem key={"Logout"}>
-                    <Link to={`/`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu('logout')}>
+                    <Link to={`/`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseUserMenu('logout')}>
                         <Typography textAlign="center">{"Logout"}</Typography>
                     </Link>
                 </MenuItem>
             </>):
             <MenuItem key={"Signin"}>
-                <Link to={`/signin`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseUserMenu()}>
+                <Link to={`/signin`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseUserMenu()}>
                     <Typography textAlign="center">{"Sign in"}</Typography>
                 </Link>
             </MenuItem>}
           </Menu>
           {/* <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElActiviti} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElActiviti)} onClose={()=>handleCloseActivitiMenu()} >
             <MenuItem key={"mesyuarat"}>
-                <Link to={`/activity/mesyuarat`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/mesyuarat`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Mesyuarat"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"bengkel"}>
-                <Link to={`/activity/bengkel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/bengkel`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Bengkel"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"latihan"}>
-                <Link to={`/activity/latihan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/latihan`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Latihan & konsultasi"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"pengumpulan"}>
-                <Link to={`/activity/pengumpulan`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/pengumpulan`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Pengumpulan"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"kolaborasi"}>
-                <Link to={`/activity/kolaborasi`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseActivitiMenu()}>
+                <Link to={`/activity/kolaborasi`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseActivitiMenu()}>
                     <Typography textAlign="center">{"Kolaborasi"}</Typography>
                 </Link>
             </MenuItem>
           </Menu>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElPener} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElPener)} onClose={()=>handleClosePenerMenu()} >
             <MenuItem key={"buku"}>
-                <Link to={`/publications/buku`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/buku`} style={{ textDecoration: 'none' }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Buku"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"artikel"}>
-                <Link to={`/publications/artikel`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/artikel`} style={{ textDecoration: 'none' }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Artikel"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"akhbar"}>
-                <Link to={`/publications/akhbar`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/akhbar`} style={{ textDecoration: 'none' }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Akhbar"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"module"}>
-                <Link to={`/publications/module`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleClosePenerMenu()}>
+                <Link to={`/publications/module`} style={{ textDecoration: 'none' }} onClick={()=>handleClosePenerMenu()}>
                     <Typography textAlign="center">{"Module"}</Typography>
                 </Link>
             </MenuItem>
           </Menu>
           <Menu sx={{ mt: "45px" }} id="menu-appbar" anchorEl={anchorElProduk} anchorOrigin={{   vertical: "top",   horizontal: "right", }} keepMounted transformOrigin={{   vertical: "top",   horizontal: "right", }} open={Boolean(anchorElProduk)} onClose={()=>handleCloseProdukMenu()} >
             <MenuItem key={"kerangka"}>
-                <Link to={`/kerangka`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseProdukMenu()}>
+                <Link to={`/kerangka`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseProdukMenu()}>
                     <Typography textAlign="center">{"Kerangka Sekolah Bebas Dadah"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"rubrik"}>
-                <Link to={`/rubrik`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseProdukMenu()}>
+                <Link to={`/rubrik`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseProdukMenu()}>
                     <Typography textAlign="center">{"Rubrik Efikasi dan Kompetensi Guru dalam PPDa dalam Bilik Darjah"}</Typography>
                 </Link>
             </MenuItem>
             <MenuItem key={"modul"}>
-                <Link to={`/modul`} style={{ textDecoration: 'none', color: user?.settings?.fontColor || "primary.contrastText" }} onClick={()=>handleCloseProdukMenu()}>
+                <Link to={`/modul`} style={{ textDecoration: 'none' }} onClick={()=>handleCloseProdukMenu()}>
                     <Typography textAlign="center">{"Modul Digital Sekolah Bebas Dadah"}</Typography>
                 </Link>
             </MenuItem>

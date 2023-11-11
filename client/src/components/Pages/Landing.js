@@ -117,16 +117,16 @@ const Landing = () => {
         </Paper>
         <Container maxWidth="lg">
           {/* Title , centered */}
-          <Typography variant="h4" color="DarkBlue" mb={2} align="center">
+          <Typography variant="h4" mb={2} align="center">
           Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
           </Typography>
                   {/* Slogan */}
-        <Typography variant="body2" align="center" color="SlateGray" mb={4}>
+        <Typography variant="body2" align="center" mb={4}>
           {texts.length > 0 && <TextCarousel texts={texts} />}
 
         </Typography>
           {/* Body */}
-          <Typography variant="body1" color="DarkSlateGray" mb={4} mt={4}>
+          <Typography variant="body1" mb={4} mt={4}>
             {/* Begin the text with a big first letter */}
             <span style={{ fontSize: '3em', fontWeight: 'bold', lineHeight: '1em' }}>
               {/* {data?.description?.charAt(0)} */}
@@ -158,7 +158,7 @@ const Landing = () => {
           </Grid> */}
           {/* show sponsor organization's logos in the next row in some beautiful mui card tiles and link them to their respective websites */}
           <Divider sx={{ my: 4, mx: 10 }} />
-          <Typography variant="h5" color="DarkBlue" mb={2} align="center" mt={4}>
+          <Typography variant="h5" mb={2} align="center" mt={4}>
           Organisasi penaja
           </Typography>
           {/* flex grids with logos of sponsors */}
