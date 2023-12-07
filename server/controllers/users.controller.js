@@ -14,7 +14,7 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const ObjectId = require("mongodb").ObjectId;
 
-let defaultSettingId = "63ecb5e334248567f3f5e5ec";
+let defaultSettingId = "63ecb5e334248567f3f5e5ec"; // default settings id
 
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
@@ -58,9 +58,7 @@ const devScript = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        console.log("🚀 ~ file: users.controller.js:27 ~ read ~ req.params.id:", req.params.id)
         const user = await User.findById(req.params.id).select('-password');
-        console.log("🚀 ~ file: users.controller.js:28 ~ read ~ user:", user)
         res.status(200).json(user);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -70,7 +68,7 @@ const read = async (req, res) => {
 const getSettings = async (req, res) => {
     let id = req.params.id||defaultSettingId
     try {
-        const settings = await Settings.findById(req.params.id)
+        const settings = await Settings.findById(id)
         res.status(200).json(settings);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -79,7 +77,7 @@ const getSettings = async (req, res) => {
 
 const saveSettings = async (req, res) => {
     try {
-        await Settings.findByIdAndUpdate(req.body._id||defaultSettingId, 
+        await Settings.findByIdAndUpdate(req.id||defaultSettingId, 
             {...req.body, userid: req.params.userid} 
             );
         res.status(200).json({ message: 'Settings updated' });
@@ -136,7 +134,12 @@ const login = async (req, res) => {
             if (!isMatch) {
                 res.status(400).json({ message: 'Username or password is incorrect' });
             } else {
-                let token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+                let token = jwt.sign({ 
+                    id: user._id,
+                    username: user.username,
+                    name: user.name,
+                    surname: user.surname,
+                }, TOKEN_SECRET);
                 user.password = undefined;
                 user.__v = undefined;
                 user.accessToken = token;
