@@ -14,6 +14,8 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const ObjectId = require("mongodb").ObjectId;
 
+let defaultSettingId = "63ecb5e334248567f3f5e5ec";
+
 dotenv.config();
 let TOKEN_SECRET = process.env.TOKEN_SECRET;
 let EMAIL = process.env.EMAIL;
@@ -66,8 +68,9 @@ const read = async (req, res) => {
 }
 
 const getSettings = async (req, res) => {
+    let id = req.params.id||defaultSettingId
     try {
-        const settings = req.params.id? await Settings.findById(req.params.id) : await Settings.findOne();
+        const settings = await Settings.findById(req.params.id)
         res.status(200).json(settings);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -76,17 +79,10 @@ const getSettings = async (req, res) => {
 
 const saveSettings = async (req, res) => {
     try {
-        if (req.body._id) {
-            await Settings.findByIdAndUpdate(req.body._id, {...req.body, userid: req.params.userid} );
-            res.status(200).json({ message: 'Settings updated' });
-        }
-        else {
-            const settings = await Settings.create({
-                ...req.body,
-                userid: req.params.userid
-            });
-            res.status(201).json({ message: 'Settings created' });
-        }
+        await Settings.findByIdAndUpdate(req.body._id||defaultSettingId, 
+            {...req.body, userid: req.params.userid} 
+            );
+        res.status(200).json({ message: 'Settings updated' });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

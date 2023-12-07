@@ -14,9 +14,7 @@ const read = async (req, res) => {
 const loadImage = async (req, res) => {
     // from /public/uploads
     try {
-        console.log("🚀 ~ file: media.controller.js:18 ~ loadImage ~ req.params.id:", req.params)
         const media = await Media.findById(req.params.id).catch(err=>console.log(err));
-        console.log("🚀 ~ file: media.controller.js:18 ~ loadImage ~ media:", media)
         if(!media) return res.status(404).json("No media found.");
         else return res.sendFile(media.filename, { root: media.destination });
         

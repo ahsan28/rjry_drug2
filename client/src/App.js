@@ -101,17 +101,17 @@ const App = () => {
 
   useEffect(() => {
     if (settings) {
-      if (settings.theme.color) {
-        document.documentElement.style.setProperty('--themeFontColor', settings.theme.color);
+      if (settings.header.color) {
+        document.documentElement.style.setProperty('--themeFontColor', settings.header.color);
       }
-      if (settings.theme.backgroundColor) {
-        document.documentElement.style.setProperty('--themeBgColor', settings.theme.backgroundColor);
+      if (settings.header.backgroundColor) {
+        document.documentElement.style.setProperty('--themeBgColor', settings.header.backgroundColor);
       }
-      if (settings.theme.fontFamily) {
-        document.documentElement.style.setProperty('--themeFont', settings.theme.fontFamily);
+      if (settings.header.fontFamily) {
+        document.documentElement.style.setProperty('--themeFont', settings.header.fontFamily);
       }
-      if (settings.theme.fontSize) {
-        document.documentElement.style.setProperty('--themeSize', settings.theme.fontSize);
+      if (settings.header.fontSize) {
+        document.documentElement.style.setProperty('--themeSize', settings.header.fontSize);
       }
       if (settings.body.color) {
         document.documentElement.style.setProperty('--bodyFontColor', settings.body.color);
