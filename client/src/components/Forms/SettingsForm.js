@@ -17,8 +17,8 @@ const fonts = ['serif', 'sans-serif', 'monospace', 'cursive', 'system-ui', 'robo
 const fontSizes = [7,8,9,10,11,12,13,14,15,16]
 const thm = [
     // --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-    // --themeBgColor: skyblue;
-    // --themeFontColor: black;
+    // --headerColor: skyblue;
+    // --headerTextColor: black;
     // --themeSize: 1.5rem;
   
     // --bodyFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
@@ -31,23 +31,152 @@ const thm = [
     // --stripFontColor: white;
     // --stripSize: 2.5rem;
     {
-        name: 'Default', 
-        header: {color: 'black', fontFamily: 'tahoma', backgroundColor: 'lightgray', fontSize: '1.5rem'}, 
-        stripe: {color: 'black', fontFamily: 'sans-serif', backgroundColor: 'darkseagreen', fontSize: '2.5rem'},
-        body: {color: 'black', fontFamily: 'sans-serif', backgroundColor: 'white', fontSize: '1rem'},
+        name: 'Default',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#4CAF50', // Green - OK as is
+            info: '#2196F3', // Blue - OK as is
+            warning: '#FFC107', // Lighter amber for better contrast
+            error: '#F44336', // Red - OK as is
+            primary: '#3F51B5', // Indigo - OK as is
+            secondary: '#9C27B0', // Purple - OK as is
+            background: '#FFFFFF', // Pure white for better contrast
+            paper: '#F5F5F5', // Lighter grey to differentiate from background
+            text: '#212121', // Darker grey for better readability
+            header: '#E8E8E8', // Slightly lighter than footer for distinction
+            footer: '#DEDEDE', // Slightly darker to define footer area
+            stripe: '#8FBC8F', // A softer green for Dark Sea Green
+            headerText: '#212121', // Same as text for consistency
+            footerText: '#212121', // Same as text for consistency
+            stripeText: '#FFFFFF', // White for contrast on dark sea green
+        },
+    }, {
+        name: 'Dark',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#4CAF50', // Bright green for visibility
+            info: '#2196F3', // Bright blue
+            warning: '#FFC107', // Bright amber
+            error: '#F44336', // Bright red
+            primary: '#90CAF9', // Light blue for primary elements
+            secondary: '#CE93D8', // Soft purple for secondary elements
+            background: '#212121', // Dark grey
+            paper: '#424242', // Slightly lighter grey for paper elements
+            text: '#E0E0E0', // Light grey for text
+            header: '#333333', // Very dark grey for header
+            footer: '#333333', // Same as header
+            stripe: '#6A1B9A', // Deep purple
+            headerText: '#E0E0E0', // Light grey for header text
+            footerText: '#E0E0E0', // Light grey for footer text
+            stripeText: '#FFFFFF', // White for stripe text
+        },
+    }, {
+        name: 'Classic Blue',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#81C784', // Soft green
+            info: '#64B5F6', // Light blue
+            warning: '#FFD54F', // Soft yellow
+            error: '#E57373', // Soft red
+            primary: '#0D47A1', // Classic blue
+            secondary: '#FF8A65', // Coral for contrast
+            background: '#E3F2FD', // Very light blue
+            paper: '#BBDEFB', // Lighter blue
+            text: '#1A237E', // Dark blue for text
+            header: '#0D47A1', // Classic blue for header
+            footer: '#0D47A1', // Same as header
+            stripe: '#5C6BC0', // Moderate blue
+            headerText: '#FFFFFF', // White for header text
+            footerText: '#FFFFFF', // White for footer text
+            stripeText: '#FFFFFF', // White for stripe text
+        },
+    }, {
+        name: 'Baby Blue',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#A5D6A7', // Soft mint green
+            info: '#81D4FA', // Baby blue
+            warning: '#FFE082', // Light amber
+            error: '#EF9A9A', // Soft red
+            primary: '#4FC3F7', // Lighter blue
+            secondary: '#F48FB1', // Pink for secondary
+            background: '#E1F5FE', // Very light blue
+            paper: '#B3E5FC', // Lighter blue
+            text: '#0277BD', // Dark blue for text
+            header: '#29B6F6', // Light blue for header
+            footer: '#29B6F6', // Same as header
+            stripe: '#4DD0E1', // Cyan
+            headerText: '#FFFFFF', // White for header text
+            footerText: '#FFFFFF', // White for footer text
+            stripeText: '#FFFFFF', // White for stripe text
+        },
+    }, {
+        name: 'Green',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#81C784', // Soft Green
+            info: '#4DD0E1', // Turquoise
+            warning: '#FFD54F', // Amber
+            error: '#E57373', // Soft Red
+            primary: '#66BB6A', // Green
+            secondary: '#26A69A', // Teal
+            background: '#E8F5E9', // Very Light Green
+            paper: '#C8E6C9', // Light Green
+            text: '#1B5E20', // Dark Green
+            header: '#A5D6A7', // Light Green
+            footer: '#A5D6A7', // Light Green
+            stripe: '#43A047', // Medium Green
+            headerText: '#004D40', // Dark Teal
+            footerText: '#004D40', // Dark Teal
+            stripeText: '#FFFFFF', // White
+        },
+    }, {
+        name: 'Orange',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#AED581', // Light Green
+            info: '#4FC3F7', // Light Blue
+            warning: '#FFB74D', // Light Orange
+            error: '#FF8A65', // Soft Red
+            primary: '#FFA726', // Orange
+            secondary: '#FF7043', // Deep Orange
+            background: '#FFF3E0', // Light Orange White
+            paper: '#FFE0B2', // Soft Orange
+            text: '#E65100', // Dark Orange
+            header: '#FFCCBC', // Light Orange
+            footer: '#FFCCBC', // Light Orange
+            stripe: '#FB8C00', // Vivid Orange
+            headerText: '#BF360C', // Dark Brownish Orange
+            footerText: '#BF360C', // Dark Brownish Orange
+            stripeText: '#FFFFFF', // White
+        },
+    }, {
+        name: 'Purple',
+        fontFamily: 'sans-serif',
+        sheds: {
+            success: '#81C784', // Light Green
+            info: '#64B5F6', // Light Blue
+            warning: '#FFD54F', // Amber
+            error: '#E57373', // Light Red
+            primary: '#9575CD', // Medium Purple
+            secondary: '#F06292', // Pink
+            background: '#F3E5F5', // Lavender
+            paper: '#EDE7F6', // Lighter Lavender
+            text: '#5E35B1', // Dark Purple
+            header: '#D1C4E9', // Soft Purple
+            footer: '#D1C4E9', // Soft Purple
+            stripe: '#BA68C8', // Purple
+            headerText: '#4A148C', // Darker Purple
+            footerText: '#4A148C', // Darker Purple
+            stripeText: '#FFFFFF', // White
+        },
     },
-    {
-        name: 'Dark', 
-        header: {color: 'maroon', fontFamily: 'tahoma', backgroundColor: 'darkgrey', fontSize: '1.5rem'}, 
-        stripe: {color: 'navy', fontFamily: 'sans-serif', backgroundColor: 'gray', fontSize: '2.5rem'},
-        body: {color: 'darkgray', fontFamily: 'sans-serif', backgroundColor: 'black', fontSize: '1rem'},
-    },
-    {
-        name: 'Blue', 
-        header: {color: 'darkblue', fontFamily: 'tahoma', backgroundColor: 'cornflowerblue', fontSize: '1.5rem'}, 
-        stripe: {color: '#8fc7ff', fontFamily: 'sans-serif', backgroundColor: 'navy', fontSize: '2.5rem'},
-        body: {color: '#d8d8d8', fontFamily: 'sans-serif', backgroundColor: '#557abb', fontSize: '1rem'},
-    },
+    // {
+    //     name: 'Blue', 
+    //     header: {color: 'darkblue', fontFamily: 'tahoma', backgroundColor: 'cornflowerblue', fontSize: '1rem'}, 
+    //     stripe: {color: '#8fc7ff', fontFamily: 'sans-serif', backgroundColor: 'navy', fontSize: '2.5rem'},
+    //     body: {color: '#d8d8d8', fontFamily: 'sans-serif', backgroundColor: '#557abb', fontSize: '1rem'},
+    // },
 ]
 
 const SettingsForm = () => {
@@ -56,7 +185,6 @@ const SettingsForm = () => {
     const [covers, setCovers] = useState([]);
     const [coversFiles, setCoversFiles] = useState([]);
     const [logo, setLogo] = useState(null);
-    console.log("🚀 ~ file: SettingsForm.js:24 ~ SettingsForm ~ logo:", logo)
     const [logoFile, setLogoFile] = useState(null);
     const [footer, setFooter] = useState(null);
     const [footerFile, setFooterFile] = useState(null);
@@ -119,7 +247,6 @@ const SettingsForm = () => {
             });
     }
     function saveSettings(newData) {
-        console.log('confirm', window.confirm('Are you sure you want to save these settings?'))
         if(window.confirm('Are you sure you want to save these settings?')) {
             UserService.updateSettings(user._id, newData)
             .then((res) => {
@@ -170,25 +297,26 @@ const SettingsForm = () => {
                         Preview
                     </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'center', position: 'relative', width: '100%', height: '100%', zIndex: 0}}>
+                {/* make mythemes tiles preview horizontal scrollable */}
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'flex-start', width: '100%', height: '100%', overflowX: 'auto', overflowY: 'hidden', position: 'relative', px:5}}>
                 {myThemes.map((t, i) => (
                     <Paper key={i} elevation={1} 
                         onClick={() => { saveSettings(t) }}
-                        sx={{p: 0, gap: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', width: "auto", justifyContent: 'center', borderRadius: '4px', '&:hover': {boxShadow: 3, cursor: 'pointer'}, position: 'relative', zIndex: 0}}>
-                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.header.backgroundColor, borderTopLeftRadius: '4px', borderTopRightRadius: '4px'}}>
-                            <Typography sx={{textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase', px:2, '-webkit-text-stroke': '0.2px white', textShadow: '0 0 2px black', ...t.header, borderRadius: '4px 4px 0 0'}}>
+                        sx={{ width: '100%', minWidth: 200, display: 'flex', flexDirection: 'column', gap: 0, alignItems: 'center', justifyContent: 'center', position: 'relative', cursor: 'pointer', borderRadius: '4px', border: '2px solid #b5daff', boxShadow: 3, '&:hover': {border: '2px solid #79d2ff'}}}>
+                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.sheds.header, borderTopLeftRadius: '4px', borderTopRightRadius: '4px'}}>
+                            <Typography sx={{textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase', px:2, borderRadius: '4px 4px 0 0', '-webkit-text-stroke': '0.2px white', textShadow: '0 0 2px black', color: t.sheds.headerText, fontSize: '1rem' }}>
                                 {/* Pengenalan  Profil  Aktiviti  Penerbitan  ... */}
                                 {t.name}
                             </Typography>
                         </Box>
-                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.stripe.backgroundColor}}>
-                            <Typography sx={{textAlign: 'center', ...t.stripe}}>
+                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.sheds.stripe }}>
+                            <Typography sx={{textAlign: 'center', color: t.sheds.stripeText, fontSize: '2.5rem' }}>
                                 {/* stripe color and text color, size, background etc. goes here. */}
                                 Title
                             </Typography>
                         </Box>
-                        <Box sx={{width: '100%', minHeight: 150, backgroundColor: t.body.backgroundColor}}>
-                            <Typography sx={{textAlign: 'center', lineHeight: '50px', px:2, ...t.body}}>
+                        <Box sx={{width: '100%', minHeight: 150, backgroundColor: t.sheds.background }}>
+                            <Typography sx={{textAlign: 'center', lineHeight: '50px', px:2, color: t.sheds.text }}>
                                 {/* Body color and text color, size, background etc. goes here. */}
                                 The body text example of the theme
                             </Typography>
@@ -199,7 +327,7 @@ const SettingsForm = () => {
                                 </Typography>
                             </Box>}
                         </Box>
-                        <Box sx={{width: '100%', minHeight: 15, backgroundColor: t.header.backgroundColor, borderBottomLeftRadius: '4px', borderBottomRightRadius: '4px'}} />
+                        <Box sx={{width: '100%', minHeight: 15, backgroundColor: t.sheds.footer, borderBottomLeftRadius: '4px', borderBottomRightRadius: '4px'}} />
                     </Paper>
                 ))}
                 </Box>

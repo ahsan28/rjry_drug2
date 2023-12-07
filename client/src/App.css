@@ -1,68 +1,71 @@
 :root {
   --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-  --themeBgColor: skyblue;
-  --themeFontColor: black;
-  --themeSize: 1.5rem;
-
-  --bodyFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-  --bodyBgColor: white;
-  --bodyFontColor: black;
-  --bodySize: 1rem;
-
-  --stripFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-  --stripBgColor: orange;
-  --stripFontColor: white;
-  --stripSize: 2.5rem;
+  --themeSize: 1rem;
+  --backgroundColor: '#81C784';
+  --paperColor: '#4DD0E1';
+  --textColor: '#FFD54F';
+  --successColor: '#E57373';
+  --infoColor: '#66BB6A';
+  --warningColor: '#26A69A';
+  --errorColor: '#E8F5E9';
+  --primaryColor: '#C8E6C9';
+  --secondaryColor: '#1B5E20';
+  --headerColor: '#A5D6A7';
+  --footerColor: '#A5D6A7';
+  --stripeColor: '#43A047';
+  --headerTextColor: '#004D40';
+  --footerTextColor: '#004D40';
+  --stripeTextColor: '#FFFFFF';
 }
 body {
-  font-family: var(--bodyFont) !important;
-  color: var(--bodyFontColor) !important;
-  background-color: var(--bodyBgColor) !important;
-  font-size: var(--bodySize) !important;
+  font-family: var(--themeFont) !important;
+  color: var(--textColor) !important;
+  background-color: var(--backgroundColor) !important;
+  font-size: var(--themeSize) !important;
 }
 
 header, footer, nav {
   font-family: var(--themeFont) !important;
-  color: var(--themeFontColor) !important;
-  background-color: var(--themeBgColor) !important;
+  color: var(--headerTextColor) !important;
+  background-color: var(--headerColor) !important;
   font-size: var(--themeSize) !important;
   height: fit-content !important;
 }
 .themeColor {
-  color: var(--themeBgColor) !important;
+  color: var(--headerColor) !important;
 }
 .themeColor:hover {
-  color: var(--themeBgColor) !important;
+  color: var(--headerColor) !important;
 }
 .themeBg {
-  background-color: var(--themeBgColor) !important;
+  background-color: var(--headerColor) !important;
 }
 .themeBg:hover {
-  background-color: var(--themeBgColor) !important;
+  background-color: var(--headerColor) !important;
 }
 .themeFont {
   font-family: var(--themeFont) !important;
 }
 .themeCBFS {
-  color: var(--themeFontColor) !important;
-  background-color: var(--themeBgColor) !important;
+  color: var(--headerTextColor) !important;
+  background-color: var(--headerColor) !important;
   font-family: var(--themeFont) !important;
   font-size: var(--themeSize) !important;
 }
 .themeCBF {
-  color: var(--themeFontColor) !important;
-  background-color: var(--themeBgColor) !important;
+  color: var(--headerTextColor) !important;
+  background-color: var(--headerColor) !important;
   font-family: var(--themeFont) !important;
 }
 .theme {
-  color: var(--themeFontColor) !important;
+  color: var(--headerTextColor) !important;
   font-family: var(--themeFont) !important;
 }
 
 .bodyTheme {
-  color: var(--bodyFontColor) !important;
+  color: var(--themeFontColor) !important;
   background-color: var(--bodyBgColor) !important;
-  font-family: var(--bodyFont) !important;
+  font-family: var(--themeFont) !important;
   font-size: var(--bodySize) !important;
 }
 
@@ -75,11 +78,11 @@ header, footer, nav {
 
 main a {
   text-decoration: none;
-  color: var(--bodyFontColor) !important;
+  color: var(--themeFontColor) !important;
 }
 
 main button {
-  color: var(--bodyFontColor) !important;
+  color: var(--themeFontColor) !important;
 }
 
 /* add a 3d effect on hover to the loaders */
@@ -177,18 +180,18 @@ main button {
 }
 .MuiPaper-root {
   background-color: var(--bodyBgColor) !important;
-  color: var(--bodyFontColor) !important;
+  color: var(--themeFontColor) !important;
   z-index: 100;
 }
 
 nav .MuiBox-root button {
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--themeFontColor) !important;
+  color: var(--headerTextColor) !important;
   font-size: var(--themeSize) !important;
   text-shadow: 0px 0px 2px #000;
   -webkit-text-stroke: 0.2px #fff;
-  -webkit-text-fill-color: var(--themeFontColor);
+  -webkit-text-fill-color: var(--headerTextColor);
 }
 nav.MuiPaper-root:hover button {
   text-shadow: none !important;
@@ -198,12 +201,12 @@ nav.MuiPaper-root:hover button {
 
 nav.MuiPaper-root {
   background-color: transparent !important;
-  color: var(--themeFontColor) !important;
+  color: var(--headerTextColor) !important;
   box-shadow: none !important;
   transition: all 0.2s ease-in-out;
 }
 nav.MuiPaper-root:hover {
-  background-color: var(--themeBgColor) !important;
+  background-color: var(--headerColor) !important;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12) !important;
 }
 
@@ -278,8 +281,8 @@ body {
 }
 
 .nav {
-  background-color: var(--themeBgColor);
-  color: var(--themeFontColor);
+  background-color: var(--headerColor);
+  color: var(--headerTextColor);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -332,8 +335,8 @@ body {
 }
 
 .MuiBottomNavigation-root {
-  background-color: var(--themeBgColor);
-  color: var(--themeFontColor);
+  background-color: var(--headerColor);
+  color: var(--headerTextColor);
   font-size: var(--themeSize);
   font-family: var(--themeFont);
   /* padding: 1rem; */
@@ -400,12 +403,12 @@ body {
 }
 
 .MuiBottomNavigation-root .icon {
-  color: var(--themeFontColor);
+  color: var(--headerTextColor);
 }
 
 .MuiBottomNavigation-root .button {
-  background-color: var(--themeBgColor);
-  color: var(--themeFontColor);
+  background-color: var(--headerColor);
+  color: var(--headerTextColor);
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 50px;
@@ -413,7 +416,7 @@ body {
 }
 
 .MuiBottomNavigation-root a {
-  color: var(--themeFontColor);
+  color: var(--headerTextColor);
   text-decoration: none;
 }
 

@@ -100,31 +100,77 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (settings) {
-      if (settings.header.color) {
-        document.documentElement.style.setProperty('--themeFontColor', settings.header.color);
+    if (settings && settings.sheds) {
+    //   sheds: {
+    //     success: '#81C784', // Soft Green
+    //     info: '#4DD0E1', // Turquoise
+    //     warning: '#FFD54F', // Amber
+    //     error: '#E57373', // Soft Red
+    //     primary: '#66BB6A', // Green
+    //     secondary: '#26A69A', // Teal
+    //     background: '#E8F5E9', // Very Light Green
+    //     paper: '#C8E6C9', // Light Green
+    //     text: '#1B5E20', // Dark Green
+    //     header: '#A5D6A7', // Light Green
+    //     footer: '#A5D6A7', // Light Green
+    //     stripe: '#43A047', // Medium Green
+    //     headerText: '#004D40', // Dark Teal
+    //     footerText: '#004D40', // Dark Teal
+    //     stripeText: '#FFFFFF', // White
+    // },
+      let s = settings.sheds;
+      if (settings.fontFamily) {
+        document.documentElement.style.setProperty('--themeFont', settings.fontFamily);
       }
-      if (settings.header.backgroundColor) {
-        document.documentElement.style.setProperty('--themeBgColor', settings.header.backgroundColor);
+      if (settings.fontSize) {
+        document.documentElement.style.setProperty('--themeSize', settings.fontSize);
       }
-      if (settings.header.fontFamily) {
-        document.documentElement.style.setProperty('--themeFont', settings.header.fontFamily);
+      if (s.background) {
+        document.documentElement.style.setProperty('--backgroundColor', s.background);
       }
-      if (settings.header.fontSize) {
-        document.documentElement.style.setProperty('--themeSize', settings.header.fontSize);
+      if (s.paper) {
+        document.documentElement.style.setProperty('--paperColor', s.paper);
       }
-      if (settings.body.color) {
-        document.documentElement.style.setProperty('--bodyFontColor', settings.body.color);
+      if (s.text) {
+        document.documentElement.style.setProperty('--textColor', s.text);
       }
-      if (settings.body.backgroundColor) {
-        document.documentElement.style.setProperty('--bodyBgColor', settings.body.backgroundColor);
+      if (s.success) {
+        document.documentElement.style.setProperty('--successColor', s.success);
       }
-      if (settings.body.fontFamily) {
-        document.documentElement.style.setProperty('--bodyFont', settings.body.fontFamily);
+      if (s.info) {
+        document.documentElement.style.setProperty('--infoColor', s.info);
       }
-      if (settings.body.fontSize) {
-        document.documentElement.style.setProperty('--bodySize', settings.body.fontSize);
+      if (s.warning) {
+        document.documentElement.style.setProperty('--warningColor', s.warning);
       }
+      if (s.error) {
+        document.documentElement.style.setProperty('--errorColor', s.error);
+      }
+      if (s.primary) {
+        document.documentElement.style.setProperty('--primaryColor', s.primary);
+      }
+      if (s.secondary) {
+        document.documentElement.style.setProperty('--secondaryColor', s.secondary);
+      }
+      if (s.header) {
+        document.documentElement.style.setProperty('--headerColor', s.header);
+      }
+      if (s.footer) {
+        document.documentElement.style.setProperty('--footerColor', s.footer);
+      }
+      if (s.stripe) {
+        document.documentElement.style.setProperty('--stripeColor', s.stripe);
+      }
+      if (s.headerText) {
+        document.documentElement.style.setProperty('--headerTextColor', s.headerText);
+      }
+      if (s.footerText) {
+        document.documentElement.style.setProperty('--footerTextColor', s.footerText);
+      }
+      if (s.stripeText) {
+        document.documentElement.style.setProperty('--stripeTextColor', s.stripeText);
+      }
+
     }
 
   }, [settings]);
