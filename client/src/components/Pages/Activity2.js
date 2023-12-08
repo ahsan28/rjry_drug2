@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     transition: 'background-color 0.3s',
     backgroundColor: 'transparent',
-    '&.active': {
-      backgroundColor: theme.palette.primary.main,
-    },
+    // '&.active': {
+    //   backgroundColor: theme.palette.primary.main,
+    // },
     '&.sliding': {
       transition: 'transform 0.3s',
       transform: 'translateX(0)',
@@ -56,8 +56,8 @@ const ActivityList = ({ activities, onItemClick, selectedActivity }) => {
         // className={`${classes.listItem} ${ activeItem === index ? 'active' : '' } ${slidingIndex >= 0 && index > slidingIndex ? 'sliding' : ''}`}
         sx={{ p: 0, minHeight: 32, borderRadius: 0.5, cursor: 'pointer', transition: '0.2s', mb: 0.5,
           '&:hover': { pl: 1 }, 
-          '&.Mui-selected': { bgcolor: 'orange', pl: 1, ml: -1, color: 'white' },
-          '&.Mui-selected:hover': { bgcolor: 'lightsalmon', ml: -0.5 },  
+          '&.Mui-selected': { pl: 1, ml: -1 },
+          '&.Mui-selected:hover': { ml: -0.5 },  
         }}
         onClick={() => {handleItemClick(index); onItemClick(activity)}}
       >

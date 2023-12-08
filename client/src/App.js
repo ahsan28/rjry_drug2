@@ -1,8 +1,7 @@
 import Container from '@mui/material/Container'
 import { Routes, Route } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react';
-import { Box, CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import CanvasParticles2 from './components/Hooks/CanvasParticles2';
 import Loader from './components/Pages/Loader';
 
@@ -34,47 +33,15 @@ import Navbar from './Navbar';
 import UserService from './services/user.services';
 import Landing from './components/Pages/Landing';
 import './App.css'
+// import theme from './myTheme';
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { createTheme, css } from '@mui/material/styles';
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'var(--font-family)',
-    color: 'var(--font-color)',
-    // h1: {
-    //   fontSize: '3rem',
-    // },
-    // h2: {
-    //   fontSize: '2.5rem',
-    // },
-    // h3: {
-    //   fontSize: '2rem',
-    // },
-    // h4: {
-    //   fontSize: '1.5rem',
-    // },
-    // h5: {
-    //   fontSize: '1.25rem',
-    // },
-    // h6: {
-    //   fontSize: '1rem',
-    // },
-    // subtitle1: {
-    //   fontSize: '1.25rem',
-    // },
-    // subtitle2: {
-    //   fontSize: '1rem',
-    // },
-    // body1: {
-    //   fontSize: '1.25rem',
-    // },
-    // body2: {
-    //   fontSize: '1rem',
-    // },
-    // button: {
-    //   fontSize: '1rem',
-    // },
+const getCssVariable = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
 
-  },
-});
+// console.log("🚀 ~ file: App.js:37 ~ theme:", theme)
+
 
 const App = () => {
   const { user, setUser, settings, setSettings, isLoading, setIsLoading } = useContext(UserContext);
@@ -83,6 +50,201 @@ const App = () => {
     UserService.logout();
     setUser(null);
   };
+
+  const theme = createTheme({
+    typography: {
+        fontFamily: settings?.sheds?.themeFont || getCssVariable('--themeFont'),
+        fontSize: parseFloat(settings?.sheds?.themeSize || getCssVariable('--themeSize')),
+    },
+    palette: {
+        primary: {
+            main: settings?.sheds?.primary || getCssVariable('--primary'),
+        },
+        secondary: {
+            main: settings?.sheds?.secondary || getCssVariable('--secondary'),
+        },
+        error: {
+            main: settings?.sheds?.error || getCssVariable('--error'),
+        },
+        warning: {
+            main: settings?.sheds?.warning || getCssVariable('--warning'),
+        },
+        info: {
+            main: settings?.sheds?.info || getCssVariable('--info'),
+        },
+        success: {
+            main: settings?.sheds?.success || getCssVariable('--success'),
+        },
+        backgroundColor: {
+            default: settings?.sheds?.body || getCssVariable('--body'),
+            paper: settings?.sheds?.paper || getCssVariable('--paper'),
+        },
+        text: {
+            primary: settings?.sheds?.text || getCssVariable('--text'),
+        },
+    },
+    components: {
+        MuiAppBar: {
+            styleOverrides: {
+                colorPrimary: {
+                    backgroundColor: settings?.sheds?.header || getCssVariable('--header'),
+                    color: settings?.sheds?.headerText || getCssVariable('--headerText'),
+                },
+            },
+        },
+        MuiFooter: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.footer || getCssVariable('--footer'),
+                    color: settings?.sheds?.footerText || getCssVariable('--footerText'),
+                },
+            },
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiCardHeader: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.header || getCssVariable('--header'),
+                    color: settings?.sheds?.headerText || getCssVariable('--headerText'),
+                },
+            },
+        },
+        MuiCardContent: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiCardActions: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.link || getCssVariable('--link'),
+                },
+            },
+        },
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiTabs: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiToggleButton: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiToggleButtonGroup: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                },
+            },
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiInput: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiFormLabel: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    color: settings?.sheds?.text || getCssVariable('--text'),
+                },
+            },
+        }
+    },
+    
+
+});
 
   useEffect(() => {
     setIsLoading(true)
@@ -101,85 +263,43 @@ const App = () => {
 
   useEffect(() => {
     if (settings && settings.sheds) {
-    //   sheds: {
-    //     success: '#81C784', // Soft Green
-    //     info: '#4DD0E1', // Turquoise
-    //     warning: '#FFD54F', // Amber
-    //     error: '#E57373', // Soft Red
-    //     primary: '#66BB6A', // Green
-    //     secondary: '#26A69A', // Teal
-    //     background: '#E8F5E9', // Very Light Green
-    //     paper: '#C8E6C9', // Light Green
-    //     text: '#1B5E20', // Dark Green
-    //     header: '#A5D6A7', // Light Green
-    //     footer: '#A5D6A7', // Light Green
-    //     stripe: '#43A047', // Medium Green
-    //     headerText: '#004D40', // Dark Teal
-    //     footerText: '#004D40', // Dark Teal
-    //     stripeText: '#FFFFFF', // White
-    // },
       let s = settings.sheds;
-      if (settings.fontFamily) {
-        document.documentElement.style.setProperty('--themeFont', settings.fontFamily);
-      }
-      if (settings.fontSize) {
-        document.documentElement.style.setProperty('--themeSize', settings.fontSize);
-      }
-      if (s.background) {
-        document.documentElement.style.setProperty('--backgroundColor', s.background);
-      }
-      if (s.paper) {
-        document.documentElement.style.setProperty('--paperColor', s.paper);
-      }
-      if (s.text) {
-        document.documentElement.style.setProperty('--textColor', s.text);
-      }
-      if (s.success) {
-        document.documentElement.style.setProperty('--successColor', s.success);
-      }
-      if (s.info) {
-        document.documentElement.style.setProperty('--infoColor', s.info);
-      }
-      if (s.warning) {
-        document.documentElement.style.setProperty('--warningColor', s.warning);
-      }
-      if (s.error) {
-        document.documentElement.style.setProperty('--errorColor', s.error);
-      }
-      if (s.primary) {
-        document.documentElement.style.setProperty('--primaryColor', s.primary);
-      }
-      if (s.secondary) {
-        document.documentElement.style.setProperty('--secondaryColor', s.secondary);
-      }
-      if (s.header) {
-        document.documentElement.style.setProperty('--headerColor', s.header);
-      }
-      if (s.footer) {
-        document.documentElement.style.setProperty('--footerColor', s.footer);
-      }
-      if (s.stripe) {
-        document.documentElement.style.setProperty('--stripeColor', s.stripe);
-      }
-      if (s.headerText) {
-        document.documentElement.style.setProperty('--headerTextColor', s.headerText);
-      }
-      if (s.footerText) {
-        document.documentElement.style.setProperty('--footerTextColor', s.footerText);
-      }
-      if (s.stripeText) {
-        document.documentElement.style.setProperty('--stripeTextColor', s.stripeText);
-      }
+      console.log("🚀 ~ file: App.js:63 ~ useEffect ~ s:", s)
+      // let setP = document.documentElement.style.setProperty;
+      let setP = (variable, value) => document.documentElement.style.setProperty(variable, value);
+      if (settings.fontFamily) setP('--themeFont', settings.fontFamily);
+      if (settings.fontSize) setP('--themeSize', settings.fontSize);
+
+      if (s.body) setP('--body', s.body);
+      if (s.paper) setP('--paper', s.paper);
+      if (s.text) setP('--text', s.text);
+      if (s.link) setP('--link', s.link);
+
+      if (s.success) setP('--success', s.success);
+      if (s.info) setP('--info', s.info);
+      if (s.warning) setP('--warning', s.warning);
+      if (s.error) setP('--error', s.error);
+
+      if (s.primary) setP('--primary', s.primary);
+      if (s.primaryText) setP('--primaryText', s.primaryText);
+      if (s.secondary) setP('--secondary', s.secondary);
+      if (s.secondaryText) setP('--secondaryText', s.secondaryText);
+
+      if (s.header) setP('--header', s.header);
+      if (s.footer) setP('--footer', s.footer);
+      if (s.stripe) setP('--stripe', s.stripe);
+      if (s.headerText) setP('--headerText', s.headerText);
+      if (s.footerText) setP('--footerText', s.footerText);
+      if (s.stripeText) setP('--stripeText', s.stripeText);
 
     }
 
   }, [settings]);
 
     
-  return (<>
+  return (<ThemeProvider theme={theme}>
+        <CssBaseline />
     {isLoading && <Loader />}
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
       {/* fixed navbar at the top and footer at the bottom and flex container for main content */}
       <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
       {/* <Header /> */}
@@ -225,7 +345,7 @@ const App = () => {
       <Footer />
       </Box>
     </ThemeProvider>
-  </>
+
   )
 }
 

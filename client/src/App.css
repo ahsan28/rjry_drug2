@@ -1,88 +1,96 @@
 :root {
-  --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-  --themeSize: 1rem;
-  --backgroundColor: '#81C784';
-  --paperColor: '#4DD0E1';
-  --textColor: '#FFD54F';
-  --successColor: '#E57373';
-  --infoColor: '#66BB6A';
-  --warningColor: '#26A69A';
-  --errorColor: '#E8F5E9';
-  --primaryColor: '#C8E6C9';
-  --secondaryColor: '#1B5E20';
-  --headerColor: '#A5D6A7';
-  --footerColor: '#A5D6A7';
-  --stripeColor: '#43A047';
-  --headerTextColor: '#004D40';
-  --footerTextColor: '#004D40';
-  --stripeTextColor: '#FFFFFF';
+  --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive';
+  --themeSize: 16;
+  
+  --success: #E57373;
+  --info: #66BB6A;
+  --warning: #26A69A;
+  --error: #E8F5E9;
+
+  --body: #81C784;
+  --paper: #4DD0E1;
+  --text: #FFD54F;
+  --link: #FFEE58;
+
+  --primary: #C8E6C9;
+  --primaryText: #004D40;
+  --secondary: #1B5E20;
+  --secondaryText: #FFFFFF;
+
+  --header: #A5D6A7;
+  --headerText: #004D40;
+  --footer: #A5D6A7;
+  --footerText: #004D40;
+  --stripe: #43A047;
+  --stripeText: #FFFFFF;
 }
+
 body {
   font-family: var(--themeFont) !important;
-  color: var(--textColor) !important;
-  background-color: var(--backgroundColor) !important;
+  color: var(--text) !important;
+  background-color: var(--body) !important;
   font-size: var(--themeSize) !important;
 }
 
 header, footer, nav {
   font-family: var(--themeFont) !important;
-  color: var(--headerTextColor) !important;
-  background-color: var(--headerColor) !important;
+  color: var(--headerText) !important;
+  background-color: var(--header) !important;
   font-size: var(--themeSize) !important;
   height: fit-content !important;
 }
 .themeColor {
-  color: var(--headerColor) !important;
+  color: var(--header) !important;
 }
 .themeColor:hover {
-  color: var(--headerColor) !important;
+  color: var(--header) !important;
 }
 .themeBg {
-  background-color: var(--headerColor) !important;
+  background-color: var(--header) !important;
 }
 .themeBg:hover {
-  background-color: var(--headerColor) !important;
+  background-color: var(--header) !important;
 }
 .themeFont {
   font-family: var(--themeFont) !important;
 }
 .themeCBFS {
-  color: var(--headerTextColor) !important;
-  background-color: var(--headerColor) !important;
+  color: var(--headerText) !important;
+  background-color: var(--header) !important;
   font-family: var(--themeFont) !important;
   font-size: var(--themeSize) !important;
 }
 .themeCBF {
-  color: var(--headerTextColor) !important;
-  background-color: var(--headerColor) !important;
+  color: var(--headerText) !important;
+  background-color: var(--header) !important;
   font-family: var(--themeFont) !important;
 }
 .theme {
-  color: var(--headerTextColor) !important;
+  color: var(--headerText) !important;
   font-family: var(--themeFont) !important;
 }
 
 .bodyTheme {
-  color: var(--themeFontColor) !important;
-  background-color: var(--bodyBgColor) !important;
+  color: var(--themeFont) !important;
+  background-color: var(--bodyBg) !important;
   font-family: var(--themeFont) !important;
   font-size: var(--bodySize) !important;
 }
 
 .stripTheme {
-  color: var(--stripFontColor) !important;
-  background-color: var(--stripBgColor) !important;
+  color: var(--stripFont) !important;
+  background-color: var(--stripBg) !important;
   font-family: var(--stripFont) !important;
   font-size: var(--stripSize) !important;
 }
 
 main a {
   text-decoration: none;
-  color: var(--themeFontColor) !important;
+  /* color: var(--themeFont) !important; */
 }
 
 main button {
-  color: var(--themeFontColor) !important;
+  /* color: var(--themeFont) !important; */
 }
 
 /* add a 3d effect on hover to the loaders */
@@ -179,19 +187,28 @@ main button {
   text-align: center;
 }
 .MuiPaper-root {
-  background-color: var(--bodyBgColor) !important;
-  color: var(--themeFontColor) !important;
+  background-color: var(--paper) !important;
+  color: var(--text) !important;
   z-index: 100;
 }
+
+.MuiTabs-root .MuiTab-root {
+  color: var(--text);
+}
+
+.MuiTabs-root .MuiTab-root.Mui-selected {
+  color: var(--text);
+}
+
 
 nav .MuiBox-root button {
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--headerTextColor) !important;
+  color: var(--headerText) !important;
   font-size: var(--themeSize) !important;
   text-shadow: 0px 0px 2px #000;
   -webkit-text-stroke: 0.2px #fff;
-  -webkit-text-fill-color: var(--headerTextColor);
+  -webkit-text-fill-color: var(--headerText);
 }
 nav.MuiPaper-root:hover button {
   text-shadow: none !important;
@@ -201,12 +218,12 @@ nav.MuiPaper-root:hover button {
 
 nav.MuiPaper-root {
   background-color: transparent !important;
-  color: var(--headerTextColor) !important;
+  color: var(--headerText) !important;
   box-shadow: none !important;
   transition: all 0.2s ease-in-out;
 }
 nav.MuiPaper-root:hover {
-  background-color: var(--headerColor) !important;
+  background-color: var(--header) !important;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12) !important;
 }
 
@@ -281,8 +298,8 @@ body {
 }
 
 .nav {
-  background-color: var(--headerColor);
-  color: var(--headerTextColor);
+  background-color: var(--header);
+  color: var(--headerText);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -335,8 +352,8 @@ body {
 }
 
 .MuiBottomNavigation-root {
-  background-color: var(--headerColor);
-  color: var(--headerTextColor);
+  background-color: var(--footer);
+  color: var(--footerText);
   font-size: var(--themeSize);
   font-family: var(--themeFont);
   /* padding: 1rem; */
@@ -403,12 +420,12 @@ body {
 }
 
 .MuiBottomNavigation-root .icon {
-  color: var(--headerTextColor);
+  color: var(--footerText);
 }
 
 .MuiBottomNavigation-root .button {
-  background-color: var(--headerColor);
-  color: var(--headerTextColor);
+  background-color: var(--footer);
+  color: var(--footerText);
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 50px;
@@ -416,7 +433,7 @@ body {
 }
 
 .MuiBottomNavigation-root a {
-  color: var(--headerTextColor);
+  color: var(--footerText);
   text-decoration: none;
 }
 

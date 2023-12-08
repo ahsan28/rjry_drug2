@@ -38,11 +38,17 @@ const thm = [
             info: '#2196F3', // Blue - OK as is
             warning: '#FFC107', // Lighter amber for better contrast
             error: '#F44336', // Red - OK as is
+
             primary: '#3F51B5', // Indigo - OK as is
             secondary: '#9C27B0', // Purple - OK as is
-            background: '#FFFFFF', // Pure white for better contrast
+            primaryText: '#FFFFFF', // White for contrast with primary
+            secondaryText: '#FAFAFA', // Off-white for contrast with secondary
+            
+            body: '#FFFFFF', // Pure white for better contrast
             paper: '#F5F5F5', // Lighter grey to differentiate from background
             text: '#212121', // Darker grey for better readability
+            link: '#1E88E5', // Bright blue for links
+
             header: '#E8E8E8', // Slightly lighter than footer for distinction
             footer: '#DEDEDE', // Slightly darker to define footer area
             stripe: '#8FBC8F', // A softer green for Dark Sea Green
@@ -58,11 +64,17 @@ const thm = [
             info: '#2196F3', // Bright blue
             warning: '#FFC107', // Bright amber
             error: '#F44336', // Bright red
+
             primary: '#90CAF9', // Light blue for primary elements
             secondary: '#CE93D8', // Soft purple for secondary elements
-            background: '#212121', // Dark grey
+            primaryText: '#000000', // Black for contrast with primary
+            secondaryText: '#000000', // Black for contrast with secondary
+            
+            body: '#212121', // Dark grey
             paper: '#424242', // Slightly lighter grey for paper elements
             text: '#E0E0E0', // Light grey for text
+            link: '#BBDEFB', // Light blue for links
+
             header: '#333333', // Very dark grey for header
             footer: '#333333', // Same as header
             stripe: '#6A1B9A', // Deep purple
@@ -78,11 +90,17 @@ const thm = [
             info: '#64B5F6', // Light blue
             warning: '#FFD54F', // Soft yellow
             error: '#E57373', // Soft red
+
             primary: '#0D47A1', // Classic blue
             secondary: '#FF8A65', // Coral for contrast
-            background: '#E3F2FD', // Very light blue
+            primaryText: '#FFFFFF', /* White for contrast */
+            secondaryText: '#000000', /* Black for contrast */
+            
+            body: '#E3F2FD', // Very light blue
             paper: '#BBDEFB', // Lighter blue
             text: '#1A237E', // Dark blue for text
+            link: '#FFC107', /* Amber for links */
+
             header: '#0D47A1', // Classic blue for header
             footer: '#0D47A1', // Same as header
             stripe: '#5C6BC0', // Moderate blue
@@ -98,11 +116,17 @@ const thm = [
             info: '#81D4FA', // Baby blue
             warning: '#FFE082', // Light amber
             error: '#EF9A9A', // Soft red
+
             primary: '#4FC3F7', // Lighter blue
             secondary: '#F48FB1', // Pink for secondary
-            background: '#E1F5FE', // Very light blue
+            primaryText: '#000000', /* Black for contrast */
+            secondaryText: '#FFFFFF', /* White for contrast */
+            
+            body: '#E1F5FE', // Very light blue
             paper: '#B3E5FC', // Lighter blue
             text: '#0277BD', // Dark blue for text
+            link: '#FF7043', /* Deep orange for links */
+
             header: '#29B6F6', // Light blue for header
             footer: '#29B6F6', // Same as header
             stripe: '#4DD0E1', // Cyan
@@ -118,11 +142,17 @@ const thm = [
             info: '#4DD0E1', // Turquoise
             warning: '#FFD54F', // Amber
             error: '#E57373', // Soft Red
+
             primary: '#66BB6A', // Green
             secondary: '#26A69A', // Teal
-            background: '#E8F5E9', // Very Light Green
+            primaryText: '#FFFFFF', /* White for contrast */
+            secondaryText: '#000000', /* Black for contrast */
+            
+            body: '#E8F5E9', // Very Light Green
             paper: '#C8E6C9', // Light Green
             text: '#1B5E20', // Dark Green
+            link: '#FFEB3B', /* Yellow for links */
+
             header: '#A5D6A7', // Light Green
             footer: '#A5D6A7', // Light Green
             stripe: '#43A047', // Medium Green
@@ -138,11 +168,17 @@ const thm = [
             info: '#4FC3F7', // Light Blue
             warning: '#FFB74D', // Light Orange
             error: '#FF8A65', // Soft Red
+
             primary: '#FFA726', // Orange
             secondary: '#FF7043', // Deep Orange
-            background: '#FFF3E0', // Light Orange White
+            primaryText: '#000000', /* Black for contrast */
+            secondaryText: '#FFFFFF', /* White for contrast */
+            
+            body: '#FFF3E0', // Light Orange White
             paper: '#FFE0B2', // Soft Orange
             text: '#E65100', // Dark Orange
+            link: '#4CAF50', /* Green for links */
+
             header: '#FFCCBC', // Light Orange
             footer: '#FFCCBC', // Light Orange
             stripe: '#FB8C00', // Vivid Orange
@@ -158,11 +194,17 @@ const thm = [
             info: '#64B5F6', // Light Blue
             warning: '#FFD54F', // Amber
             error: '#E57373', // Light Red
+
             primary: '#9575CD', // Medium Purple
             secondary: '#F06292', // Pink
-            background: '#F3E5F5', // Lavender
+            primaryText: '#FFFFFF', /* White for contrast */
+            secondaryText: '#000000', /* Black for contrast */
+            
+            body: '#F3E5F5', // Lavender
             paper: '#EDE7F6', // Lighter Lavender
             text: '#5E35B1', // Dark Purple
+            link: '#FFEB3B', /* Yellow for links */
+
             header: '#D1C4E9', // Soft Purple
             footer: '#D1C4E9', // Soft Purple
             stripe: '#BA68C8', // Purple
@@ -315,7 +357,7 @@ const SettingsForm = () => {
                                 Title
                             </Typography>
                         </Box>
-                        <Box sx={{width: '100%', minHeight: 150, backgroundColor: t.sheds.background }}>
+                        <Box sx={{width: '100%', minHeight: 150, backgroundColor: t.sheds.body }}>
                             <Typography sx={{textAlign: 'center', lineHeight: '50px', px:2, color: t.sheds.text }}>
                                 {/* Body color and text color, size, background etc. goes here. */}
                                 The body text example of the theme
