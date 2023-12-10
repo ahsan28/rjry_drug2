@@ -38,7 +38,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { createTheme, css } from '@mui/material/styles';
 
-const getCssVariable = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
+const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
 
 // console.log("🚀 ~ file: App.js:37 ~ theme:", theme)
 
@@ -53,191 +53,211 @@ const App = () => {
 
   const theme = createTheme({
     typography: {
-        fontFamily: settings?.sheds?.themeFont || getCssVariable('--themeFont'),
-        fontSize: parseFloat(settings?.sheds?.themeSize || getCssVariable('--themeSize')),
+        fontFamily: settings?.sheds?.themeFont || getCss('--themeFont'),
+        fontSize: parseFloat(settings?.sheds?.themeSize || getCss('--themeSize')),
     },
     palette: {
         primary: {
-            main: settings?.sheds?.primary || getCssVariable('--primary'),
+            main: settings?.sheds?.primary || getCss('--primary'),
         },
         secondary: {
-            main: settings?.sheds?.secondary || getCssVariable('--secondary'),
+            main: settings?.sheds?.secondary || getCss('--secondary'),
         },
         error: {
-            main: settings?.sheds?.error || getCssVariable('--error'),
+            main: settings?.sheds?.error || getCss('--error'),
         },
         warning: {
-            main: settings?.sheds?.warning || getCssVariable('--warning'),
+            main: settings?.sheds?.warning || getCss('--warning'),
         },
         info: {
-            main: settings?.sheds?.info || getCssVariable('--info'),
+            main: settings?.sheds?.info || getCss('--info'),
         },
         success: {
-            main: settings?.sheds?.success || getCssVariable('--success'),
+            main: settings?.sheds?.success || getCss('--success'),
         },
         backgroundColor: {
-            default: settings?.sheds?.body || getCssVariable('--body'),
-            paper: settings?.sheds?.paper || getCssVariable('--paper'),
+            default: settings?.sheds?.body || getCss('--body'),
+            paper: settings?.sheds?.paper || getCss('--paper'),
         },
         text: {
-            primary: settings?.sheds?.text || getCssVariable('--text'),
+            primary: settings?.sheds?.text || getCss('--text'),
         },
     },
     components: {
         MuiAppBar: {
             styleOverrides: {
                 colorPrimary: {
-                    backgroundColor: settings?.sheds?.header || getCssVariable('--header'),
-                    color: settings?.sheds?.headerText || getCssVariable('--headerText'),
+                    backgroundColor: settings?.sheds?.header || getCss('--header'),
+                    color: settings?.sheds?.headerText || getCss('--headerText'),
                 },
             },
         },
         MuiFooter: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.footer || getCssVariable('--footer'),
-                    color: settings?.sheds?.footerText || getCssVariable('--footerText'),
+                    backgroundColor: settings?.sheds?.footer || getCss('--footer'),
+                    color: settings?.sheds?.footerText || getCss('--footerText'),
                 },
             },
         },
         MuiButton: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiCardHeader: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.header || getCssVariable('--header'),
-                    color: settings?.sheds?.headerText || getCssVariable('--headerText'),
+                    backgroundColor: settings?.sheds?.header || getCss('--header'),
+                    color: settings?.sheds?.headerText || getCss('--headerText'),
                 },
             },
         },
         MuiCardContent: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiCardActions: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiDivider: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.text || getCssVariable('--text'),
+                    backgroundColor: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiLink: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.link || getCssVariable('--link'),
+                    color: settings?.sheds?.link || getCss('--link'),
                 },
             },
         },
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
-        MuiTabs: {
+        MuiTabs: { // for selected and hover
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
+                indicator: {
+                    backgroundColor: settings?.sheds?.headerText || getCss('--text'),
+                },
+
             },
         },
         MuiTab: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
+                    transition: '0.4s',
                 },
+                textColorPrimary: {
+                    color: settings?.sheds?.text || getCss('--text'),
+                },
+                textColorSecondary: {
+                    color: settings?.sheds?.text || getCss('--text'),
+                },
+                selected: {
+                    color: settings?.sheds?.text || getCss('--text'),
+                    borderRadius: '16px 16px 0 0',
+                    border: `1px solid ${settings?.sheds?.headerText || getCss('--text')}`,
+                },
+                wrapper: {
+                    color: settings?.sheds?.text || getCss('--text'),
+                },
+
             },
         },
         MuiToggleButton: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiToggleButtonGroup: {
             styleOverrides: {
                 root: {
-                    backgroundColor: settings?.sheds?.paper || getCssVariable('--paper'),
+                    backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
             },
         },
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiButtonBase: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiInputBase: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiInput: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiFormLabel: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         },
         MuiFormControl: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCssVariable('--text'),
+                    color: settings?.sheds?.text || getCss('--text'),
                 },
             },
         }

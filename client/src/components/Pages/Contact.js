@@ -82,7 +82,7 @@ const Contact = ({setShowAnimation}) => {
     </Box>
     <Container sx={{ mt: 2, gap: 1, position: 'relative', mb:3}}>
     {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
-        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={() => setOpen(true)}>
+        <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }} onClick={() => setOpen(true)}>
           Edit</Button>
       </Box>}
     <Container maxWidth="sm">

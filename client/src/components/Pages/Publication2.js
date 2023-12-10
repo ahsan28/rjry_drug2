@@ -145,11 +145,8 @@ const Publication = () => {
               // centered 
               variant="scrollable"
             scrollButtons="auto"
-              sx={{ 
-                '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
-                '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'black' },
-              }}
-              TabIndicatorProps={{style: {background:'orange'}}}
+              
+              
               // textColor="secondary"
               // variant="fullWidth"
               // orientation="vertical"
@@ -161,7 +158,7 @@ const Publication = () => {
             </TabList>
           </Box>
           {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2, mt:2 }}>
-            <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+            <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ width: "5rem", transform: "translateX(5rem)" }}>
               +</Button>
           </Box>}
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 1, my: 2 }}>

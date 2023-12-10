@@ -15,6 +15,7 @@ import ViewImage from "../Hooks/ViewImage";
 import { UserContext } from "../../UserContext";
 import Loader from "../Pages/Loader";
 import ComponentLoader from '../Pages/ComponentLoader';
+const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
 
 
 const useStyles = makeStyles((theme) => ({
@@ -81,6 +82,8 @@ const ActivityList = ({ activities, onItemClick, selectedActivity }) => {
 )};
 
 const ActivityDetail = ({ activity, cLoading, setCLoading }) => {
+  const { user, setUser, settings, setSettings, isLoading, setIsLoading } = useContext(UserContext);
+
   console.log("🚀 ~ file: Activity2.js:84 ~ ActivityDetail ~ cLoading:", cLoading)
   useEffect(() => {
     console.log("🚀 ~ updated: Activity", activity)
@@ -93,7 +96,7 @@ const ActivityDetail = ({ activity, cLoading, setCLoading }) => {
       <Divider sx={{ my: 1, borderColor: 'transparent' }} />
     </Typography>
 
-    <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', mb: 1, fontStyle: 'italic', color: '#007aff' }}>
+    <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', mb: 1, fontStyle: 'italic', color: (settings.sheds.headerText || getCss('--theme-blue'))}}>
       Description
     </Typography>
     <Typography variant="body1" sx={{ mb: 2, whiteSpace: 'pre-line', textAlign: 'justify' }}>
@@ -157,11 +160,8 @@ const Activity = () => {
               variant="scrollable"
             scrollButtons="auto"
               selectionFollowsFocus={true}
-              sx={{ 
-                '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
-                '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'black' },
-              }}
-              TabIndicatorProps={{style: {background:'orange'}}}
+              
+              
               >
               <Tab label={"mesyuarat"} value="mesyuarat" />
               <Tab label={"bengkel"} value="bengkel" />
@@ -171,7 +171,7 @@ const Activity = () => {
             </TabList>
           </Box>
           {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2 }}>
-        <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
+        <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
           setFormHelper({open: true, category: "activity", id: "new", infoType: tab});
           } }>
           +

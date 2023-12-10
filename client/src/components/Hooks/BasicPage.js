@@ -19,7 +19,7 @@ const BasicPage = ({ data, cover, page }) => {
     </Box>
     <Container sx={{py:2, position: "relative"}}>
       {user && <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 1, m: 2 }}>
-        <Button variant="contained" component={Link} to={`/form/${page}`} sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}>
+        <Button variant="contained" component={Link} to={`/form/${page}`} sx={{ width: "5rem", transform: "translateX(5rem)" }}>
           Edit</Button>
       </Box>}
 

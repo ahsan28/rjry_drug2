@@ -164,7 +164,7 @@ const Publications = () => {
     <Container elevation={0} sx={{ mt: 2, gap: 1, position: 'relative', mb:3 }}>
       {/* edit button */}
       {user && <Box sx={{ position: "absolute", pt: 1, right: 0, zIndex: 1, mx: 2 }}>
-          <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
+          <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }}
           onClick={()=>{
             setFormHelper({open: true, type: pubType, id: 'new'});
             }}>

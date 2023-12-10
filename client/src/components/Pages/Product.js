@@ -142,7 +142,7 @@ const Product = () => {
               '& .MuiTab-root': { fontSize: '1rem', transition: '0.4s' }, 
               '& .Mui-selected': { borderRadius: '16px 16px 0 0', border: '1px solid orange', color: 'black' },
             }}
-            TabIndicatorProps={{style: {background:'orange'}}}
+            
             // textColor="secondary"
             // variant="fullWidth"
             // orientation="vertical"
@@ -153,7 +153,7 @@ const Product = () => {
           </TabList>
         </Box>
         {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, m: 2 }}>
-          <Button variant="contained" sx={{ bgcolor: "orange", color: "white", width: "5rem", transform: "translateX(5rem)" }}
+          <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }}
             onClick={()=>{ setFormHelper({open: true, infoType: tab, id: "new"}) }}>
             +</Button>
         </Box>}
