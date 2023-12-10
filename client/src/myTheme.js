@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, css } from '@mui/material/styles';
 const getCssVariable = (variable) => 
     getComputedStyle(document.documentElement).getPropertyValue(variable);
 
@@ -20,6 +20,8 @@ console.log('--header: ',getCssVariable('--header'));
 console.log('--footer: ',getCssVariable('--footer'));
 console.log('--headerText: ',getCssVariable('--headerText'));
 console.log('--footerText: ',getCssVariable('--footerText'));
+
+// egula initial and fixed taken from css variables
 
 const theme = createTheme({
     typography: {

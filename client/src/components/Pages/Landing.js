@@ -176,9 +176,9 @@ const Landing = () => {
                     sx={{ objectFit: 'contain', height: '160px'}}
                   />
                   {/* transparent content background : mouse hober to change background color */ }
-                  <CardContent sx={{ flexGrow: 1, color:'transparent', bgcolor: 'transparent', position: 'absolute', bottom: 0, left: 0, right: 0, top:0, transition: '0.3s ease', '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' , color: 'black' } }}>
+                  <CardContent className="sponsor" >
                     {/* name with mui link */}
-                    <Typography gutterBottom >
+                    <Typography gutterBottom sx={{ color: 'transparent', transition: '0.3s ease' }} align="center">
                         {sponsor.name}
                       {/* <Box href={sponsor.link} target="_blank" rel="noreferrer" component="a" sx={{ textDecoration: 'none', color: 'gray', transition: '0.3s ease', '&:hover': { color: 'DarkSlateGray' }, cursor: 'pointer' }}>
                       </Box> */}

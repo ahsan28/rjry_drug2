@@ -292,6 +292,26 @@ body {
   margin: 0;
 }
 
+/* sx={{ flexGrow: 1, bgcolor: 'transparent', position: 'absolute', bottom: 0, left: 0, right: 0, top:0, transition: '0.3s ease', '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)', */
+.sponsor {
+  flex-grow: 1;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: 0.3s ease;
+  opacity: 0;
+}
+.sponsor:hover {
+  background-color: var(--footer);
+  opacity: 0.9;
+}
+.sponsor:hover .MuiTypography-root{
+  color: var(--footerText);
+}
+
 .container {
   margin: 1rem;
   text-align: center;
