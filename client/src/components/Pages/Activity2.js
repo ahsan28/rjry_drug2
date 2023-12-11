@@ -171,8 +171,9 @@ const Activity = () => {
             </TabList>
           </Box>
           {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2 }}>
-        <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }} onClick={()=>{
-          setFormHelper({open: true, category: "activity", id: "new", infoType: tab});
+        <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }} 
+          onClick={()=>{
+            setFormHelper({open: true, category: "activity", id: "new", infoType: tab});
           } }>
           +
         </Button>

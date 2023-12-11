@@ -4,7 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import ActivityService from "../../services/activity.services";
 
-const ActivityForm = ({ formHelper, setFormHelper }) => {
+const ActivityForm = (props) => {
+  const { formHelper, setFormHelper } = props;
   const { user, setUser, setIsLoading } = useContext(UserContext);
   // let { infoType } = useParams();
   // console.log("🚀 ~ file: ActivityForm.js:10 ~ ActivityForm ~ infoType:", infoType)

@@ -158,7 +158,11 @@ const Publication = () => {
             </TabList>
           </Box>
           {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, mx: 2, mt:2 }}>
-            <Button variant="contained" component={Link} to={`/activity_form/${tab}`} sx={{ width: "5rem", transform: "translateX(5rem)" }}>
+            <Button variant="contained" 
+            // component={Link} 
+            onClick={() => setFormHelper({open: true, infoType: tab, id: "new"})}
+            // to={`/activity/${tab}`}
+             sx={{ width: "5rem", transform: "translateX(5rem)" }}>
               +</Button>
           </Box>}
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 1, my: 2 }}>

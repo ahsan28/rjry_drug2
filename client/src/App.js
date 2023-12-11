@@ -342,11 +342,11 @@ const App = () => {
               <Route path="/research" element={<Research />} />
               <Route path="/product" element={<Product />} />
               <Route path="/publication" element={<Publication2 />} />
-              <Route path="/publications/:pubType" element={<Publications />} />
-              <Route path="/publication_form/:pubId" element={<Publications />} />
+              {/* <Route path="/publications/:pubType" element={<Publications />} /> */}
+              {/* <Route path="/publication_form/:pubId" element={<Publications />} /> */}
               <Route path="/activity" element={<Activity2 />} />
-              <Route path="/activity/:actType" element={<Activities />} />
-              <Route path="/activity_form/:actId" element={<ActivityForm />} />
+              {/* <Route path="/activity/:actType" element={<Activities />} /> */}
+              {/* <Route path="/activity_form/:actId" element={<ActivityForm />} /> */}
               <Route path="/certifications" element={<Certifications />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact setShowAnimation={setShowAnimation} />} />
