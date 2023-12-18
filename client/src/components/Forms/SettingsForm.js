@@ -603,7 +603,7 @@ const SettingsForm = () => {
                     Upload Image Files
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <Paper sx={{ p: 2, width: '100%' }} elevation={1}>
+                {/* <Paper sx={{ p: 2, width: '100%' }} elevation={1}>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
                     {covers.map((image, index) => (
                     <Card sx={{ maxWidth: 100, mb:2 }} key={image}>
@@ -648,7 +648,7 @@ const SettingsForm = () => {
                         {covers.length > 0 ? "Add More Images" : "Add Images"}
                     </Button>
                 </label>
-            </Paper>
+            </Paper> */}
 
 
 
@@ -698,7 +698,7 @@ const SettingsForm = () => {
             </Paper>
 
 
-            <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
+            {/* <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
                 {footer && <Card sx={{ maxWidth: 100, mb:2 }}>  
                     <CardMedia
                         component="img"
@@ -740,10 +740,10 @@ const SettingsForm = () => {
                     </Button>
                 </label>
 
-            </Paper>
+            </Paper> */}
             </Box>
-            <Divider sx={{ my: 2 }} />
             <Button variant="contained" onClick={()=>save(data)}>Upload and Save</Button>
+            {/* <Divider sx={{ my: 2 }} /> */}
         </Box>
     </Box>
   </Container>

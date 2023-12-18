@@ -17,6 +17,16 @@ import MediaService from "../../services/media.services";
 import { UserContext } from "../../UserContext";
 import ProductForm from "../Forms/ProductForm";
 
+function isYouTubeVideoLink(url) {
+  var youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/)?[a-zA-Z0-9_-]+$/;
+  return youtubeRegex.test(url);
+}
+
+function isGoogleDriveLink(url) {
+  var driveRegex = /^(https?:\/\/)?(www\.)?(drive\.google\.com)\/(file\/d\/|open\?id=)?[a-zA-Z0-9_-]+$/;
+  return driveRegex.test(url);
+}
+
 function getYouTubeId(url) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
@@ -36,11 +46,11 @@ function getGoogleDriveId(url) {
 }
 
 function getEmbedUrl(url) {
-  if (url.includes('youtube')) {
+  if (isYouTubeVideoLink(url)) {
     let id = getYouTubeId(url);
     return `https://www.youtube.com/embed/${id}`;
   }
-  else if (url.includes('drive')) {
+  else if (isGoogleDriveLink(url)) {
     let id = getGoogleDriveId(url);
     let ID = id.split('/')[0]
     return `https://drive.google.com/file/d/${ID}/preview`
@@ -49,11 +59,11 @@ function getEmbedUrl(url) {
 }
 
 function getThumpnail(url) {
-  if (url.includes('youtube')) {
+  if (isYouTubeVideoLink(url)) {
     let id = getYouTubeId(url);
     return `https://img.youtube.com/vi/${id}/default.jpg`;
   }
-  else if (url.includes('drive')) {
+  else if (isGoogleDriveLink(url)) {
     let id = getGoogleDriveId(url);
     let ID = id.split('/')[0]
     // return `https://drive.google.com/uc?export=view&id=${ID}`
@@ -67,31 +77,48 @@ const Product = () => {
   const [data, setData] = useState([]); // files
   const [data2, setData2] = useState([]); // links
   const [tab, setTab] = useState('Kerangka');
+  console.log("🚀 ~ file: Product.js:80 ~ Product ~ tab:-"+tab+"-")
   const [editHelper, setEditHelper] = useState({open: false, infoId: null, fileId: null, name: ''});
   const [formHelper, setFormHelper] = useState({open: false, infoType: tab, id: "new"});
   const [previewHelper, setPreviewHelper] = useState({open: false, info: {}});
+  const [allData, setAllData] = useState([]);
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
+    reloadTab(allData, newValue)
   };
 
   useEffect(() => {
     reload()
-  }, [tab]);
+  }, []);
+  
+  useEffect(() => {
+    if (!editHelper.open) reload()
+  }, [editHelper.open]);
+
+  useEffect(() => {
+    if (!formHelper.open) reload()
+  }, [formHelper.open]);
+
 
 
   const reload = () => {
     setIsLoading(true)
     InfoService.readAll("product")
       .then((res) => {
-        let tabData = res.data.filter((doc) => doc.infoType === tab);
-        setData(tabData.flatMap((doc) => doc.files));
-        setData2(tabData.filter(info=> info.link))
+        setAllData(res.data)
+        reloadTab(res.data, tab)
         setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  const reloadTab = (data=allData,t=tab) => {
+    data = data.filter(_=>_.infoType===t)
+    setData(data.flatMap(_ => _.files));
+    setData2(data.filter(_=> _.link))
   }
 
   const downloadFile = (fileId) => {
@@ -111,7 +138,7 @@ const Product = () => {
 
   const linkHandler = (doc) => {
     
-    if(doc.link?.includes('youtube')||doc.link?.includes('drive')) {
+    if(isYouTubeVideoLink(doc.link)||isGoogleDriveLink(doc.link)) {
       setIsLoading(true);
       setPreviewHelper({open: true, info: doc})
       return
@@ -152,113 +179,113 @@ const Product = () => {
             <Tab label={"Modul Digital"} title={"Modul Digital Sekolah Bebas Dadah"} value="Modul Digital" />
           </TabList>
         </Box>
-        {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, m: 2 }}>
-          <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }}
-            onClick={()=>{ setFormHelper({open: true, infoType: tab, id: "new"}) }}>
-            +</Button>
-        </Box>}
-        {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
-        <List sx={{ width: '100%' }}>
-          {data.length>0 && data.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }}>
-          <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
-              <ListItem
-              key={index} 
-              secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                <IconButton edge="end" aria-label="download" onClick={()=>{downloadFile(doc._id)}}>
-                  <DownloadIcon />
-                </IconButton>
-                {user && <>
-                  <IconButton edge="end" aria-label="edit" onClick={()=>{setEditHelper({open: true, infoId: doc.infoId, fileId: doc._id, name: doc.originalname })}}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={()=>{
-                    if (window.confirm("Are you sure you want to delete this file?"))
-                      InfoService.removeFile(doc._id)
-                        .then((res) => {
-                          setData(data.filter((item) => item._id !== doc._id));
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        });
-                  }}>
-                    <DeleteIcon />
-                  </IconButton>
-                </>}
-              </Box>
-              }>
-                <ListItemAvatar>
-                  <Avatar>
-                    <InsertDriveFileIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText 
-                  primary={doc.originalname.split('.')[0]}
-                  secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography variant="body2" sx={{ color: "grey.500" }}>
-                    {doc.originalname.split('.').pop().toUpperCase()}, {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)}KB` : `${(doc.size/1000000).toFixed(2)}MB`}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: "grey.500" }}>
-                      {new Date(doc.createdAt).toLocaleDateString()}
-                    </Typography>
-                  </Box>}
-                />
-              </ListItem>
-          </CardContent>
-          </Card>
-          ))}
-          {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
-          <CardContent sx={{ p:'0 8px 0 0 !important' }}>
-              <ListItem sx={{pl:0}} key={index} 
-                secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                <IconButton edge="end" aria-label="download" onClick={()=>linkHandler(doc)}>
-                  <VisibilityIcon />
-                </IconButton>
-                {user && <>
-                  <IconButton edge="end" aria-label="edit" onClick={()=>{setFormHelper({open: true, infoType: tab, id: doc._id})}}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={()=>{
-                    if (window.confirm("Are you sure you want to delete this link?"))
-                      InfoService.update({_id: doc._id, link: null})
-                        .then((res) => {
-                          setData2(data2.filter((item) => item._id !== doc._id));
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        });
-                  }}>
-                    <DeleteIcon />
-                  </IconButton>
-                </>}
-              </Box>
-              }>
-                <ListItemAvatar sx={{pl:0, my:-1, cursor:"pointer", borderRadius: "4px"}}
-                  onClick={()=>linkHandler(doc)}>
-                  <Image src={getThumpnail(doc.link)} alt={doc.title} width={163} height={92} />
-                  {/* <Avatar>
-                  </Avatar> */}
-                </ListItemAvatar>
-                <ListItemText sx={{cursor:"pointer", pl:2}} onClick={()=>linkHandler(doc)}
-                  primary={doc.title}
-                  secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography variant="body2" sx={{ color: "grey.500" }}> 
-                      {doc.link.includes('youtube') ? 'Youtube' : 'Google Drive'} link
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: "grey.500" }}>
-                      {new Date(doc.createdAt).toLocaleDateString()}
-                    </Typography>
-                  </Box>}
-                />
-              </ListItem>
-          </CardContent>
-          </Card>
-          ))}
-          {(data.length===0 && data2.length===0) && <Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
-            <Typography variant="h6" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
-              {"Tiada dokumen"}
-            </Typography>
+          {user && <Box sx={{ position: "absolute", right: 0, zIndex: 1, m: 2 }}>
+            <Button variant="contained" sx={{ width: "5rem", transform: "translateX(5rem)" }}
+              onClick={()=>{ setFormHelper({open: true, infoType: tab, id: "new"}) }}>
+              +</Button>
           </Box>}
-        </List>
+          {/* show file name and size in KB if it is less than 1MB otherwise show size in MB */}
+          <List sx={{ width: '100%' }}>
+            {data.length>0 && data.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }}>
+            <CardContent sx={{ py:'0 !important', px: '8px !important' }}>
+                <ListItem
+                key={`${doc._id}-item`}
+                secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                  <IconButton edge="end" aria-label="download" onClick={()=>{downloadFile(doc._id)}}>
+                    <DownloadIcon />
+                  </IconButton>
+                  {user && <>
+                    <IconButton edge="end" aria-label="edit" onClick={()=>{setEditHelper({open: true, infoId: doc.infoId, fileId: doc._id, name: doc.originalname })}}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton edge="end" aria-label="delete" onClick={()=>{
+                      if (window.confirm("Are you sure you want to delete this file?"))
+                        InfoService.removeFile(doc._id)
+                          .then((res) => {
+                            setData(data.filter((item) => item._id !== doc._id));
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                    }}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </>}
+                </Box>
+                }>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <InsertDriveFileIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText 
+                    primary={doc.originalname.split('.')[0]}
+                    secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Typography variant="body2" sx={{ color: "grey.500" }}>
+                      {doc.originalname.split('.').pop().toUpperCase()}, {doc.size < 1000000 ? `${(doc.size/1000).toFixed(2)}KB` : `${(doc.size/1000000).toFixed(2)}MB`}
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "grey.500" }}>
+                        {new Date(doc.createdAt).toLocaleDateString()}
+                      </Typography>
+                    </Box>}
+                  />
+                </ListItem>
+            </CardContent>
+            </Card>
+            ))}
+            {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
+            <CardContent sx={{ p:'0 8px 0 0 !important' }}>
+                <ListItem sx={{pl:0}} key={index} 
+                  secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                  <IconButton edge="end" aria-label="download" onClick={()=>linkHandler(doc)}>
+                    <VisibilityIcon />
+                  </IconButton>
+                  {user && <>
+                    <IconButton edge="end" aria-label="edit" onClick={()=>{setFormHelper({open: true, infoType: tab, id: doc._id})}}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton edge="end" aria-label="delete" onClick={()=>{
+                      if (window.confirm("Are you sure you want to delete this link?"))
+                        InfoService.update({_id: doc._id, link: null})
+                          .then((res) => {
+                            setData2(data2.filter((item) => item._id !== doc._id));
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                    }}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </>}
+                </Box>
+                }>
+                  <ListItemAvatar sx={{pl:0, my:-1, cursor:"pointer", borderRadius: "4px"}}
+                    onClick={()=>linkHandler(doc)}>
+                    <Image src={getThumpnail(doc.link)} alt={doc.title} width={163} height={92} />
+                    {/* <Avatar>
+                    </Avatar> */}
+                  </ListItemAvatar>
+                  <ListItemText sx={{cursor:"pointer", pl:2}} onClick={()=>linkHandler(doc)}
+                    primary={doc.title}
+                    secondary={<Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Typography variant="body2" sx={{ color: "grey.500" }}> 
+                        {isYouTubeVideoLink(doc.link) ? 'Youtube' : 'Google Drive'} link
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "grey.500" }}>
+                        {new Date(doc.createdAt).toLocaleDateString()}
+                      </Typography>
+                    </Box>}
+                  />
+                </ListItem>
+            </CardContent>
+            </Card>
+            ))}
+            {(data.length===0 && data2.length===0) && <Box sx={{ width: '100%', typography: 'body1', textAlign: 'center', mt: 2 }}>
+              <Typography variant="h6" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+                {"Tiada dokumen"}
+              </Typography>
+            </Box>}
+          </List>
         {/* <TabPanel value="Modul Digital" sx={{ px:0}}>
           <div>
             <Document file="C:/Users/ahabi/Downloads/M2U_20230505_1819.pdf" onLoadSuccess={onDocumentLoadSuccess}>

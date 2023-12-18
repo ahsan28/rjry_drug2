@@ -95,7 +95,15 @@ const Profile = () => {
   };
 
 
-  return (<Container>
+  return (<>
+    <Box className="themeCBF" sx={{ height: '72px' }} />
+    <Box className="stripTheme" sx={{ width: "100%", textAlign: 'center', p: 2, position: "relative" }}>
+      <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+        {/* {"My Profile"} in Malay */}
+        {"Profil Saya"}
+      </Typography>
+    </Box>
+  <Container>
     <Box sx={{my:2}}>
     {/* edit button */}
     {user && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -169,7 +177,8 @@ const Profile = () => {
     { user &&
       <ProfileForm open={dialogOpen} handleClose={handleDialogClose} handleSubmit={handleProfileSubmit} initialValues={{...user, accessToken:undefined}} />
     }
-  </Container>)
+  </Container>
+  </>)
 }
 
 export default Profile

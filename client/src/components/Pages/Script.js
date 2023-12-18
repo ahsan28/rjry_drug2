@@ -6,7 +6,14 @@ const Script = () => {
 
 
 
-return (<Container>
+return (<>
+  <Box className="themeCBF" sx={{ height: '72px' }} />
+  <Box className="stripTheme" sx={{ width: "100%", textAlign: 'center', p: 2, position: "relative" }}>
+    <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+      {"Developer Script"}
+    </Typography>
+  </Box>
+  <Container>
     <Box sx={{ width: '100%', textAlign: 'center' }}>
       <Typography variant="h1" gutterBottom>
       Dev Script
@@ -26,7 +33,8 @@ return (<Container>
             Execute Script
       </Button>
     </Box>
-</Container>)
+</Container>
+</>)
   
   };
   
