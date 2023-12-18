@@ -235,7 +235,7 @@ const Product = () => {
             ))}
             {data2.length>0 && data2.map((doc, index) => (<Card key={index} sx={{ width: '100%',  my:1, borderRadius: "10px" }} >
             <CardContent sx={{ p:'0 8px 0 0 !important' }}>
-                <ListItem sx={{pl:0}} key={index} 
+                <ListItem sx={{pl:0,py:0}} key={index} 
                   secondaryAction={<Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
                   <IconButton edge="end" aria-label="download" onClick={()=>linkHandler(doc)}>
                     <VisibilityIcon />
@@ -261,7 +261,7 @@ const Product = () => {
                 }>
                   <ListItemAvatar sx={{pl:0, my:-1, cursor:"pointer", borderRadius: "4px"}}
                     onClick={()=>linkHandler(doc)}>
-                    <Image src={getThumpnail(doc.link)} alt={doc.title} width={163} height={92} />
+                    <Image src={getThumpnail(doc.link)} alt={doc.title} width={163} height={120} />
                     {/* <Avatar>
                     </Avatar> */}
                   </ListItemAvatar>
