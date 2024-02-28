@@ -1,324 +1,560 @@
-import { useContext, useEffect, useState } from 'react'
-import DataService from '../../services/data.services'
-import MediaService from '../../services/media.services'
-import { FormControl, InputLabel, Input, FormHelperText, Button, PaginationItem, Box, TextField, Select, Typography, MenuItem, Paper, Card, CardMedia, CardActions, Container, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
-import {Link, useParams, useNavigate } from 'react-router-dom'
-import FileUpload from "react-mui-fileuploader"
-import {List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, IconButton, ListSubheader, Divider} from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useContext, useEffect, useState } from "react";
+import DataService from "../../services/data.services";
+import MediaService from "../../services/media.services";
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+  Button,
+  PaginationItem,
+  Box,
+  TextField,
+  Select,
+  Typography,
+  MenuItem,
+  Paper,
+  Card,
+  CardMedia,
+  CardActions,
+  Container,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@mui/material";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import FileUpload from "react-mui-fileuploader";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  IconButton,
+  ListSubheader,
+  Divider,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import UserService from "../../services/user.services";
-import LinearProgress from '@mui/material'
+import LinearProgress from "@mui/material";
 import { UserContext } from "../../UserContext";
-import ViewImage from '../Hooks/ViewImage'
-import { SketchPicker } from 'react-color';
+import ViewImage from "../Hooks/ViewImage";
+import { SketchPicker } from "react-color";
 
-const fonts = ['serif', 'sans-serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana']
+const fonts = [
+  "serif",
+  "sans-serif",
+  "monospace",
+  "cursive",
+  "system-ui",
+  "roboto",
+  "arial",
+  "helvetica",
+  "georgia",
+  "courier",
+  "impact",
+  "garamond",
+  "bookman",
+  "arial black",
+  "avant garde",
+  "century gothic",
+  "optima",
+  "rockwell",
+  "tahoma",
+  "times new roman",
+  "verdana",
+];
 // 7 to 22 step 1
-const fontSizes = [7,8,9,10,11,12,13,14,15,16]
-const thm = [
-    // --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-    // --headerColor: skyblue;
-    // --headerTextColor: black;
-    // --themeSize: 1.5rem;
-  
-    // --bodyFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-    // --bodyBgColor: white;
-    // --bodyFontColor: black;
-    // --bodySize: 1rem;
-  
-    // --stripFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive', 'system-ui', 'roboto', 'arial', 'helvetica', 'georgia', 'courier', 'impact', 'garamond', 'bookman', 'arial black', 'avant garde', 'century gothic', 'optima', 'rockwell', 'tahoma', 'times new roman', 'verdana';
-    // --stripBgColor: orange;
-    // --stripFontColor: white;
-    // --stripSize: 2.5rem;
-    {
-        name: 'Default',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#4CAF50', // Green - OK as is
-            info: '#2196F3', // Blue - OK as is
-            warning: '#FFC107', // Lighter amber for better contrast
-            error: '#F44336', // Red - OK as is
+const fontSizes = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const themes = [
+  {
+    name: "Default",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#347a2a", // Darker green
+      info: "#0275d8", // Classic medium blue
+      warning: "#e67e22", // Warm, saturated orange
+      error: "#d32f2f", // Bold, but readable red
 
-            primary: '#3F51B5', // Indigo - OK as is
-            secondary: '#9C27B0', // Purple - OK as is
-            primaryText: '#FFFFFF', // White for contrast with primary
-            secondaryText: '#FAFAFA', // Off-white for contrast with secondary
-            
-            body: '#FFFFFF', // Pure white for better contrast
-            paper: '#F5F5F5', // Lighter grey to differentiate from background
-            text: '#212121', // Darker grey for better readability
-            link: '#1E88E5', // Bright blue for links
+      primary: "#005cb2", // Deeper blue
+      secondary: "#ffb300", // Contrasting orange
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
 
-            header: '#E8E8E8', // Slightly lighter than footer for distinction
-            footer: '#DEDEDE', // Slightly darker to define footer area
-            stripe: '#8FBC8F', // A softer green for Dark Sea Green
-            headerText: '#212121', // Same as text for consistency
-            footerText: '#212121', // Same as text for consistency
-            stripeText: '#FFFFFF', // White for contrast on dark sea green
-        },
-    }, {
-        name: 'Dark',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#4CAF50', // Bright green for visibility
-            info: '#2196F3', // Bright blue
-            warning: '#FFC107', // Bright amber
-            error: '#F44336', // Bright red
+      body: "#FFFFFF",
+      paper: "#F5F5F5",
+      text: "#000000",
+      link: "#0066cc", // Slightly brighter blue for links
 
-            primary: '#90CAF9', // Light blue for primary elements
-            secondary: '#CE93D8', // Soft purple for secondary elements
-            primaryText: '#000000', // Black for contrast with primary
-            secondaryText: '#000000', // Black for contrast with secondary
-            
-            body: '#212121', // Dark grey
-            paper: '#424242', // Slightly lighter grey for paper elements
-            text: '#E0E0E0', // Light grey for text
-            link: '#BBDEFB', // Light blue for links
-
-            header: '#333333', // Very dark grey for header
-            footer: '#333333', // Same as header
-            stripe: '#6A1B9A', // Deep purple
-            headerText: '#E0E0E0', // Light grey for header text
-            footerText: '#E0E0E0', // Light grey for footer text
-            stripeText: '#FFFFFF', // White for stripe text
-        },
-    }, {
-        name: 'Classic Blue',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#81C784', // Soft green
-            info: '#64B5F6', // Light blue
-            warning: '#FFD54F', // Soft yellow
-            error: '#E57373', // Soft red
-
-            primary: '#0D47A1', // Classic blue
-            secondary: '#FF8A65', // Coral for contrast
-            primaryText: '#FFFFFF', /* White for contrast */
-            secondaryText: '#000000', /* Black for contrast */
-            
-            body: '#E3F2FD', // Very light blue
-            paper: '#BBDEFB', // Lighter blue
-            text: '#1A237E', // Dark blue for text
-            link: '#FFC107', /* Amber for links */
-
-            header: '#0D47A1', // Classic blue for header
-            footer: '#0D47A1', // Same as header
-            stripe: '#5C6BC0', // Moderate blue
-            headerText: '#FFFFFF', // White for header text
-            footerText: '#FFFFFF', // White for footer text
-            stripeText: '#FFFFFF', // White for stripe text
-        },
-    }, {
-        name: 'Baby Blue',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#A5D6A7', // Soft mint green
-            info: '#81D4FA', // Baby blue
-            warning: '#FFE082', // Light amber
-            error: '#EF9A9A', // Soft red
-
-            primary: '#4FC3F7', // Lighter blue
-            secondary: '#F48FB1', // Pink for secondary
-            primaryText: '#000000', /* Black for contrast */
-            secondaryText: '#FFFFFF', /* White for contrast */
-            
-            body: '#E1F5FE', // Very light blue
-            paper: '#B3E5FC', // Lighter blue
-            text: '#0277BD', // Dark blue for text
-            link: '#FF7043', /* Deep orange for links */
-
-            header: '#29B6F6', // Light blue for header
-            footer: '#29B6F6', // Same as header
-            stripe: '#4DD0E1', // Cyan
-            headerText: '#FFFFFF', // White for header text
-            footerText: '#FFFFFF', // White for footer text
-            stripeText: '#FFFFFF', // White for stripe text
-        },
-    }, {
-        name: 'Green',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#81C784', // Soft Green
-            info: '#4DD0E1', // Turquoise
-            warning: '#FFD54F', // Amber
-            error: '#E57373', // Soft Red
-
-            primary: '#66BB6A', // Green
-            secondary: '#26A69A', // Teal
-            primaryText: '#FFFFFF', /* White for contrast */
-            secondaryText: '#000000', /* Black for contrast */
-            
-            body: '#E8F5E9', // Very Light Green
-            paper: '#C8E6C9', // Light Green
-            text: '#1B5E20', // Dark Green
-            link: '#FFEB3B', /* Yellow for links */
-
-            header: '#A5D6A7', // Light Green
-            footer: '#A5D6A7', // Light Green
-            stripe: '#43A047', // Medium Green
-            headerText: '#004D40', // Dark Teal
-            footerText: '#004D40', // Dark Teal
-            stripeText: '#FFFFFF', // White
-        },
-    }, {
-        name: 'Orange',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#AED581', // Light Green
-            info: '#4FC3F7', // Light Blue
-            warning: '#FFB74D', // Light Orange
-            error: '#FF8A65', // Soft Red
-
-            primary: '#FFA726', // Orange
-            secondary: '#FF7043', // Deep Orange
-            primaryText: '#000000', /* Black for contrast */
-            secondaryText: '#FFFFFF', /* White for contrast */
-            
-            body: '#FFF3E0', // Light Orange White
-            paper: '#FFE0B2', // Soft Orange
-            text: '#E65100', // Dark Orange
-            link: '#4CAF50', /* Green for links */
-
-            header: '#FFCCBC', // Light Orange
-            footer: '#FFCCBC', // Light Orange
-            stripe: '#FB8C00', // Vivid Orange
-            headerText: '#BF360C', // Dark Brownish Orange
-            footerText: '#BF360C', // Dark Brownish Orange
-            stripeText: '#FFFFFF', // White
-        },
-    }, {
-        name: 'Purple',
-        fontFamily: 'sans-serif',
-        sheds: {
-            success: '#81C784', // Light Green
-            info: '#64B5F6', // Light Blue
-            warning: '#FFD54F', // Amber
-            error: '#E57373', // Light Red
-
-            primary: '#9575CD', // Medium Purple
-            secondary: '#F06292', // Pink
-            primaryText: '#FFFFFF', /* White for contrast */
-            secondaryText: '#000000', /* Black for contrast */
-            
-            body: '#F3E5F5', // Lavender
-            paper: '#EDE7F6', // Lighter Lavender
-            text: '#5E35B1', // Dark Purple
-            link: '#FFEB3B', /* Yellow for links */
-
-            header: '#D1C4E9', // Soft Purple
-            footer: '#D1C4E9', // Soft Purple
-            stripe: '#BA68C8', // Purple
-            headerText: '#4A148C', // Darker Purple
-            footerText: '#4A148C', // Darker Purple
-            stripeText: '#FFFFFF', // White
-        },
+      header: "#E0E8F9", // Light shade of primary
+      footer: "#C4D3EC", // Slightly different light shade
+      stripe: "#7A96C9", // More muted shade related to primary
+      headerText: "#212121",
+      footerText: "#212121",
+      stripeText: "#FFFFFF",
     },
-    // {
-    //     name: 'Blue', 
-    //     header: {color: 'darkblue', fontFamily: 'tahoma', backgroundColor: 'cornflowerblue', fontSize: '1rem'}, 
-    //     stripe: {color: '#8fc7ff', fontFamily: 'sans-serif', backgroundColor: 'navy', fontSize: '2.5rem'},
-    //     body: {color: '#d8d8d8', fontFamily: 'sans-serif', backgroundColor: '#557abb', fontSize: '1rem'},
-    // },
-]
+  },
+  {
+    name: "Dark",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#43A047", // Slightly brighter green in dark mode
+      info: "#18FFFF", // Aqua blue stands out against dark
+      warning: "#FFCC80", // Softened orange
+      error: "#EF5350", // Less saturated red
+
+      primary: "#64B5F6", // Softer blue
+      secondary: "#FFAB91", // Peach-toned contrast
+      primaryText: "#000000",
+      secondaryText: "#000000",
+
+      body: "#121212", // Dark gray background
+      paper: "#333333",
+      text: "#E0E0E0", // Off-white text
+      link: "#90CAF9", // Muted blue for links
+
+      header: "#212121",
+      footer: "#212121",
+      stripe: "#78909C", // Grayish blue
+      headerText: "#EEEEEE",
+      footerText: "#EEEEEE",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Classic Blue",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#318236", // Darker green
+      info: "#007bff", // Familiar 'bootstrap blue'
+      warning: "#ffc107", // Classic yellow
+      error: "#dc3545", // Saturated, readable red
+
+      primary: "#0056b3", // Slightly toned-down blue
+      secondary: "#ff8533", // Warm orange contrast
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#E0E8F9",
+      text: "#000000",
+      link: "#004085", // Darker blue
+
+      header: "#004085",
+      footer: "#004085",
+      stripe: "#002d5c", // Very dark blue
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Baby Blue",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#28a745", // Standard green
+      info: "#17a2b8", // Info blue
+      warning: "#ffc107", // Standard yellow
+      error: "#dc3545", // Standard red
+
+      primary: "#007bff", // Bootstrap blue
+      secondary: "#ffc107", // Yellow as contrast
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#E0F7FA", // Very light blue
+      text: "#000000",
+      link: "#0056b3", // Darker blue for links
+
+      header: "#007bff",
+      footer: "#007bff",
+      stripe: "#0062cc",
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Green",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#28a745", // Standard green
+      info: "#00bcd4", // Cyan-like info color
+      warning: "#ffc107",
+      error: "#dc3545",
+
+      primary: "#00796b", // Dark, natural green
+      secondary: "#ffc107",
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#E8F5E9", // Very light green
+      text: "#000000",
+      link: "#004d40", // Darker green for links
+
+      header: "#1b5e20", // Very dark green
+      footer: "#1b5e20",
+      stripe: "#2e7d32", // Slightly different dark green
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Orange",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#28a745",
+      info: "#17a2b8",
+      warning: "#fd7e14", // Saturated orange
+      error: "#dc3545",
+
+      primary: "#f08032", // Warm orange
+      secondary: "#007bff", // Blue as contrast
+      primaryText: "#000000",
+      secondaryText: "#FFFFFF",
+
+      body: "#FFFFFF",
+      paper: "#FFF8E1", // Very light orange
+      text: "#000000",
+      link: "#ad581c", // Darker orange
+
+      header: "#f08032",
+      footer: "#f08032",
+      stripe: "#d96b28",
+      headerText: "#000000",
+      footerText: "#000000",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Purple",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#28a745",
+      info: "#007bff",
+      warning: "#ffc107",
+      error: "#dc3545",
+
+      primary: "#6f42c1", // Rich purple
+      secondary: "#f8bbd0", // Light pink contrast
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#F8F9FA",
+      text: "#000000",
+      link: "#431978", // Darker purple
+
+      header: "#5c39a8",
+      footer: "#5c39a8",
+      stripe: "#4d2c86",
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+];
+
+const thm_old = [
+  {
+    name: "Default",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#347a2a",
+      info: "#0275d8",
+      warning: "#e67e22",
+      error: "#d32f2f",
+
+      primary: "#005cb2", // Deeper blue
+      secondary: "#ffb300", // Contrasting orange
+      primaryText: "#FFFFFF",
+      secondaryText: "#FAFAFA",
+
+      body: "#FFFFFF",
+      paper: "#F5F5F5",
+      text: "#000000",
+      link: "#1E88E5",
+
+      header: "#E0E8F9", // Lighter shade of primary
+      footer: "#C4D3EC", // Slightly different lighter shade
+      stripe: "#7A96C9", // More muted shade related to primary
+      headerText: "#212121",
+      footerText: "#212121",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Dark",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#4CAF50",
+      info: "#2196F3",
+      warning: "#FFC107",
+      error: "#F44336",
+
+      primary: "#90CAF9",
+      secondary: "#CE93D8",
+      primaryText: "#000000",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#424242",
+      text: "#000000",
+      link: "#BBDEFB",
+
+      header: "#333333",
+      footer: "#333333",
+      stripe: "#6A1B9A",
+      headerText: "#E0E0E0",
+      footerText: "#E0E0E0",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Classic Blue",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#81C784",
+      info: "#64B5F6",
+      warning: "#FFD54F",
+      error: "#E57373",
+
+      primary: "#0D47A1",
+      secondary: "#FF8A65",
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#BBDEFB",
+      text: "#000000",
+      link: "#FFC107",
+
+      header: "#0D47A1",
+      footer: "#0D47A1",
+      stripe: "#5C6BC0",
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Baby Blue",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#A5D6A7",
+      info: "#81D4FA",
+      warning: "#FFE082",
+      error: "#EF9A9A",
+
+      primary: "#4FC3F7",
+      secondary: "#F48FB1",
+      primaryText: "#000000",
+      secondaryText: "#FFFFFF",
+
+      body: "#FFFFFF",
+      paper: "#B3E5FC",
+      text: "#000000",
+      link: "#FF7043",
+
+      header: "#29B6F6",
+      footer: "#29B6F6",
+      stripe: "#4DD0E1",
+      headerText: "#FFFFFF",
+      footerText: "#FFFFFF",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Green",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#81C784",
+      info: "#4DD0E1",
+      warning: "#FFD54F",
+      error: "#E57373",
+
+      primary: "#66BB6A",
+      secondary: "#26A69A",
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#C8E6C9",
+      text: "#000000",
+      link: "#FFEB3B",
+
+      header: "#A5D6A7",
+      footer: "#A5D6A7",
+      stripe: "#43A047",
+      headerText: "#004D40",
+      footerText: "#004D40",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Orange",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#AED581",
+      info: "#4FC3F7",
+      warning: "#FFB74D",
+      error: "#FF8A65",
+
+      primary: "#FFA726",
+      secondary: "#FF7043",
+      primaryText: "#000000",
+      secondaryText: "#FFFFFF",
+
+      body: "#FFFFFF",
+      paper: "#FFE0B2",
+      text: "#000000",
+      link: "#4CAF50",
+
+      header: "#FFCCBC",
+      footer: "#FFCCBC",
+      stripe: "#FB8C00",
+      headerText: "#BF360C",
+      footerText: "#BF360C",
+      stripeText: "#FFFFFF",
+    },
+  },
+  {
+    name: "Purple",
+    fontFamily: "sans-serif",
+    sheds: {
+      success: "#81C784",
+      info: "#64B5F6",
+      warning: "#FFD54F",
+      error: "#E57373",
+
+      primary: "#9575CD",
+      secondary: "#F06292",
+      primaryText: "#FFFFFF",
+      secondaryText: "#000000",
+
+      body: "#FFFFFF",
+      paper: "#EDE7F6",
+      text: "#000000",
+      link: "#FFEB3B",
+
+      header: "#D1C4E9",
+      footer: "#D1C4E9",
+      stripe: "#BA68C8",
+      headerText: "#4A148C",
+      footerText: "#4A148C",
+      stripeText: "#FFFFFF",
+    },
+  },
+];
 
 const SettingsForm = () => {
-    const { user, setUser, settings, setSettings } = useContext(UserContext);
-    console.log("🚀 ~ file: SettingsForm.js:55 ~ SettingsForm ~ user:", user)
-    const [covers, setCovers] = useState([]);
-    const [coversFiles, setCoversFiles] = useState([]);
-    const [logo, setLogo] = useState(null);
-    const [logoFile, setLogoFile] = useState(null);
-    const [footer, setFooter] = useState(null);
-    const [footerFile, setFooterFile] = useState(null);
-    const [showEdit, setShowEdit] = useState(false);
-    const [myThemes, setMyThemes] = useState(thm);
-    const [data, setData] = useState({
-        _id: null,
-        ...thm[0],
-        logo: null,
-        covers: [],
-        footer: null,
+  const { user, setUser, settings, setSettings } = useContext(UserContext);
+  console.log("🚀 ~ file: SettingsForm.js:55 ~ SettingsForm ~ user:", user);
+  const [covers, setCovers] = useState([]);
+  const [coversFiles, setCoversFiles] = useState([]);
+  const [logo, setLogo] = useState(null);
+  const [logoFile, setLogoFile] = useState(null);
+  const [footer, setFooter] = useState(null);
+  const [footerFile, setFooterFile] = useState(null);
+  const [showEdit, setShowEdit] = useState(false);
+  const [myThemes, setMyThemes] = useState(themes);
+  const [data, setData] = useState({
+    _id: null,
+    ...themes[0],
+    logo: null,
+    covers: [],
+    footer: null,
 
-        links: []
-    })
-    console.log("🚀 ~ file: UserSettings.js ~ line 9 ~ UserSettings ~ data", data)
-    let navigate = useNavigate();
+    links: [],
+  });
+  console.log(
+    "🚀 ~ file: UserSettings.js ~ line 9 ~ UserSettings ~ data",
+    data
+  );
+  let navigate = useNavigate();
 
-    useEffect(() => {
-        if(settings) {
-            setData(settings)
-            MediaService.loadImage(settings.logo).then((res) => {
-                setLogo(URL.createObjectURL(res.data))
-            })
-        }
-        else {
-            if (user) {
-                UserService.getSettings(user.settings).then((res) => {
-                    setData(res.data)
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            }
-        }
-    }, [settings]);
-        console.log("🚀 ~ file: SettingsForm.js:55 ~ useEffect ~ settings:", settings)
-
-
-    function save() {
-        const formData = new FormData();
-        
-        formData.append("userid", user._id);
-        formData.append("username", user.username);
-        formData.append("_id", data._id||settings._id||user.settings);
-        if (data.logoUpdated) formData.append("logo", logoFile);
-        if (data.coversUpdated) formData.append("covers", coversFiles);
-        if (data.footerUpdated) formData.append("footer", footerFile);
-        // formData.append("logo", data.logo);
-        // formData.append("covers", data.covers);
-        // formData.append("footer", data.footer);
-
-        DataService.upload(formData)
-            .then((res) => {
-                setUser(res.data.user)
-                console.log('okr',res.data);
-                navigate(`/`)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+  useEffect(() => {
+    if (settings) {
+      setData(settings);
+      MediaService.loadImage(settings.logo).then((res) => {
+        setLogo(URL.createObjectURL(res.data));
+      });
+    } else {
+      if (user) {
+        UserService.getSettings(user.settings)
+          .then((res) => {
+            setData(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
-    function saveSettings(newData) {
-        if(window.confirm('Are you sure you want to save these settings?')) {
-            UserService.updateSettings(user._id, newData)
-            .then((res) => {
-                console.log('saveSettings', res)
-                setSettings(newData)
-                setShowEdit(false)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        }
+  }, [settings]);
+  console.log(
+    "🚀 ~ file: SettingsForm.js:55 ~ useEffect ~ settings:",
+    settings
+  );
+
+  function save() {
+    const formData = new FormData();
+
+    formData.append("userid", user._id);
+    formData.append("username", user.username);
+    formData.append("_id", data._id || settings._id || user.settings);
+    if (data.logoUpdated) formData.append("logo", logoFile);
+    if (data.coversUpdated) formData.append("covers", coversFiles);
+    if (data.footerUpdated) formData.append("footer", footerFile);
+    // formData.append("logo", data.logo);
+    // formData.append("covers", data.covers);
+    // formData.append("footer", data.footer);
+
+    DataService.upload(formData)
+      .then((res) => {
+        setUser(res.data.user);
+        console.log("okr", res.data);
+        navigate(`/`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function saveSettings(newData) {
+    if (window.confirm("Are you sure you want to save these settings?")) {
+      UserService.updateSettings(user._id, newData)
+        .then((res) => {
+          console.log("saveSettings", res);
+          setSettings(newData);
+          setShowEdit(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
+  }
 
-
-    
-  if (!user) return (<>
-    <Typography variant="h1" gutterBottom>
-        You are not logged in.
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        Please <Link to="/signin">login</Link> to view this page.
-    </Typography>
-  </>)
-
-  else return (<>
-  <Box className="themeCBF" sx={{ height: '72px' }} />
-  <Container>
-
-    <h1>Website Theme Settings</h1>
-    {/* <RadioGroup
+  if (!user)
+    return (
+      <>
+        <Typography variant="h1" gutterBottom>
+          You are not logged in.
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Please <Link to="/signin">login</Link> to view this page.
+        </Typography>
+      </>
+    );
+  else
+    return (
+      <>
+        <Box className="themeCBF" sx={{ height: "72px" }} />
+        <Container>
+          <h1>Website Theme Settings</h1>
+          {/* <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
@@ -329,55 +565,217 @@ const SettingsForm = () => {
         <FormControlLabel value="blue" control={<Radio />} label="Blue" />
     </RadioGroup> */}
 
-    <Box sx={{ width: '100%' }}>
-        <Box sx={{my: 2, gap: 1, display: 'flex', flexDirection: 'column'}}>
-            {/* Preview a page at the center  */}
-            <Box sx={{display: 'block', width: '100%', height: 350, position: 'relative', background: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)'}}>
+          <Box sx={{ width: "100%" }}>
+            <Box
+              sx={{ my: 2, gap: 1, display: "flex", flexDirection: "column" }}
+            >
+              {/* Preview a page at the center  */}
+              <Box
+                sx={{
+                  display: "block",
+                  width: "100%",
+                  height: 450,
+                  position: "relative",
+                  background:
+                    "repeating-linear-gradient(45deg, #ffffff, #ffffff 3px, #dedede 10px, #dedede 8px)",
+                }}
+              >
                 {/* make a stiky label near top left corner with border and radius */}
-                <Box sx={{position: 'absolute', top: 0, height:28, left: 18, width: 'auto', backgroundColor: '#79d2ff', border: '4px solid #b5daff', borderRadius: "0 0 12px 12px", display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: 3}}>
-                    <Typography gutterBottom sx={{px: 2, fontSize: 13, color: 'honeydew',fontFamily: 'monospace'}}>
-                        Preview
-                    </Typography>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    height: 28,
+                    left: 18,
+                    width: "auto",
+                    backgroundColor: "#79d2ff",
+                    border: "4px solid #b5daff",
+                    borderRadius: "0 0 12px 12px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 1,
+                    boxShadow: 3,
+                  }}
+                >
+                  <Typography
+                    gutterBottom
+                    sx={{
+                      px: 2,
+                      fontSize: 13,
+                      color: "honeydew",
+                      fontFamily: "monospace",
+                    }}
+                  >
+                    Preview
+                  </Typography>
                 </Box>
                 {/* make mythemes tiles preview horizontal scrollable */}
-                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'flex-start', width: '100%', height: '100%', overflowX: 'auto', overflowY: 'hidden', position: 'relative', px:5}}>
-                {myThemes.map((t, i) => (
-                    <Paper key={i} elevation={1} 
-                        onClick={() => { saveSettings(t) }}
-                        sx={{ width: '100%', minWidth: 200, display: 'flex', flexDirection: 'column', gap: 0, alignItems: 'center', justifyContent: 'center', position: 'relative', cursor: 'pointer', borderRadius: '4px', border: '2px solid #b5daff', boxShadow: 3, '&:hover': {border: '2px solid #79d2ff'}}}>
-                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.sheds.header, borderTopLeftRadius: '4px', borderTopRightRadius: '4px'}}>
-                            <Typography sx={{textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase', px:2, borderRadius: '4px 4px 0 0', '-webkit-text-stroke': '0.2px white', textShadow: '0 0 2px black', color: t.sheds.headerText, fontSize: '1rem' }}>
-                                {/* Pengenalan  Profil  Aktiviti  Penerbitan  ... */}
-                                {t.name}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 2,
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    width: "100%",
+                    height: "100%",
+                    overflowX: "auto",
+                    overflowY: "hidden",
+                    position: "relative",
+                    px: 5,
+                  }}
+                >
+                  {myThemes.map((t, i) => (
+                    <Paper
+                      key={i}
+                      elevation={1}
+                      onClick={() => {
+                        saveSettings(t);
+                      }}
+                      sx={{
+                        width: "100%",
+                        minWidth: 200,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 0,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "relative",
+                        cursor: "pointer",
+                        borderRadius: "4px",
+                        border: "2px solid #b5daff",
+                        boxShadow: 3,
+                        "&:hover": { border: "2px solid #79d2ff" },
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: "100%",
+                          minHeight: 20,
+                          backgroundColor: t.sheds.header,
+                          borderTopLeftRadius: "4px",
+                          borderTopRightRadius: "4px",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            textTransform: "uppercase",
+                            px: 2,
+                            borderRadius: "4px 4px 0 0",
+                            "-webkit-text-stroke": "0.2px white",
+                            textShadow: "0 0 2px black",
+                            color: t.sheds.headerText,
+                            fontSize: "1rem",
+                          }}
+                        >
+                          {/* Pengenalan  Profil  Aktiviti  Penerbitan  ... */}
+                          {t.name}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          minHeight: 20,
+                          backgroundColor: t.sheds.stripe,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            textAlign: "center",
+                            color: t.sheds.stripeText,
+                            fontSize: "2.5rem",
+                          }}
+                        >
+                          {/* stripe color and text color, size, background etc. goes here. */}
+                          Title
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          minHeight: 150,
+                          backgroundColor: t.sheds.body,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            textAlign: "center",
+                            lineHeight: "50px",
+                            px: 2,
+                            color: t.sheds.text,
+                          }}
+                        >
+                          {/* Body color and text color, size, background etc. goes here. */}
+                          The body text example of the theme
+                        </Typography>
+                        {/* add a large green check mark here bottom right corner if the theme is selected */}
+                        {t.name === data.name && (
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              left: -10,
+                              top: -10,
+                              width: 50,
+                              height: 50,
+                              backgroundColor: "#feff0080",
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              boxShadow: 3,
+                              border: "2px solid #004100",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                color: "#00b536",
+                                fontSize: 30,
+                                fontWeight: "bold",
+                              }}
+                            >
+                              ✓
                             </Typography>
-                        </Box>
-                        <Box sx={{width: '100%', minHeight: 20, backgroundColor: t.sheds.stripe }}>
-                            <Typography sx={{textAlign: 'center', color: t.sheds.stripeText, fontSize: '2.5rem' }}>
-                                {/* stripe color and text color, size, background etc. goes here. */}
-                                Title
-                            </Typography>
-                        </Box>
-                        <Box sx={{width: '100%', minHeight: 150, backgroundColor: t.sheds.body }}>
-                            <Typography sx={{textAlign: 'center', lineHeight: '50px', px:2, color: t.sheds.text }}>
-                                {/* Body color and text color, size, background etc. goes here. */}
-                                The body text example of the theme
-                            </Typography>
-                            {/* add a large green check mark here bottom right corner if the theme is selected */}
-                            {t.name === data.name && <Box sx={{position: 'absolute', left: -10, top: -10, width: 50, height: 50, backgroundColor: '#feff0080', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 3, border: '2px solid #004100'}}>
-                                <Typography sx={{color: '#00b536', fontSize: 30, fontWeight: 'bold'}}>
-                                    ✓
-                                </Typography>
-                            </Box>}
-                        </Box>
-                        <Box sx={{width: '100%', minHeight: 15, backgroundColor: t.sheds.footer, borderBottomLeftRadius: '4px', borderBottomRightRadius: '4px'}} />
+                          </Box>
+                        )}
+                      </Box>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          minHeight: 15,
+                          backgroundColor: t.sheds.footer,
+                          borderBottomLeftRadius: "4px",
+                          borderBottomRightRadius: "4px",
+                        }}
+                      />
                     </Paper>
-                ))}
+                  ))}
                 </Box>
-                <Box sx={{position: 'absolute', bottom: 0, right: 0, m:2 }}>
-                     <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
-                     
-                     
-                     {/* {showEdit ? <>
+
+                <Box sx={{ display: "block", position: "relative", bottom: 100, left: 0, m: 2 }}>
+                    <hr/>
+                    <Box sx={{ display: "flex", flexDirection: "row", gap: 2, alignItems: "start", justifyContent: "start" }}>
+                        <Button variant="contained" size="small" color="success" sx={{width: '6rem'}}>Success</Button>
+                        <Button variant="contained" size="small" color="info" sx={{width: '6rem'}}>Info</Button>
+                        <Button variant="contained" size="small" color="warning" sx={{width: '6rem'}}>Warning</Button>
+                        <Button variant="contained" size="small" color="error" sx={{width: '6rem'}}>Error</Button>
+                    </Box>
+                </Box>
+
+
+                <Box sx={{ position: "absolute", bottom: 0, right: 0, m: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 2,
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    {/* {showEdit ? <>
                             <Button variant="contained" onClick={saveSettings} size="small" color="success" sx={{width: '6rem'}}>
                                 Save
                             </Button>
@@ -387,222 +785,19 @@ const SettingsForm = () => {
                         </>: <Button variant="contained" onClick={() => setShowEdit(true)} size="small" color="primary" sx={{width: '6rem'}}>
                             Modify    
                         </Button>} */}
-                    </Box>
+                  </Box>
                 </Box>
+              </Box>
+
             </Box>
 
-            {/* select theme bg color, text color, fonts, size */}
-                {showEdit && <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'space-around'}}>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography gutterBottom>
-                            Menu background
-                        </Typography>
-                        <Box>
-                            <SketchPicker 
-                                width={150}
-                                disableAlpha={true}
-                                color={ data.header.backgroundColor } 
-                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
-                                onChange={ (color, e) => {
-                                    if(![data.header.color, data.header.backgroundColor].includes(color.hex))
-                                        setData({...data, header: {...data.header, backgroundColor: color.hex}})
-                                }}
-                                // onChangeComplete={ (color, e) => {
-                                //     setData({...data, theme: {...data.header, backgroundColor: color.hex}})
-                                // }}
-                            />
-                        </Box>
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography gutterBottom>
-                            Menu text
-                        </Typography>
-                        <Box>
-                            <SketchPicker 
-                                color={ data.header.color }
-                                width={150}
-                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
-                                disableAlpha={true}
-                                onChange={ (color, e) => {
-                                    if(![data.header.color, data.header.backgroundColor].includes(color.hex))
-                                        setData({...data, theme: {...data.header, color: color.hex}})
-                                }}
-                            />
-                        </Box>
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                            <InputLabel id="theme-font-label">Theme Font</InputLabel>
-                            <Select
-                                labelId="theme-font-label"
-                                id="theme-font"
-                                sx={{textTransform:'uppercase', fontFamily: data.header.fontFamily}}
-                                value={data.header.fontFamily}
-                                label="Theme Font"
-                                size="small"
-                                onChange={(e) => {
-                                    setData({...data, theme: {...data.header, fontFamily: e.target.value}})
-                                }}
-                            >
-                                {fonts.map((font) => <MenuItem value={font} sx={{fontFamily:font, textTransform:'uppercase'}} >{font}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                            <InputLabel id="theme-font-size-label">Theme Font Size</InputLabel>
-                            <Select
-                                labelId="theme-font-size-label"
-                                id="theme-font-size"
-                                value={data.header.fontSize}
-                                label="Theme Font Size"
-                                size="small"
-                                onChange={(e) => {
-                                    setData({...data, theme: {...data.header, fontSize: e.target.value}})
-                                }}
-                            >
-                                {fontSizes.map((size) => <MenuItem value={size+2}>{size+2}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <Divider />
-                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                            <InputLabel id="body-font-label">Body Font</InputLabel>
-                            <Select
-                                labelId="body-font-label"
-                                id="body-font"
-                                value={data.body.fontFamily}
-                                sx={{fontFamily: data.body.fontFamily}}
-                                label="Body Font"
-                                size="small"
-                                onChange={(e) => {
-                                    setData({...data, body: {...data.body, fontFamily: e.target.value}})
-                                }}
-                            >
-                                {fonts.map((font) => <MenuItem value={font} sx={{fontFamily:font}} >{font}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ my: 2, minWidth: 120, flexGrow: 1 }}>
-                            <InputLabel id="body-font-size-label">Body Font Size</InputLabel>
-                            <Select
-                                labelId="body-font-size-label"
-                                id="body-font-size"
-                                value={data.body.fontSize}
-                                label="Body Font Size"
-                                size="small"
-                                onChange={(e) => {
-                                    setData({...data, body: {...data.body, fontSize: e.target.value}})
-                                }}
-                            >
-                                {fontSizes.map((size) => <MenuItem value={size}>{size}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography gutterBottom>
-                            Body background
-                        </Typography>
-                        <Box>
-                            <SketchPicker 
-                                color={ data.body.backgroundColor } 
-                                // 10 black and white shades
-                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
-                                width={150}
-                                disableAlpha={true}
-                                onChange={ (color, e) => {
-                                    if(![data.body.color, data.body.backgroundColor].includes(color.hex))
-                                        setData({...data, body: {...data.body, backgroundColor: color.hex}})
-                                }}
-                            />
-                        </Box>
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography gutterBottom>
-                            Body text
-                        </Typography>
-                        <Box>
-                            <SketchPicker 
-                                color={ data.body.color } 
-                                width={150}
-                                presetColors={['#3f3f3f','#4a4a4a','#808080','#ababab','#cecece','#fafafa']}
-                                disableAlpha={true}
-                                onChange={ (color, e) => {
-                                    if(![data.body.color, data.body.backgroundColor].includes(color.hex))
-                                        setData({...data, body: {...data.body, color: color.hex}})
-                                }}
-                                // onChangeComplete={ (color, e) => {
-                                //     setData({...data, body: {...data.body, color: color.hex}})
-                                // }}
-                            />
-                        </Box>
-                    </Box>
-                </Box>
-            }
-
-            {/* links */}
-            {/* <Typography variant="h5" gutterBottom>
-                Links
-            </Typography> */}
-            {/* add link */}
-            {/* <Paper sx={{ p: 2 }} elevation={1}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    {data.links.map((link, index) => (
-                    <Box sx={{ display: "flex", alignItems: "center", mb: index===data.links.length-1?2:'' }} key={index}>
-                        <TextField
-                            label={`Name`}
-                            variant="outlined"
-                            value={link.name}
-                            onChange={(e) =>{
-                                const newLinks = [...data.links]
-                                newLinks[index].name = e.target.value
-                                setData({...data, links: newLinks})
-                            }}
-                            sx={{ width: "200px", mr: 1 }}
-                        />
-                        <TextField
-                        label={`Link ${index + 1}`}
-                        variant="outlined"
-                        value={link.url}
-                        onChange={(e) => {
-                            const newLinks = [...data.links]
-                            newLinks[index].url = e.target.value
-                            setData({...data, links: newLinks})
-                        }}
-                        sx={{ flex: 1 }}
-                        />
-                        <Button variant="contained" onClick={() => {
-                            const newLinks = [...data.links]
-                            newLinks.splice(index, 1)
-                            setData({...data, links: newLinks})
-                        }} sx={{ ml: 1, height: "60px" }} size="small" color="error" >
-                        Remove
-                        </Button>
-                    </Box>
-                    ))}
-                </Box>
-                <Button variant="contained" onClick={(e)=>{
-                    setData({...data, links: [...data.links, {name: '', url: ''}]})
-                }} size="small" color="success">
-                    {data.links.length > 0 ? "Add Another Link" : "Add Link"}
-                </Button>
-            </Paper> */}
-
-            {/* <Button variant="contained" onClick={saveSettings} sx={{ mt: 2, width: '15rem' }} size="medium">
-                Save settings
-            </Button> */}
-
-        </Box>
-
-
-
-        
-        
-        
-        
-        <Divider sx={{ my: 2 }} />
-        {/* upload file to be saved in the folder */}
-            <Box sx={{ my: 2 }} >
-                <Typography variant="h5" gutterBottom>
-                    Upload Image Files
-                </Typography>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Divider sx={{ my: 2 }} />
+            {/* upload file to be saved in the folder */}
+            <Box sx={{ my: 2 }}>
+              <Typography variant="h5" gutterBottom>
+                Upload Image Files
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {/* <Paper sx={{ p: 2, width: '100%' }} elevation={1}>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
                     {covers.map((image, index) => (
@@ -650,55 +845,65 @@ const SettingsForm = () => {
                 </label>
             </Paper> */}
 
-
-
-            <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
-                {logo && <Card sx={{ maxWidth: 100, mb:2 }}>
-                    <CardMedia
+                <Paper elevation={1} sx={{ padding: 2, width: "100%" }}>
+                  {logo && (
+                    <Card sx={{ maxWidth: 100, mb: 2 }}>
+                      <CardMedia
                         component="img"
                         // height="100"
                         // width="100"
                         image={logo}
                         alt="Logo Image"
-                    />
-                    <CardActions>
+                      />
+                      <CardActions>
                         <Button
-                            size="small"
-                            onClick={()=>{
-                                setLogo(null)
-                                setLogoFile(null)
-                                setData({...data, cover: null, coversUpdated: true})
-                            }}
-                            color="error"
-                            variant="contained"
+                          size="small"
+                          onClick={() => {
+                            setLogo(null);
+                            setLogoFile(null);
+                            setData({
+                              ...data,
+                              cover: null,
+                              coversUpdated: true,
+                            });
+                          }}
+                          color="error"
+                          variant="contained"
                         >
-                            Remove
+                          Remove
                         </Button>
-                    </CardActions>
-                </Card>}
-                <label htmlFor="logo-upload">
+                      </CardActions>
+                    </Card>
+                  )}
+                  <label htmlFor="logo-upload">
                     <input
-                        id="logo-upload"
-                        name="logo-upload"
-                        type="file"
-                        accept="image/*"
-                        onChange={(e)=>{
-                            setLogoFile(e.target.files[0])
-                            setLogo(URL.createObjectURL(e.target.files[0]))
-                            setData({...data, logo: e.target.files[0], logoUpdated: true})
-                        }}
-                        hidden
-
+                      id="logo-upload"
+                      name="logo-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        setLogoFile(e.target.files[0]);
+                        setLogo(URL.createObjectURL(e.target.files[0]));
+                        setData({
+                          ...data,
+                          logo: e.target.files[0],
+                          logoUpdated: true,
+                        });
+                      }}
+                      hidden
                     />
-                    <Button variant="contained" component="span" size="small" color="success">
-                        {logo ? "Change Logo" : "Upload Logo"}
+                    <Button
+                      variant="contained"
+                      component="span"
+                      size="small"
+                      color="success"
+                    >
+                      {logo ? "Change Logo" : "Upload Logo"}
                     </Button>
-                </label>
+                  </label>
+                </Paper>
 
-            </Paper>
-
-
-            {/* <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
+                {/* <Paper elevation={1} sx={{padding: 2, width: "100%"}}>
                 {footer && <Card sx={{ maxWidth: 100, mb:2 }}>  
                     <CardMedia
                         component="img"
@@ -741,13 +946,16 @@ const SettingsForm = () => {
                 </label>
 
             </Paper> */}
+              </Box>
+              <Button variant="contained" onClick={() => save(data)}>
+                Upload and Save
+              </Button>
+              {/* <Divider sx={{ my: 2 }} /> */}
             </Box>
-            <Button variant="contained" onClick={()=>save(data)}>Upload and Save</Button>
-            {/* <Divider sx={{ my: 2 }} /> */}
-        </Box>
-    </Box>
-  </Container>
-  </>)
-}
+          </Box>
+        </Container>
+      </>
+    );
+};
 
-export default SettingsForm
+export default SettingsForm;
