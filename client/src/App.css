@@ -83,6 +83,11 @@ header, footer, nav {
   font-family: var(--themeFont) !important;
   font-size: var(--stripSize) !important;
 }
+.stripTheme .MuiTypography-root,
+.stripTheme h4 {
+  color: var(--stripeText) !important;
+  font-family: var(--themeFont) !important;
+}
 
 main a {
   text-decoration: none;
