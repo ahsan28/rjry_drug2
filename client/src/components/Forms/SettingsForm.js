@@ -583,7 +583,7 @@ const SettingsForm = () => {
                   </label>
                 </Paper>
               </Box>
-              <Button variant="contained" onClick={() => save(data)}>
+              <Button size='small' variant="contained" onClick={() => save(data)}>
                 Upload and Save
               </Button>
             </Box>

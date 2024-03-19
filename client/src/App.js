@@ -103,7 +103,9 @@ const App = () => {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    color: settings?.sheds?.text || getCss('--text'),
+                    color: 'black', //settings?.sheds?.text || getCss('--text'),
+                    // write webkit-text-stroke: '1px gray' below
+                    // WebkitTextStroke: '.1px white',
                 },
             },
         },
@@ -213,13 +215,6 @@ const App = () => {
             },
         },
         MuiIconButton: {
-            styleOverrides: {
-                root: {
-                    color: settings?.sheds?.text || getCss('--text'),
-                },
-            },
-        },
-        MuiButtonBase: {
             styleOverrides: {
                 root: {
                     color: settings?.sheds?.text || getCss('--text'),
