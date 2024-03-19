@@ -172,7 +172,9 @@ const App = () => {
                     backgroundColor: settings?.sheds?.paper || getCss('--paper'),
                 },
                 indicator: {
-                    backgroundColor: settings?.sheds?.headerText || getCss('--text'),
+                    backgroundColor: settings?.sheds?.header || getCss('--header'),
+                    height: 6,
+                    borderRadius: '16px 16px 0 0',
                 },
 
             },
@@ -191,8 +193,8 @@ const App = () => {
                 },
                 selected: {
                     color: settings?.sheds?.text || getCss('--text'),
-                    borderRadius: '16px 16px 0 0',
-                    border: `1px solid ${settings?.sheds?.headerText || getCss('--text')}`,
+                    // borderRadius: '16px 16px 0 0',
+                    // border: `1px solid ${settings?.sheds?.headerText || getCss('--text')}`,
                 },
                 wrapper: {
                     color: settings?.sheds?.text || getCss('--text'),
