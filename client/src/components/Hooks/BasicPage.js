@@ -13,7 +13,7 @@ const BasicPage = ({ data, cover, page }) => {
     {/* orange box across width */}
     <Box className="themeCBF" sx={{ height: '72px' }} />
 <Box className="stripTheme" sx={{ width: "100%", textAlign: 'center', p: 2, position: "relative" }}>
-      <Typography variant="h4" className="themeFont" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
+      <Typography variant="h4" className="themeTitle" align="center" sx={{ fontWeight: "bold", textTransform: "uppercase" }}>
         {data ? data.title : "Loading..."}
       </Typography>
     </Box>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BottomNavigation, BottomNavigationAction, Box, Container, IconButton } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box, Container, IconButton, Typography } from '@mui/material';
 import { Facebook, Twitter, Instagram, Pinterest, LinkedIn, YouTube } from '@mui/icons-material';
 import { UserContext } from "./UserContext";
 import { Link } from 'react-router-dom';
@@ -11,13 +11,13 @@ function Footer() {
     <BottomNavigation as='footer' className='footer'>
       <div className='container'>
         <div>
-          <p className='title'>TENTANG KITA</p>
+          <Typography className="themeTitle" variant="h4" >TENTANG KITA</Typography>
           <p className='text'>
           Selamat datang ke dunia pendidikan pencegahan dadah yang mengujakan! Misi kami: mencipta sekolah bebas dadah di Malaysia. Ahli pasukan kami membuat perbezaan sebenar dalam kehidupan pelajar, guru, dan komuniti. Mari bersama-sama membentuk masa depan pendidikan pencegahan dadah di Malaysia dan memberikan impak positif kepada ramai orang. Terima kasih kerana menyokong misi kami.
           </p>
         </div>
         <div>
-          <p className='title' style={{textAlign:'center'}}>MEDIA SOSIAL</p>
+          <Typography className="themeTitle" variant="h4" style={{textAlign:'center'}}>MEDIA SOSIAL</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <IconButton aria-label="Facebook" className='icon' href="https://www.facebook.com/UPSIMalaysia/" target="_blank">
             <Facebook />
@@ -37,7 +37,7 @@ function Footer() {
           </Box>
         </div>
         {/* <div>
-          <p className='title'>SURAT BERITA</p>
+          <Typography className="themeTitle" variant="h4" >SURAT BERITA</Typography>
           <p className='text'>
           Daftar untuk surat berita kami dan jadilah orang pertama yang mengetahui tentang produk baharu dan tawaran istimewa!
           </p>
@@ -52,7 +52,7 @@ function Footer() {
           </form>
         </div> */}
         <div>
-          <p className='title'>HUBUNGI KAMI</p>
+          <Typography className="themeTitle" variant="h4" >HUBUNGI KAMI</Typography>
       <p className='text'>
       Ada sebarang soalan atau maklum balas untuk kami? Kami ingin mendengar dari anda! Jangan ragu-ragu untuk menghubungi kami.
       </p>

@@ -1,6 +1,8 @@
 :root {
   --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive';
-  --themeSize: 16;
+  --themeSize: 16px;
+  --themeSizeSmall: 12px;
+  --themeSizeLarge: 30px;
   
   --success: #E57373;
   --info: #66BB6A;
@@ -51,8 +53,11 @@ header, footer, nav {
 .themeBg:hover {
   background-color: var(--header) !important;
 }
-.themeFont {
+.themeTitle {
   font-family: var(--themeFont) !important;
+  color: var(--headerText) !important;
+  /* background-color: var(--header) !important; */
+  font-size: var(--themeSizeLarge) !important;
 }
 .themeCBFS {
   color: var(--headerText) !important;
@@ -211,8 +216,8 @@ nav .MuiBox-root button {
   letter-spacing: 1px;
   color: var(--headerText) !important;
   font-size: var(--themeSize) !important;
-  text-shadow: 0px 0px 2px #000;
-  -webkit-text-stroke: 0.2px #fff;
+  text-shadow: 0px 0px 2px var(--stripe);
+  -webkit-text-stroke: 0.25px var(--header);
   -webkit-text-fill-color: var(--headerText);
 }
 nav.MuiPaper-root:hover button {
