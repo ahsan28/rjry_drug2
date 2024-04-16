@@ -108,15 +108,15 @@ const MemberProfiles = () => {
               {/* vertical divider line */}
               <Divider orientation="vertical" flexItem />
               <Box>
-                <Typography variant="h6">
+                <Typography variant="caption" >
                   <a href={u.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   {u.initials} {u.name} {u.surname}
                   </a>
                   </Typography>
                 {/* <Typography variant="subtitle1">{user.designation}</Typography> */}
-                <Typography variant="subtitle1">{u.expertise}</Typography>
+                <Typography variant="body1">{u.expertise}</Typography>
                 {/* <Typography variant="body1">{user.phone}</Typography> */}
-                <Typography variant="body1">{u.email}</Typography>
+                <Typography variant="subtitle1">{u.email}</Typography>
                 <Typography variant="body1">{u.affiliation}</Typography>
 
               </Box>

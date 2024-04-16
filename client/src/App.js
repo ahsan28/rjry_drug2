@@ -163,6 +163,18 @@ const App = () => {
             styleOverrides: {
                 root: {
                     color: settings?.sheds?.text || getCss('--text'),
+                    fontSize: getCss('--themeSize'),
+                },
+                subtitle1: {
+                    fontSize: getCss('--themeSize'),
+                    fontStyle: 'italic',
+                },
+                caption: {
+                    fontSize: getCss('--themeSize'),
+                    fontWeight: 'bold',
+                },
+                body1: {
+                    fontSize: getCss('--themeSize'),
                 },
             },
         },
