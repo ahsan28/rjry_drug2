@@ -1,7 +1,7 @@
 :root {
   --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive';
-  --themeSize: 16px;
   --themeSizeSmall: 12px;
+  --themeSize: 16px;
   --themeSizeLarge: 30px;
   
   --success: #E57373;
@@ -277,7 +277,7 @@ nav.MuiPaper-root:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(var(--themeSize) + 2vmin);
   color: white;
 }
 
@@ -343,7 +343,7 @@ body {
 }
 
 .site-title {
-  font-size: 2rem;
+  font-size: var(--themeSizeLarge)
 }
 
 .nav ul {
@@ -418,7 +418,7 @@ body {
 }
 
 .MuiBottomNavigation-root .title {
-  font-size: 1.5rem;
+  font-size: var(--themeSizeLarge);
   font-weight: bold;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -426,14 +426,14 @@ body {
 }
 
 .MuiBottomNavigation-root .text {
-  font-size: 0.8rem;
+  font-size: var(--themeSizeSmall);
   /* color: #888; */
   margin-bottom: 1rem;
   text-align: justify;
 }
 
 .copyright {
-  font-size: 10px;
+  font-size: var(--themeSizeSmall);
   letter-spacing: 1px;
   margin-top: 1px;
   margin-bottom: 1px;
