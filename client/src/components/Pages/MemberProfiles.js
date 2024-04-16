@@ -116,7 +116,7 @@ const MemberProfiles = () => {
                 {/* <Typography variant="subtitle1">{user.designation}</Typography> */}
                 <Typography variant="body1">{u.expertise}</Typography>
                 {/* <Typography variant="body1">{user.phone}</Typography> */}
-                <Typography variant="subtitle1">{u.email}</Typography>
+                <Typography variant="subtitle1"><a href={`mailto:${u.email}`}>{u.email}</a></Typography>
                 <Typography variant="body1">{u.affiliation}</Typography>
 
               </Box>

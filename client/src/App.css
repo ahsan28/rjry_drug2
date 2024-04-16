@@ -96,7 +96,12 @@ header, footer, nav {
 
 main a {
   text-decoration: none;
-  /* color: var(--themeFont) !important; */
+  color: var(--link);
+}
+
+main a:hover {
+  text-decoration: underline;
+  color: var(--link);
 }
 
 main button {

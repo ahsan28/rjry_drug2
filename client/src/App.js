@@ -168,6 +168,10 @@ const App = () => {
                 subtitle1: {
                     fontSize: getCss('--themeSize'),
                     fontStyle: 'italic',
+                    // make a nested a tag link color
+                    '& a': {
+                        color: settings?.sheds?.link || getCss('--link'),
+                    },
                 },
                 caption: {
                     fontSize: getCss('--themeSize'),
