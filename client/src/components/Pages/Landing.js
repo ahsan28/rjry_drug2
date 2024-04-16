@@ -16,11 +16,11 @@ import { styled } from '@mui/material/styles';
 
 const texts = [
   "[Sample text taken from AI] Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
-  "[Sample text taken from AI] Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Narkoba",
-  "[Sample text taken from AI] Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Narkoba",
-  "[Sample text taken from AI] Mengamankan Ruang Aman: Mencari Sekolah Bebas Narkoba di Malaysia",
-  "[Sample text taken from AI] Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Narkoba di Malaysia",
-  "[Sample text taken from AI] Menciptakan Sekolah Bebas Narkoba di Malaysia: Proyek Penelitian",
+  "[Sample text taken from AI] Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Dadah",
+  "[Sample text taken from AI] Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Dadah",
+  "[Sample text taken from AI] Mengamankan Ruang Aman: Mencari Sekolah Bebas Dadah di Malaysia",
+  "[Sample text taken from AI] Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Dadah di Malaysia",
+  "[Sample text taken from AI] Menciptakan Sekolah Bebas Dadah di Malaysia: Proyek Penelitian",
 ];
 const images = [
   '6418f8c66a237a2840c52ba0',  // a.jpg
