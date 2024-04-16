@@ -19,7 +19,7 @@ const loadImage = async (req, res) => {
         if(!media) {
             // return res.status(404).json("No media found."); // Instead, send a blank image
             res.writeHead(200, {'Content-Type': 'image/jpeg'});
-            res.end(fs.readFileSync('public/uploads/blank_image.jpg'), 'binary');
+            res.end(fs.readFileSync('public/uploads/blank_image.png'), 'binary');
         }
         else {
             // return res.sendFile(media.filename, { root: media.destination });
@@ -28,7 +28,7 @@ const loadImage = async (req, res) => {
                 return res.sendFile(media.filename, { root: media.destination });
             } else { // Send a blank image
                 res.writeHead(200, {'Content-Type': 'image/jpeg'});
-                res.end(fs.readFileSync('public/uploads/blank_image.jpg'), 'binary');
+                res.end(fs.readFileSync('public/uploads/blank_image.png'), 'binary');
             }
         }
         
