@@ -186,6 +186,7 @@ const App = () => {
             styleOverrides: {
                 root: {
                     backgroundColor: settings?.sheds?.paper || getCss('--paper'),
+                    fontSize: getCss('--themeSize'),
                 },
                 indicator: {
                     backgroundColor: settings?.sheds?.header || getCss('--header'),
@@ -199,6 +200,7 @@ const App = () => {
             styleOverrides: {
                 root: {
                     backgroundColor: settings?.sheds?.paper || getCss('--paper'),
+                    fontSize: getCss('--themeSize'),
                     transition: '0.4s',
                 },
                 textColorPrimary: {

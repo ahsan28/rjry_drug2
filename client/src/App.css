@@ -1,8 +1,8 @@
 :root {
   --themeFont: 'Open Sans', sans-serif, 'serif', 'monospace', 'cursive';
   --themeSizeSmall: 12px;
-  --themeSize: 16px;
-  --themeSizeLarge: 30px;
+  --themeSize: 15px;
+  --themeSizeLarge: 28px;
   
   --success: #E57373;
   --info: #66BB6A;
@@ -209,10 +209,12 @@ main button {
 
 .MuiTabs-root .MuiTab-root {
   color: var(--text);
+  font-size: var(--themeSize);
 }
 
 .MuiTabs-root .MuiTab-root.Mui-selected {
   color: var(--text);
+  font-size: var(--themeSize);
 }
 
 

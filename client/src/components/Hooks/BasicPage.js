@@ -60,7 +60,7 @@ const BasicPage = ({ data, cover, page }) => {
     </Card>
       </Paper>}
 
-      <Typography variant="subtitle1" gutterBottom className="themeFont" align="justify" sx={{ pt: 4 }}>
+      <Typography variant="body1" gutterBottom className="themeFont" align="justify" sx={{ pt: 4 }}>
         {/* first letter very big */}
         {data && data.description && data.description[0] && <span style={{ fontSize: "3em", lineHeight: 1 }}>{data.description[0]}</span>}
         {data && data.description && data.description.slice(1)}
@@ -70,7 +70,7 @@ const BasicPage = ({ data, cover, page }) => {
       {data && data.cover && data.cover.url && (
         <>
           <img src={data.cover.url} alt={data.cover.title} />
-          <Typography variant="subtitle1" gutterBottom  className="themeFont">
+          <Typography variant="body1" gutterBottom  className="themeFont">
             {data.cover.description}
           </Typography>
         </>
