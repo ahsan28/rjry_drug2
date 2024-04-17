@@ -31,7 +31,7 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0",
+      paper: "#E8E8E8",
       text: "#000000",
       link: "#0066cc", // Slightly brighter blue for links
 
@@ -58,13 +58,13 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#121212", // Dark gray background
-      paper: "#333333",
+      paper: "#222222",
       text: "#E0E0E0", // Off-white text
       link: "#90CAF9", // Muted blue for links
 
       header: "#212121",
       footer: "#212121",
-      stripe: "#78909C", // Grayish blue
+      stripe: "#314249", // Grayish blue
       headerText: "#EEEEEE",
       footerText: "#EEEEEE",
       stripeText: "#FFFFFF",
@@ -85,7 +85,7 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0",
+      paper: "#E8E8E8",
       text: "#000000",
       link: "#004085", // Darker blue
 
@@ -112,7 +112,7 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0", // Very light blue
+      paper: "#E8E8E8", // Very light blue
       text: "#000000",
       link: "#0056b3", // Darker blue for links
 
@@ -139,7 +139,7 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0", // Very light green
+      paper: "#E8E8E8", // Very light green
       text: "#000000",
       link: "#004d40", // Darker green for links
 
@@ -166,7 +166,7 @@ const themes = [
       secondaryText: "#FFFFFF",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0", // Very light orange
+      paper: "#E8E8E8", // Very light orange
       text: "#000000",
       link: "#ad581c", // Darker orange
 
@@ -193,7 +193,7 @@ const themes = [
       secondaryText: "#000000",
 
       body: "#EEEEEE",
-      paper: "#E0E0E0",
+      paper: "#E8E8E8",
       text: "#000000",
       link: "#431978", // Darker purple
 
