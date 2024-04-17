@@ -382,7 +382,7 @@ const SettingsForm = () => {
                         position: "relative",
                         cursor: "pointer",
                         borderRadius: "4px",
-                        border: "2px solid #b5daff",
+                        // border: "2px solid #b5daff",
                         boxShadow: 3,
                         "&:hover": { border: "2px solid #79d2ff" },
                       }}
@@ -399,14 +399,14 @@ const SettingsForm = () => {
                         <Typography
                           sx={{
                             textAlign: "center",
-                            fontWeight: "bold",
+                            // fontWeight: "bold",
                             textTransform: "uppercase",
                             px: 2,
                             borderRadius: "4px 4px 0 0",
-                            "-webkit-text-stroke": "0.2px white",
-                            textShadow: "0 0 2px black",
+                            // "-webkit-text-stroke": "0.2px white",
+                            // textShadow: "0 0 2px black",
                             color: t.sheds.headerText,
-                            fontSize: "1rem",
+                            fontSize: "15px",
                           }}
                         >
                           {/* Pengenalan  Profil  Aktiviti  Penerbitan  ... */}
