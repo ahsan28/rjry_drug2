@@ -28,6 +28,9 @@ import TokenIcon from '@mui/icons-material/Token';
 import PentagonIcon from '@mui/icons-material/Pentagon';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import ViewImage from "./components/Hooks/ViewImage";
 import { UserContext } from "./UserContext";
 import MediaService from "./services/media.services";
@@ -36,6 +39,10 @@ import { Divider, ListItemIcon, Stack, Tooltip } from '@mui/material';
 
 const Navbar = ({logout}) => {
   const { user, settings } = useContext(UserContext);
+
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -256,8 +263,8 @@ console.log('settings?.logo', settings);
           </Box> */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0, my:1 }} >
-                <Avatar alt="Ra" src={profilePic} sx={{ width: 50, height: 50 }} variant={{ xs: "rounded", md: "circular" }} />
+              <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0, my:1, mr:-1.5 }} >
+                <Avatar alt="Ra" src={profilePic} sx={{ width: 50, height: 50 }} variant={isLargeScreen ? "circular" : "rounded"} />
               </IconButton>
             </Tooltip>
           </Box>

@@ -202,8 +202,8 @@ main button {
   text-align: center;
 }
 .MuiPaper-root {
-  background-color: var(--paper) !important;
-  color: var(--text) !important;
+  background-color: var(--paper);
+  color: var(--text);
   z-index: 100;
 }
 
