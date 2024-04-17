@@ -32,9 +32,9 @@ app.use('/activity', activityRoute);
 mongoose.connect(MONGO_URL).then(() => {console.error('Log:Database is connected')}).catch(err => {console.error('errLog:Database connection error')});
 
 // // demo: test connection
-// app.get('/', (req, res) => {
-//     res.send('Hello World!');
-// });
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 
 app.listen(PORT, () => { 
