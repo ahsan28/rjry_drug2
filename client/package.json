@@ -1,7 +1,7 @@
 {
   "name": "client",
   "homepage": "https://sekolahbebasdadah.site/",
-  "proxy": "https://back.sekolahbebasdadah.site/",
+  "proxy": "https://x.sekolahbebasdadah.site/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
