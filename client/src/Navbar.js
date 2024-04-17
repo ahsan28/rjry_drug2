@@ -256,8 +256,8 @@ console.log('settings?.logo', settings);
           </Box> */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0, mr:{xs: 1.5, md: 0}, my:1.5 }} >
-                <Avatar alt="Ra" src={profilePic} sx={{ width: 50, height: 50 }} />
+              <IconButton onClick={(e)=>setAnchorElUser(e.currentTarget)} sx={{ p: 0, my:1 }} >
+                <Avatar alt="Ra" src={profilePic} sx={{ width: 50, height: 50 }} variant={{ xs: "rounded", md: "circular" }} />
               </IconButton>
             </Tooltip>
           </Box>
