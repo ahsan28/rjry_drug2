@@ -30,8 +30,8 @@ const themes = [
       primaryText: "#FFFFFF",
       secondaryText: "#000000",
 
-      body: "#FFFFFF",
-      paper: "#F5F5F5",
+      body: "#EEEEEE",
+      paper: "#E0E0E0",
       text: "#000000",
       link: "#0066cc", // Slightly brighter blue for links
 
@@ -84,8 +84,8 @@ const themes = [
       primaryText: "#FFFFFF",
       secondaryText: "#000000",
 
-      body: "#FFFFFF",
-      paper: "#E0E8F9",
+      body: "#EEEEEE",
+      paper: "#E0E0E0",
       text: "#000000",
       link: "#004085", // Darker blue
 
@@ -111,8 +111,8 @@ const themes = [
       primaryText: "#FFFFFF",
       secondaryText: "#000000",
 
-      body: "#FFFFFF",
-      paper: "#E0F7FA", // Very light blue
+      body: "#EEEEEE",
+      paper: "#E0E0E0", // Very light blue
       text: "#000000",
       link: "#0056b3", // Darker blue for links
 
@@ -138,8 +138,8 @@ const themes = [
       primaryText: "#FFFFFF",
       secondaryText: "#000000",
 
-      body: "#FFFFFF",
-      paper: "#E8F5E9", // Very light green
+      body: "#EEEEEE",
+      paper: "#E0E0E0", // Very light green
       text: "#000000",
       link: "#004d40", // Darker green for links
 
@@ -165,8 +165,8 @@ const themes = [
       primaryText: "#000000",
       secondaryText: "#FFFFFF",
 
-      body: "#FFFFFF",
-      paper: "#FFF8E1", // Very light orange
+      body: "#EEEEEE",
+      paper: "#E0E0E0", // Very light orange
       text: "#000000",
       link: "#ad581c", // Darker orange
 
@@ -192,8 +192,8 @@ const themes = [
       primaryText: "#FFFFFF",
       secondaryText: "#000000",
 
-      body: "#FFFFFF",
-      paper: "#F8F9FA",
+      body: "#EEEEEE",
+      paper: "#E0E0E0",
       text: "#000000",
       link: "#431978", // Darker purple
 
@@ -275,8 +275,9 @@ const SettingsForm = () => {
       UserService.updateSettings(user._id, newData)
         .then((res) => {
           console.log("saveSettings", res);
-          setSettings(newData);
+          setSettings(p=>({...p, ...newData}));
           setShowEdit(false);
+          // window.location.reload();
         })
         .catch((err) => {
           console.log(err);

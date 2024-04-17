@@ -96,7 +96,7 @@ const ActivityDetail = ({ activity, cLoading, setCLoading }) => {
       <Divider sx={{ my: 1, borderColor: 'transparent' }} />
     </Typography>
 
-    <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', mb: 1, fontStyle: 'italic', color: (settings.sheds.headerText || getCss('--theme-blue'))}}>
+    <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 'bold', mb: 1, fontStyle: 'italic', color: (settings?.sheds.headerText || getCss('--theme-blue'))}}>
       Description
     </Typography>
     <Typography variant="body1" sx={{ mb: 2, whiteSpace: 'pre-line', textAlign: 'justify' }}>

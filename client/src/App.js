@@ -86,6 +86,10 @@ const App = () => {
     components: {
         MuiAppBar: {
             styleOverrides: {
+                root: {
+                    backgroundColor: settings?.sheds?.header || getCss('--header'),
+                    color: settings?.sheds?.headerText || getCss('--headerText'),
+                  },
                 colorPrimary: {
                     backgroundColor: settings?.sheds?.header || getCss('--header'),
                     color: settings?.sheds?.headerText || getCss('--headerText'),
@@ -297,7 +301,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (settings && settings.sheds) {
+    if (settings && settings?.sheds) {
       let s = settings.sheds;
       console.log("🚀 ~ file: App.js:63 ~ useEffect ~ s:", s)
       // let setP = document.documentElement.style.setProperty;
