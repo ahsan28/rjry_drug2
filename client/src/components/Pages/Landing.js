@@ -13,6 +13,7 @@ import CarouselPage from "../Hooks/CarouselPage";
 import TextCarousel from "../Hooks/TextCarousel";
 
 import { styled } from '@mui/material/styles';
+const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
 
 const texts = [
   "[Sample text taken from AI] Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
@@ -108,25 +109,62 @@ const Landing = () => {
 
 
     <Box sx={{ height: '100%', width: '100%', borderRadius: 1 }}>
-      <Box sx={{ pb: 4 }}>
-
-        
-        <Paper elevation={0} sx={{ pb: 2, borderRadius: 2 }}>
-          <CoverflowGallery images={images} divider={false} thumb={false} simple={true} />
-          {/* <ViewImage image={'6418f8c66a237a2840c52ba0'} sx={{ height: 'auto', width: '100%', borderRadius: 1 }} /> */}
+      <Box sx={{ pb: 4, position: 'relative' }}>
+        <Paper elevation={0} sx={{ borderRadius: 2 }}>
+          <Box sx={{ position: 'relative' }}>
+            <CoverflowGallery
+              images={images}
+              divider={false}
+              thumb={false}
+              simple={true}
+              overlayOptions={{
+                opacity: 0.4, // Make the slider images slightly darker
+                color: 'black',
+              }}
+            />
+            <Container maxWidth="lg">
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: '2%', // Position the text at the bottom left
+                  // left: '5%',
+                  zIndex: 1,
+                }}
+                >
+                <Typography
+                  variant="h4"
+                  mb={2}
+                  sx={{
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
+                    color: 'white', // Keep the text white
+                    fontWeight: 'bold', // Make the title bold
+                    fontSize: getCss('--themeSizeLarge'), // Use the same font size as the h4 tag (defined in the theme
+                    textTransform: 'uppercase', // Make the title uppercase
+                    letterSpacing: '0.05em', // Add some letter spacing for better readability
+                  }}
+                >
+                  Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
+                </Typography>
+                <Typography
+                  variant="body1"
+                  mb={4}
+                  sx={{
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
+                    color: 'white', // Keep the text white
+                    fontWeight: 'bold', // Make the slogan bold
+                    letterSpacing: '0.03em', // Add some letter spacing for better readability
+                    fontSize: getCss('--themeSize'), // Use the same font size as the h4 tag (defined in the theme
+                  }}
+                >
+                  {texts.length > 0 && <TextCarousel texts={texts} />}
+                </Typography>
+              </Box>
+            </Container>
+          </Box>
         </Paper>
         <Container maxWidth="lg">
-          {/* Title , centered */}
-          <Typography variant="h4" mb={2} align="center">
-          Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
-          </Typography>
-                  {/* Slogan */}
-        <Typography variant="body2" align="center" mb={4}>
-          {texts.length > 0 && <TextCarousel texts={texts} />}
-
-        </Typography>
           {/* Body */}
-          <Typography variant="body1" mb={4} mt={4}>
+          <Typography variant="body1" mb={4} mt={4} sx={{ textAlign: 'justify' }}>
             {/* Begin the text with a big first letter */}
             <span style={{ fontSize: '3em', fontWeight: 'bold', lineHeight: '1em' }}>
               {/* {data?.description?.charAt(0)} */}
