@@ -73,7 +73,7 @@ const Navbar = ({logout}) => {
 console.log('settings?.logo', settings);
   return (
     <AppBar position="static">
-      <Container maxWidth="xl" className='themeCBFS' >
+      <Container maxWidth="lg" className='themeCBFS' >
         <Toolbar disableGutters className='themeCBFS'>
           <Typography
             variant="h6"

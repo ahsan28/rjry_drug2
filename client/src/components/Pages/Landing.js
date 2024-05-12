@@ -1,4 +1,4 @@
-import { Box, Paper, Card, Grid, Button, Container, Typography, Divider, CardMedia, CardContent, CardActions, Link } from "@mui/material";
+import { Box, Paper, Card, Grid, Button, Container, Typography, Divider, CardMedia, CardContent, CardActions, Link, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataService from "../../services/data.services";
@@ -14,6 +14,47 @@ import TextCarousel from "../Hooks/TextCarousel";
 
 import { styled } from '@mui/material/styles';
 const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
+
+function isYouTubeVideoLink(url) {
+  var youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/)?[a-zA-Z0-9_-]+$/;
+  return youtubeRegex.test(url);
+}
+
+function isGoogleDriveLink(url) {
+  var driveRegex = /^(https?:\/\/)?(www\.)?(drive\.google\.com)\/(file\/d\/|open\?id=)?[a-zA-Z0-9_-]+$/;
+  return driveRegex.test(url);
+}
+
+function getYouTubeId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2].length === 11)
+    ? match[2]
+    : null;
+}
+
+function getGoogleDriveId(url) {
+  const regExp = /^.*(drive\.google\.com\/file\/d\/|drive\.google\.com\/open\?id=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[2])
+    ? match[2]
+    : null;
+}
+
+function getEmbedUrl(url) {
+  if (isYouTubeVideoLink(url)) {
+    let id = getYouTubeId(url);
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  else if (isGoogleDriveLink(url)) {
+    let id = getGoogleDriveId(url);
+    let ID = id.split('/')[0]
+    return `https://drive.google.com/file/d/${ID}/preview`
+  }
+  else return url;
+}
 
 const texts = [
   "[Sample text taken from AI] Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
@@ -41,6 +82,21 @@ const Landing = () => {
   const [data, setData] = useState(null);
   const [cover, setCover] = useState(null);
   const { user, setUser, setIsLoading } = useContext(UserContext);
+  const [previewHelper, setPreviewHelper] = useState({
+    open: false, 
+    info: {link: "https://youtu.be/29JLkBE76Ug", title: "Module Knowledge - Introduction"}
+  });
+
+  const linkHandler = (doc) => {
+    
+    if(isYouTubeVideoLink(doc.link)||isGoogleDriveLink(doc.link)) {
+      setIsLoading(true);
+      setPreviewHelper({open: true, info: doc})
+      return
+    }
+    // open link in new tab
+    window.open(doc.link,'_blank', 'rel=noopener noreferrer')
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -126,38 +182,65 @@ const Landing = () => {
               <Box
                 sx={{
                   position: 'absolute',
-                  bottom: '2%', // Position the text at the bottom left
-                  // left: '5%',
+                  bottom: '2rem', // Position the text at the bottom left
                   zIndex: 1,
                 }}
                 >
-                <Typography
-                  variant="h4"
-                  mb={2}
-                  sx={{
-                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
-                    color: 'white', // Keep the text white
-                    fontWeight: 'bold', // Make the title bold
-                    fontSize: getCss('--themeSizeLarge'), // Use the same font size as the h4 tag (defined in the theme
-                    textTransform: 'uppercase', // Make the title uppercase
-                    letterSpacing: '0.05em', // Add some letter spacing for better readability
-                  }}
-                >
-                  Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
-                </Typography>
-                <Typography
-                  variant="body1"
-                  mb={4}
-                  sx={{
-                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
-                    color: 'white', // Keep the text white
-                    fontWeight: 'bold', // Make the slogan bold
-                    letterSpacing: '0.03em', // Add some letter spacing for better readability
-                    fontSize: getCss('--themeSize'), // Use the same font size as the h4 tag (defined in the theme
-                  }}
-                >
-                  {texts.length > 0 && <TextCarousel texts={texts} />}
-                </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',width: 'calc(100% - 68px)', mb: 1 }} >
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', flex:2 }}>
+                      <Typography
+                        variant="h4"
+                        mb={2}
+                        sx={{
+                          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
+                          color: 'white', // Keep the text white
+                          fontWeight: 'bold', // Make the title bold
+                          fontSize: getCss('--themeSizeLarge'), // Use the same font size as the h4 tag (defined in the theme
+                          textTransform: 'uppercase', // Make the title uppercase
+                          letterSpacing: '0.05em', // Add some letter spacing for better readability
+                        }}
+                      >
+                        Mencegah Penyalahgunaan Dadah di Sekolah-Sekolah Malaysia
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
+                          color: 'white', // Keep the text white
+                          fontWeight: 'bold', // Make the slogan bold
+                          letterSpacing: '0.03em', // Add some letter spacing for better readability
+                          fontSize: getCss('--themeSize'), // Use the same font size as the h4 tag (defined in the theme
+                        }}
+                      >
+                        {texts.length > 0 && <TextCarousel texts={texts} />}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flex:1 }}>
+                      <Box as='button' 
+                        onClick={()=>linkHandler({link: "https://youtu.be/29JLkBE76Ug", title: "Module Knowledge - Introduction"})}
+                        sx={{ 
+                        backgroundColor: '#ffffff26', 
+                        color: 'white', 
+                        borderRadius: '50px', 
+                        border: '1px solid #fff6', 
+                        cursor: 'pointer', 
+                        transition: '0.3s ease', 
+                        '&:hover': { 
+                          backgroundColor: 'white',
+                          color: 'black'
+                         },
+                        px: '1.5rem',
+                        py:'0.75rem',
+                        }}>
+                        <Typography variant="body1" sx={{ 
+                          fontWeight: 'bold', 
+                          color: 'inherit',
+                          }} >
+                          ▶<Box sx={{pl:1.5}} component='span'>Lihat Video</Box>
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
               </Box>
             </Container>
           </Box>
@@ -237,7 +320,28 @@ const Landing = () => {
         </Container>
       </Box>
     </Box>
-
+    <Dialog open={previewHelper.open} onClose={()=>{setPreviewHelper({open: false, info: {}})}} maxWidth="xl" fullWidth>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
+        <Typography variant="h4" component="h1" gutterBottom>
+          {previewHelper.info.title}
+        </Typography>
+      </DialogTitle>
+      <DialogContent sx={{p:0}}>
+      {previewHelper.info.link && <iframe 
+        src={getEmbedUrl(previewHelper.info.link)}
+        allow="autoplay" 
+        title={previewHelper.info.title} 
+        width="100%" height="640px" 
+        frameBorder="0" allowFullScreen 
+        onLoad={()=>{setIsLoading(false)}}
+      />}
+      </DialogContent>
+      <DialogActions sx={{ gap: 1, m: 0.5 }}>
+        <Button onClick={() => setPreviewHelper({open: false, info: {}})} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}>
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
     </Box>
   );
 };

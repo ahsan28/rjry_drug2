@@ -325,7 +325,7 @@ const Product = () => {
           {previewHelper.info.title}
         </Typography>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{p:0}}>
       {previewHelper.info.link && <iframe 
         src={getEmbedUrl(previewHelper.info.link)}
         allow="autoplay" 
@@ -335,7 +335,7 @@ const Product = () => {
         onLoad={()=>{setIsLoading(false)}}
       />}
       </DialogContent>
-      <DialogActions sx={{ gap: 1, mx: 2, mb:2 }}>
+      <DialogActions sx={{ gap: 1, mx: 0.5, mb:0.5 }}>
         <Button onClick={() => setPreviewHelper({open: false, info: {}})} variant="contained" sx={{ bgcolor: "skyblue", color: "white" }}>
           Close
         </Button>
