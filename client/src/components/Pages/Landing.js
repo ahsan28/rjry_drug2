@@ -173,6 +173,7 @@ const Landing = () => {
               divider={false}
               thumb={false}
               simple={true}
+              filter='brightness(0.6)'
               overlayOptions={{
                 opacity: 0.4, // Make the slider images slightly darker
                 color: 'black',
@@ -205,6 +206,7 @@ const Landing = () => {
                       <Typography
                         variant="body1"
                         sx={{
+                          height: '3rem',
                           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Add text shadow for better readability
                           color: 'white', // Keep the text white
                           fontWeight: 'bold', // Make the slogan bold

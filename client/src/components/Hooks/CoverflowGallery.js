@@ -10,7 +10,7 @@ import { EffectCoverflow, Autoplay, Pagination, Thumbs, Navigation } from 'swipe
 import { Box, Divider } from '@mui/material';
 import MediaService from '../../services/media.services';
 
-const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false, setCLoading }) => {
+const CoverflowGallery = ({ images, filter='brightness(1)', divider=false, thumb=true, simple=false, setCLoading }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [loadedImages, setLoadedImages] = useState([]);
   useEffect(() => {
@@ -35,7 +35,7 @@ const CoverflowGallery = ({ images, divider=false, thumb=true, simple=false, set
 
   }, [images]);
 
-  return (<Box sx={{display: "block", textAlign: "center", width: "auto", height: "auto", margin: "auto"}}>
+  return (<Box sx={{display: "block", textAlign: "center", width: "auto", height: "auto", margin: "auto", filter}}>
   {simple? <Swiper
             spaceBetween={30}
             centeredSlides={true}    
