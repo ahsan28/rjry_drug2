@@ -139,7 +139,7 @@ const Landing = () => {
   // UPSI, UKM, UCSI, UM
   const sponsors = [{
       name: 'Universiti Pendidikan Sultan Idris',
-      gd_logo: '1dGjCULeJvRNguPb6NrEz171dgN3f8M5e',
+      gd_logo: '1-X6w2nz9_TwEExdDCkBbZReVOr_B_Nhp',
       // gd_logo: '1S9KX0H7cqJSbAwZ5HwBUmioHwJUhSpZX',
       link: 'https://www.upsi.edu.my/'
     },{
@@ -299,7 +299,7 @@ const Landing = () => {
                   <CardMedia
                   // square size and fit the image to the card, remove card elevation shadow
                     component="img"
-                    image={`https://drive.google.com/uc?export=view&id=${sponsor.gd_logo}`}
+                    image={`https://drive.google.com/thumbnail?id=${sponsor.gd_logo}`}
                     // image={ImageFetcher({ imageUrl: `https://drive.google.com/uc?export=view&id=${sponsor.gd_logo}` })}
                     // image={imageData}
                     alt={sponsor.name}
@@ -325,7 +325,6 @@ const Landing = () => {
                 </Card>
               </Box>
             ))}
-            <img class="" src="https://drive.google.com/uc?export=view&id=1dGjCULeJvRNguPb6NrEz171dgN3f8M5e" alt="Universiti Pendidikan Sultan Idris"></img>
           </Box>
         </Container>
       </Box>
