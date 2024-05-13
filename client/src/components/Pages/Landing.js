@@ -11,10 +11,11 @@ import BasicPage from "../Hooks/BasicPage";
 import CoverflowGallery from "../Hooks/CoverflowGallery";
 import CarouselPage from "../Hooks/CarouselPage";
 import TextCarousel from "../Hooks/TextCarousel";
+import ImageFetcher from "../Hooks/ImageFetcher";
 
 import { styled } from '@mui/material/styles';
 const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
-
+// const imageUrl = 'https://drive.google.com/uc?export=view&id=1rtoukpz1kWzySgauyhcm0CYflaVHrmn2';
 function isYouTubeVideoLink(url) {
   var youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/)?[a-zA-Z0-9_-]+$/;
   return youtubeRegex.test(url);
@@ -138,23 +139,27 @@ const Landing = () => {
   // UPSI, UKM, UCSI, UM
   const sponsors = [{
       name: 'Universiti Pendidikan Sultan Idris',
-      gd_logo: '1S9KX0H7cqJSbAwZ5HwBUmioHwJUhSpZX',
+      gd_logo: '1dGjCULeJvRNguPb6NrEz171dgN3f8M5e',
+      // gd_logo: '1S9KX0H7cqJSbAwZ5HwBUmioHwJUhSpZX',
       link: 'https://www.upsi.edu.my/'
     },{
       name: 'Universiti Malaya',
-      gd_logo: '1Zmxqy9GcSfVIeU3r7wJa2QCd2pq46p0Y',
+      gd_logo: '1rtoukpz1kWzySgauyhcm0CYflaVHrmn2',
+      // gd_logo: '1Zmxqy9GcSfVIeU3r7wJa2QCd2pq46p0Y',
       link: 'https://www.um.edu.my/'
     },{
       name: 'Universiti Kebangsaan Malaysia',
-      gd_logo: '1IYKq6JVJWHP2xeiaDxyuFN-va0bs2HFE',
+      gd_logo: '1TVnixDtPWLdVHQV6JxCCbdcXOm-Mh5SC',
+      // gd_logo: '1IYKq6JVJWHP2xeiaDxyuFN-va0bs2HFE',
       link: 'https://www.ukm.my/'
     },{
       name: 'UCSI University',
-      gd_logo: '15fWKySb03B8EQgVOYemraU7YFRc05CS5',
+      gd_logo: '1dGjCULeJvRNguPb6NrEz171dgN3f8M5e',
+      // gd_logo: '15fWKySb03B8EQgVOYemraU7YFRc05CS5',
       link: 'https://www.ucsiuniversity.edu.my/'
     }];
 
-
+    // const imageData = ImageFetcher({ imageUrl });
   return (
     <Box
       sx={{
@@ -295,6 +300,8 @@ const Landing = () => {
                   // square size and fit the image to the card, remove card elevation shadow
                     component="img"
                     image={`https://drive.google.com/uc?export=view&id=${sponsor.gd_logo}`}
+                    // image={ImageFetcher({ imageUrl: `https://drive.google.com/uc?export=view&id=${sponsor.gd_logo}` })}
+                    // image={imageData}
                     alt={sponsor.name}
                     sx={{ objectFit: 'contain', height: '160px'}}
                   />
@@ -318,6 +325,7 @@ const Landing = () => {
                 </Card>
               </Box>
             ))}
+            <img class="" src="https://drive.google.com/uc?export=view&id=1dGjCULeJvRNguPb6NrEz171dgN3f8M5e" alt="Universiti Pendidikan Sultan Idris"></img>
           </Box>
         </Container>
       </Box>
