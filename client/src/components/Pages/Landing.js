@@ -294,7 +294,7 @@ const Landing = () => {
             {sponsors.map((sponsor) => (
               <Box key={sponsor.name} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Card 
-                  sx={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '160px', height: '160px', borderRadius: 4, boxShadow: 'none', transition: '0.3s ease', '&:hover': { cursor: 'pointer', boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)' } }} 
+                  sx={{ p:1, display: 'flex', flexDirection: 'column', position: 'relative', width: '160px', height: '160px', borderRadius: 4, boxShadow: 'none', transition: '0.3s ease', '&:hover': { cursor: 'pointer', boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)' } }} 
                   onClick={() => window.open(sponsor.link, '_blank')} >
                   <CardMedia
                   // square size and fit the image to the card, remove card elevation shadow
@@ -306,9 +306,9 @@ const Landing = () => {
                     sx={{ objectFit: 'contain', height: '160px'}}
                   />
                   {/* transparent content background : mouse hober to change background color */ }
-                  <CardContent className="sponsor" >
+                  <CardContent className="sponsor" sx={{p:'0 !important', display:'flex', alignItems: 'center', justifyContent: 'center' }} >
                     {/* name with mui link */}
-                    <Typography gutterBottom sx={{ color: 'transparent', transition: '0.3s ease' }} align="center">
+                    <Typography sx={{ p:0, color: 'transparent', transition: '0.3s ease' }} align="center">
                         {sponsor.name}
                       {/* <Box href={sponsor.link} target="_blank" rel="noreferrer" component="a" sx={{ textDecoration: 'none', color: 'gray', transition: '0.3s ease', '&:hover': { color: 'DarkSlateGray' }, cursor: 'pointer' }}>
                       </Box> */}
