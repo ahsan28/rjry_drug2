@@ -261,7 +261,7 @@ const Landing = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 6,
+          gap: [0, 2, 6],
           // p: 3,
           width: '100%',
           position: 'relative',
@@ -282,7 +282,8 @@ const Landing = () => {
                 justifyContent: 'end',
                 alignItems: 'center',
                 height: '100%',
-                width: '50%'
+                width: '50%',
+                pr: [1, 3]
               }}
             >
               <img
@@ -305,7 +306,7 @@ const Landing = () => {
                 alignItems: 'start',
                 height: '100%',
                 width: '50%',
-                pl: 3
+                pl: [1, 3]
               }}
             >
               <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
@@ -341,7 +342,7 @@ const Landing = () => {
                 alignItems: 'start',
                 height: '100%',
                 width: '50%',
-                pr: 3
+                pr: [1, 3]
               }}
             >
               <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
@@ -373,7 +374,8 @@ const Landing = () => {
                 justifyContent: 'start',
                 alignItems: 'center',
                 height: '100%',
-                width: '50%'
+                width: '50%',
+                pl: [1, 3]
               }}
             >
               <img
