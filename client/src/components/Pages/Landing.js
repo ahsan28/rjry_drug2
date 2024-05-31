@@ -1,4 +1,4 @@
-import { Box, Paper, Card, Grid, Button, Container, Typography, Divider, CardMedia, CardContent, CardActions, Link, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { Box, Paper, Card, Grid, Button, Container, Typography, Divider, CardMedia, CardContent, CardActions, Link, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataService from "../../services/data.services";
@@ -12,6 +12,8 @@ import CoverflowGallery from "../Hooks/CoverflowGallery";
 import CarouselPage from "../Hooks/CarouselPage";
 import TextCarousel from "../Hooks/TextCarousel";
 import ImageFetcher from "../Hooks/ImageFetcher";
+import { keyframes } from '@mui/system';
+import { CheckCircleOutline } from '@mui/icons-material';
 
 import { styled } from '@mui/material/styles';
 const getCss = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable);
@@ -78,6 +80,94 @@ const images = [
   // '6418744458e7001f598ad655',
   // '6418f04918f7c0b054811375',
 ]
+// Define the keyframes for the animation
+const waveKeyframes = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+// Create a styled component for the wave effect
+const WaveDivider = styled(Box)(({ orientation, angle }) => ({
+  height: orientation === 'vertical' ? '100%' : '3px',
+  width: orientation === 'vertical' ? '3px' : '-webkit-fill-available',
+  background: `linear-gradient(${angle==='x'?'90':'270'}deg, #3f51b5, #6DB9F7, #9BE6F7, #3f51b5)`,
+  backgroundSize: '400% 400%',
+  animation: `${waveKeyframes} 6s ease infinite`,
+  borderRadius: '2px',
+  position: orientation === 'vertical' ? 'absolute' : 'relative',
+}));
+
+ // infographics data
+ const infographicData = [
+  {
+    image: '10xSCCHmYvB2zhBMSUemQBcHopO_sIS5-',
+    position: 'left',
+    title: "Pengedaran Jantina",
+    description: "Infografik ini menunjukkan pengedaran jantina populasi.",
+    details: {
+      "Lelaki": {percentage: 95.8, individuals: 123437},
+      "Perempuan": {percentage: 4.2, individuals: 5474}
+    }
+  }, {
+    image: '12Ap49Q-r1vha4vBqG7xvRmxRtaMAe6Og',
+    position: 'right',
+    title: "Pengedaran Umur Pengguna Dadah di Malaysia",
+    description: "Infografik ini menunjukkan pengedaran umur pengguna dadah di Malaysia, menyoroti bahagian pengguna dalam kategori umur yang berbeza.",
+    details: {
+      "Tiada Maklumat": {percentage: 0.1, individuals: 101},
+      "Kanak-Kanak (0-12 tahun)": {percentage: 0.002, individuals: 2},
+      "Remaja (13-18 tahun)": {percentage: 0.9, individuals: 1215},
+      "Belia (19-39 tahun)": {percentage: 61.8, individuals: 79619},
+      "Dewasa (≥ 40 tahun)": {percentage: 37.2, individuals: 47974}
+    }
+  }, {
+    image: '1zowWLvDzrt-y-M3y-NAOPR4De88ZfdQk',
+    position: 'left',
+    title: "Kategori Dadah Yang Disalahgunakan di Malaysia",
+    description: "Carta ini mengkategorikan jenis dadah yang disalahgunakan di Malaysia, menyediakan peratusan dan bilangan individu untuk setiap jenis dadah.",
+    details: {
+      "Stimulan Jenis Amfetamin": {percentage: 70.8, individuals: 91263},
+      "Opiat": {percentage: 24.2, individuals: 31187},
+      "Ganja": {percentage: 2.8, individuals: 3643},
+      "Lain-lain": {percentage: 1.2, individuals: 1504},
+      "Pil Psikotropik": {percentage: 1.0, individuals: 1314}
+    }
+  }, {
+    image: '1G9WEhucQzAIeJLe-Y4g4QQzmNcOCF6C3',
+    position: 'right',
+    title: "Pengedaran Etnik Pengguna Dadah di Malaysia",
+    description: "Imej ini menunjukkan pecahan etnik pengguna dadah di Malaysia, menunjukkan peratusan dan bilangan individu daripada kumpulan etnik yang berbeza.",
+    details: {
+      "Melayu": {percentage: 77.2, individuals: 99531},
+      "Cina": {percentage: 7.3, individuals: 9355},
+      "India": {percentage: 6.5, individuals: 8387},
+      "Pribumi Sabah": {percentage: 4.9, individuals: 6316},
+      "Pribumi Sarawak": {percentage: 3.0, individuals: 3869},
+      "Lain-lain": {percentage: 1.1, individuals: 1453}
+    }
+  }, {
+    image: '18elQO5r430Vf8sz3vLzyUwbpkSbtCo41',
+    position: 'left',
+    title: "Kategori Pendidikan",
+    description: "Infografik ini menggambarkan latar belakang pendidikan populasi.",
+    details: {
+      "Peringkat Sekolah Rendah": {percentage: 8.9, individuals: 11481},
+      "Peringkat Sekolah Menengah": {percentage: 66.2, individuals: 85290},
+      "Peringkat Pengajian Tinggi": {percentage: 4.2, individuals: 5477},
+      "Tiada Pendidikan Formal": {percentage: 20.7, individuals: 26713}
+    }
+  }
+];
+
+
+
 const Landing = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -159,16 +249,152 @@ const Landing = () => {
       link: 'https://www.ucsiuniversity.edu.my/'
     }];
 
+   
+
+    const InfographicList = infographicData.map((infographic, index) => (
+      <Box
+        key={index}
+        container
+        sx={{
+          mt: 1,
+          minHeight: '12rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 6,
+          // p: 3,
+          width: '100%',
+          position: 'relative',
+          borderRadius: 2,
+          // boxShadow: 3,
+          transition: 'transform 0.3s ease-in-out',
+          '&:hover': {
+            // backgroundColor: 'background.paper',
+            transform: 'scale(1.02)'
+          }
+        }}
+      >
+        {infographic.position === 'left' ? (
+          <>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'end',
+                alignItems: 'center',
+                height: '100%',
+                width: '50%'
+              }}
+            >
+              <img
+                src={`https://drive.google.com/thumbnail?id=${infographic.image}`}
+                alt={infographic.title}
+                style={{
+                  width: 'auto',
+                  maxHeight: '100%',
+                  borderRadius: 8,
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                }}
+              />
+            </Box>
+            <WaveDivider orientation="vertical" angle='x' flexItem sx={{ py: 1 }} />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'start',
+                height: '100%',
+                width: '50%',
+                pl: 3
+              }}
+            >
+              <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                {infographic.title}
+              </Typography>
+              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify', color: 'text.secondary' }}>
+                {infographic.description}
+              </Typography>
+              <Grid container spacing={2}>
+                {Object.keys(infographic.details).map((key, index) => (
+                  <Grid item xs={12} sm={6} key={index}>
+                    <ListItem sx={{ pl: 0 }}>
+                      <CheckCircleOutline sx={{ color: 'primary.main', mr: 1 }} />
+                      <ListItemText
+                        primary={`${key}: ${infographic.details[key].percentage}%`}
+                        primaryTypographyProps={{ variant: 'body2', sx: { color: 'text.primary' } }}
+                        secondary={`(${infographic.details[key].individuals} individu)`}
+                        secondaryTypographyProps={{ variant: 'body2', sx: { color: 'text.secondary' } }}
+                      />
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'start',
+                height: '100%',
+                width: '50%',
+                pr: 3
+              }}
+            >
+              <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                {infographic.title}
+              </Typography>
+              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify', color: 'text.secondary' }}>
+                {infographic.description}
+              </Typography>
+              <Grid container spacing={0}>
+                {Object.keys(infographic.details).map((key, index) => (
+                  <Grid item xs={12} sm={6} key={index}>
+                    <ListItem sx={{ pl: 0 }}>
+                      <CheckCircleOutline sx={{ color: 'primary.main', mr: 1 }} />
+                      <ListItemText
+                        primary={`${key}: ${infographic.details[key].percentage}%`}
+                        primaryTypographyProps={{ variant: 'body2', sx: { color: 'text.primary' } }}
+                        secondary={`(${infographic.details[key].individuals} individu)`}
+                        secondaryTypographyProps={{ variant: 'body2', sx: { color: 'text.secondary' } }}
+                      />
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+            <WaveDivider orientation="vertical" angle='y' flexItem sx={{ py: 1 }} />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'start',
+                alignItems: 'center',
+                height: '100%',
+                width: '50%'
+              }}
+            >
+              <img
+                src={`https://drive.google.com/thumbnail?id=${infographic.image}`}
+                alt={infographic.title}
+                style={{
+                  width: 'auto',
+                  maxHeight: '100%',
+                  borderRadius: 8,
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                }}
+              />
+            </Box>
+          </>
+        )}
+      </Box>
+    ));
+
     // const imageData = ImageFetcher({ imageUrl });
   return (
-    <Box
-      sx={{
-        height: 'auto',
-        width: '100%',
-      }}
-    >
-
-
+    <Box sx={{ height: 'auto', width: '100%' }}>
     <Box sx={{ height: '100%', width: '100%', borderRadius: 1 }}>
       <Box sx={{ pb: 4, position: 'relative' }}>
         <Paper elevation={0} sx={{ borderRadius: 2 }}>
@@ -252,9 +478,15 @@ const Landing = () => {
             </Container>
           </Box>
         </Paper>
-        <Container maxWidth="lg">
-          {/* Body */}
-          <Typography variant="body1" mb={4} mt={4} sx={{ textAlign: 'justify' }}>
+        {/* Body */}
+        <Container maxWidth="lg" sx={{position:'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+
+
+          {InfographicList}
+
+          <WaveDivider orientation="horizontal" angle='y' sx={{my:4}} />
+
+          <Typography variant="body1" mb={2} mt={0} sx={{ textAlign: 'justify' }}>
             {/* Begin the text with a big first letter */}
             <span style={{ fontSize: '3em', fontWeight: 'bold', lineHeight: '1em' }}>
               {/* {data?.description?.charAt(0)} */}
@@ -285,7 +517,8 @@ const Landing = () => {
             ))}
           </Grid> */}
           {/* show sponsor organization's logos in the next row in some beautiful mui card tiles and link them to their respective websites */}
-          <Divider sx={{ my: 4, mx: 10 }} />
+          {/* <Divider sx={{ my: 4, mx: 10 }} /> */}
+          <WaveDivider orientation="horizontal" angle='y' sx={{my:4}} />
           <Typography variant="h5" mb={2} align="center" mt={4}>
           Organisasi penaja
           </Typography>
