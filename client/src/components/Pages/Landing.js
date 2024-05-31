@@ -96,8 +96,8 @@ const waveKeyframes = keyframes`
 // Create a styled component for the wave effect
 const WaveDivider = styled(Box)(({ orientation, angle }) => ({
   height: orientation === 'vertical' ? '100%' : '3px',
-  width: orientation === 'vertical' ? '3px' : '-webkit-fill-available',
-  background: `linear-gradient(${angle==='x'?'90':'270'}deg, #3f51b5, #6DB9F7, #9BE6F7, #3f51b5)`,
+  width: orientation === 'vertical' ? '1px' : '-webkit-fill-available',
+  background: `linear-gradient(${angle==='x'?'90':'270'}deg, #3f51b5, #5ACD7B, #B8F79B, #3f51b5)`,
   backgroundSize: '400% 400%',
   animation: `${waveKeyframes} 6s ease infinite`,
   borderRadius: '2px',
@@ -270,7 +270,10 @@ const Landing = () => {
           transition: 'transform 0.3s ease-in-out',
           '&:hover': {
             // backgroundColor: 'background.paper',
-            transform: 'scale(1.02)'
+            transform: 'scale(1.02)',
+            '& .vertical': {
+              width: '3px',
+            }
           }
         }}
       >
