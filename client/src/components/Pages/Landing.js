@@ -62,10 +62,10 @@ function getEmbedUrl(url) {
 const texts = [
   "[Sample text taken from AI] Memutuskan Rentetan: Mencegah Penggunaan Dadah di Sekolah Malaysia",
   "[Sample text taken from AI] Memberdayakan Pendidik: Mengembangkan Model Sekolah Bebas Dadah",
-  "[Sample text taken from AI] Membangun Masa Depan yang Lebih Aman: Proyek Pendidikan Pencegahan Dadah",
+  "[Sample text taken from AI] Membangun Masa Depan yang Lebih Aman: Projek Pendidikan Pencegahan Dadah",
   "[Sample text taken from AI] Mengamankan Ruang Aman: Mencari Sekolah Bebas Dadah di Malaysia",
   "[Sample text taken from AI] Mempromosikan Lingkungan Belajar yang Positif: Pendidikan Pencegahan Dadah di Malaysia",
-  "[Sample text taken from AI] Menciptakan Sekolah Bebas Dadah di Malaysia: Proyek Penelitian",
+  "[Sample text taken from AI] Menciptakan Sekolah Bebas Dadah di Malaysia: Projek Penelitian",
 ];
 const images = [
   '6418f8c66a237a2840c52ba0',  // a.jpg
@@ -118,7 +118,7 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
   }, {
     image: '12Ap49Q-r1vha4vBqG7xvRmxRtaMAe6Og',
     position: 'right',
-    title: "Pengedaran Umur Pengguna Dadah di Malaysia",
+    title: "Umur Penagih dadah di Malaysia replace Pengedaran Umur Pengguna Dadah di Malaysia",
     description: "Infografik ini menunjukkan pengedaran umur pengguna dadah di Malaysia, menyoroti bahagian pengguna dalam kategori umur yang berbeza.",
     details: {
       "Tiada Maklumat": {percentage: 0.1, individuals: 101},
@@ -142,7 +142,7 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
   }, {
     image: '1G9WEhucQzAIeJLe-Y4g4QQzmNcOCF6C3',
     position: 'right',
-    title: "Pengedaran Etnik Pengguna Dadah di Malaysia",
+    title: "Etnik Penagih dadah di Malaysia replace Pengedaran Etnik Pengguna Dadah di Malaysia",
     description: "Imej ini menunjukkan pecahan etnik pengguna dadah di Malaysia, menunjukkan peratusan dan bilangan individu daripada kumpulan etnik yang berbeza.",
     details: {
       "Melayu": {percentage: 77.2, individuals: 99531},
@@ -267,10 +267,14 @@ const Landing = () => {
           position: 'relative',
           borderRadius: 2,
           // boxShadow: 3,
-          transition: 'transform 0.3s ease-in-out',
+          '& img': {
+            transition: 'transform 0.35s ease-in-out',
+          },
           '&:hover': {
             // backgroundColor: 'background.paper',
-            transform: 'scale(1.02)',
+            '& img': {
+              transform: 'scale(1.1)',
+            },
             '& .vertical': {
               width: '3px',
             }

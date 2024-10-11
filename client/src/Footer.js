@@ -11,9 +11,9 @@ function Footer() {
     <BottomNavigation as='footer' className='footer'>
       <div className='container'>
         <div>
-          <Typography className="themeTitle" variant="h4" >TENTANG KITA</Typography>
+          <Typography className="themeTitle" variant="h4" >TENTANG KAMI</Typography>
           <p className='text'>
-          Selamat datang ke dunia pendidikan pencegahan dadah yang mengujakan! Misi kami: mencipta sekolah bebas dadah di Malaysia. Ahli pasukan kami membuat perbezaan sebenar dalam kehidupan pelajar, guru, dan komuniti. Mari bersama-sama membentuk masa depan pendidikan pencegahan dadah di Malaysia dan memberikan impak positif kepada ramai orang. Terima kasih kerana menyokong misi kami.
+          Kami adalah ahli penyelidik yang cuba membentuk masa depan pendidikan pencegahan dadah di Malaysia. Misi kami untuk menjadikan sekolah di Malaysia bebas dadah dan memberi impak positif kepada semua. Kami terdiri daripada kumpulan penyelidik, guru, pelajar dan komuniti. Sokongan dari semua pihak sangatlah dihargai.
           </p>
         </div>
         <div>
