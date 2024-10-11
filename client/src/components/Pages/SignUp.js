@@ -16,7 +16,7 @@ function Copyright(props) {
   return (
     <Typography
       variant="body2"
-      color="text.secondary"
+      color="grey.500"
       align="center"
       {...props}
     >
@@ -74,7 +74,10 @@ export default function SignUp() {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{ mt: 3,
+              '& .MuiInputBase-input': { color: 'primary.text' }, // input value
+              '& .MuiInputLabel-root': { color: 'grey.500' }, // label
+             }}
           >
             <Grid container spacing={2}>
               <Grid item xs={6}>

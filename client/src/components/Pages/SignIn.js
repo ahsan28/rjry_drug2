@@ -18,7 +18,7 @@ function Copyright(props) {
   return (
     <Typography
       variant="body2"
-      color="text.secondary"
+      color="grey.500"
       align="center"
       {...props}
     >
@@ -77,7 +77,10 @@ export default function SignIn() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ mt: 1,
+              '& .MuiInputBase-input': { color: 'primary.text' }, // input value
+              '& .MuiInputLabel-root': { color: 'grey.500' }, // label
+             }}
           >
             <TextField
               margin="normal"
@@ -88,6 +91,12 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
+              // InputLabelProps={{
+              //   style: { color: "grey.500" }, // Change label color (placeholder)
+              // }}
+              // InputProps={{
+              //   style: { color: "grey.500" }, // Change value text color
+              // }}
             />
             <TextField
               margin="normal"

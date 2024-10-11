@@ -329,7 +329,7 @@ const Landing = () => {
               <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
                 {infographic.title}
               </Typography>
-              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify', color: 'text.secondary' }}>
+              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify' }}>
                 {infographic.description}
               </Typography>
               <Grid container spacing={2}>
@@ -341,14 +341,14 @@ const Landing = () => {
                         primary={`${key}: ${infographic.details[key].percentage}%`}
                         primaryTypographyProps={{ variant: 'body2', sx: { color: 'text.primary' } }}
                         secondary={`(${infographic.details[key].individuals} individu)`}
-                        secondaryTypographyProps={{ variant: 'body2', sx: { color: 'text.secondary' } }}
+                        secondaryTypographyProps={{ variant: 'body2', sx: { color: "grey.500" } }}
                       />
                     </ListItem>
                   </Grid>
                 ))}
               </Grid>
-              <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: '300'}} className='text'>
-                Sumber: <Link sx={{fontWeight: '300', textTransform: 'capitalize'}} underline="hover" color='text.secondary' className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+              <Typography variant="caption" gutterBottom sx={{color: "grey.500", fontStyle: 'italic', fontWeight: '300'}} className='text'>
+                Sumber: <Link sx={{fontWeight: '300', textTransform: 'capitalize'}} underline="hover" color="grey.500" className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
               </Typography>
             </Box>
           </>
@@ -368,7 +368,7 @@ const Landing = () => {
               <Typography variant="h4" mb={1} sx={{ fontWeight: 'bold', color: 'primary.main' }}>
                 {infographic.title}
               </Typography>
-              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify', color: 'text.secondary' }}>
+              <Typography variant="body1" mb={2} sx={{ textAlign: 'justify' }}>
                 {infographic.description}
               </Typography>
               <Grid container spacing={0}>
@@ -380,14 +380,14 @@ const Landing = () => {
                         primary={`${key}: ${infographic.details[key].percentage}%`}
                         primaryTypographyProps={{ variant: 'body2', sx: { color: 'text.primary' } }}
                         secondary={`(${infographic.details[key].individuals} individu)`}
-                        secondaryTypographyProps={{ variant: 'body2', sx: { color: 'text.secondary' } }}
+                        secondaryTypographyProps={{ variant: 'body2', sx: { color: "grey.500" } }}
                       />
                     </ListItem>
                   </Grid>
                 ))}
               </Grid>
-              <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: 'light'}} className='text'>
-                Sumber: <Link sx={{fontWeight: 'light', textTransform: 'capitalize'}} underline="hover" color='text.secondary' className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+              <Typography variant="caption" gutterBottom sx={{color: "grey.500", fontStyle: 'italic', fontWeight: 'light'}} className='text'>
+                Sumber: <Link sx={{fontWeight: 'light', textTransform: 'capitalize'}} underline="hover" color="grey.500" className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
               </Typography>
             </Box>
             <WaveDivider orientation="vertical" angle='y' flexItem sx={{ py: 1 }} />
