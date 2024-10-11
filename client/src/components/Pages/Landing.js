@@ -348,7 +348,7 @@ const Landing = () => {
                 ))}
               </Grid>
               <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: '300'}} className='text'>
-                Sumber: <Link sx={{fontWeight: '300', textTransform: 'capitalize'}} className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+                Sumber: <Link sx={{fontWeight: '300', textTransform: 'capitalize'}} underline="hover" color='text.secondary' className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
               </Typography>
             </Box>
           </>
@@ -387,7 +387,7 @@ const Landing = () => {
                 ))}
               </Grid>
               <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: 'light'}} className='text'>
-                Sumber: <Link sx={{fontWeight: 'light', textTransform: 'capitalize'}} className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+                Sumber: <Link sx={{fontWeight: 'light', textTransform: 'capitalize'}} underline="hover" color='text.secondary' className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
               </Typography>
             </Box>
             <WaveDivider orientation="vertical" angle='y' flexItem sx={{ py: 1 }} />
