@@ -296,7 +296,7 @@ const Landing = () => {
                   width: 'auto',
                   maxHeight: '100%',
                   borderRadius: 8,
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                  // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
                 }}
               />
             </Box>
@@ -388,7 +388,7 @@ const Landing = () => {
                   width: 'auto',
                   maxHeight: '100%',
                   borderRadius: 8,
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                  // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
                 }}
               />
             </Box>
