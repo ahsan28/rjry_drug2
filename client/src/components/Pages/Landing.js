@@ -114,7 +114,9 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
     details: {
       "Lelaki": {percentage: 95.8, individuals: 123437},
       "Perempuan": {percentage: 4.2, individuals: 5474}
-    }
+    },
+    source: "https://www.adk.gov.my/infografik-statistik-penyalah-guna-dan-penagih-dadah-serta-bahan-bagi-bulan-januari-mac-tahun-2023",
+    sourceText: "AGENSI ANTIDADAH KEBANGSAAN"
   }, {
     image: '12Ap49Q-r1vha4vBqG7xvRmxRtaMAe6Og',
     position: 'right',
@@ -126,7 +128,9 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
       "Remaja (13-18 tahun)": {percentage: 0.9, individuals: 1215},
       "Belia (19-39 tahun)": {percentage: 61.8, individuals: 79619},
       "Dewasa (≥ 40 tahun)": {percentage: 37.2, individuals: 47974}
-    }
+    },
+    source: "https://www.adk.gov.my/infografik-statistik-penyalah-guna-dan-penagih-dadah-serta-bahan-bagi-bulan-januari-mac-tahun-2023",
+    sourceText: "AGENSI ANTIDADAH KEBANGSAAN"
   }, {
     image: '1zowWLvDzrt-y-M3y-NAOPR4De88ZfdQk',
     position: 'left',
@@ -138,7 +142,9 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
       "Ganja": {percentage: 2.8, individuals: 3643},
       "Lain-lain": {percentage: 1.2, individuals: 1504},
       "Pil Psikotropik": {percentage: 1.0, individuals: 1314}
-    }
+    },
+    source: "https://www.adk.gov.my/infografik-statistik-penyalah-guna-dan-penagih-dadah-serta-bahan-bagi-bulan-januari-mac-tahun-2023",
+    sourceText: "AGENSI ANTIDADAH KEBANGSAAN"
   }, {
     image: '1G9WEhucQzAIeJLe-Y4g4QQzmNcOCF6C3',
     position: 'right',
@@ -151,7 +157,9 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
       "Pribumi Sabah": {percentage: 4.9, individuals: 6316},
       "Pribumi Sarawak": {percentage: 3.0, individuals: 3869},
       "Lain-lain": {percentage: 1.1, individuals: 1453}
-    }
+    },
+    source: "https://www.adk.gov.my/infografik-statistik-penyalah-guna-dan-penagih-dadah-serta-bahan-bagi-bulan-januari-mac-tahun-2023",
+    sourceText: "AGENSI ANTIDADAH KEBANGSAAN"
   }, {
     image: '18elQO5r430Vf8sz3vLzyUwbpkSbtCo41',
     position: 'left',
@@ -162,7 +170,9 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
       "Peringkat Sekolah Menengah": {percentage: 66.2, individuals: 85290},
       "Peringkat Pengajian Tinggi": {percentage: 4.2, individuals: 5477},
       "Tiada Pendidikan Formal": {percentage: 20.7, individuals: 26713}
-    }
+    },
+    source: "https://www.adk.gov.my/infografik-statistik-penyalah-guna-dan-penagih-dadah-serta-bahan-bagi-bulan-januari-mac-tahun-2023",
+    sourceText: "AGENSI ANTIDADAH KEBANGSAAN"
   }
 ];
 
@@ -337,6 +347,9 @@ const Landing = () => {
                   </Grid>
                 ))}
               </Grid>
+              <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: '300'}} className='text'>
+                Sumber: <Link sx={{fontWeight: '300', textTransform: 'capitalize'}} className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+              </Typography>
             </Box>
           </>
         ) : (
@@ -373,6 +386,9 @@ const Landing = () => {
                   </Grid>
                 ))}
               </Grid>
+              <Typography variant="caption" gutterBottom sx={{color: 'text.secondary', fontStyle: 'italic', fontWeight: 'light'}} className='text'>
+                Sumber: <Link sx={{fontWeight: 'light', textTransform: 'capitalize'}} className='text' href={infographic.source} target="_blank" rel="noreferrer">{infographic.sourceText.toLowerCase()}</Link>
+              </Typography>
             </Box>
             <WaveDivider orientation="vertical" angle='y' flexItem sx={{ py: 1 }} />
             <Box
