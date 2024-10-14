@@ -109,7 +109,7 @@ const WaveDivider = styled(Box)(({ orientation, angle }) => ({
   {
     image: '10xSCCHmYvB2zhBMSUemQBcHopO_sIS5-',
     position: 'left',
-    title: "Pengedaran Jantina",
+    title: "Penagih dadah ikut Jantina",
     description: "Infografik ini menunjukkan pengedaran jantina populasi.",
     details: {
       "Lelaki": {percentage: 95.8, individuals: 123437},
